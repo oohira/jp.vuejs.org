@@ -976,12 +976,14 @@
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"example"</span>&gt;</span>
   &#123;&#123; message.split('').reverse().join('') &#125;&#125;
 <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
+
 <p>こうなってくると、テンプレートはシンプルでも宣言的でもなくなってしまっています。しばらく眺めて、やっとこれが <code>message</code> を逆にして表示していることに気付くでしょう。逆にしたメッセージをテンプレートの中で 2 回以上使おうとすると、問題はより深刻になります。</p>
 <p>上記の理由から、複雑なロジックには<strong>算出プロパティ</strong>を利用すべきです。</p>
 <h3 id="基本的な例"><a href="#基本的な例" class="headerlink" title="基本的な例"></a>基本的な例</h3><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"example"</span>&gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>Original message: "&#123;&#123; message &#125;&#125;"<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>Computed reversed message: "&#123;&#123; reversedMessage &#125;&#125;"<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
+
 <pre><code class="hljs js"><span class="hljs-keyword">var</span> vm = <span class="hljs-keyword">new</span> Vue(&#123;
   <span class="hljs-attr">el</span>: <span class="hljs-string">'#example'</span>,
   <span class="hljs-attr">data</span>: &#123;
@@ -995,6 +997,7 @@
     &#125;
   &#125;
 &#125;)</code></pre>
+
 <p>結果:</p>
 
 <div id="example" class="demo">
@@ -1015,20 +1018,24 @@ var vm = new Vue({
 })
 </script>
 
+
 <p>ここでは、算出プロパティ <code>reversedMessage</code> を宣言しました。私たちが提供した機能は、プロパティ <code>vm.reversedMessage</code> に対する getter 関数として利用されます:</p>
 <pre><code class="hljs js"><span class="hljs-built_in">console</span>.log(vm.reversedMessage) <span class="hljs-comment">// =&gt; 'olleH'</span>
 vm.message = <span class="hljs-string">'Goodbye'</span>
 <span class="hljs-built_in">console</span>.log(vm.reversedMessage) <span class="hljs-comment">// =&gt; 'eybdooG'</span></code></pre>
+
 <p>コンソールを開いて、vm で遊んでみてください。<code>vm.reversedMessage</code> の値は、常に <code>vm.message</code> の値に依存しています。</p>
 <p>通常のプロパティと同じように、テンプレート内の算出プロパティにデータバインドすることもできます。Vue は <code>vm.reversedMessage</code> が <code>vm.message</code> に依存していることを知っているので、<code>vm.message</code> が変わると <code>vm.reversedMessage</code> に依存する全てのバインディングを更新します。さらに、最も良いところは、この依存関係が宣言的に作成されていることです。算出 getter 関数は副作用がないので、テストや値の推論が容易になります。</p>
 <h3 id="算出プロパティ-vs-メソッド"><a href="#算出プロパティ-vs-メソッド" class="headerlink" title="算出プロパティ vs メソッド"></a>算出プロパティ vs メソッド</h3><p>こういった式を持つメソッドを呼び出すことで、同じ結果が実現できることに気付いたかもしれません:</p>
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>Reversed message: "&#123;&#123; reverseMessage() &#125;&#125;"<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span></code></pre>
+
 <pre><code class="hljs js"><span class="hljs-comment">// コンポーネント内</span>
 methods: &#123;
   <span class="hljs-attr">reverseMessage</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;
     <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.message.split(<span class="hljs-string">''</span>).reverse().join(<span class="hljs-string">''</span>)
   &#125;
 &#125;</code></pre>
+
 <p>算出プロパティの代わりに、同じような関数をメソッドとして定義することも可能です。最終的には、2つのアプローチは完全に同じ結果になります。しかしながら、<strong>算出プロパティはリアクティブな依存関係にもとづきキャッシュされる</strong>という違いがあります。算出プロパティは、リアクティブな依存関係が更新されたときにだけ再評価されます。これはつまり、<code>message</code> が変わらない限りは、<code>reversedMessage</code> に何度アクセスしても、関数を再び実行することなく以前計算された結果を即時に返すということです。</p>
 <p><code>Date.now()</code> はリアクティブな依存ではないため、次の算出プロパティは二度と更新されないことを意味します:</p>
 <pre><code class="hljs js">computed: &#123;
@@ -1036,10 +1043,12 @@ methods: &#123;
     <span class="hljs-keyword">return</span> <span class="hljs-built_in">Date</span>.now()
   &#125;
 &#125;</code></pre>
+
 <p>対称的に、メソッド呼び出しは、再描画が起きると<strong>常に</strong>関数を実行します。</p>
 <p>なぜキャッシングが必要なのでしょうか？巨大な配列をループしたり多くの計算を必要とする、コストの高い <strong>A</strong> という算出プロパティがあることを想像してみてください。<strong>A</strong> に依存する他の算出プロパティもあるかもしれません。その場合、キャッシングがなければ必要以上に <strong>A</strong> の getter を実行することになってしまいます。キャッシングしたくない場合は、代わりにメソッドを使いましょう。</p>
 <h3 id="算出プロパティ-vs-監視プロパティ"><a href="#算出プロパティ-vs-監視プロパティ" class="headerlink" title="算出プロパティ vs 監視プロパティ"></a>算出プロパティ vs 監視プロパティ</h3><p>Vue は Vue インスタンス上のデータの変更を監視し反応させることができる、より汎用的な <strong>監視プロパティ(watched property)</strong> を提供しています。他のデータに基づいて変更する必要があるデータがある場合、特に AngularJS に慣れていたら、<code>watch</code> を多く利用したいと思うかもしれません。しかし、命令的な <code>watch</code> コールバックよりも、多くの場合では算出プロパティを利用するほうが良いでしょう。次の例で考えてみましょう:</p>
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"demo"</span>&gt;</span>&#123;&#123; fullName &#125;&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
+
 <pre><code class="hljs js"><span class="hljs-keyword">var</span> vm = <span class="hljs-keyword">new</span> Vue(&#123;
   <span class="hljs-attr">el</span>: <span class="hljs-string">'#demo'</span>,
   <span class="hljs-attr">data</span>: &#123;
@@ -1056,6 +1065,7 @@ methods: &#123;
     &#125;
   &#125;
 &#125;)</code></pre>
+
 <p>上記のコードは命令的で冗長です。算出プロパティを利用したバージョンと比較してみましょう:</p>
 <pre><code class="hljs js"><span class="hljs-keyword">var</span> vm = <span class="hljs-keyword">new</span> Vue(&#123;
   <span class="hljs-attr">el</span>: <span class="hljs-string">'#demo'</span>,
@@ -1069,6 +1079,7 @@ methods: &#123;
     &#125;
   &#125;
 &#125;)</code></pre>
+
 <p>こちらの方が、はるかに良くありませんか？</p>
 <h3 id="算出-Setter-関数"><a href="#算出-Setter-関数" class="headerlink" title="算出 Setter 関数"></a>算出 Setter 関数</h3><p>算出プロパティはデフォルトでは getter 関数のみですが、必要があれば setter 関数も使えます:</p>
 <pre><code class="hljs js"><span class="hljs-comment">// ...</span>
@@ -1087,6 +1098,7 @@ computed: &#123;
   &#125;
 &#125;
 <span class="hljs-comment">// ...</span></code></pre>
+
 <p><code>vm.fullName = &#39;John Doe&#39;</code> を呼ぶと、setter 関数が呼び出され、<code>vm.firstName</code> と <code>vm.lastName</code> が適切に更新されます。</p>
 <h2 id="ウォッチャ"><a href="#ウォッチャ" class="headerlink" title="ウォッチャ"></a>ウォッチャ</h2><p>多くの場合では算出プロパティの方が適切ではありますが、カスタムウォッチャが必要な時もあるでしょう。データの変更に対して反応する、より汎用的な <code>watch</code> オプションを Vue が提供しているのはそのためです。データが変わるのに応じて非同期やコストの高い処理を実行したいときに最も便利です。</p>
 <p>例:</p>
@@ -1097,6 +1109,7 @@ computed: &#123;
   <span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>&#123;&#123; answer &#125;&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
+
 <pre><code class="hljs html"><span class="hljs-comment">&lt;!-- ajax ライブラリの豊富なエコシステムや、汎用的なユーティリティ	--&gt;</span>
 <span class="hljs-comment">&lt;!-- メソッドがたくさんあるので、Vue のコアはそれらを再発明せずに	--&gt;</span>
 <span class="hljs-comment">&lt;!-- 小さく保たれています。この結果として、慣れ親しんでいるものだけを	--&gt;</span>
@@ -1145,6 +1158,7 @@ computed: &#123;
   &#125;
 &#125;)
 </span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code></pre>
+
 <p>結果:</p>
 
 <div id="watch-example" class="demo">
@@ -1191,6 +1205,7 @@ var watchExampleVM = new Vue({
   }
 })
 </script>
+
 
 <p>この場合では、<code>watch</code> オプションを利用することで、非同期処理( API のアクセス)の実行や、処理をどのくらいの頻度で実行するかを制御したり、最終的な answer が取得できるまでは中間の状態にしておく、といったことが可能になっています。これらはいずれも算出プロパティでは実現できません。</p>
 <p><code>watch</code> オプションに加えて、命令的な <a href="../api/#vm-watch">vm.$watch API</a> を利用することもできます。</p>

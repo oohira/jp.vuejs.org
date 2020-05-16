@@ -986,6 +986,7 @@
     <span class="hljs-string">"moduleResolution"</span>: <span class="hljs-string">"node"</span>
   &#125;
 &#125;</code></pre>
+
 <p>コンポーネントメソッド内で <code>this</code> の型をチェックするには <code>strict: true</code> (もしくは最低でも <code>strict</code> フラグの一部の <code>noImplicitThis: true</code>) を含める必要があることに注意してください。</p>
 <p>より詳細なことについては <a href="https://www.typescriptlang.org/docs/handbook/compiler-options.html" target="_blank" rel="noopener">TypeScript compiler options docs</a> を見てください。</p>
 <h2 id="開発ツール"><a href="#開発ツール" class="headerlink" title="開発ツール"></a>開発ツール</h2><h3 id="プロジェクト作成"><a href="#プロジェクト作成" class="headerlink" title="プロジェクト作成"></a>プロジェクト作成</h3><p><a href="https://github.com/vuejs/vue-cli" target="_blank" rel="noopener">Vue CLI 3</a> は TypeScript を利用する新規のプロジェクトを生成する事ができます。次の手順で開始してください:</p>
@@ -994,6 +995,7 @@ npm install --global @vue/cli
 
 <span class="hljs-comment"># 2. 新規のプロジェクトを作成し、続いて "Manually select features" を選択して下さい</span>
 vue create my-project-name</code></pre>
+
 <h3 id="各エディタによるサポート"><a href="#各エディタによるサポート" class="headerlink" title="各エディタによるサポート"></a>各エディタによるサポート</h3><p>TypeScript による Vue アプリケーションを開発するために、すぐに利用できる TypeScript のサポートを提供する <a href="https://code.visualstudio.com/" target="_blank" rel="noopener">Visual Studio Code</a> を使用することを強く勧めます。<a href="./single-file-components.html">単一ファイルコンポーネント</a> (SFC) を使用している場合、SFC 内部で TypeScript インターフェイスと他の多くの優れた機能を提供する素晴らしい <a href="https://github.com/vuejs/vetur" target="_blank" rel="noopener">Vetur 拡張</a> を入手してください。</p>
 <p><a href="https://www.jetbrains.com/webstorm/" target="_blank" rel="noopener">WebStorm</a> も TypeScript と Vue.js の両方に対してすぐに利用できるサポートを提供しています。</p>
 <h2 id="基本的な使い方"><a href="#基本的な使い方" class="headerlink" title="基本的な使い方"></a>基本的な使い方</h2><p>Vue コンポーネントオプション内部で TypeScript が型を適切に推測できるようにするには、<code>Vue.component</code> または <code>Vue.extend</code> でコンポーネントを定義する必要があります:</p>
@@ -1007,6 +1009,7 @@ vue create my-project-name</code></pre>
   <span class="hljs-comment">// これは型推論を持っていません、</span>
   <span class="hljs-comment">// なぜなら、これは Vue コンポーネントのオプションであるということを伝えることができないためです。</span>
 &#125;</code></pre>
+
 <h2 id="クラススタイル-Vue-コンポーネント"><a href="#クラススタイル-Vue-コンポーネント" class="headerlink" title="クラススタイル Vue コンポーネント"></a>クラススタイル Vue コンポーネント</h2><p>コンポーネントを宣言するときにクラスベース API を使用する場合は、公式にメンテナンスされている <a href="https://github.com/vuejs/vue-class-component" target="_blank" rel="noopener">vue-class-component</a> のデコレータを使用できます:</p>
 <pre><code class="hljs ts"><span class="hljs-keyword">import</span> Vue <span class="hljs-keyword">from</span> <span class="hljs-string">'vue'</span>
 <span class="hljs-keyword">import</span> Component <span class="hljs-keyword">from</span> <span class="hljs-string">'vue-class-component'</span>
@@ -1025,6 +1028,7 @@ vue create my-project-name</code></pre>
     <span class="hljs-built_in">window</span>.alert(<span class="hljs-keyword">this</span>.message)
   &#125;
 &#125;</code></pre>
+
 <h2 id="プラグインで使用するための型拡張"><a href="#プラグインで使用するための型拡張" class="headerlink" title="プラグインで使用するための型拡張"></a>プラグインで使用するための型拡張</h2><p>プラグインは Vue のグローバル/インスタンスプロパティやコンポーネントオプションを追加することがあります。このような場合、TypeScript でそのプラグインを使用したコードをコンパイルするためには型定義が必要になります。幸い、TypeScript には<a href="https://www.typescriptlang.org/docs/handbook/declaration-merging.html#module-augmentation" target="_blank" rel="noopener">モジュール拡張 (Module Augmentation)</a> と呼ばれる、すでに存在する型を拡張する機能があります。</p>
 <p>例えば、<code>string</code> 型をもつ <code>$myProperty</code> インスタンスプロパティを定義するには:</p>
 <pre><code class="hljs ts"><span class="hljs-comment">// 1. 拡張した型を定義する前に必ず 'vue' をインポートするようにしてください</span>
@@ -1038,9 +1042,11 @@ vue create my-project-name</code></pre>
     $myProperty: <span class="hljs-built_in">string</span>
   &#125;
 &#125;</code></pre>
+
 <p>上記のコードを（<code>my-property.d.ts</code> のような）型定義ファイルとしてあなたのプロジェクトに含めると、Vue インスタンス上で <code>$myProperty</code> が使用できるようになります。</p>
 <pre><code class="hljs ts"><span class="hljs-keyword">var</span> vm = <span class="hljs-keyword">new</span> Vue()
 <span class="hljs-built_in">console</span>.log(vm.$myProperty) <span class="hljs-comment">// これはうまくコンパイルされる</span></code></pre>
+
 <p>追加でグローバルプロパティやコンポーネントオプションも定義することもできます:</p>
 <pre><code class="hljs ts"><span class="hljs-keyword">import</span> Vue <span class="hljs-keyword">from</span> <span class="hljs-string">'vue'</span>
 
@@ -1058,6 +1064,7 @@ vue create my-project-name</code></pre>
     myOption?: <span class="hljs-built_in">string</span>
   &#125;
 &#125;</code></pre>
+
 <p>上記の型定義は次のコードをコンパイルできるようにします:</p>
 <pre><code class="hljs ts"><span class="hljs-comment">// グローバルプロパティ</span>
 <span class="hljs-built_in">console</span>.log(Vue.$myGlobal)
@@ -1066,6 +1073,7 @@ vue create my-project-name</code></pre>
 <span class="hljs-keyword">var</span> vm = <span class="hljs-keyword">new</span> Vue(&#123;
   myOption: <span class="hljs-string">'Hello'</span>
 &#125;)</code></pre>
+
 <h2 id="戻り値の型にアノテーションをつける"><a href="#戻り値の型にアノテーションをつける" class="headerlink" title="戻り値の型にアノテーションをつける"></a>戻り値の型にアノテーションをつける</h2><p>Vue の宣言ファイルは循環的な性質を持つため、TypeScript は特定のメソッドの型を推論するのが困難な場合があります。この理由のため、<code>render</code> や <code>computed</code> のメソッドに戻り値の型のアノテーションを付ける必要があるかもしれません。</p>
 <pre><code class="hljs ts"><span class="hljs-keyword">import</span> Vue, &#123; VNode &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">'vue'</span>
 
@@ -1092,6 +1100,7 @@ vue create my-project-name</code></pre>
     <span class="hljs-keyword">return</span> createElement(<span class="hljs-string">'div'</span>, <span class="hljs-keyword">this</span>.greeting)
   &#125;
 &#125;)</code></pre>
+
 <p>型推論やメンバの補完が機能していない場合、特定のメソッドにアノテーションを付けるとこれらの問題に対処できます。<code>--noImplicitAny</code> オプションを使用すると、これらのアノテーションが付けられていないメソッドの多くを見つけるのに役立ちます。</p>
 <h2 id="プロパティにアノテーションをつける"><a href="#プロパティにアノテーションをつける" class="headerlink" title="プロパティにアノテーションをつける"></a>プロパティにアノテーションをつける</h2><pre><code class="hljs ts"><span class="hljs-keyword">import</span> Vue, &#123; PropType &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">'vue'</span>
 
@@ -1116,6 +1125,7 @@ vue create my-project-name</code></pre>
     &#125;
   &#125;
 &#125;)</code></pre>
+
 <p>バリデータが型推論できないかメンバの補完が機能していない場合、期待される型引数付きでアノテーションするとこれらの問題に対処できます。</p>
 
   

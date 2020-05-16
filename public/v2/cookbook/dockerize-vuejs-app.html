@@ -430,11 +430,14 @@
 </span>
 <span class="hljs-keyword">EXPOSE</span> <span class="hljs-number">8080</span>
 <span class="hljs-keyword">CMD</span><span class="bash"> [ <span class="hljs-string">"http-server"</span>, <span class="hljs-string">"dist"</span> ]</span></code></pre>
+
 <p>はじめに <code>package.json</code> と <code>package-lock.json</code> をコピーし、次にプロジェクトの全てのファイルとフォルダをコピーするという2つに別れたステップは冗長に見えるかもしれませんが、実際には <a href="http://bitjudo.com/blog/2014/03/13/building-efficient-dockerfiles-node-dot-js/" target="_blank" rel="noopener">とてももっともな理由</a> があります。(ネタばれ: これによってキャッシュされた Docker レイヤーを活用できます)</p>
 <p>では Vue.js アプリケーションの Docker イメージをビルドしましょう:</p>
 <pre><code class="hljs bash">docker build -t vuejs-cookbook/dockerize-vuejs-app .</code></pre>
+
 <p>最後に、 Vue.js アプリケーションを Docker コンテナで実行しましょう:</p>
 <pre><code class="hljs bash">docker run -it -p 8080:8080 --rm --name dockerize-vuejs-app-1 vuejs-cookbook/dockerize-vuejs-app</code></pre>
+
 <p><code>localhost:8080</code> で Vue.js アプリケーションにアクセスができるでしょう。</p>
 <h2 id="現実の例"><a href="#現実の例" class="headerlink" title="現実の例"></a>現実の例</h2><p>上述の例では、シンプルで設定の無いコマンドラインの <a href="https://github.com/indexzero/http-server" target="_blank" rel="noopener">http server</a> を使って、素早いプロトタイピング完璧で、シンプルな本番のシナリオに良い <em>かもしれない</em> Vue.js アプリケーションを配信しました。とにかく、そのドキュメントではこう言っています:</p>
 <blockquote>
@@ -455,6 +458,7 @@
 <span class="hljs-keyword">COPY</span><span class="bash"> --from=build-stage /app/dist /usr/share/nginx/html
 </span><span class="hljs-keyword">EXPOSE</span> <span class="hljs-number">80</span>
 <span class="hljs-keyword">CMD</span><span class="bash"> [<span class="hljs-string">"nginx"</span>, <span class="hljs-string">"-g"</span>, <span class="hljs-string">"daemon off;"</span>]</span></code></pre>
+
 <p>OK、ここで何が起きているか見てみましょう:</p>
 <ul>
 <li>元の <code>Dockerfile</code> を Docker の <a href="https://docs.docker.com/develop/develop-images/multistage-build/" target="_blank" rel="noopener">マルチステージビルド</a> 機能を活用して、複数のステージに分離しました。</li>
@@ -463,8 +467,10 @@
 </ul>
 <p>さて Vue.js アプリケーションを Docker イメージを使ってビルドしましょう:</p>
 <pre><code class="hljs bash">docker build -t vuejs-cookbook/dockerize-vuejs-app .</code></pre>
+
 <p>最後に、 Vue.js アプリケーション を Docker コンテナの中で実行しましょう:</p>
 <pre><code class="hljs bash">docker run -it -p 8080:80 --rm --name dockerize-vuejs-app-1 vuejs-cookbook/dockerize-vuejs-app</code></pre>
+
 <p><code>localhost:8080</code> で Vue.js アプリケーションにアクセスができるでしょう。</p>
 <!-- ## Additional Context -->
 <h2 id="さらなる背景"><a href="#さらなる背景" class="headerlink" title="さらなる背景"></a>さらなる背景</h2><p>もしあなたがこのクックブックを読んでいるなら、おそらく Vue.js アプリケーションを Docker 化することにした理由を既にわかっているでしょう。しかし、あなたが単に Google の <code>I&#39;m feeling lucky</code> ボタンを押した後にこのページにたどり着いたとしたら、いくつかのもっともな理由を共有しましょう。</p>

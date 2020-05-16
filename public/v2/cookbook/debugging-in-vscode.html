@@ -419,13 +419,15 @@
 <h3 id="ブラウザでソースコードを表示する"><a href="#ブラウザでソースコードを表示する" class="headerlink" title="ブラウザでソースコードを表示する"></a>ブラウザでソースコードを表示する</h3><p>VS Code から Vue コンポーネントをデバックする前に、ソースマップを構築するために生成された Webpack のコンフィグを更新する必要があります。デバッガには圧縮ファイル内のコードを元のファイル内の位置にマップするための方法があります。これにより、Webpack によってアセットが最適化された後でもアプリケーションをデバックすることができます。</p>
 <p>Vue CLI 2 を使っている場合、<code>config/index.js</code> 内の <code>devtool</code> プロパティを設定もしくは更新してください:</p>
 <pre><code class="hljs json">devtool: 'source-map',</code></pre>
+
 <p>Vue CLI 3 を使っている場合、<code>vue.config.js</code> 内の <code>devtool</code> プロパティを設定もしくは更新してください:</p>
 <pre><code class="hljs js"><span class="hljs-built_in">module</span>.exports = &#123;
   <span class="hljs-attr">configureWebpack</span>: &#123;
     <span class="hljs-attr">devtool</span>: <span class="hljs-string">'source-map'</span>
   &#125;
 &#125;</code></pre>
-<h3 id="VS-Code-からアプリケーションを起動する"><a href="#VS-Code-からアプリケーションを起動する" class="headerlink" title="VS Code からアプリケーションを起動する"></a>VS Code からアプリケーションを起動する</h3><p class="tip">ここではポートが <code>8080</code> 番であることを想定しています。もしそうでない（例えば、<code>8080</code> 番が使われていて、Vue CLI が自動的に別のポートを選択した）場合、それに合わせて設定を修正してください。</p>
+
+<h3 id="VS-Code-からアプリケーションを起動する"><a href="#VS-Code-からアプリケーションを起動する" class="headerlink" title="VS Code からアプリケーションを起動する"></a>VS Code からアプリケーションを起動する</h3><p class="tip">ここではポートが `8080` 番であることを想定しています。もしそうでない（例えば、`8080` 番が使われていて、Vue CLI が自動的に別のポートを選択した）場合、それに合わせて設定を修正してください。</p>
 
 <p>Activity Bar の Debugging アイコン をクリックして Debug ビューを表示し、歯車アイコンをクリックして launch.json ファイルを設定し、環境として <strong>Chrome/Firefox: Launch</strong> を選択してください。生成された launch.json の内容を対応する構成に置き換えます:</p>
 <p><img src="/images/config_add.png" alt="Add Chrome Configuration"></p>
@@ -453,6 +455,7 @@
     &#125;
   ]
 &#125;</code></pre>
+
 <h2 id="ブレイクポイントを設定する"><a href="#ブレイクポイントを設定する" class="headerlink" title="ブレイクポイントを設定する"></a>ブレイクポイントを設定する</h2><ol>
 <li><p><code>data</code> 関数が文字列を返す <code>90 行目</code> の <strong>src/components/HelloWorld.vue</strong> にブレイクポイントを設定してください。</p>
 <p><img src="/images/breakpoint_set.png" alt="Breakpoint Renderer"></p>
@@ -486,6 +489,7 @@
   &#125;
 &#125;;
 <span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></span></code></pre>
+
 <h2 id="謝辞"><a href="#謝辞" class="headerlink" title="謝辞"></a>謝辞</h2><p>このレシピは、<a href="https://twitter.com/auchenberg" target="_blank" rel="noopener">Kenneth Auchenberg</a> の寄稿に基づいています。<a href="https://github.com/Microsoft/VSCode-recipes/tree/master/vuejs-cli" target="_blank" rel="noopener">ここから利用可能</a>です。</p>
 
   

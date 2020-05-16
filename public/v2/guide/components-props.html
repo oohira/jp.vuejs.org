@@ -981,11 +981,14 @@
   props: [<span class="hljs-string">'postTitle'</span>],
   <span class="hljs-attr">template</span>: <span class="hljs-string">'&lt;h3&gt;&#123;&#123; postTitle &#125;&#125;&lt;/h3&gt;'</span>
 &#125;)</code></pre>
+
 <pre><code class="hljs html"><span class="hljs-comment">&lt;!-- HTML 内ではケバブケース --&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">blog-post</span> <span class="hljs-attr">post-title</span>=<span class="hljs-string">"hello!"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">blog-post</span>&gt;</span></code></pre>
+
 <p>文字列テンプレートを利用している場合は、この制限は適用されません。</p>
 <h2 id="プロパティの型"><a href="#プロパティの型" class="headerlink" title="プロパティの型"></a>プロパティの型</h2><p>ここまでは、プロパティを文字列の配列として列挙してきました。</p>
 <pre><code class="hljs js">props: [<span class="hljs-string">'title'</span>, <span class="hljs-string">'likes'</span>, <span class="hljs-string">'isPublished'</span>, <span class="hljs-string">'commentIds'</span>, <span class="hljs-string">'author'</span>]</code></pre>
+
 <p>しかしながら、通常はプロパティの値が特定の型になることを期待するでしょう。そのような場合、プロパティをオブジェクトとして列挙することができます。このオブジェクトのキーと値には、それぞれプロパティ名と型を設定します:</p>
 <pre><code class="hljs js">props: &#123;
   <span class="hljs-attr">title</span>: <span class="hljs-built_in">String</span>,
@@ -996,9 +999,11 @@
   <span class="hljs-attr">callback</span>: <span class="hljs-built_in">Function</span>,
   <span class="hljs-attr">contactsPromise</span>: <span class="hljs-built_in">Promise</span> <span class="hljs-comment">// or any other constructor</span>
 &#125;</code></pre>
+
 <p>こうすることでコンポーネントの説明になるだけでなく、間違った型を渡した場合に、ブラウザの JavaScript コンソールにて警告をします。詳しくはこのページの下にある<a href="#プロパティのバリデーション">type checks and other prop validations</a> にて説明します。</p>
 <h2 id="静的あるいは動的なプロパティの受け渡し"><a href="#静的あるいは動的なプロパティの受け渡し" class="headerlink" title="静的あるいは動的なプロパティの受け渡し"></a>静的あるいは動的なプロパティの受け渡し</h2><p>これまでは、このような形でプロパティが静的な値を渡しているところも見てきましたが:</p>
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">blog-post</span> <span class="hljs-attr">title</span>=<span class="hljs-string">"My journey with Vue"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">blog-post</span>&gt;</span></code></pre>
+
 <p>次のような <code>v-bind</code> で動的に割り当てられたプロパティも見てきました:</p>
 <pre><code class="hljs html"><span class="hljs-comment">&lt;!-- 変数の値を動的に割り当てます --&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">blog-post</span> <span class="hljs-attr">v-bind:title</span>=<span class="hljs-string">"post.title"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">blog-post</span>&gt;</span>
@@ -1007,6 +1012,7 @@
 <span class="hljs-tag">&lt;<span class="hljs-name">blog-post</span>
   <span class="hljs-attr">v-bind:title</span>=<span class="hljs-string">"post.title + ' by ' + post.author.name"</span>
 &gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">blog-post</span>&gt;</span></code></pre>
+
 <p>上の 2 つの例では文字列の値を渡していますが、プロパティには <strong>任意の</strong> 型の値を渡すことが可能です。</p>
 <h3 id="数値の受け渡し"><a href="#数値の受け渡し" class="headerlink" title="数値の受け渡し"></a>数値の受け渡し</h3><pre><code class="hljs html"><span class="hljs-comment">&lt;!-- `42` は静的な値ですが、これが文字列ではなく JavaScript の式だと --&gt;</span>
 <span class="hljs-comment">&lt;!-- Vue に伝えるには v-bind を使う必要があります。 --&gt;</span>
@@ -1014,6 +1020,7 @@
 
 <span class="hljs-comment">&lt;!-- 変数の値を動的に割り当てています。 --&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">blog-post</span> <span class="hljs-attr">v-bind:likes</span>=<span class="hljs-string">"post.likes"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">blog-post</span>&gt;</span></code></pre>
+
 <h3 id="真偽値の受け渡し"><a href="#真偽値の受け渡し" class="headerlink" title="真偽値の受け渡し"></a>真偽値の受け渡し</h3><pre><code class="hljs html"><span class="hljs-comment">&lt;!-- 値のないプロパティは、 `true` を意味することとなります。 --&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">blog-post</span> <span class="hljs-attr">is-published</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">blog-post</span>&gt;</span>
 
@@ -1023,12 +1030,14 @@
 
 <span class="hljs-comment">&lt;!-- 変数の値を動的に割り当てています。 --&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">blog-post</span> <span class="hljs-attr">v-bind:is-published</span>=<span class="hljs-string">"post.isPublished"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">blog-post</span>&gt;</span></code></pre>
+
 <h3 id="配列の受け渡し"><a href="#配列の受け渡し" class="headerlink" title="配列の受け渡し"></a>配列の受け渡し</h3><pre><code class="hljs html"><span class="hljs-comment">&lt;!-- この配列は静的ですが、これが文字列ではなく JavaScript の式だと --&gt;</span>
 <span class="hljs-comment">&lt;!-- Vue に伝えるには、 v-bind を使う必要があります。 --&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">blog-post</span> <span class="hljs-attr">v-bind:comment-ids</span>=<span class="hljs-string">"[234, 266, 273]"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">blog-post</span>&gt;</span>
 
 <span class="hljs-comment">&lt;!-- 変数の値を動的に割り当てています。 --&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">blog-post</span> <span class="hljs-attr">v-bind:comment-ids</span>=<span class="hljs-string">"post.commentIds"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">blog-post</span>&gt;</span></code></pre>
+
 <h3 id="オブジェクトの受け渡し"><a href="#オブジェクトの受け渡し" class="headerlink" title="オブジェクトの受け渡し"></a>オブジェクトの受け渡し</h3><pre><code class="hljs html"><span class="hljs-comment">&lt;!-- このオブジェクトは静的ですが、これが文字列ではなく JavaScript の式だと --&gt;</span>
 <span class="hljs-comment">&lt;!-- Vue に伝えるには、 v-bind を使う必要があります。 --&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">blog-post</span>
@@ -1040,18 +1049,22 @@
 
 <span class="hljs-comment">&lt;!-- 変数の値を動的に割り当てています。 --&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">blog-post</span> <span class="hljs-attr">v-bind:author</span>=<span class="hljs-string">"post.author"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">blog-post</span>&gt;</span></code></pre>
+
 <h3 id="オブジェクトのプロパティの受け渡し"><a href="#オブジェクトのプロパティの受け渡し" class="headerlink" title="オブジェクトのプロパティの受け渡し"></a>オブジェクトのプロパティの受け渡し</h3><p>オブジェクトの全てのプロパティをコンポーネントのプロパティ(props)として渡したい場合は、<code>v-bind</code> を引数無しで使うことができます(<code>v-bind:prop-name</code> の代わりに <code>v-bind</code> を使用)。 例えば、 <code>post</code> オブジェクトの場合:</p>
 <pre><code class="hljs js">post: &#123;
   <span class="hljs-attr">id</span>: <span class="hljs-number">1</span>,
   <span class="hljs-attr">title</span>: <span class="hljs-string">'My Journey with Vue'</span>
 &#125;</code></pre>
+
 <p>次のテンプレートは:</p>
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">blog-post</span> <span class="hljs-attr">v-bind</span>=<span class="hljs-string">"post"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">blog-post</span>&gt;</span></code></pre>
+
 <p>以下と同等となります:</p>
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">blog-post</span>
   <span class="hljs-attr">v-bind:id</span>=<span class="hljs-string">"post.id"</span>
   <span class="hljs-attr">v-bind:title</span>=<span class="hljs-string">"post.title"</span>
 &gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">blog-post</span>&gt;</span></code></pre>
+
 <h2 id="単方向のデータフロー"><a href="#単方向のデータフロー" class="headerlink" title="単方向のデータフロー"></a>単方向のデータフロー</h2><p>全てのプロパティは、子プロパティと親プロパティの間に <strong>単方向のバインディング</strong> を形成します: 親のプロパティが更新されると子へと流れ落ちていきますが、逆向きにデータが流れることはありません。これによって、子コンポーネントが誤って親の状態を変更すること(アプリのデータフローを理解しづらくすることがあります)を防ぎます。</p>
 <p>また、親コンポーネントが更新されるたびに、子コンポーネント内の全てのプロパティが最新の値へと更新されます。これは、子コンポーネント内でプロパティの値を変化させては <strong>いけない</strong> ことを意味しています。それを行った場合、 Vue は コンソールにて警告します。</p>
 <p>プロパティの値を変化させたい場合は主に 2 つあります:</p>
@@ -1071,9 +1084,10 @@
     <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.size.trim().toLowerCase()
   &#125;
 &#125;</code></pre>
+
 </li>
 </ol>
-<p class="tip">JavaScript のオブジェクトと配列は、参照渡しされることに注意してください。参照として渡されるため、子コンポーネント内で配列やオブジェクトを変更すると、 <strong>親の状態へと影響します。</strong></p>
+<p class="tip">JavaScript のオブジェクトと配列は、参照渡しされることに注意してください。参照として渡されるため、子コンポーネント内で配列やオブジェクトを変更すると、 **親の状態へと影響します。**</p>
 
 <h2 id="プロパティのバリデーション"><a href="#プロパティのバリデーション" class="headerlink" title="プロパティのバリデーション"></a>プロパティのバリデーション</h2><p>コンポーネントはプロパティに対して、上で見たように型などの要件を指定することができます。もし指定した要件が満たされない場合、 Vue はブラウザの JavaScript コンソールにて警告します。これは、他の人が利用することを意図したコンポーネントを開発する場合に、特に便利です。</p>
 <p>プロパティのバリデーションは、文字列の配列の代わりに、 <code>props</code> の値についてのバリデーション要件をもったオブジェクトを渡すことで指定できます。 例えば以下のようなものです:</p>
@@ -1111,8 +1125,9 @@
     &#125;
   &#125;
 &#125;)</code></pre>
+
 <p>プロパティのバリデーションが失敗した場合、 Vue はコンソールにて警告します (開発用ビルドを利用しているとき)。</p>
-<p class="tip">プロパティのバリデーションはコンポーネントのインスタンスが生成される <strong>前</strong> に行われるため、インスタンスのプロパティ (例えば <code>data</code>, <code>computed</code> など) を <code>dafault</code> および <code>validator</code> 関数の中で利用することはできません。</p>
+<p class="tip">プロパティのバリデーションはコンポーネントのインスタンスが生成される **前** に行われるため、インスタンスのプロパティ (例えば `data`, `computed` など) を `dafault` および `validator` 関数の中で利用することはできません。</p>
 
 <h3 id="型の検査"><a href="#型の検査" class="headerlink" title="型の検査"></a>型の検査</h3><p><code>type</code> は、次のネイティブコンストラクタのいずれかです:</p>
 <ul>
@@ -1130,25 +1145,30 @@
   <span class="hljs-keyword">this</span>.firstName = firstName
   <span class="hljs-keyword">this</span>.lastName = lastName
 &#125;</code></pre>
+
 <p>このように利用することができます:</p>
 <pre><code class="hljs js">Vue.component(<span class="hljs-string">'blog-post'</span>, &#123;
   <span class="hljs-attr">props</span>: &#123;
     <span class="hljs-attr">author</span>: Person
   &#125;
 &#125;)</code></pre>
+
 <p>上の例では、 <code>author</code> プロパティの値が <code>new Person</code> によって作成されたものかどうか検証されます。</p>
 <h2 id="プロパティでない属性"><a href="#プロパティでない属性" class="headerlink" title="プロパティでない属性"></a>プロパティでない属性</h2><p>プロパティでない属性とは、コンポーネントに渡された属性のうち、対応するプロパティが定義されていないもののことです。</p>
 <p>子コンポーネントへ情報を受け渡すという用途を考えると、プロパティは明示的に定義されることが好ましいですが、コンポーネントライブラリの作成者は、コンポーネントが使用されうるコンテキストを必ずしも把握できるわけではありません。そのため、コンポーネントは任意の属性を受け入れられるようになっています。受け入れた属性はコンポーネントのルート要素に追加されます。</p>
 <p>例えば、サードパーティの <code>bootstrap-date-input</code> コンポーネントと、 <code>input</code> に <code>data-date-picker</code> 属性を要求する Bootstrap プラグインを使っているとします。その場合、その属性をコンポーネントのインスタンスに追加できます:</p>
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">bootstrap-date-input</span> <span class="hljs-attr">data-date-picker</span>=<span class="hljs-string">"activated"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">bootstrap-date-input</span>&gt;</span></code></pre>
+
 <p>すると、<code>data-date-picker=&quot;activated&quot;</code> 属性は自動的に <code>bootstrap-date-input</code> のルート要素に追加されます。</p>
 <h3 id="既存の属性への置換とマージ"><a href="#既存の属性への置換とマージ" class="headerlink" title="既存の属性への置換とマージ"></a>既存の属性への置換とマージ</h3><p>これが <code>bootstrap-date-input</code> 側のテンプレートとします:</p>
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"date"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"form-control"</span>&gt;</span></code></pre>
+
 <p>この日付プラグインのテーマを指定するには、以下のような特定のクラスを追加する必要があります:</p>
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">bootstrap-date-input</span>
   <span class="hljs-attr">data-date-picker</span>=<span class="hljs-string">"activated"</span>
   <span class="hljs-attr">class</span>=<span class="hljs-string">"date-picker-theme-dark"</span>
 &gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">bootstrap-date-input</span>&gt;</span></code></pre>
+
 <p>上の例では、クラスに2つの異なる値が定義されています:</p>
 <ul>
 <li><code>form-control</code> はコンポーネントのテンプレート内で定義されています</li>
@@ -1160,11 +1180,13 @@
   <span class="hljs-attr">inheritAttrs</span>: <span class="hljs-literal">false</span>,
   <span class="hljs-comment">// ...</span>
 &#125;)</code></pre>
+
 <p>これは、 コンポーネントの <code>$attrs</code> インスタンスプロパティと組み合わせる時に特に便利です。 <code>$attrs</code> は、コンポーネントに渡される属性名およびその値が含まれています :</p>
 <pre><code class="hljs js">&#123;
   <span class="hljs-attr">required</span>: <span class="hljs-literal">true</span>,
   <span class="hljs-attr">placeholder</span>: <span class="hljs-string">'Enter your username'</span>
 &#125;</code></pre>
+
 <p><code>inheritAttrs: false</code> と <code>$attrs</code> を併用すると、どの要素に属性を送るかを手動で決定することができます。これは多くの場合、 <a href="../style-guide/#基底コンポーネントの名前-強く推奨">基底コンポーネント</a> にとって望ましい方法です:</p>
 <pre><code class="hljs js">Vue.component(<span class="hljs-string">'base-input'</span>, &#123;
   <span class="hljs-attr">inheritAttrs</span>: <span class="hljs-literal">false</span>,
@@ -1180,7 +1202,8 @@
     &lt;/label&gt;
   `</span>
 &#125;)</code></pre>
-<p class="tip"><code>inheritAttrs: false</code> オプションは、<code>style</code> および <code>class</code> 属性のバインディングには影響 <strong>しない</strong> ことに注意してください。</p>
+
+<p class="tip">`inheritAttrs: false` オプションは、`style` および `class` 属性のバインディングには影響 **しない** ことに注意してください。</p>
 
 <p>このパターンを使用すると、コンポーネントのルート要素が何か気にすることなく、生の HTML 要素のように基底コンポーネントを利用できます。</p>
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">base-input</span>
@@ -1188,6 +1211,7 @@
   <span class="hljs-attr">required</span>
   <span class="hljs-attr">placeholder</span>=<span class="hljs-string">"Enter your username"</span>
 &gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">base-input</span>&gt;</span></code></pre>
+
 
   
   

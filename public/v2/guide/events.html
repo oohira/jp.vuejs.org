@@ -978,12 +978,14 @@
   <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">v-on:click</span>=<span class="hljs-string">"counter += 1"</span>&gt;</span>Add 1<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>The button above has been clicked &#123;&#123; counter &#125;&#125; times.<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
+
 <pre><code class="hljs js"><span class="hljs-keyword">var</span> example1 = <span class="hljs-keyword">new</span> Vue(&#123;
   <span class="hljs-attr">el</span>: <span class="hljs-string">'#example-1'</span>,
   <span class="hljs-attr">data</span>: &#123;
     <span class="hljs-attr">counter</span>: <span class="hljs-number">0</span>
   &#125;
 &#125;)</code></pre>
+
 <p>結果:</p>
 
 <div id="example-1" class="demo">
@@ -999,12 +1001,14 @@ var example1 = new Vue({
 })
 </script>
 
+
 <h2 id="メソッドイベントハンドラ"><a href="#メソッドイベントハンドラ" class="headerlink" title="メソッドイベントハンドラ"></a>メソッドイベントハンドラ</h2><p>多くのイベントハンドラのロジックはより複雑になっていくので、<code>v-on</code> 属性の値に JavaScript 式を記述し続けるのは現実的ではありません。そのため、<code>v-on</code> は呼び出したいメソッドの名前も受け付けます。</p>
 <p>例:</p>
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"example-2"</span>&gt;</span>
   <span class="hljs-comment">&lt;!-- `greet` は、あらかじめ定義したメソッドの名前 --&gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">v-on:click</span>=<span class="hljs-string">"greet"</span>&gt;</span>Greet<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
+
 <pre><code class="hljs js"><span class="hljs-keyword">var</span> example2 = <span class="hljs-keyword">new</span> Vue(&#123;
   <span class="hljs-attr">el</span>: <span class="hljs-string">'#example-2'</span>,
   <span class="hljs-attr">data</span>: &#123;
@@ -1025,6 +1029,7 @@ var example1 = new Vue({
 
 <span class="hljs-comment">// JavaScript からメソッドを呼び出すこともできます</span>
 example2.greet() <span class="hljs-comment">// =&gt; 'Hello Vue.js!'</span></code></pre>
+
 <p>結果:</p>
 
 <div id="example-2" class="demo">
@@ -1047,11 +1052,13 @@ var example2 = new Vue({
 })
 </script>
 
+
 <h2 id="インラインメソッドハンドラ"><a href="#インラインメソッドハンドラ" class="headerlink" title="インラインメソッドハンドラ"></a>インラインメソッドハンドラ</h2><p>メソッド名を直接指定する代わりに、インライン JavaScript 式でメソッドを指定することもできます:</p>
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"example-3"</span>&gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">v-on:click</span>=<span class="hljs-string">"say('hi')"</span>&gt;</span>Say hi<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">v-on:click</span>=<span class="hljs-string">"say('what')"</span>&gt;</span>Say what<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
+
 <pre><code class="hljs js"><span class="hljs-keyword">new</span> Vue(&#123;
   <span class="hljs-attr">el</span>: <span class="hljs-string">'#example-3'</span>,
   <span class="hljs-attr">methods</span>: &#123;
@@ -1060,7 +1067,9 @@ var example2 = new Vue({
     &#125;
   &#125;
 &#125;)</code></pre>
-<p>結果:<br>
+
+<p>結果:</p>
+
 <div id="example-3" class="demo">
   <button v-on:click="say('hi')">Say hi</button>
   <button v-on:click="say('what')">Say what</button>
@@ -1075,11 +1084,13 @@ new Vue({
   }
 })
 </script>
-</p>
+
+
 <p>時には、インラインステートメントハンドラでオリジナルの DOM イベントを参照したいこともあるでしょう。特別な <code>$event</code> 変数を使うことでメソッドに DOM イベントを渡すことができます:</p>
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">v-on:click</span>=<span class="hljs-string">"warn('Form cannot be submitted yet.', $event)"</span>&gt;</span>
   Submit
 <span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></code></pre>
+
 <pre><code class="hljs js"><span class="hljs-comment">// ...</span>
 methods: &#123;
   <span class="hljs-attr">warn</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">message, event</span>) </span>&#123;
@@ -1090,6 +1101,7 @@ methods: &#123;
     alert(message)
   &#125;
 &#125;</code></pre>
+
 <h2 id="イベント修飾子"><a href="#イベント修飾子" class="headerlink" title="イベント修飾子"></a>イベント修飾子</h2><p>イベントハンドラ内での <code>event.preventDefault()</code> または <code>event.stopPropagation()</code> の呼び出しは、様々な場面で共通に必要になります。これらはメソッド内部で簡単に呼び出すことができますが、DOM イベントの込み入った処理をおこなうよりも、純粋なデータロジックだけになっている方がより良いでしょう。</p>
 <p>この問題に対応するために、Vue は <code>v-on</code> のために<strong>イベント修飾子(event modifiers)</strong>を提供しています。修飾子は、ドット(.)で表記されるディレクティブの接尾辞を思い返してください。</p>
 <ul>
@@ -1119,13 +1131,15 @@ methods: &#123;
 <span class="hljs-comment">&lt;!-- event.target が要素自身のときだけ、ハンドラが呼び出されます --&gt;</span>
 <span class="hljs-comment">&lt;!-- 言い換えると子要素のときは呼び出されません --&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">v-on:click.self</span>=<span class="hljs-string">"doThat"</span>&gt;</span>...<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
-<p class="tip">修飾子を使用するとき、関連するコードが同じ順序で生成されるため注意してください。それゆえ、<code>v-on:click.prevent.self</code> を使用すると<strong>全てのクリックイベント</strong>を防ぐことはできますが、<code>v-on:click.self.prevent</code> は要素自身におけるクリックイベントを防ぐだけです。</p>
+
+<p class="tip">修飾子を使用するとき、関連するコードが同じ順序で生成されるため注意してください。それゆえ、`v-on:click.prevent.self` を使用すると**全てのクリックイベント**を防ぐことはできますが、`v-on:click.self.prevent` は要素自身におけるクリックイベントを防ぐだけです。</p>
 
 <blockquote>
 <p>2.1.4 から新規</p>
 </blockquote>
 <pre><code class="hljs html"><span class="hljs-comment">&lt;!-- 最大1回、クリックイベントはトリガされます --&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">v-on:click.once</span>=<span class="hljs-string">"doThis"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span></code></pre>
+
 <p>他の修飾子とは違って、ネイティブ DOM イベント専用ではありますが、<code>.once</code> 修飾子を<a href="components-custom-events.html">コンポーネントイベント</a>でも使用することができます。まだコンポーネントについて読んでいないなら、今は気にする必要はありません。</p>
 <blockquote>
 <p>2.3.0 で新規追加</p>
@@ -1135,19 +1149,23 @@ methods: &#123;
 <span class="hljs-comment">&lt;!-- スクロールイベントのデフォルトの挙動(つまりスクロール)は --&gt;</span>
 <span class="hljs-comment">&lt;!-- イベントの完了を待つことなくただちに発生するようになります --&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">v-on:scroll.passive</span>=<span class="hljs-string">"onScroll"</span>&gt;</span>...<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
+
 <p><code>.passive</code> 修飾子は特にモバイルでのパフォーマンスを改善するのに有用です。</p>
-<p class="tip"><code>.passive</code> と <code>.prevent</code> を一緒に使わないでください。<code>.prevent</code> は無視され、ブラウザにはおそらく警告が表示されます。<code>.passive</code> はイベントのデフォルトの挙動を妨げないことをブラウザに伝達することを思い出してください。</p>
+<p class="tip">`.passive` と `.prevent` を一緒に使わないでください。`.prevent` は無視され、ブラウザにはおそらく警告が表示されます。`.passive` はイベントのデフォルトの挙動を妨げないことをブラウザに伝達することを思い出してください。</p>
 
 <h2 id="キー修飾子"><a href="#キー修飾子" class="headerlink" title="キー修飾子"></a>キー修飾子</h2><p>キーボードイベントを購読するにあたって、特定のキーのチェックが必要になることがあります。Vue では、<code>v-on</code> に対してキー修飾子を追加することができます:</p>
 <pre><code class="hljs html"><span class="hljs-comment">&lt;!-- `key` が `Enter` のときだけ、`vm.submit()` が呼ばれます  --&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">v-on:keyup.enter</span>=<span class="hljs-string">"submit"</span>&gt;</span></code></pre>
+
 <p><a href="https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/key/Key_Values" target="_blank" rel="noopener"><code>KeyboardEvent.key</code></a> で公開されている任意のキー名は、ケバブケースに変換することで修飾子として直接使用できます。</p>
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">v-on:keyup.page-down</span>=<span class="hljs-string">"onPageDown"</span>&gt;</span></code></pre>
+
 <p>上の例では、ハンドラは <code>$event.key</code> が <code>&#39;PageDown&#39;</code> に等しい場合だけ呼ばれます。</p>
-<h3 id="キーコード"><a href="#キーコード" class="headerlink" title="キーコード"></a>キーコード</h3><p class="tip"><code>keyCode</code> イベントの使用は <a href="https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/keyCode" target="_blank" rel="noopener">非推奨</a>  で、新しいブラウザではサポートされない可能性があります。</p>
+<h3 id="キーコード"><a href="#キーコード" class="headerlink" title="キーコード"></a>キーコード</h3><p class="tip">`keyCode` イベントの使用は [非推奨](https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/keyCode)  で、新しいブラウザではサポートされない可能性があります。</p>
 
 <p><code>keyCode</code> 属性を使うこともできます:</p>
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">v-on:keyup.13</span>=<span class="hljs-string">"submit"</span>&gt;</span></code></pre>
+
 <p>レガシーブラウザのサポートが必要なときのために、Vue は最も一般的に使用されるキーコードのエイリアスを提供しています:</p>
 <ul>
 <li><code>.enter</code></li>
@@ -1160,11 +1178,12 @@ methods: &#123;
 <li><code>.left</code></li>
 <li><code>.right</code></li>
 </ul>
-<p class="tip">いくつかのキー (<code>.esc</code>、そして全ての矢印キー) は IE9 で一貫性のない <code>key</code> 値を持っています。IE9 をサポートする必要がある場合は、これらの組み込みエイリアスを使うべきです。</p>
+<p class="tip">いくつかのキー (`.esc`、そして全ての矢印キー) は IE9 で一貫性のない `key` 値を持っています。IE9 をサポートする必要がある場合は、これらの組み込みエイリアスを使うべきです。</p>
 
 <p>グローバルな <code>config.keyCodes</code> オブジェクト経由で<a href="../api/#keyCodes">カスタムキー修飾子のエイリアス</a>も定義できます:</p>
 <pre><code class="hljs js"><span class="hljs-comment">// `v-on:keyup.f1` を可能にします</span>
 Vue.config.keyCodes.f1 = <span class="hljs-number">112</span></code></pre>
+
 <h2 id="システム修飾子キー"><a href="#システム修飾子キー" class="headerlink" title="システム修飾子キー"></a>システム修飾子キー</h2><blockquote>
 <p>2.1.0 から新規</p>
 </blockquote>
@@ -1184,7 +1203,8 @@ Vue.config.keyCodes.f1 = <span class="hljs-number">112</span></code></pre>
 
 <span class="hljs-comment">&lt;!-- Ctrl + Click --&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">v-on:click.ctrl</span>=<span class="hljs-string">"doSomething"</span>&gt;</span>Do something<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
-<p class="tip">修飾子キーは通常のキーとは異なり、<code>keyup</code> イベントで使用する場合、イベント発生時に押されていなければならないことに注意してください。言い換えると、<code>keyup.ctrl</code> は <code>ctrl</code> を押しながら何かのキーを離したときにのみ、トリガされます。<code>ctrl</code> キーだけを離しても、トリガされません。トリガされることを望むなら、<code>ctrl</code> ではなく <code>keyup.17</code> のように <code>keyCode</code> を使用してください。</p>
+
+<p class="tip">修飾子キーは通常のキーとは異なり、`keyup` イベントで使用する場合、イベント発生時に押されていなければならないことに注意してください。言い換えると、`keyup.ctrl` は `ctrl` を押しながら何かのキーを離したときにのみ、トリガされます。`ctrl` キーだけを離しても、トリガされません。トリガされることを望むなら、`ctrl` ではなく `keyup.17` のように `keyCode` を使用してください。</p>
 
 <h3 id="exact-修飾子"><a href="#exact-修飾子" class="headerlink" title=".exact 修飾子"></a><code>.exact</code> 修飾子</h3><blockquote>
 <p>2.5.0 で新規追加</p>
@@ -1198,6 +1218,7 @@ Vue.config.keyCodes.f1 = <span class="hljs-number">112</span></code></pre>
 
 <span class="hljs-comment">&lt;!-- これは システム修飾子が押されてないときだけ発行されます --&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">v-on:click.exact</span>=<span class="hljs-string">"onClick"</span>&gt;</span>A<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></code></pre>
+
 <h3 id="マウスボタンの修飾子"><a href="#マウスボタンの修飾子" class="headerlink" title="マウスボタンの修飾子"></a>マウスボタンの修飾子</h3><blockquote>
 <p>2.2.0 からの新機能</p>
 </blockquote>

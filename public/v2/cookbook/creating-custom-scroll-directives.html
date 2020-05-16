@@ -433,6 +433,7 @@
     &#125;
   &#125;
 &#125;)</code></pre>
+
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"app"</span>&gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-name">h1</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"centered"</span>&gt;</span>Scroll me<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-name">div</span>
@@ -442,13 +443,15 @@
     <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A atque amet harum aut ab veritatis earum porro praesentium ut corporis. Quasi provident dolorem officia iure fugiat, eius mollitia sequi quisquam.<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
   <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
+
 <p class="tip">注意! ディレクティブは Vue インスタンス作成前に登録されなければなりません。</p>
 
 <p>以下のケースでは、中間値を遷移するスタイルプロパティも必要となります。</p>
 <pre><code class="hljs css"><span class="hljs-selector-class">.box</span> &#123;
   <span class="hljs-attribute">transition</span>: <span class="hljs-number">1.5s</span> all <span class="hljs-built_in">cubic-bezier</span>(0.39, 0.575, 0.565, 1);
 &#125;</code></pre>
-<p></p><p data-height="450" data-theme-id="5162" data-slug-hash="983220ed949ac670dff96bdcaf9d3338" data-default-tab="result" data-user="sdras" data-embed-version="2" data-pen-title="Custom Scroll Directive- CSS Transition" class="codepen">See the Pen <a href="https://codepen.io/sdras/pen/983220ed949ac670dff96bdcaf9d3338/" target="_blank" rel="noopener">Custom Scroll Directive- CSS Transition</a> by Sarah Drasner (<a href="https://codepen.io/sdras" target="_blank" rel="noopener">@sdras</a>) on <a href="https://codepen.io" target="_blank" rel="noopener">CodePen</a>.</p><p></p>
+
+<p data-height="450" data-theme-id="5162" data-slug-hash="983220ed949ac670dff96bdcaf9d3338" data-default-tab="result" data-user="sdras" data-embed-version="2" data-pen-title="Custom Scroll Directive- CSS Transition" class="codepen">See the Pen <a href="https://codepen.io/sdras/pen/983220ed949ac670dff96bdcaf9d3338/" target="_blank" rel="noopener">Custom Scroll Directive- CSS Transition</a> by Sarah Drasner (<a href="https://codepen.io/sdras" target="_blank" rel="noopener">@sdras</a>) on <a href="https://codepen.io" target="_blank" rel="noopener">CodePen</a>.</p>
 <script async src="https://static.codepen.io/assets/embed/ei.js"></script>
 
 <p>また GreenSock(GSAP) や他の JavaScript ライブラリーを使用することで、コードはよりシンプルになります。</p>
@@ -479,13 +482,14 @@
     &#125;
   &#125;
 &#125;)</code></pre>
+
 <p>CSS トランジションは今 JavaScript によって操作されているので、以前のスタイルプロパティをあてがっていた CSS トランジションは取り除くことができるでしょう。</p>
 <h2 id="カスタムディレクティブを使用することのメリット"><a href="#カスタムディレクティブを使用することのメリット" class="headerlink" title="カスタムディレクティブを使用することのメリット"></a>カスタムディレクティブを使用することのメリット</h2><p>Vue はディレクティブに対する豊富なオプションがあります。それらのオプションは一般的なユースケースをほとんど網羅し、とても生産的な開発体験を提供することでしょう。しかし、たとえフレームワークに網羅されていないニッチなユースケースを持っていたとしても、フレームワークに網羅されているユースケースと同様に付け加えることができます。なぜなら、とても簡単に必要とするカスタムディレクティブを作成できるからです。</p>
 <p>要素に対してスクロールイベントの着脱は本当に良いユースケースです。他のディレクティブと同様に、要素に結びつけられる必要があり、DOM を参照しなければならないためです。このパターンはトラバーサルを回避し、参照先のノードとイベントロジックのペアを保つことができます。</p>
-<h2 id="実例-カスケードアニメーションでのカスタムスクロールディレクティブの使用"><a href="#実例-カスケードアニメーションでのカスタムスクロールディレクティブの使用" class="headerlink" title="実例: カスケードアニメーションでのカスタムスクロールディレクティブの使用"></a>実例: カスケードアニメーションでのカスタムスクロールディレクティブの使用</h2><p>統一感のあるサイトを作成する過程で、様々な箇所で同じアニメーションロジックを再利用していることに気づくこともあるでしょう。それはシンプルなロジックに見えますが、カスタムディレクティブは再利用し辛いものになっているかもしれません。何も考えずに再利用すれば、使用の度に<em>ほんの</em>些細な変更を必要とすることになるでしょう。</p>
+<h2 id="実例-カスケードアニメーションでのカスタムスクロールディレクティブの使用"><a href="#実例-カスケードアニメーションでのカスタムスクロールディレクティブの使用" class="headerlink" title="実例: カスケードアニメーションでのカスタムスクロールディレクティブの使用"></a>実例: カスケードアニメーションでのカスタムスクロールディレクティブの使用</h2><p>統一感のあるサイトを作成する過程で、様々な箇所で同じアニメーションロジックを再利用していることに気づくこともあるでしょう。それはシンプルなロジックに見えますが、カスタムディレクティブは再利用し辛いものになっているかもしれません。何も考えずに再利用すれば、使用の度に_ほんの_些細な変更を必要とすることになるでしょう。</p>
 <p>簡潔で読みやすいコードの維持に役立てるため、ページを下にスクロールするときにアニメーションの開始・終了座標といった定義済みの引数を渡したくなります。</p>
 <p><strong>この例は<a href="https://s.codepen.io/sdras/debug/078c19f5b3ed7f7d28584da450296cd0" target="_blank" rel="noopener">フルスクリーンバージョン</a>の方が見やすいです。</strong></p>
-<p></p><p data-height="500" data-theme-id="5162" data-slug-hash="c8c55e3e0bba997350551dd747119100" data-default-tab="result" data-user="sdras" data-embed-version="2" data-pen-title="Scrolling Example- Using Custom Directives in Vue" class="codepen">See the Pen <a href="https://codepen.io/sdras/pen/c8c55e3e0bba997350551dd747119100/" target="_blank" rel="noopener">Scrolling Example- Using Custom Directives in Vue</a> by Sarah Drasner (<a href="https://codepen.io/sdras" target="_blank" rel="noopener">@sdras</a>) on <a href="https://codepen.io" target="_blank" rel="noopener">CodePen</a>.</p><p></p>
+<p data-height="500" data-theme-id="5162" data-slug-hash="c8c55e3e0bba997350551dd747119100" data-default-tab="result" data-user="sdras" data-embed-version="2" data-pen-title="Scrolling Example- Using Custom Directives in Vue" class="codepen">See the Pen <a href="https://codepen.io/sdras/pen/c8c55e3e0bba997350551dd747119100/" target="_blank" rel="noopener">Scrolling Example- Using Custom Directives in Vue</a> by Sarah Drasner (<a href="https://codepen.io/sdras" target="_blank" rel="noopener">@sdras</a>) on <a href="https://codepen.io" target="_blank" rel="noopener">CodePen</a>.</p>
 <script async src="https://static.codepen.io/assets/embed/ei.js"></script>
 
 <p>上のデモのそれぞれのセクションには、スクロールによって引き起こされる 2 つの異なるアニメーションがあります。モーフィングアニメーションと、 SVG 内の個々のパスに沿って動く描画アニメーションです。これら 2 つのアニメーションを再利用するため、それぞれのカスタムディレクティブを作成します。カスタムディレクティブに渡す引数は、シンプルかつ再利用可能なコードの維持に役立ちます。</p>
@@ -508,6 +512,7 @@
     <span class="hljs-built_in">window</span>.addEventListener(<span class="hljs-string">'scroll'</span>, f)
   &#125;
 &#125;)</code></pre>
+
 <p>それではテンプレートでこのアニメーションを使用してみましょう。この場合、<code>clipPath</code>要素にディレクティブを加え、全ての引数をオブジェクトとしてディレクティブに渡します。</p>
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">clipPath</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"clip-path"</span>&gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-name">path</span>
@@ -516,6 +521,7 @@
     <span class="hljs-attr">d</span>=<span class="hljs-string">"M12.46 20.76L7.34 22.04 3.67 18.25 5.12 13.18 10.24 11.9 13.91 15.69 12.46 20.76z"</span>
   /&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">clipPath</span>&gt;</span></code></pre>
+
 <h2 id="他のパターン"><a href="#他のパターン" class="headerlink" title="他のパターン"></a>他のパターン</h2><p>カスタムディレクティブは非常に役に立ちます。しかしスクラッチで作るのではなく、スクロールライブラリにすでに存在する機能を使いたい場合もあるかもしれません。</p>
 <p><a href="http://scrollmagic.io/" target="_blank" rel="noopener">Scrollmagic</a>は豊富なエコシステムがあると同時に、優れたドキュメントやデモを用意しています。これには、<a href="http://scrollmagic.io/examples/advanced/parallax_scrolling.html" target="_blank" rel="noopener">パララックス</a>、<a href="http://scrollmagic.io/examples/expert/cascading_pins.html" target="_blank" rel="noopener">カスケードピンニング</a>、<a href="http://scrollmagic.io/examples/basic/section_wipes_natural.html" target="_blank" rel="noopener">セクションワイプ</a>、<a href="http://scrollmagic.io/examples/basic/responsive_duration.html" target="_blank" rel="noopener">レスポンシブデュレイション</a>など多様な機能が内包されています。</p>
 

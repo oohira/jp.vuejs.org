@@ -416,12 +416,14 @@
   &#125;,
   <span class="hljs-comment">// コンポーネントの残りの箇所</span>
 &#125;</code></pre>
+
 <p>直接ブラウザ内で <code>&lt;script&gt;</code> タグを用いて利用する事もできます:</p>
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://unpkg.com/vue"</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://unpkg.com/my-component"</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
 ...
 <span class="hljs-tag">&lt;<span class="hljs-name">my-component</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">my-component</span>&gt;</span>
 ...</code></pre>
+
 <p>この手順を踏む事でコンポーネント周りをコピー&amp;ペーストしなくて済むだけでなく、Vue コミュニティに還元する事にもなります！</p>
 <h2 id="vue-ファイルを直接共有するだけでは駄目なのか"><a href="#vue-ファイルを直接共有するだけでは駄目なのか" class="headerlink" title=".vue ファイルを直接共有するだけでは駄目なのか"></a><code>.vue</code> ファイルを直接共有するだけでは駄目なのか</h2><p>Vue は既にコンポーネントを1つのファイルとして記述する事を許容しています。単一ファイルコンポーネントは元から1つのファイルのため、次のような疑問を抱くかもしれません:</p>
 <blockquote>
@@ -437,6 +439,7 @@ src/
    wrapper.js
    my-component.vue
 dist/</code></pre>
+
 <p class="tip">本ドキュメント全体を通して、上記の package.json が参照されます。以下の例で用いられるこのファイルは手動で生成され、じきに行う議論や課題に必要とされる最小限の設定を含んでいます。各自が利用している package.json ファイルはここに示されるよりも多くの設定を保持している可能性があります。</p>
 
 <h3 id="ブラウザやビルドプロセスに対して提供するバージョンを-npm-にどのように定義するか"><a href="#ブラウザやビルドプロセスに対して提供するバージョンを-npm-にどのように定義するか" class="headerlink" title="ブラウザやビルドプロセスに対して提供するバージョンを npm にどのように定義するか"></a>ブラウザやビルドプロセスに対して提供するバージョンを npm にどのように定義するか</h3><p>npm が用いる package.json ファイルにおいて本当は1つのバージョン (<code>main</code>) が必要なのですが、それは何も、作成の制限が存在するという事ではありません。ここでは最も一般的な利用ケースとして 2 つの追加バージョン (<code>module</code> および <code>unpkg</code>) を定義し、 <code>browser</code> フィールドを用いて直接 <code>.vue</code> ファイルへのアクセスを提供するとします。例示した package.json は以下のようになります:</p>
@@ -451,11 +454,13 @@ dist/</code></pre>
   &#125;,
   ...
 &#125;</code></pre>
+
 <p>webpack バージョン 2 以降や、 Rollup あるいは他のモダンなビルドツールを用いれば、 <code>module</code> ビルドを解釈してくれます。レガシーなアプリケーションは <code>main</code> ビルドを使い、 <code>unpkg</code> ビルドはブラウザで直接利用されます。実際に、誰かがあなたのモジュールの URL を入れれば彼らのサービス内では <a href="https://unpkg.com" target="_blank" rel="noopener">unpkg</a> の CDN がこのビルドを自動的に利用します。</p>
 <h3 id="サーバサイドレンダリングでの利用"><a href="#サーバサイドレンダリングでの利用" class="headerlink" title="サーバサイドレンダリングでの利用"></a>サーバサイドレンダリングでの利用</h3><p>興味深い点に気づかれたかもしれません - ブラウザは <code>browser</code> バージョンを利用する訳ではないのです。これはこのフィールドが実は利用者側で各自のパッケージを作成する際に作成者が <a href="https://github.com/defunctzombie/package-browser-field-spec#spec" target="_blank" rel="noopener">モジュールバンドラを補助する</a> ために有るからです。少し創造性を持たせて、このフィールドは <code>.vue</code> ファイル自体へエイリアスを作成する事を許容します。以下の例のように記述できます:</p>
 <pre><code class="hljs js"><span class="hljs-keyword">import</span> MyComponent <span class="hljs-keyword">from</span> <span class="hljs-string">'my-component/sfc'</span>; <span class="hljs-comment">// '/sfc' に注意</span></code></pre>
+
 <p>互換性の有るモジュールバンドラは package.json 内の <code>browser</code> の定義を参照して <code>my-component/sfc</code> に対するリクエストを <code>my-component/src/my-component.vue</code> へと変換し、結果として元の <code>.vue</code> ファイルが代わりに利用されます。現在ではサーバサイドレンダリングの処理においてパフォーマンス向上の為に必要な文字列連結時の最適化を利用できます。</p>
-<p class="tip">注意: <code>.vue</code> 形式のコンポーネントを直接利用する場合、<code>script</code> や <code>style</code> タグが必要とするあらゆるプリ・プロセス処理に注意して下さい。これらの依存性は利用者に引き継がれます。可能な限り物事を簡単にしておくため「プレーンな」単一ファイルコンポーネントを提供する事を心がけてください。</p>
+<p class="tip">注意: `.vue` 形式のコンポーネントを直接利用する場合、`script` や `style` タグが必要とするあらゆるプリ・プロセス処理に注意して下さい。これらの依存性は利用者に引き継がれます。可能な限り物事を簡単にしておくため「プレーンな」単一ファイルコンポーネントを提供する事を心がけてください。</p>
 
 <h3 id="どのようにしてコンポーネントのバージョンを複数作成するのか"><a href="#どのようにしてコンポーネントのバージョンを複数作成するのか" class="headerlink" title="どのようにしてコンポーネントのバージョンを複数作成するのか"></a>どのようにしてコンポーネントのバージョンを複数作成するのか</h3><p>モジュールを複数回作成する必要は有りません。少しの時間で完了する、1つの手順でモジュールの 3 つのバージョン全てを用意する事が可能です。ここの例では設定を最小限にするため <a href="https://rollupjs.org" target="_blank" rel="noopener">Rollup</a> を利用しますが、他のビルドツールでも同様の設定ができます - この決定に関わる詳細は <a href="https://medium.com/webpack/webpack-and-rollup-the-same-but-different-a41ad427058c" target="_blank" rel="noopener">こちら</a> から参照できます。 package.json の <code>scripts</code> セクションはビルド対象毎に行う処理、加えてそれら全てをまとめて処理する、より一般的な <code>build</code> スクリプトによって更新されます。例となる package.json ファイルは以下のようになります:</p>
 <pre><code class="hljs json">&#123;
@@ -484,6 +489,7 @@ dist/</code></pre>
   &#125;,
   ...
 &#125;</code></pre>
+
 <p class="tip">もし既に package.json ファイルを利用している場合、上記よりも多くの内容を含んでいるであろう事を忘れないでください。これは単に初期段階を示しただけです。また、 devDependencies 内に記述された(それぞれのバージョンでなく)<i>パッケージ</i>は先述した 3 つの異なるビルド (umd、 es および unpkg) を rollup が作成するために最低限必要な物になっています。より新しいバージョンが利用できるようになれば、必要に応じて更新する必要が有ります。</p>
 
 <p>package.json に加える変更は完了しました。続いて、実際に単一ファイルコンポーネントをエクスポートおよび自動インストールするための小さなラッパーを用意し、必要な Rollup の設定を加えて準備します。</p>
@@ -517,6 +523,7 @@ dist/</code></pre>
 
 <span class="hljs-comment">// (npm/webpack 等で) モジュールとして利用させるためコンポーネントを export する</span>
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> component;</code></pre>
+
 <p>最初の行では単一ファイルコンポーネントを直接読み込み、最後の行ではその内容を変更しないでエクスポートしている事に気づくでしょう。コード内のコメントで示されるように、このラッパーは Vue のための <code>install</code> 関数を提供し、続いて Vue を検知してコンポーネントを自動的にインストールしようと試みています。作業は9割方終わりました、最後まで一気に進みましょう。</p>
 <h3 id="Rollup-ビルドをどのように設定するか"><a href="#Rollup-ビルドをどのように設定するか" class="headerlink" title="Rollup ビルドをどのように設定するか"></a>Rollup ビルドをどのように設定するか</h3><p>package.json の <code>script</code> セクションの準備と単一ファイルコンポーネント用のラッパーが用意できれば、残りは Rollup が適切に設定されていることを確認するだけです。幸いにも、この操作はほんの 16 行の rollup.config.js ファイルによって行えます:</p>
 <pre><code class="hljs js"><span class="hljs-keyword">import</span> commonjs <span class="hljs-keyword">from</span> <span class="hljs-string">'@rollup/plugin-commonjs'</span>; <span class="hljs-comment">// CommonJS モジュールを ES6 に変換</span>
@@ -537,10 +544,12 @@ dist/</code></pre>
         buble(), <span class="hljs-comment">// ES5 へトランスパイルする</span>
     ],
 &#125;;</code></pre>
+
 <p>ここに例示した設定ファイルは npm のために単一ファイルコンポーネントをパッケージ化する最小限の設定となっています。CSS プリプロセッサを利用して、 CSS を別のファイルとして取得したり、JS の出力を難読化したりするカスタマイズを加える余地が有ります。</p>
 <p>また、ここでコンポーネントに付与された <code>name</code> の値に注目すべきです。コンポーネントに付与されるのはパスカルケースの名称で、これはここまでの手順で利用されてきたケバブケースの名称に対応していなければなりません。</p>
 <h3 id="この手順は現在の開発工程に取って代わるものか"><a href="#この手順は現在の開発工程に取って代わるものか" class="headerlink" title="この手順は現在の開発工程に取って代わるものか"></a>この手順は現在の開発工程に取って代わるものか</h3><p>このページの設定は現在使っている開発工程を置き換えるものでは有りません。もし現在 webpack を用いたホット・モジュール・リロードを行う環境を利用しているのならば、その環境を使い続けるべきです。もし何もない状態ならば、ホット・モジュール・リロードの設定全体を自由に扱える、 <a href="https://github.com/vuejs/vue-cli/" target="_blank" rel="noopener">Vue CLI 3</a> を使って下さい。</p>
 <pre><code class="hljs bash">vue serve --open src/my-component.vue</code></pre>
+
 <p>言い換えると、各自の好みに合った物を開発環境で使ってください。この手順で大まかに示されているのは完全な開発プロセスというよりは「最後の仕上げ」になります。</p>
 <h2 id="どのような場合にこのパターンの利用を避けるべきか"><a href="#どのような場合にこのパターンの利用を避けるべきか" class="headerlink" title="どのような場合にこのパターンの利用を避けるべきか"></a>どのような場合にこのパターンの利用を避けるべきか</h2><p>ここで示した方法で単一ファイルコンポーネントをパッケージ化するのは特定の状況では良いアイデアとはならないかもしれません。この手順はコンポーネント自体がどのように書かれるかという点については深く掘り下げませんでした。ある種のコンポーネントはディレクティブや追加した機能によって他のライブラリに対して副作用をおよぼすかもしれません。こういった場合には、ここで紹介した手順が必要とする変更が広い範囲に及び過ぎないか評価する必要が有るでしょう。</p>
 <p>加えて、自分の単一ファイルコンポーネントが持つかもしれないあらゆる依存性に注意をはらって下さい。例えば、ソートや API を使った操作のためにサードパーティのライブラリが必要となる場合、適切に設定されていないと Rollup はこれらのパッケージを最終的なコードにまとめてしまう可能性が有ります。この手順を使い続けるにあたって、このようなファイルを出力から除外するように Rollup を設定し、利用者に対してはその依存性について周知するためドキュメントを更新する必要が有るかもしれません。</p>

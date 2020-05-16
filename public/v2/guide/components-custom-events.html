@@ -977,9 +977,11 @@
 
 <h2 id="イベント名"><a href="#イベント名" class="headerlink" title="イベント名"></a>イベント名</h2><p>コンポーネントやプロパティとは違い、イベント名の大文字と小文字は自動的に変換されません。その代わり発火されるイベント名とイベントリスナ名は全く同じにする必要があります。例えばキャメルケース(camelCase)のイベント名でイベントを発火した場合:</p>
 <pre><code class="hljs js"><span class="hljs-keyword">this</span>.$emit(<span class="hljs-string">'myEvent'</span>)</code></pre>
+
 <p>ケバブケース(kebab-case)でリスナ名を作っても何も起こりません：</p>
 <pre><code class="hljs html"><span class="hljs-comment">&lt;!-- 動作しません --&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">my-component</span> <span class="hljs-attr">v-on:my-event</span>=<span class="hljs-string">"doSomething"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">my-component</span>&gt;</span></code></pre>
+
 <p>コンポーネントやプロパティとは違い、イベント名は JavaScript 内で変数やプロパティ名として扱われることはないので、キャメルケース(camelCase)やパスカルケース(PascalCase)を使う理由はありません。さらに DOM テンプレート内の <code>v-on</code> イベントリスナは自動的に小文字に変換されます (HTML が大文字と小文字を判別しないため)。このため <code>v-on:myEvent</code> は <code>v-on:myevent</code> になり <code>myEvent</code> にリスナが反応することができなくなります。</p>
 <p>こういった理由から <strong>いつもケバブケース(kebab-case)を使うこと</strong> をお薦めします。</p>
 <h2 id="v-model-を使ったコンポーネントのカスタマイズ"><a href="#v-model-を使ったコンポーネントのカスタマイズ" class="headerlink" title="v-model を使ったコンポーネントのカスタマイズ"></a><code>v-model</code> を使ったコンポーネントのカスタマイズ</h2><blockquote>
@@ -1002,13 +1004,16 @@
     &gt;
   `</span>
 &#125;)</code></pre>
+
 <p>このコンポーネントで <code>v-model</code> を使う場合：</p>
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">base-checkbox</span> <span class="hljs-attr">v-model</span>=<span class="hljs-string">"lovingVue"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">base-checkbox</span>&gt;</span></code></pre>
+
 <p><code>lovingVue</code> の値が <code>checked</code> プロパティに渡ります。 <code>&lt;base-checkbox&gt;</code> が <code>change</code> イベントを新しい値で発火した時に <code>lovingVue</code> プロパティが更新されます。</p>
 <p class="tip"><code>checked</code>プロパティをコンポーネント内の <code>プロパティ</code> オプション内でも宣言する必要がある事を注意してください。</p>
 
 <h2 id="コンポーネントにネイティブイベントをバインディング"><a href="#コンポーネントにネイティブイベントをバインディング" class="headerlink" title="コンポーネントにネイティブイベントをバインディング"></a>コンポーネントにネイティブイベントをバインディング</h2><p>コンポーネントのルート要素にあるネイティブイベントを購読したい場合もあるかもしれません。こういった場合は <code>.native</code> 修飾子を <code>v-on</code> に付けてください。</p>
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">base-input</span> <span class="hljs-attr">v-on:focus.native</span>=<span class="hljs-string">"onFocus"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">base-input</span>&gt;</span></code></pre>
+
 <p>このやり方が役に立つこともありますが、<code>&lt;input&gt;</code> など特定の要素を購読したい場合はあまりいいやり方ではありません。例えば上にある <code>&lt;base-input&gt;</code> コンポーネントがリファクタリングされた場合、元要素は <code>&lt;label&gt;</code> 要素になってしまうかもしれません：</p>
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">label</span>&gt;</span>
   &#123;&#123; label &#125;&#125;
@@ -1018,12 +1023,14 @@
     <span class="hljs-attr">v-on:input</span>=<span class="hljs-string">"$emit('input', $event.target.value)"</span>
   &gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span></code></pre>
+
 <p>このような場合は親にある <code>.native</code> リスナは静かに動作しなくなります。エラーは何も出力されませんが、<code>onFocus</code> ハンドラが呼ばれるはずの時に呼ばれなくなります。</p>
 <p>この問題を解決するために Vue は <code>$listeners</code> というコンポーネントで使えるリスナオブジェクトの入ったプロパティを提供しています。例えば：</p>
 <pre><code class="hljs js">&#123;
   <span class="hljs-attr">focus</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">event</span>) </span>&#123; <span class="hljs-comment">/* ... */</span> &#125;
   input: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">value</span>) </span>&#123; <span class="hljs-comment">/* ... */</span> &#125;,
 &#125;</code></pre>
+
 <p><code>$listeners</code> プロパティを使うことで、コンポーネントの全てのイベントリスナを <code>v-on=&quot;$listeners&quot;</code> を使って特定の子要素に送ることができます、<code>&lt;input&gt;</code> の様な要素の場合は <code>v-model</code> を使って動作させたいでしょう。以下の <code>inputListeners</code> の様に新しい算出プロパティを作った方が便利なことも多いです。</p>
 <pre><code class="hljs js">Vue.component(<span class="hljs-string">'base-input'</span>, &#123;
   <span class="hljs-attr">inheritAttrs</span>: <span class="hljs-literal">false</span>,
@@ -1057,6 +1064,7 @@
     &lt;/label&gt;
   `</span>
 &#125;)</code></pre>
+
 <p><code>&lt;base-input&gt;</code> コンポーネントが <strong>完全に透過的なラッパ</strong> として扱えるようになったため、普通の <code>&lt;input&gt;</code> 要素と全く同じように使うことができるようになりました。<code>.native</code> 修飾子なしで全ての同じ要素とリスナが動作します。</p>
 <h2 id="sync-修飾子"><a href="#sync-修飾子" class="headerlink" title=".sync 修飾子"></a><code>.sync</code> 修飾子</h2><blockquote>
 <p>2.3.0から新規追加</p>
@@ -1064,19 +1072,23 @@
 <p>“双方向バインディング”がプロパティに対して必要な場合もあります。残念ながら、本当の双方向バインディングはメンテナンスの問題を引き起こす可能性があります。子コンポーネントは親でも子でもその変更元が明らかでなくても親を変更させることができるからです。</p>
 <p>このため代わりに <code>update:myPropName</code> というパターンでイベントを発火させる事をお薦めします。例えば <code>title</code> というプロパティを持つ仮のコンポーネントがあった場合、意図的に新しい値を割り当てる事ができます</p>
 <pre><code class="hljs js"><span class="hljs-keyword">this</span>.$emit(<span class="hljs-string">'update:title'</span>, newTitle)</code></pre>
+
 <p>こうする事で、必要な場合、親がこのイベントを購読し、ローカルデータプロパティを更新することができます。例えば:</p>
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">text-document</span>
   <span class="hljs-attr">v-bind:title</span>=<span class="hljs-string">"doc.title"</span>
   <span class="hljs-attr">v-on:update:title</span>=<span class="hljs-string">"doc.title = $event"</span>
 &gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">text-document</span>&gt;</span></code></pre>
+
 <p>このパターンを <code>.sync</code> 修飾子で短く書くことができます：</p>
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">text-document</span> <span class="hljs-attr">v-bind:title.sync</span>=<span class="hljs-string">"doc.title"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">text-document</span>&gt;</span></code></pre>
-<p class="tip"><code>v-bind</code> に <code>.sync</code> 修飾子をつける場合は式を指定しても<strong>動作しない</strong>ことに注意してください (例: <code>v-bind:title.sync=”doc.title + ‘!’”</code> は無効です)。そうではなく、 <code>v-model</code> と同様にバインドしたいプロパティ名のみを指定してください。</p>
+
+<p class="tip"><code>v-bind</code> に <code>.sync</code> 修飾子をつける場合は式を指定しても<strong>動作しない</strong>ことに注意してください (例: <code>v-bind:title.sync="doc.title + '!'"</code> は無効です)。そうではなく、 <code>v-model</code> と同様にバインドしたいプロパティ名のみを指定してください。</p>
 
 <p><code>.sync</code> 修飾子を <code>v-bind</code> に付けることでオブジェクトを使って複数のプロパティを一度にセットする事ができます：</p>
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">text-document</span> <span class="hljs-attr">v-bind.sync</span>=<span class="hljs-string">"doc"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">text-document</span>&gt;</span></code></pre>
+
 <p>こうする事で <code>doc</code> オブジェクト内の各プロパティ (例えば <code>title</code>) がひとつのプロパティとして渡され、<code>v-on</code> アップデートリスナがそれぞれに付けられます。</p>
-<p class="tip"><code>v-bind.sync</code> を<code>v-bind.sync=”{ title: doc.title }”</code> などの様に文字列オブジェクトと一緒に使う場合、こういった複雑な表現をパースする際に様々なケースが考えられるのでうまく動作しません。</p>
+<p class="tip"><code>v-bind.sync</code> を<code>v-bind.sync="{ title: doc.title }"</code> などの様に文字列オブジェクトと一緒に使う場合、こういった複雑な表現をパースする際に様々なケースが考えられるのでうまく動作しません。</p>
 
   
   

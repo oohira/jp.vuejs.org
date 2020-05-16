@@ -981,9 +981,11 @@
 <p>Vue.js を試すには、<a href="https://codesandbox.io/s/github/vuejs/vuejs.org/tree/master/src/v2/examples/vue-20-hello-world" target="_blank" rel="noopener">Hello World example</a> が最も簡単です。気軽に他のタブを開いて、基本的な例を試してみましょう。もしくは、単純に <a href="https://github.com/vuejs/vuejs.org/blob/master/src/v2/examples/vue-20-hello-world/index.html" target="_blank" download="index.html" rel="noopener noreferrer"><code>index.html</code> を作成し </a> 、以下のコードで Vue を導入することができます:</p>
 <pre><code class="hljs html"><span class="hljs-comment">&lt;!-- 開発バージョン、便利なコンソールの警告が含まれています --&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://cdn.jsdelivr.net/npm/vue/dist/vue.js"</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code></pre>
+
 <p>or:</p>
 <pre><code class="hljs html"><span class="hljs-comment">&lt;!-- 本番バージョン、サイズと速度のために最適化されています --&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://cdn.jsdelivr.net/npm/vue"</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code></pre>
+
 <p>Vue の他のインストール方法について、<a href="../guide/installation.html">インストール</a> ページで紹介しています。注意点として、初心者が <code>vue-cli</code> で始めることは推奨<strong>しません</strong>（特に、Node.js ベースのツールについてまだ詳しくない場合）。</p>
 <p>よりインタラクティブに学びたい場合、スクリーンキャストといつでも一時停止してコードを試せる環境を組み合わせた、 <a href="https://scrimba.com/g/gvuedocs" target="_blank" rel="noopener">Scrimba の一連のチュートリアル</a> を利用可能です。</p>
 <h2 id="宣言的レンダリング"><a href="#宣言的レンダリング" class="headerlink" title="宣言的レンダリング"></a>宣言的レンダリング</h2><div class="scrimba"><a href="https://scrimba.com/p/pXKqta/cQ3QVcr" target="_blank" rel="noopener noreferrer">Scrimba のレッスンを試す</a></div>
@@ -992,12 +994,14 @@
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"app"</span>&gt;</span>
   &#123;&#123; message &#125;&#125;
 <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
+
 <pre><code class="hljs js"><span class="hljs-keyword">var</span> app = <span class="hljs-keyword">new</span> Vue(&#123;
   <span class="hljs-attr">el</span>: <span class="hljs-string">'#app'</span>,
   <span class="hljs-attr">data</span>: &#123;
     <span class="hljs-attr">message</span>: <span class="hljs-string">'Hello Vue!'</span>
   &#125;
 &#125;)</code></pre>
+
 
 <div id="app" class="demo">
   {{ message }}
@@ -1011,6 +1015,7 @@ var app = new Vue({
 })
 </script>
 
+
 <p>これで初めての Vue アプリケーションが作成できました！一見するとただテンプレートを描画しているように見えますが、Vue.js は内部で多くの作業を行っています。データと DOM は関連付けられ、そして全てが<strong>リアクティブ</strong>になっています。どのようにしてそれが分かるのでしょうか？ブラウザの JavaScript コンソールを開いて、<code>app.message</code> の値を変えてみましょう。描画されたサンプルが、上記に応じて更新されるのが確認できるでしょう。</p>
 <p>これでもう HTML を直接操作する必要がないことに注意してください。Vue アプリケーションは、自身を単一の DOM 要素 (上の例では <code>#app</code> 要素) にアタッチし、完全に制御します。HTML はエントリポイントにはなりますが、ほかのすべてのことは新しく作られた Vue インスタンスの中で起こります。</p>
 <p>文字列の展開に加えて、以下のように要素の属性を束縛（バインディング）することもできます:</p>
@@ -1020,12 +1025,14 @@ var app = new Vue({
     to see my dynamically bound title!
   <span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
+
 <pre><code class="hljs js"><span class="hljs-keyword">var</span> app2 = <span class="hljs-keyword">new</span> Vue(&#123;
   <span class="hljs-attr">el</span>: <span class="hljs-string">'#app-2'</span>,
   <span class="hljs-attr">data</span>: &#123;
     <span class="hljs-attr">message</span>: <span class="hljs-string">'You loaded this page on '</span> + <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>().toLocaleString()
   &#125;
 &#125;)</code></pre>
+
 
 <div id="app-2" class="demo">
   <span v-bind:title="message">
@@ -1041,6 +1048,7 @@ var app2 = new Vue({
 })
 </script>
 
+
 <p>ここで新しい属性が出てきました。<code>v-bind</code> 属性はディレクティブと呼ばれています。ディレクティブは Vue.js によって提供された特別な属性を示すために <code>v-</code> 接頭辞がついています。これはあなたの推測通り、描画された DOM に特定のリアクティブな振舞いを与えます。ここで宣言されているのは、「この要素の <code>title</code> 属性を Vue インスタンスの <code>message</code> プロパティによって更新して保存する」ということになります。</p>
 <p>再び JavaScript コンソールを開いて、<code>app2.message = &#39;some new message&#39;</code> を打ち込むと、もう一度束縛されたHTML（このケースでは <code>title</code> 属性）が更新されるのが確認できるでしょう。</p>
 <h2 id="条件分岐とループ"><a href="#条件分岐とループ" class="headerlink" title="条件分岐とループ"></a>条件分岐とループ</h2><div class="scrimba"><a href="https://scrimba.com/p/pXKqta/cEQe4SJ" target="_blank" rel="noopener noreferrer">Scrimba でレッスンを試す</a></div>
@@ -1049,12 +1057,14 @@ var app2 = new Vue({
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"app-3"</span>&gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">v-if</span>=<span class="hljs-string">"seen"</span>&gt;</span>Now you see me<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
+
 <pre><code class="hljs js"><span class="hljs-keyword">var</span> app3 = <span class="hljs-keyword">new</span> Vue(&#123;
   <span class="hljs-attr">el</span>: <span class="hljs-string">'#app-3'</span>,
   <span class="hljs-attr">data</span>: &#123;
     <span class="hljs-attr">seen</span>: <span class="hljs-literal">true</span>
   &#125;
 &#125;)</code></pre>
+
 
 <div id="app-3" class="demo">
   <span v-if="seen">Now you see me</span>
@@ -1068,6 +1078,7 @@ var app3 = new Vue({
 })
 </script>
 
+
 <p>コンソールから <code>app3.seen = false</code> を入力してみましょう。メッセージが消えるはずです。</p>
 <p>この例は、テキストをデータに束縛できるだけではなく、 DOM の<strong>構造</strong>にデータを束縛できることを示しています。さらに Vue は、要素が Vue によって挿入/更新/削除されたとき、自動的に<a href="transitions.html">トランジションエフェクト(遷移効果)</a>を適用できる強力なトランジション効果システムも提供します。</p>
 <p>Vue.js にはかなりの数のディレクティブがあり、それぞれ独自に特別な機能を持っています。例えば、<code>v-for</code> ディレクティブを使えばアイテムのリストを配列内のデータを使って表示することができます:</p>
@@ -1078,6 +1089,7 @@ var app3 = new Vue({
     <span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
   <span class="hljs-tag">&lt;/<span class="hljs-name">ol</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
+
 <pre><code class="hljs js"><span class="hljs-keyword">var</span> app4 = <span class="hljs-keyword">new</span> Vue(&#123;
   <span class="hljs-attr">el</span>: <span class="hljs-string">'#app-4'</span>,
   <span class="hljs-attr">data</span>: &#123;
@@ -1088,6 +1100,7 @@ var app3 = new Vue({
     ]
   &#125;
 &#125;)</code></pre>
+
 
 <div id="app-4" class="demo">
   <ol>
@@ -1109,6 +1122,7 @@ var app4 = new Vue({
 })
 </script>
 
+
 <p>コンソールで <code>app4.todos.push({ text: &#39;New item&#39; })</code> と入力してみましょう。リストに新しいアイテムが追加されたはずです。</p>
 <h2 id="ユーザー入力の制御"><a href="#ユーザー入力の制御" class="headerlink" title="ユーザー入力の制御"></a>ユーザー入力の制御</h2><div class="scrimba"><a href="https://scrimba.com/p/pXKqta/czPNaUr" target="_blank" rel="noopener noreferrer">Scrimba のレッスンを試す</a></div>
 
@@ -1117,6 +1131,7 @@ var app4 = new Vue({
   <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>&#123;&#123; message &#125;&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">v-on:click</span>=<span class="hljs-string">"reverseMessage"</span>&gt;</span>Reverse Message<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
+
 <pre><code class="hljs js"><span class="hljs-keyword">var</span> app5 = <span class="hljs-keyword">new</span> Vue(&#123;
   <span class="hljs-attr">el</span>: <span class="hljs-string">'#app-5'</span>,
   <span class="hljs-attr">data</span>: &#123;
@@ -1128,6 +1143,7 @@ var app4 = new Vue({
     &#125;
   &#125;
 &#125;)</code></pre>
+
 
 <div id="app-5" class="demo">
   <p>{{ message }}</p>
@@ -1147,18 +1163,21 @@ var app5 = new Vue({
 })
 </script>
 
+
 <p><code>reverseMessage</code> メソッドの中では DOM 操作を行っていません。アプリケーションの状態のみを更新していることに注意してください。すべての DOM 操作を Vue に任せられるので、背後のロジックを書くことに集中することができます。</p>
 <p>Vue は入力とアプリケーションの状態の「双方向バインディング」が簡単に行える <code>v-model</code> ディレクティブも提供します:</p>
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"app-6"</span>&gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>&#123;&#123; message &#125;&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">v-model</span>=<span class="hljs-string">"message"</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
+
 <pre><code class="hljs js"><span class="hljs-keyword">var</span> app6 = <span class="hljs-keyword">new</span> Vue(&#123;
   <span class="hljs-attr">el</span>: <span class="hljs-string">'#app-6'</span>,
   <span class="hljs-attr">data</span>: &#123;
     <span class="hljs-attr">message</span>: <span class="hljs-string">'Hello Vue!'</span>
   &#125;
 &#125;)</code></pre>
+
 
 <div id="app-6" class="demo">
   <p>{{ message }}</p>
@@ -1173,6 +1192,7 @@ var app6 = new Vue({
 })
 </script>
 
+
 <h2 id="コンポーネントによる構成"><a href="#コンポーネントによる構成" class="headerlink" title="コンポーネントによる構成"></a>コンポーネントによる構成</h2><div class="scrimba"><a href="https://scrimba.com/p/pXKqta/cEQVkA3" target="_blank" rel="noopener noreferrer">Scrimba のレッスンを試す</a></div>
 
 <p>コンポーネントシステムは Vue.js におけるもうひとつの重要な抽象概念です。「小さく、自己完結的で、（多くの場合）再利用可能なコンポーネント」を組み合わせることで、大規模アプリケーションを構築することが可能になります。アプリケーションのインターフェイスについて考えてみると、ほぼすべてのタイプのインターフェイスはコンポーネントツリーとして抽象化することができます:</p>
@@ -1184,11 +1204,13 @@ Vue.component(<span class="hljs-string">'todo-item'</span>, &#123;
 &#125;)
 
 <span class="hljs-keyword">var</span> app = <span class="hljs-keyword">new</span> Vue(...)</code></pre>
+
 <p>これで他のコンポーネントのテンプレートからこのコンポーネントを利用できるようになります:</p>
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">ol</span>&gt;</span>
   <span class="hljs-comment">&lt;!-- todos 配列にある各 todo に対して todo-item コンポーネントのインスタンスを作成する --&gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-name">todo-item</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">todo-item</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">ol</span>&gt;</span></code></pre>
+
 <p>しかし、これでは全ての todo で同じテキストが描画されてしまうだけで、あまり面白くありません。親のスコープから子コンポーネントへとデータを渡せるようにすべきです。<a href="../guide/components.html#プロパティ">プロパティ</a>を受け取れるようにコンポーネントの定義を変えてみましょう:</p>
 <pre><code class="hljs js">Vue.component(<span class="hljs-string">'todo-item'</span>, &#123;
   <span class="hljs-comment">// todo-item コンポーネントはカスタム属性のような "プロパティ" で受け取ります。</span>
@@ -1196,6 +1218,7 @@ Vue.component(<span class="hljs-string">'todo-item'</span>, &#123;
   props: [<span class="hljs-string">'todo'</span>],
   <span class="hljs-attr">template</span>: <span class="hljs-string">'&lt;li&gt;&#123;&#123; todo.text &#125;&#125;&lt;/li&gt;'</span>
 &#125;)</code></pre>
+
 <p>こうすることで、繰り返されるコンポーネントそれぞれに <code>v-bind</code> を使って todo を渡すことができます:</p>
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"app-7"</span>&gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-name">ol</span>&gt;</span>
@@ -1211,6 +1234,7 @@ Vue.component(<span class="hljs-string">'todo-item'</span>, &#123;
     &gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">todo-item</span>&gt;</span>
   <span class="hljs-tag">&lt;/<span class="hljs-name">ol</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
+
 <pre><code class="hljs js">Vue.component(<span class="hljs-string">'todo-item'</span>, &#123;
   <span class="hljs-attr">props</span>: [<span class="hljs-string">'todo'</span>],
   <span class="hljs-attr">template</span>: <span class="hljs-string">'&lt;li&gt;&#123;&#123; todo.text &#125;&#125;&lt;/li&gt;'</span>
@@ -1226,6 +1250,7 @@ Vue.component(<span class="hljs-string">'todo-item'</span>, &#123;
     ]
   &#125;
 &#125;)</code></pre>
+
 
 <div id="app-7" class="demo">
   <ol>
@@ -1249,6 +1274,7 @@ var app7 = new Vue({
 })
 </script>
 
+
 <p>このサンプルは不自然ではありますが、アプリケーションをより小さな単位に分割することに成功し、またプロパティのインターフェイスによって子コンポーネントは適切に疎結合な状態になりました。ここからさらに <code>&lt;todo-item&gt;</code> コンポーネントを、より複雑なテンプレートやロジックを使って、親コンポーネントに影響を与えることなく改良することができます。</p>
 <p>大規模なアプリケーションでは、開発を行いやすくするために、アプリケーション全体をコンポーネントに分割することが必要です。コンポーネントについては<a href="components.html">ガイドの後半</a>でより詳しく話しますが、コンポーネントを駆使した(架空の)アプリケーションのテンプレートがどういうものになるかをここに載せておきます:</p>
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"app"</span>&gt;</span>
@@ -1258,6 +1284,7 @@ var app7 = new Vue({
     <span class="hljs-tag">&lt;<span class="hljs-name">app-content</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">app-content</span>&gt;</span>
   <span class="hljs-tag">&lt;/<span class="hljs-name">app-view</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
+
 <h3 id="カスタム要素との関係"><a href="#カスタム要素との関係" class="headerlink" title="カスタム要素との関係"></a>カスタム要素との関係</h3><p>Vue のコンポーネントが <a href="https://www.w3.org/wiki/WebComponents/" target="_blank" rel="noopener">Web Components Spec</a> の一部の「カスタム要素 (Custom Element)」によく似ていることに気付いたかもしれません。これは Vue のコンポーネント構文は Web Components を手本にしているためです。例えば、Vue コンポーネントは <a href="https://github.com/w3c/webcomponents/blob/gh-pages/proposals/Slots-Proposal.md" target="_blank" rel="noopener">Slot API</a> と <code>is</code> という特別な属性を実装しています。しかしながら、いくつか重要な違いがあります:</p>
 <ol>
 <li><p>Web Components の仕様は確定しましたが、全てのブラウザにネイティブ実装されているわけではありません。Safari 10.1 以上、Chrome 54 以上、Firefox 63 以上が Web Components をネイティブでサポートしています。一方、Vue コンポーネントはどんなポリフィル (polyfill) も必要とせず、サポートされる全てのブラウザ (IE9 とそれ以上) で同じ動作をします。必要に応じて、Vue コンポーネントはネイティブなカスタム要素内で抱合 (wrap) することができます。</p>

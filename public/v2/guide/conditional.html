@@ -974,15 +974,18 @@
 
 <h2 id="v-if"><a href="#v-if" class="headerlink" title="v-if"></a><code>v-if</code></h2><p><code>v-if</code> ディレクティブは、ブロックを条件に応じて描画したい場合に使用されます。ブロックは、ディレクティブの式が真を返す場合のみ描画されます。</p>
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">h1</span> <span class="hljs-attr">v-if</span>=<span class="hljs-string">"awesome"</span>&gt;</span>Vue is awesome!<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span></code></pre>
+
 <p>これは、<code>v-else</code> で “else ブロック” を追加することも可能です:</p>
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">h1</span> <span class="hljs-attr">v-if</span>=<span class="hljs-string">"awesome"</span>&gt;</span>Vue is awesome!<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">h1</span> <span class="hljs-attr">v-else</span>&gt;</span>Oh no 😢<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span></code></pre>
+
 <h3 id="テンプレートでの-v-if-による条件グループ"><a href="#テンプレートでの-v-if-による条件グループ" class="headerlink" title="テンプレートでの v-if による条件グループ"></a>テンプレートでの <code>v-if</code> による条件グループ</h3><p><code>v-if</code> はディレクティブなので、単一の要素に付加する必要があります。しかし、1 要素よりも多くの要素と切り替えたい場合はどうでしょうか？このケースでは、非表示ラッパー (wrapper) として提供される、<code>&lt;template&gt;</code> 要素で <code>v-if</code> を使用できます。最終的に描画される結果は、<code>&lt;template&gt;</code> 要素は含まれません。</p>
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">template</span> <span class="hljs-attr">v-if</span>=<span class="hljs-string">"ok"</span>&gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>Title<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>Paragraph 1<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>Paragraph 2<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span></code></pre>
+
 <h3 id="v-else"><a href="#v-else" class="headerlink" title="v-else"></a><code>v-else</code></h3><p><code>v-if</code> に対して “else block” を示すために、<code>v-else</code> ディレクティブを使用できます:</p>
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">v-if</span>=<span class="hljs-string">"Math.random() &gt; 0.5"</span>&gt;</span>
   Now you see me
@@ -990,6 +993,7 @@
 <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">v-else</span>&gt;</span>
   Now you don't
 <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
+
 <p><code>v-else</code> 要素は、<code>v-if</code> または <code>v-else-if</code> 要素の直後になければなりません。それ以外の場合は認識されません。</p>
 <h3 id="v-else-if"><a href="#v-else-if" class="headerlink" title="v-else-if"></a><code>v-else-if</code></h3><blockquote>
 <p>2.1.0 から新規</p>
@@ -1007,6 +1011,7 @@
 <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">v-else</span>&gt;</span>
   Not A/B/C
 <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
+
 <p><code>v-else</code> と同様に、<code>v-else-if</code> 要素は <code>v-if</code> 要素または<code>v-else-if</code> 要素の直後になければなりません。</p>
 <h3 id="key-による再利用可能な要素の制御"><a href="#key-による再利用可能な要素の制御" class="headerlink" title="key による再利用可能な要素の制御"></a><code>key</code> による再利用可能な要素の制御</h3><p>Vue は要素を可能な限り効率的に描画しようとしますが、スクラッチから描画する代わりにそれら要素を再利用することがよくあります。Vue を非常に速くするのに役立つ以外にも、これにはいくつかの便利な利点があります。たとえば、ユーザーが複数のログインタイプを切り替えることを許可する場合は、次のようにします:</p>
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">template</span> <span class="hljs-attr">v-if</span>=<span class="hljs-string">"loginType === 'username'"</span>&gt;</span>
@@ -1017,6 +1022,7 @@
   <span class="hljs-tag">&lt;<span class="hljs-name">label</span>&gt;</span>Email<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">placeholder</span>=<span class="hljs-string">"Enter your email address"</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span></code></pre>
+
 <p>上記のコードで <code>loginType</code> を切り替えても、ユーザーが既に入力したものは消去されません。両方のテンプレートが同じ要素を使用するので、<code>&lt;input&gt;</code> は置き換えられません。単に <code>placeholder</code> です。</p>
 <p>input にテキストを入力して、トグルボタンを押して自分で確認してください：</p>
 
@@ -1047,6 +1053,7 @@ new Vue({
 })
 </script>
 
+
 <p>しかしこれは必ずしも望ましいことでないかもしれないので、Vue は”この 2 つの要素は完全に別個のもので、再利用しないでください” と伝える方法を提供します。それは、一意の値を持つ <code>key</code> 属性を追加するだけです:</p>
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">template</span> <span class="hljs-attr">v-if</span>=<span class="hljs-string">"loginType === 'username'"</span>&gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-name">label</span>&gt;</span>Username<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
@@ -1056,6 +1063,7 @@ new Vue({
   <span class="hljs-tag">&lt;<span class="hljs-name">label</span>&gt;</span>Email<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">placeholder</span>=<span class="hljs-string">"Enter your email address"</span> <span class="hljs-attr">key</span>=<span class="hljs-string">"email-input"</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span></code></pre>
+
 <p>トグルするたびにこれらの input が最初から描画されます。自分で確認してみましょう:</p>
 
 <div id="key-example" class="demo">
@@ -1085,17 +1093,19 @@ new Vue({
 })
 </script>
 
+
 <p><code>&lt;label&gt;</code> 要素は、<code>key</code> 属性を持たないため、依然として効率的に再利用されていることに注意してください:</p>
 <h2 id="v-show"><a href="#v-show" class="headerlink" title="v-show"></a><code>v-show</code></h2><p>条件的に要素を表示するための別のオプションは <code>v-show</code> です。使用方法はほとんど同じです:</p>
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">h1</span> <span class="hljs-attr">v-show</span>=<span class="hljs-string">"ok"</span>&gt;</span>Hello!<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span></code></pre>
+
 <p>違いは <code>v-show</code> による要素は常に描画されて DOM に維持するということです。<code>v-show</code> はシンプルに要素の <code>display</code> CSS プロパティを切り替えます。</p>
-<p class="tip"><code>v-show</code> は <code>&lt;template&gt;</code> 要素をサポートせず、<code>v-else</code> とも連動しないということに注意してください。</p>
+<p class="tip">`v-show` は `<template>` 要素をサポートせず、`v-else` とも連動しないということに注意してください。</template></p>
 
 <h2 id="v-if-vs-v-show"><a href="#v-if-vs-v-show" class="headerlink" title="v-if vs v-show"></a><code>v-if</code> vs <code>v-show</code></h2><p><code>v-if</code> は、イベントリスナと子コンポーネント内部の条件ブロックが適切に破棄され、そして切り替えられるまでの間再作成されるため、”リアル”な条件レンダリングです。</p>
 <p><code>v-if</code> は <strong>遅延描画 (lazy)</strong> です。 初期表示において false の場合、何もしません。条件付きブロックは、条件が最初に true になるまで描画されません。</p>
 <p>一方で、<code>v-show</code> はとてもシンプルです。要素は初期条件に関わらず常に描画され、シンプルな CSS ベースの切り替えとして保存されます。</p>
 <p>一般的に、<code>v-if</code> はより高い切り替えコストを持っているのに対して、 <code>v-show</code> はより高い初期描画コストを持っています。 そのため、とても頻繁に何かを切り替える必要があれば <code>v-show</code> を選び、条件が実行時に変更することがほとんどない場合は、<code>v-if</code> を選びます。</p>
-<h2 id="v-if-と-v-for"><a href="#v-if-と-v-for" class="headerlink" title="v-if と v-for"></a><code>v-if</code> と <code>v-for</code></h2><p class="tip"><code>v-if</code> と <code>v-for</code> を同時に利用することは <strong>推奨されません</strong>。 詳細については <a href="/v2/style-guide/#v-for-と一緒に-v-if-を使うのを避ける-必須">スタイルガイド</a> を参照ください。</p>
+<h2 id="v-if-と-v-for"><a href="#v-if-と-v-for" class="headerlink" title="v-if と v-for"></a><code>v-if</code> と <code>v-for</code></h2><p class="tip">`v-if` と `v-for` を同時に利用することは **推奨されません**。 詳細については [スタイルガイド](/v2/style-guide/#v-for-と一緒に-v-if-を使うのを避ける-必須) を参照ください。</p>
 
 <p><code>v-if</code> といっしょに使用されるとき、<code>v-for</code> は <code>v-if</code> より優先度が高くなります。詳細については<a href="../guide/list.html#v-for-と-v-if">リストレンダリングのガイド</a>を参照してください。</p>
 

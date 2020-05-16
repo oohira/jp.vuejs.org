@@ -336,6 +336,7 @@
 </li>
 <li><p><strong>使用方法:</strong></p>
 <pre><code class="hljs js">Vue.config.silent = <span class="hljs-literal">true</span></code></pre>
+
 <p>すべての Vue のログと警告を抑制します。</p>
 </li>
 </ul>
@@ -354,6 +355,7 @@
 &#125;)
 
 <span class="hljs-comment">// Profile.options._my_option = 2</span></code></pre>
+
 <p>オプションに対してカスタムマージストラテジを定義します。</p>
 <p>マージ戦略を親で定義されたオプションの値と子のインスタンスの値が、それぞれ第1引数、第2引数として受け取ります。Vue インスタンスのコンテキストは第3引数として渡されます。</p>
 </li>
@@ -368,6 +370,7 @@
 <li><p><strong>使用方法:</strong></p>
 <pre><code class="hljs js"><span class="hljs-comment">// Vue ローディング直後、この設定が同期されていることを確認してください</span>
 Vue.config.devtools = <span class="hljs-literal">true</span></code></pre>
+
 <p><a href="https://github.com/vuejs/vue-devtools" target="_blank" rel="noopener">vue-devtools</a> インスペクションを許可するかどうか設定します。このオプションのデフォルト値は development ビルドでは、<code>true</code> で production ビルドでは <code>false</code> です。production ビルドで <code>true</code> に設定することでインスペクションを有効にできます。</p>
 </li>
 </ul>
@@ -382,6 +385,7 @@ Vue.config.devtools = <span class="hljs-literal">true</span></code></pre>
   <span class="hljs-comment">// `info` は Vue 固有のエラー情報です（例： どのライフサイクルフックでエラーが起きたかなど）。</span>
   <span class="hljs-comment">// 2.2.0 以降で使用できます。</span>
 &#125;</code></pre>
+
 <p>コンポーネントの描画関数とウォッチャにおいて未捕獲のエラーに対してハンドラを割り当てます。ハンドラはエラーと Vue インスタンスが引数に渡されて呼び出されます。</p>
 <blockquote>
 <p>2.2.0 以降では、このフックは、コンポーネントのライフサイクルフック中のエラーも捉えます。また、このフックが <code>undefined</code> の場合、捕捉されたエラーは、アプリケーションをクラッシュさせずに、代わりに <code>console.error</code> を用いて記録されます。</p>
@@ -409,6 +413,7 @@ Vue.config.devtools = <span class="hljs-literal">true</span></code></pre>
 <pre><code class="hljs js">Vue.config.warnHandler = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">msg, vm, trace</span>) </span>&#123;
   <span class="hljs-comment">// `トレース`はコンポーネント階層のトレースです</span>
 &#125;</code></pre>
+
 <p>Vue 実行時の警告に対してカスタムハンドラを割り当てます。これは、開発中のみ動作し、プロダクションでは無視されるので注意してください。</p>
 </li>
 </ul>
@@ -425,6 +430,7 @@ Vue.config.devtools = <span class="hljs-literal">true</span></code></pre>
   // 2.5 以降だけ
   /^ion-/
 ]</code></pre>
+
 <p>Vue の外部に定義されたカスタム要素を無視するようにします(例: Web Components の API を使用)。それ以外の場合は、グローバルコンポーネントを登録することを忘れたまたはコンポーネント名のスペルミスしたと仮定すると、<code>不明なカスタム要素</code>に関する警告がスローされます。</p>
 </li>
 </ul>
@@ -443,7 +449,9 @@ Vue.config.devtools = <span class="hljs-literal">true</span></code></pre>
   <span class="hljs-string">"media-play-pause"</span>: <span class="hljs-number">179</span>,
   <span class="hljs-attr">up</span>: [<span class="hljs-number">38</span>, <span class="hljs-number">87</span>]
 &#125;</code></pre>
+
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text"</span> @<span class="hljs-attr">keyup.media-play-pause</span>=<span class="hljs-string">"method"</span>&gt;</span></code></pre>
+
 <p><code>v-on</code> 向けにカスタムキーエイリアスを定義します。</p>
 </li>
 </ul>
@@ -481,6 +489,7 @@ Vue.config.devtools = <span class="hljs-literal">true</span></code></pre>
 <p>Vue コンストラクタベースの “サブクラス” を作成します。引数はコンポーネントオプションを含むオブジェクトにする必要があります。</p>
 <p>ここでの注意すべき特別なケースは、<code>data</code> オプションは、これらは <code>Vue.extend()</code> で使用されるとき、関数にしなければなりません。</p>
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"mount-point"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
+
 <pre><code class="hljs js"><span class="hljs-comment">// 再利用可能なコンストラクタを作成</span>
 <span class="hljs-keyword">var</span> Profile = Vue.extend(&#123;
   <span class="hljs-attr">template</span>: <span class="hljs-string">'&lt;p&gt;&#123;&#123;firstName&#125;&#125; &#123;&#123;lastName&#125;&#125; aka &#123;&#123;alias&#125;&#125;&lt;/p&gt;'</span>,
@@ -494,6 +503,7 @@ Vue.config.devtools = <span class="hljs-literal">true</span></code></pre>
 &#125;)
 <span class="hljs-comment">// Profile のインスタンスを作成して、要素上にマウントする</span>
 <span class="hljs-keyword">new</span> Profile().$mount(<span class="hljs-string">'#mount-point'</span>)</code></pre>
+
 <p>結果は以下のようになります:</p>
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>Walter White aka Heisenberg<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span></code></pre>
 </li>
@@ -521,6 +531,7 @@ Vue.nextTick()
   .then(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;
     <span class="hljs-comment">// DOM updated</span>
   &#125;)</code></pre>
+
 <blockquote>
 <p>2.1.0 から新規: コールバックが提供されず、実行環境で Promise がサポートされている場合は Promise を返します。Vue には Promise ポリフィルが付属していないため、Promise をネイティブにサポートしていないブラウザ (IE かどうか確認して) をターゲットにしている場合は、自分でポリフィルを提供する必要があるという点に注意してください。</p>
 </blockquote>
@@ -700,7 +711,8 @@ Vue.component(<span class="hljs-string">'my-component'</span>, &#123; <span clas
     &#125;, <span class="hljs-string">`count is: <span class="hljs-subst">$&#123;state.count&#125;</span>`</span>)
   &#125;
 &#125;</code></pre>
-<p class="tip">Vue 2.x では、<code>Vue.observable</code> は渡されたオブジェクトを直接操作するため、<a href="../guide/instance.html#データとメソッド">ここでデモされる</a> ように戻り値のオブジェクトと等しくなります。Vue 3.x では、代わりにリアクティブプロキシを返し、元のオブジェクトを直接変更してもリアクティブにならないようにします。そのため、将来の互換性を考えると、<code>Vue.observable</code> に渡したオブジェクトではなく、返されたオブジェクトを使うことを推奨します。</p>
+
+<p class="tip">Vue 2.x では、`Vue.observable` は渡されたオブジェクトを直接操作するため、[ここでデモされる](../guide/instance.html#データとメソッド) ように戻り値のオブジェクトと等しくなります。Vue 3.x では、代わりにリアクティブプロキシを返し、元のオブジェクトを直接変更してもリアクティブにならないようにします。そのため、将来の互換性を考えると、`Vue.observable` に渡したオブジェクトではなく、返されたオブジェクトを使うことを推奨します。</p>
 </li>
 <li><p><strong>参照:</strong> <a href="../guide/reactivity.html">リアクティブの探求</a></p>
 </li>
@@ -718,6 +730,7 @@ Vue.component(<span class="hljs-string">'my-component'</span>, &#123; <span clas
 &#125; <span class="hljs-keyword">else</span> &#123;
   <span class="hljs-comment">// サポートしていないバージョンの Vue</span>
 &#125;</code></pre>
+
 </li>
 </ul>
 <h2 id="オプション-データ"><a href="#オプション-データ" class="headerlink" title="オプション / データ"></a>オプション / データ</h2><h3 id="data"><a href="#data" class="headerlink" title="data"></a>data</h3><ul>
@@ -749,6 +762,7 @@ vm.$data === data <span class="hljs-comment">// =&gt; true</span>
     <span class="hljs-keyword">return</span> &#123; <span class="hljs-attr">a</span>: <span class="hljs-number">1</span> &#125;
   &#125;
 &#125;)</code></pre>
+
 <p><code>data</code> プロパティでアロー関数を使用する場合は、<code>this</code> はコンポーネントインスタンスになりませんが、それでも関数の第 1 引数としてアクセスすることができます:</p>
 <pre><code class="hljs js">data: <span class="hljs-function"><span class="hljs-params">vm</span> =&gt;</span> (&#123; <span class="hljs-attr">a</span>: vm.myProp &#125;)</code></pre>
 </li>
@@ -813,6 +827,7 @@ Vue.component(<span class="hljs-string">'props-demo-advanced'</span>, &#123;
     <span class="hljs-attr">msg</span>: <span class="hljs-string">'hello'</span>
   &#125;
 &#125;)</code></pre>
+
 </li>
 </ul>
 <h3 id="computed"><a href="#computed" class="headerlink" title="computed"></a>computed</h3><ul>
@@ -824,6 +839,7 @@ Vue.component(<span class="hljs-string">'props-demo-advanced'</span>, &#123;
 <pre><code class="hljs js">computed: &#123;
   <span class="hljs-attr">aDouble</span>: <span class="hljs-function"><span class="hljs-params">vm</span> =&gt;</span> vm.a * <span class="hljs-number">2</span>
 &#125;</code></pre>
+
 <p>算出プロパティはキャッシュされ、そしてリアクティブ依存が変更されたときにだけ再算出します。ある依存関係がインスタンスのスコープ外の(つまりリアクティブではない)場合、算出プロパティは更新され<strong>ない</strong>ことに注意してください。</p>
 </li>
 <li><p><strong>例:</strong></p>
@@ -858,7 +874,7 @@ vm.aDouble <span class="hljs-comment">// =&gt; 4</span></code></pre>
 </li>
 <li><p><strong>詳細:</strong></p>
 <p>Vue インスタンスに組み込まれるメソッドです。VM インスタンスでは、これらのメソッドに直接アクセスでき、ディレクティブの式で使用することもできます。すべてのメソッドは、Vue インスタンスに自動的に束縛された <code>this</code> コンテキストを持ちます。</p>
-<p class="tip"><strong>メソッド(例 <code>plus: () =&gt; this.a++</code>) を定義するためにアロー関数を使用すべきではないこと</strong>に注意してください。アロー関数は、<code>this</code> が期待する Vue インスタンスではなく、<code>this.a</code> が undefined になるため、親コンテキストに束縛できないことが理由です。</p>
+<p class="tip">__メソッド(例 `plus: () => this.a++`) を定義するためにアロー関数を使用すべきではないこと__に注意してください。アロー関数は、`this` が期待する Vue インスタンスではなく、`this.a` が undefined になるため、親コンテキストに束縛できないことが理由です。</p>
 </li>
 <li><p><strong>例:</strong></p>
 <pre><code class="hljs js"><span class="hljs-keyword">var</span> vm = <span class="hljs-keyword">new</span> Vue(&#123;
@@ -926,7 +942,8 @@ vm.a <span class="hljs-comment">// 2</span></code></pre>
   &#125;
 &#125;)
 vm.a = <span class="hljs-number">2</span> <span class="hljs-comment">// =&gt; new: 2, old: 1</span></code></pre>
-<p class="tip"><strong>ウォッチャ(例 <code>searchQuery: newValue =&gt; this.updateAutocomplete(newValue)</code>) を定義するためにアロー関数を使用すべきではないこと</strong>に注意してください。アロー関数は、<code>this</code> が期待する Vue インスタンスではなく、<code>this.updateAutocomplete</code> が undefined になるため、親コンテキストに束縛できないことが理由です。</p>
+
+<p class="tip">__ウォッチャ(例 `searchQuery: newValue => this.updateAutocomplete(newValue)`) を定義するためにアロー関数を使用すべきではないこと__に注意してください。アロー関数は、`this` が期待する Vue インスタンスではなく、`this.updateAutocomplete` が undefined になるため、親コンテキストに束縛できないことが理由です。</p>
 </li>
 <li><p><strong>参照:</strong> <a href="#vm-watch">インスタンスメソッド / データ - vm.$watch</a></p>
 </li>
@@ -940,9 +957,9 @@ vm.a = <span class="hljs-number">2</span> <span class="hljs-comment">// =&gt; ne
 <p>既存の DOM 要素に Vue インスタンスを与えます。CSS セレクタの文字列、実際の HTML 要素をとることができます。</p>
 <p>インスタンスがマウント後、解決された要素は <code>vm.$el</code> としてアクセス可能になります。</p>
 <p>インスタンス化の際にオプションが有効ならば、そのインスタンスはただちにコンパイルの段階に入ります。さもなければ、ユーザーがコンパイルを始めるために手作業で明示的に <code>vm.$mount()</code> を呼ぶ必要があります。</p>
-<p class="tip">与えられた要素は単にマウントするポイントとして機能します。Vue 1.x とは異なり、マウントされた要素は、全てのケースで Vue によって生成された DOM に置き換えられます。従って、ルートインスタンスを <code>&lt;html&gt;</code> または <code>&lt;body&gt;</code> にマウントすることは推奨されません。</p>
+<p class="tip">与えられた要素は単にマウントするポイントとして機能します。Vue 1.x とは異なり、マウントされた要素は、全てのケースで Vue によって生成された DOM に置き換えられます。従って、ルートインスタンスを `<html>` または `<body>` にマウントすることは推奨されません。</body></html></p>
 
-<p class="tip"><code>render</code> 関数または <code>template</code> オプションも存在しない場合、マウントしている DOM 要素にある HTML がテンプレートとして抽出されます。この場合、Vue のランタイムとコンパイラが同包された完全ビルドを使用する必要があります。</p>
+<p class="tip">`render` 関数または `template` オプションも存在しない場合、マウントしている DOM 要素にある HTML がテンプレートとして抽出されます。この場合、Vue のランタイムとコンパイラが同包された完全ビルドを使用する必要があります。</p>
 </li>
 <li><p><strong>参照:</strong></p>
 <ul>
@@ -959,7 +976,7 @@ vm.a = <span class="hljs-number">2</span> <span class="hljs-comment">// =&gt; ne
 <p><code>#</code> による文字列で始まる場合、querySelector として使用され、選択された要素の innerHTML をテンプレート文字列として使用します。これにより、テンプレートを組み込むための共通の <code>&lt;script type=&quot;x-template&quot;&gt;</code> というやり方を使うことができるようになります。</p>
 <p class="tip">セキュリティの観点から、信頼できる Vue のテンプレートだけ使用するべきです。決してユーザーによって生成されたコンテンツをテンプレートとして使用しないでください。</p>
 
-<p class="tip">Vue オプションに <code>render</code> 関数がある場合、テンプレートは無視されます。</p>
+<p class="tip">Vue オプションに `render` 関数がある場合、テンプレートは無視されます。</p>
 </li>
 <li><p><strong>参照:</strong></p>
 <ul>
@@ -974,7 +991,7 @@ vm.a = <span class="hljs-number">2</span> <span class="hljs-comment">// =&gt; ne
 <li><p><strong>詳細:</strong></p>
 <p>JavaScript による完全なプログラミングパワーを活用するために文字列テンプレートの代替として許可します。render 関数は、<code>VNode</code> を作成するために最初の引数として <code>createElement</code> メソッドを受け取ります</p>
 <p>コンポーネントが関数型コンポーネントならば、render 関数は、関数型コンポーネントが状態を持たないため、コンテキストなデータにアクセスするために提供する <code>context</code> を追加の引数として受け取ります。</p>
-<p class="tip"><code>render</code> 関数は、<code>el</code> オプションで指定されたマウント要素の <code>template</code> オプションまたは DOM にある HTML テンプレートからコンパイルされた描画関数より優先されます。</p>
+<p class="tip">`render` 関数は、`el` オプションで指定されたマウント要素の `template` オプションまたは DOM にある HTML テンプレートからコンパイルされた描画関数より優先されます。</p>
 </li>
 <li><p><strong>参照:</strong> <a href="../guide/render-function.html">描画関数</a></p>
 </li>
@@ -1002,7 +1019,7 @@ vm.a = <span class="hljs-number">2</span> <span class="hljs-comment">// =&gt; ne
 <li><p><strong>参照:</strong> <a href="../guide/render-function.html">描画関数</a></p>
 </li>
 </ul>
-<h2 id="オプション-ライフサイクルフック"><a href="#オプション-ライフサイクルフック" class="headerlink" title="オプション / ライフサイクルフック"></a>オプション / ライフサイクルフック</h2><p class="tip">全てのライフサイクルフックは、データ、算出プロパティ、およびメソッドにアクセスできるようにするために、自動的にインスタンスに束縛する <code>this</code> コンテキストを持っています。これは、<strong>ライフサイクルメソッド(例 <code>created: () =&gt; this.fetchTodos()</code>) を定義するためにアロー関数を使用すべきではないこと</strong>を意味します。アロー関数は、<code>this</code> が期待する Vue インスタンスではなく、<code>this.fetchTodos</code> が undefined になるため、親コンテキストに束縛できないことが理由です。</p>
+<h2 id="オプション-ライフサイクルフック"><a href="#オプション-ライフサイクルフック" class="headerlink" title="オプション / ライフサイクルフック"></a>オプション / ライフサイクルフック</h2><p class="tip">全てのライフサイクルフックは、データ、算出プロパティ、およびメソッドにアクセスできるようにするために、自動的にインスタンスに束縛する `this` コンテキストを持っています。これは、__ライフサイクルメソッド(例 `created: () => this.fetchTodos()`) を定義するためにアロー関数を使用すべきではないこと__を意味します。アロー関数は、`this` が期待する Vue インスタンスではなく、`this.fetchTodos` が undefined になるため、親コンテキストに束縛できないことが理由です。</p>
 
 <h3 id="beforeCreate"><a href="#beforeCreate" class="headerlink" title="beforeCreate"></a>beforeCreate</h3><ul>
 <li><p><strong>型:</strong> <code>Function</code></p>
@@ -1043,6 +1060,7 @@ vm.a = <span class="hljs-number">2</span> <span class="hljs-comment">// =&gt; ne
     <span class="hljs-comment">// ビュー全体がレンダリングされた後にのみ実行されるコード</span>
   &#125;)
 &#125;</code></pre>
+
 <p><strong>このフックはサーバサイドレンダリングでは呼ばれません。</strong></p>
 </li>
 <li><p><strong>参照:</strong> <a href="../guide/instance.html#ライフサイクルダイアグラム">ライフサイクルダイアグラム</a></p>
@@ -1070,6 +1088,7 @@ vm.a = <span class="hljs-number">2</span> <span class="hljs-comment">// =&gt; ne
     <span class="hljs-comment">// ビュー全体が再レンダリングされた後にのみ実行されるコード</span>
   &#125;)
 &#125;</code></pre>
+
 <p><strong>このフックはサーバサイドレンダリングでは呼ばれません。</strong></p>
 </li>
 <li><p><strong>参照:</strong> <a href="../guide/instance.html#ライフサイクルダイアグラム">ライフサイクルダイアグラム</a></p>
@@ -1178,7 +1197,7 @@ vm.a = <span class="hljs-number">2</span> <span class="hljs-comment">// =&gt; ne
 </li>
 <li><p><strong>詳細:</strong></p>
 <p>作成されるインスタンスの親インスタンスを指定します。2つのインスタンス間で親子関係を確立します。親は子の <code>this.$parent</code> としてアクセス可能となり、子は親の <code>$children</code> 配列に追加されます。</p>
-<p class="tip"><code>$parent</code> と <code>$children</code> の使用は控えてください。これらはどうしても避けられないときに使用します。親子間の通信に対してプロパティとイベントを使用すべきです。</p>
+<p class="tip">`$parent` と `$children` の使用は控えてください。これらはどうしても避けられないときに使用します。親子間の通信に対してプロパティとイベントを使用すべきです。</p>
 
 </li>
 </ul>
@@ -1218,6 +1237,7 @@ vm.a = <span class="hljs-number">2</span> <span class="hljs-comment">// =&gt; ne
   <span class="hljs-attr">extends</span>: CompA,
   ...
 &#125;</code></pre>
+
 </li>
 </ul>
 <h3 id="provide-inject"><a href="#provide-inject" class="headerlink" title="provide / inject"></a>provide / inject</h3><blockquote>
@@ -1231,7 +1251,7 @@ vm.a = <span class="hljs-number">2</span> <span class="hljs-comment">// =&gt; ne
 </ul>
 </li>
 <li><p><strong>詳細:</strong></p>
-<p class="tip"><code>provide</code> および <code>inject</code> は、主に高度なプラグインやコンポーネントのライブラリのために提供されています。一般的なアプリケーションのコードで利用することは推奨されません。</p>
+<p class="tip">`provide` および `inject` は、主に高度なプラグインやコンポーネントのライブラリのために提供されています。一般的なアプリケーションのコードで利用することは推奨されません。</p>
 
 <p>この 1 組のオプションは、コンポーネントの階層がどれほど深いかにかかわらず、それらが同じ親チェーン内にある限り、祖先コンポーネントが、自身の子孫コンポーネント全てに対する依存オブジェクトの注入役を務めることができるようにするために利用されます。React に精通している人は、 React のコンテキストの特徴と非常によく似ていると捉えると良いでしょう。</p>
 <p><code>provide</code> オプションの値は、オブジェクトもしくはオブジェクトを返す関数でなくてはなりません。このオブジェクトは自身の子孫に注入可能なプロパティを含みます。また、このオブジェクトのキーとして、 ES2015 の Symbol を利用することが可能ですが、ネイティブに <code>Symbol</code> と <code>Reflect.ownKeys</code> をサポートしている環境でのみ有効です。</p>
@@ -1267,6 +1287,7 @@ vm.a = <span class="hljs-number">2</span> <span class="hljs-comment">// =&gt; ne
   &#125;
   <span class="hljs-comment">// ...</span>
 &#125;</code></pre>
+
 <p>ES2015 のシンボルとともに <code>provide</code> 関数と <code>inject</code> オブジェクトを利用する場合:</p>
 <pre><code class="hljs js"><span class="hljs-keyword">const</span> s = <span class="hljs-built_in">Symbol</span>()
 
@@ -1282,6 +1303,7 @@ vm.a = <span class="hljs-number">2</span> <span class="hljs-comment">// =&gt; ne
   <span class="hljs-attr">inject</span>: &#123; s &#125;,
   <span class="hljs-comment">// ...</span>
 &#125;</code></pre>
+
 <blockquote>
 <p>次の 2 つの例は、Vue の 2.2.1 以降のみだけ動作します。以下のバージョンでは、注入された値は、<code>props</code> と <code>data</code> による初期化後に解決されます。</p>
 </blockquote>
@@ -1296,6 +1318,7 @@ vm.a = <span class="hljs-number">2</span> <span class="hljs-comment">// =&gt; ne
     &#125;
   &#125;
 &#125;</code></pre>
+
 <p>以下は、注入された値をデータのエントリとして使用します:</p>
 <pre><code class="hljs js"><span class="hljs-keyword">const</span> Child = &#123;
   <span class="hljs-attr">inject</span>: [<span class="hljs-string">'foo'</span>],
@@ -1305,6 +1328,7 @@ vm.a = <span class="hljs-number">2</span> <span class="hljs-comment">// =&gt; ne
     &#125;
   &#125;
 &#125;</code></pre>
+
 <blockquote>
 <p>2.5.0 以降では、注入はデフォルト値で任意にできます:</p>
 </blockquote>
@@ -1313,6 +1337,7 @@ vm.a = <span class="hljs-number">2</span> <span class="hljs-comment">// =&gt; ne
     <span class="hljs-attr">foo</span>: &#123; <span class="hljs-attr">default</span>: <span class="hljs-string">'foo'</span> &#125;
   &#125;
 &#125;</code></pre>
+
 <p>別の名前のプロパティから注入する必要がある場合は、<code>from</code> を使用して元のプロパティを指定します:</p>
 <pre><code class="hljs js"><span class="hljs-keyword">const</span> Child = &#123;
   <span class="hljs-attr">inject</span>: &#123;
@@ -1322,6 +1347,7 @@ vm.a = <span class="hljs-number">2</span> <span class="hljs-comment">// =&gt; ne
     &#125;
   &#125;
 &#125;</code></pre>
+
 <p>プロパティのデフォルトと同様に、プリミティブ値以外に対してはファクトリ関数を使用する必要があります:</p>
 <pre><code class="hljs js"><span class="hljs-keyword">const</span> Child = &#123;
   <span class="hljs-attr">inject</span>: &#123;
@@ -1331,6 +1357,7 @@ vm.a = <span class="hljs-number">2</span> <span class="hljs-comment">// =&gt; ne
     &#125;
   &#125;
 &#125;</code></pre>
+
 </li>
 </ul>
 <h2 id="オプション-その他"><a href="#オプション-その他" class="headerlink" title="オプション / その他"></a>オプション / その他</h2><h3 id="name"><a href="#name" class="headerlink" title="name"></a>name</h3><ul>
@@ -1359,6 +1386,7 @@ vm.a = <span class="hljs-number">2</span> <span class="hljs-comment">// =&gt; ne
 &#125;)
 
 <span class="hljs-comment">// デリミタを ES6 template string のスタイルに変更する</span></code></pre>
+
 </li>
 </ul>
 <h3 id="functional"><a href="#functional" class="headerlink" title="functional"></a>functional</h3><ul>
@@ -1396,13 +1424,16 @@ vm.a = <span class="hljs-number">2</span> <span class="hljs-comment">// =&gt; ne
   &#125;,
   <span class="hljs-comment">// ...</span>
 &#125;)</code></pre>
+
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">my-checkbox</span> <span class="hljs-attr">v-model</span>=<span class="hljs-string">"foo"</span> <span class="hljs-attr">value</span>=<span class="hljs-string">"some value"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">my-checkbox</span>&gt;</span></code></pre>
+
 <p>上記の例の場合は、下記のようになります:</p>
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">my-checkbox</span>
   <span class="hljs-attr">:checked</span>=<span class="hljs-string">"foo"</span>
   @<span class="hljs-attr">change</span>=<span class="hljs-string">"val =&gt; &#123; foo = val &#125;"</span>
   <span class="hljs-attr">value</span>=<span class="hljs-string">"some value"</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">my-checkbox</span>&gt;</span></code></pre>
+
 </li>
 </ul>
 <h3 id="inheritAttrs"><a href="#inheritAttrs" class="headerlink" title="inheritAttrs"></a>inheritAttrs</h3><blockquote>
@@ -1473,6 +1504,7 @@ vm.a = <span class="hljs-number">2</span> <span class="hljs-comment">// =&gt; ne
     <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">this</span>.$options.customOption) <span class="hljs-comment">// =&gt; 'foo'</span>
   &#125;
 &#125;)</code></pre>
+
 </li>
 </ul>
 <h3 id="vm-parent"><a href="#vm-parent" class="headerlink" title="vm.$parent"></a>vm.$parent</h3><ul>
@@ -1526,6 +1558,7 @@ vm.a = <span class="hljs-number">2</span> <span class="hljs-comment">// =&gt; ne
 
   <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>If I have some content down here, it will also be included in vm.$slots.default.<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>.
 <span class="hljs-tag">&lt;/<span class="hljs-name">blog-post</span>&gt;</span></code></pre>
+
 <pre><code class="hljs js">Vue.component(<span class="hljs-string">'blog-post'</span>, &#123;
   <span class="hljs-attr">render</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">createElement</span>) </span>&#123;
     <span class="hljs-keyword">var</span> header = <span class="hljs-keyword">this</span>.$slots.header
@@ -1663,6 +1696,7 @@ vm.$watch(
     <span class="hljs-comment">// 何かの処理</span>
   &#125;
 )</code></pre>
+
 <p><code>vm.$watch</code> はコールバックの実行を停止する unwatch 関数を返します。</p>
 <pre><code class="hljs js"><span class="hljs-keyword">var</span> unwatch = vm.$watch(<span class="hljs-string">'a'</span>, cb)
 <span class="hljs-comment">// 後で watcher を破棄する</span>
@@ -1682,6 +1716,7 @@ vm.someObject.nestedValue = <span class="hljs-number">123</span>
   <span class="hljs-attr">immediate</span>: <span class="hljs-literal">true</span>
 &#125;)
 <span class="hljs-comment">// その時の `a` の値で`コールバック`がただちに発火します</span></code></pre>
+
 <p><code>immediate</code> オプションを使う場合、最初のコールバック呼び出し時には該当プロパティの監視を解除できないことに注意してください。</p>
 <pre><code class="hljs js"><span class="hljs-comment">// エラーになります</span>
 <span class="hljs-keyword">var</span> unwatch = vm.$watch(
@@ -1692,6 +1727,7 @@ vm.someObject.nestedValue = <span class="hljs-number">123</span>
   &#125;,
   &#123; <span class="hljs-attr">immediate</span>: <span class="hljs-literal">true</span> &#125;
 )</code></pre>
+
 <p>コールバックの中でどうしても unwatch 関数を呼び出したい場合は、先に実行可能かをチェックする必要があります:</p>
 <pre><code class="hljs js"><span class="hljs-keyword">var</span> unwatch = vm.$watch(
   <span class="hljs-string">'value'</span>,
@@ -1703,6 +1739,7 @@ vm.someObject.nestedValue = <span class="hljs-number">123</span>
   &#125;,
   &#123; <span class="hljs-attr">immediate</span>: <span class="hljs-literal">true</span> &#125;
 )</code></pre>
+
 </li>
 </ul>
 <h3 id="vm-set-target-propertyName-index-value"><a href="#vm-set-target-propertyName-index-value" class="headerlink" title="vm.$set( target, propertyName/index, value )"></a>vm.$set( target, propertyName/index, value )</h3><ul>
@@ -1750,6 +1787,7 @@ vm.someObject.nestedValue = <span class="hljs-number">123</span>
 &#125;)
 vm.$emit(<span class="hljs-string">'test'</span>, <span class="hljs-string">'hi'</span>)
 <span class="hljs-comment">// =&gt; "hi"</span></code></pre>
+
 </li>
 </ul>
 <h3 id="vm-once-event-callback"><a href="#vm-once-event-callback" class="headerlink" title="vm.$once( event, callback )"></a>vm.$once( event, callback )</h3><ul>
@@ -1799,9 +1837,11 @@ vm.$emit(<span class="hljs-string">'test'</span>, <span class="hljs-string">'hi'
     &lt;/button&gt;
   `</span>
 &#125;)</code></pre>
+
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"emit-example-simple"</span>&gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-name">welcome-button</span> <span class="hljs-attr">v-on:welcome</span>=<span class="hljs-string">"sayHi"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">welcome-button</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
+
 <pre><code class="hljs js"><span class="hljs-keyword">new</span> Vue(&#123;
   <span class="hljs-attr">el</span>: <span class="hljs-string">'#emit-example-simple'</span>,
   <span class="hljs-attr">methods</span>: &#123;
@@ -1810,6 +1850,7 @@ vm.$emit(<span class="hljs-string">'test'</span>, <span class="hljs-string">'hi'
     &#125;
   &#125;
 &#125;)</code></pre>
+
 
   <div id="emit-example-simple" class="demo">
     <welcome-button v-on:welcome="sayHi"></welcome-button>
@@ -1832,6 +1873,7 @@ vm.$emit(<span class="hljs-string">'test'</span>, <span class="hljs-string">'hi'
     })
   </script>
   
+
 <p><code>$emit</code> を追加の引数と共に使う場合:</p>
 <pre><code class="hljs js">Vue.component(<span class="hljs-string">'magic-eight-ball'</span>, &#123;
   <span class="hljs-attr">data</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;
@@ -1851,9 +1893,11 @@ vm.$emit(<span class="hljs-string">'test'</span>, <span class="hljs-string">'hi'
     &lt;/button&gt;
   `</span>
 &#125;)</code></pre>
+
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"emit-example-argument"</span>&gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-name">magic-eight-ball</span> <span class="hljs-attr">v-on:give-advice</span>=<span class="hljs-string">"showAdvice"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">magic-eight-ball</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
+
 <pre><code class="hljs js"><span class="hljs-keyword">new</span> Vue(&#123;
   <span class="hljs-attr">el</span>: <span class="hljs-string">'#emit-example-argument'</span>,
   <span class="hljs-attr">methods</span>: &#123;
@@ -1862,6 +1906,7 @@ vm.$emit(<span class="hljs-string">'test'</span>, <span class="hljs-string">'hi'
     &#125;
   &#125;
 &#125;)</code></pre>
+
 
   <div id="emit-example-argument" class="demo">
     <magic-eight-ball v-on:give-advice="showAdvice"></magic-eight-ball>
@@ -1895,6 +1940,7 @@ vm.$emit(<span class="hljs-string">'test'</span>, <span class="hljs-string">'hi'
     })
   </script>
   
+
 </li>
 </ul>
 <h2 id="インスタンスメソッド-ライフサイクル"><a href="#インスタンスメソッド-ライフサイクル" class="headerlink" title="インスタンスメソッド / ライフサイクル"></a>インスタンスメソッド / ライフサイクル</h2><h3 id="vm-mount-elementOrSelector"><a href="#vm-mount-elementOrSelector" class="headerlink" title="vm.$mount( [elementOrSelector] )"></a>vm.$mount( [elementOrSelector] )</h3><ul>
@@ -1979,7 +2025,7 @@ vm.$emit(<span class="hljs-string">'test'</span>, <span class="hljs-string">'hi'
 <li><p><strong>使用方法:</strong></p>
 <p>vm を完全に破棄します。既存の他の vm との接続を切り、そのすべてのディレクティブとの束縛を解消し、すべてのイベントリスナを開放します。</p>
 <p><code>beforeDestroy</code> と <code>destroyed</code> フックをトリガします。</p>
-<p class="tip">通常のケースでは、このメソッドはあなた自身で呼ぶべきではありません。<code>v-if</code> と <code>v-for</code> を使用してデータ駆動による方法で子コンポーネントのライフサイクルを制御することを推奨します。</p>
+<p class="tip">通常のケースでは、このメソッドはあなた自身で呼ぶべきではありません。`v-if` と `v-for` を使用してデータ駆動による方法で子コンポーネントのライフサイクルを制御することを推奨します。</p>
 </li>
 <li><p><strong>参照:</strong> <a href="../guide/instance.html#ライフサイクルダイアグラム">ライフサイクルダイアグラム</a></p>
 </li>
@@ -2003,9 +2049,9 @@ vm.$emit(<span class="hljs-string">'test'</span>, <span class="hljs-string">'hi'
 </li>
 <li><p><strong>詳細:</strong></p>
 <p>要素の <code>innerHTML</code> を更新します。<strong>コンテンツはプレーンな HTML として挿入されることに注意してください。Vue テンプレートとしてコンパイルされません。</strong> もし <code>v-html</code> を使ってテンプレートを構成しようとしているなら、代わりにコンポーネントを使って解決するように考え直してみてください。</p>
-<p class="tip">任意の HTML をあなたの Web サイト上で動的に描画することは、 <a href="https://en.wikipedia.org/wiki/Cross-site_scripting" target="_blank" rel="noopener">XSS 攻撃</a>を招くため大変危険です。<code>v-html</code> は信頼済みコンテンツのみに利用し、 <strong>絶対に</strong> ユーザの提供するコンテンツには使わないでください。</p>
+<p class="tip">任意の HTML をあなたの Web サイト上で動的に描画することは、 [XSS 攻撃](https://en.wikipedia.org/wiki/Cross-site_scripting)を招くため大変危険です。`v-html` は信頼済みコンテンツのみに利用し、 **絶対に** ユーザの提供するコンテンツには使わないでください。</p>
 
-<p class="tip"><a href="../guide/single-file-components.html">単一ファイルコンポーネント</a>では、<code>scoped</code> スタイルは <code>v-html</code> 内のコンテンツには適用されません。なぜなら、その HTML は Vue のテンプレートコンパイラによって処理されないからです。スコープ付き CSS を使用した <code>v-html</code> のコンテンツを対象とする場合、代わりに <a href="https://vue-loader.vuejs.org/ja/features/css-modules.html" target="_blank" rel="noopener">CSS モジュール</a>やグローバルな <code>&lt;style&gt;</code> 要素を BEM などの手動スコープ戦略を用いて使用することができます。</p>
+<p class="tip">[単一ファイルコンポーネント](../guide/single-file-components.html)では、`scoped` スタイルは `v-html` 内のコンテンツには適用されません。なぜなら、その HTML は Vue のテンプレートコンパイラによって処理されないからです。スコープ付き CSS を使用した `v-html` のコンテンツを対象とする場合、代わりに [CSS モジュール](https://vue-loader.vuejs.org/ja/features/css-modules.html)やグローバルな `<style>` 要素を BEM などの手動スコープ戦略を用いて使用することができます。</p>
 </li>
 <li><p><strong>例:</strong></p>
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">v-html</span>=<span class="hljs-string">"html"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
@@ -2029,7 +2075,7 @@ vm.$emit(<span class="hljs-string">'test'</span>, <span class="hljs-string">'hi'
 <li><p><strong>使用方法:</strong></p>
 <p>バインディングの値の真偽値に基いて要素の描画を行います。要素および、ディレクティブまたはコンポーネントを含むコンテンツは、トグルしている間に破壊され再構築されます。要素が <code>&lt;template&gt;</code> 要素ならば、その内容は状態ブロックとして抽出されます。</p>
 <p>このディレクティブは条件が変更されたとき、トランジションをトリガします。</p>
-<p class="tip"><code>v-if</code> といっしょに使用されるとき、<code>v-for</code> は <code>v-if</code> より優先度が高くなります。詳細については<a href="../guide/list.html#v-for-と-v-if">リストレンダリングのガイド</a>を参照してください。</p>
+<p class="tip">`v-if` といっしょに使用されるとき、`v-for` は `v-if` より優先度が高くなります。詳細については<a href="../guide/list.html#v-for-と-v-if">リストレンダリングのガイド</a>を参照してください。</p>
 </li>
 <li><p><strong>参照:</strong> <a href="../guide/conditional.html">条件付きレンダリング - v-if</a></p>
 </li>
@@ -2085,16 +2131,19 @@ vm.$emit(<span class="hljs-string">'test'</span>, <span class="hljs-string">'hi'
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">v-for</span>=<span class="hljs-string">"item in items"</span>&gt;</span>
   &#123;&#123; item.text &#125;&#125;
 <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
+
 <p>あるいは、インデックス(またはオブジェクトで使用されている場合はキー)に対してエイリアスを指定することもできます:</p>
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">v-for</span>=<span class="hljs-string">"(item, index) in items"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">v-for</span>=<span class="hljs-string">"(val, key) in object"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">v-for</span>=<span class="hljs-string">"(val, name, index) in object"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
+
 <p><code>v-for</code> のデフォルトの振舞いは、それらを移動しないで所定の位置の要素にパッチを適用しようとします。要素の順序を変更するのを強制するためには、<code>key</code> という特別な属性によって順序のヒントを提供する必要があります:</p>
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">v-for</span>=<span class="hljs-string">"item in items"</span> <span class="hljs-attr">:key</span>=<span class="hljs-string">"item.id"</span>&gt;</span>
   &#123;&#123; item.text &#125;&#125;
 <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
-<p>2.6 以降では、<code>v-for</code> はネイティブの <code>Map</code> や <code>Set</code>を含む、<a href="https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Iteration_protocols#The_iterable_protocol" target="_blank" rel="noopener">Iterable プロトコル</a> を実装した値でも動作できるようになりました。ただし、Vue 2.x は今のところ <code>Map</code> 値や <code>Set</code> 値をリアクティブにはできず、変更を自動的に検知できない点は注意しておく必要があります。</p>
-<p class="tip"><code>v-if</code> といっしょに使用されるとき、<code>v-for</code> は <code>v-if</code> より優先度が高くなります。詳細については<a href="../guide/list.html#v-for-と-v-if">リストレンダリングのガイド</a>を参照してください。</p>
+
+<p>2.6 以降では、<code>v-for</code> はネイティブの <code>Map</code> や <code>Set</code>を含む、<a href="https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Iteration_protocols#The_iterable_protocol">Iterable プロトコル</a> を実装した値でも動作できるようになりました。ただし、Vue 2.x は今のところ <code>Map</code> 値や <code>Set</code> 値をリアクティブにはできず、変更を自動的に検知できない点は注意しておく必要があります。</p>
+<p class="tip">`v-if` といっしょに使用されるとき、`v-for` は `v-if` より優先度が高くなります。詳細については<a href="../guide/list.html#v-for-と-v-if">リストレンダリングのガイド</a>を参照してください。</p>
 
 <p><code>v-for</code> の詳細な使用方法は下記にリンクしたガイドセクション内で説明しています。</p>
 </li>
@@ -2129,7 +2178,7 @@ vm.$emit(<span class="hljs-string">'test'</span>, <span class="hljs-string">'hi'
 </li>
 <li><p><strong>使用方法:</strong></p>
 <p>要素にイベントリスナをアタッチします。イベント種別は引数で示されます。式はメソッド名またはインラインステートメントのいずれかを指定することができ、または修飾子 (modifier) が存在するときは、単純に省略されます。</p>
-<p>通常の要素上で利用した場合、<a href="https://developer.mozilla.org/ja/docs/Web/Reference/Events" target="_blank" rel="noopener"><strong>ネイティブ DOM イベント</strong></a> だけ購読します。カスタム要素コンポーネント上で利用した場合、子コンポーネント上での <strong>カスタムイベント</strong> の発行を購読します。</p>
+<p>通常の要素上で利用した場合、<a href="https://developer.mozilla.org/ja/docs/Web/Reference/Events"><strong>ネイティブ DOM イベント</strong></a> だけ購読します。カスタム要素コンポーネント上で利用した場合、子コンポーネント上での <strong>カスタムイベント</strong> の発行を購読します。</p>
 <p>ネイティブな DOM イベントを購読しているとき、メソッドはネイティブなイベントを引数としてだけ受信します。インラインステートメントで使用する場合、ステートメントでは特別な <code>$event</code> プロパティに <code>v-on:click=&quot;handle(&#39;ok&#39;, $event)&quot;</code> のようにしてアクセスすることができます。</p>
 <p><code>2.4.0</code> からは、<code>v-on</code> は引数なしでイベント/リスナーのペアのオブジェクトへのバインディングもサポートしています。オブジェクト構文を使用する場合は修飾子はサポートされません。</p>
 </li>
@@ -2172,6 +2221,7 @@ vm.$emit(<span class="hljs-string">'test'</span>, <span class="hljs-string">'hi'
 
 <span class="hljs-comment">&lt;!-- オブジェクト構文 (2.4.0+) --&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">v-on</span>=<span class="hljs-string">"&#123; mousedown: doThis, mouseup: doThat &#125;"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></code></pre>
+
 <p>子コンポーネント上のカスタムイベントを購読できます (ハンドラは “my-event” が子コンポーネント上で発行された時に呼ばれる):</p>
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">my-component</span> @<span class="hljs-attr">my-event</span>=<span class="hljs-string">"handleThis"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">my-component</span>&gt;</span>
 
@@ -2197,7 +2247,7 @@ vm.$emit(<span class="hljs-string">'test'</span>, <span class="hljs-string">'hi'
 </li>
 <li><p><strong>修飾子:</strong></p>
 <ul>
-<li><code>.prop</code> - 属性の代わりに DOM プロパティとして束縛します(<a href="https://stackoverflow.com/questions/6003819/properties-and-attributes-in-html#answer-6004028" target="_blank" rel="noopener">違いは何？</a>)。もしタグがコンポーネントの場合、<code>.prop</code>  はコンポーネントの <code>$el</code> にプロパティを設定します。</li>
+<li><code>.prop</code> - 属性の代わりに DOM プロパティとして束縛します(<a href="https://stackoverflow.com/questions/6003819/properties-and-attributes-in-html#answer-6004028">違いは何？</a>)。もしタグがコンポーネントの場合、<code>.prop</code>  はコンポーネントの <code>$el</code> にプロパティを設定します。</li>
 <li><code>.camel</code> - (2.1.0 以降) ケバブケースの属性名をキャメルケースに変換します。</li>
 <li><code>.sync</code> - (2.3.0 以降) 束縛された値を更新するための、 <code>v-on</code> ハンドラに展開する糖衣構文。</li>
 </ul>
@@ -2247,8 +2297,10 @@ vm.$emit(<span class="hljs-string">'test'</span>, <span class="hljs-string">'hi'
 
 <span class="hljs-comment">&lt;!-- XLink --&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">svg</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">:xlink:special</span>=<span class="hljs-string">"foo"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">svg</span>&gt;</span></code></pre>
+
 <p><code>.camel</code> 修飾子はDOM 内のテンプレートを使用するときに、<code>v-bind</code> 属性名をキャメル化することを可能にします。e.g. SVG の <code>viewBox</code> 属性:</p>
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">svg</span> <span class="hljs-attr">:view-box.camel</span>=<span class="hljs-string">"viewBox"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">svg</span>&gt;</span></code></pre>
+
 <p>文字列テンプレートを使用している場合や、<code>vue-loader</code> / <code>vueify</code> でコンパイルしている場合は <code>.camel</code> は必要ありません。</p>
 </li>
 <li><p><strong>参照:</strong></p>
@@ -2330,12 +2382,13 @@ vm.$emit(<span class="hljs-string">'test'</span>, <span class="hljs-string">'hi'
 <span class="hljs-tag">&lt;<span class="hljs-name">mouse-position</span> <span class="hljs-attr">v-slot</span>=<span class="hljs-string">"&#123; x, y &#125;"</span>&gt;</span>
   Mouse position: &#123;&#123; x &#125;&#125;, &#123;&#123; y &#125;&#125;
 <span class="hljs-tag">&lt;/<span class="hljs-name">mouse-position</span>&gt;</span></code></pre>
+
 <p>詳細は、以下のリンクを参照してください。</p>
 </li>
 <li><p><strong>参照:</strong></p>
 <ul>
 <li><a href="../guide/components-slots.html">スロット</a></li>
-<li><a href="https://github.com/vuejs/rfcs/blob/master/active-rfcs/0001-new-slot-syntax.md" target="_blank" rel="noopener">RFC-0001</a></li>
+<li><a href="https://github.com/vuejs/rfcs/blob/master/active-rfcs/0001-new-slot-syntax.md">RFC-0001</a></li>
 </ul>
 </li>
 </ul>
@@ -2347,6 +2400,7 @@ vm.$emit(<span class="hljs-string">'test'</span>, <span class="hljs-string">'hi'
 </li>
 <li><p><strong>例:</strong></p>
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">v-pre</span>&gt;</span>&#123;&#123; this will not be compiled &#125;&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span></code></pre>
+
 </li>
 </ul>
 <h3 id="v-cloak"><a href="#v-cloak" class="headerlink" title="v-cloak"></a>v-cloak</h3><ul>
@@ -2359,9 +2413,11 @@ vm.$emit(<span class="hljs-string">'test'</span>, <span class="hljs-string">'hi'
 <pre><code class="hljs css"><span class="hljs-selector-attr">[v-cloak]</span> &#123;
   <span class="hljs-attribute">display</span>: none;
 &#125;</code></pre>
+
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">v-cloak</span>&gt;</span>
   &#123;&#123; message &#125;&#125;
 <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
+
 <p><code>&lt;div&gt;</code> はコンパイルが終了するまでは不可視となります。</p>
 </li>
 </ul>
@@ -2399,6 +2455,7 @@ vm.$emit(<span class="hljs-string">'test'</span>, <span class="hljs-string">'hi'
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">ul</span>&gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-name">li</span> <span class="hljs-attr">v-for</span>=<span class="hljs-string">"item in items"</span> <span class="hljs-attr">:key</span>=<span class="hljs-string">"item.id"</span>&gt;</span>...<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span></code></pre>
+
 <p>また、それを再利用するのではなく要素/コンポーネントの置換を強制するために使用することができます。これはあなたが以下のようなことをしたい場合は便利です:</p>
 <ul>
 <li>適切にコンポーネントのライフサイクルフックをトリガ</li>
@@ -2408,6 +2465,7 @@ vm.$emit(<span class="hljs-string">'test'</span>, <span class="hljs-string">'hi'
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">transition</span>&gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">:key</span>=<span class="hljs-string">"text"</span>&gt;</span>&#123;&#123; text &#125;&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">transition</span>&gt;</span></code></pre>
+
 <p><code>text</code> を変更するとき、<code>&lt;span&gt;</code> は常にパッチ適用の代わりに置換され、トランジションはトリガされるでしょう。</p>
 </li>
 </ul>
@@ -2419,6 +2477,7 @@ vm.$emit(<span class="hljs-string">'test'</span>, <span class="hljs-string">'hi'
 
 <span class="hljs-comment">&lt;!-- vm.$refs.child は child-component のインスタンス --&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">child-component</span> <span class="hljs-attr">ref</span>=<span class="hljs-string">"child"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">child-component</span>&gt;</span></code></pre>
+
 <p><code>v-for</code> で要素/コンポーネントに対して使用されるとき、登録された参照は DOM ノードまたはコンポーネントインスタンスを含んでいる配列になります。</p>
 <p>ref の登録タイミングに関する重要な注意事項として、参照自体は、render 関数の結果として作成されているため、最初の描画においてそれらにアクセスすることができません。それらはまだ存在しておらず、<code>$refs</code> はリアクティブではなく、従ってデータバインディングのためにテンプレートでそれを使用すべきではありません。</p>
 </li>
@@ -2436,6 +2495,7 @@ vm.$emit(<span class="hljs-string">'test'</span>, <span class="hljs-string">'hi'
 <span class="hljs-tag">&lt;<span class="hljs-name">table</span>&gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-name">tr</span> <span class="hljs-attr">is</span>=<span class="hljs-string">"my-row"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">tr</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">table</span>&gt;</span></code></pre>
+
 <p>詳しい使用方法については、上記のリンクを参照してください。</p>
 </li>
 <li><p><strong>参照:</strong></p>
@@ -2543,6 +2603,7 @@ vm.$emit(<span class="hljs-string">'test'</span>, <span class="hljs-string">'hi'
     <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">v-show</span>=<span class="hljs-string">"ok"</span>&gt;</span>toggled content<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
   <span class="hljs-tag">&lt;/<span class="hljs-name">transition</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
+
 <pre><code class="hljs js"><span class="hljs-keyword">new</span> Vue(&#123;
   ...
   methods: &#123;
@@ -2572,7 +2633,7 @@ vm.$emit(<span class="hljs-string">'test'</span>, <span class="hljs-string">'hi'
 <li><p><strong>使用方法:</strong></p>
 <p><code>&lt;transition-group&gt;</code> は<strong>複数の要素/コンポーネント</strong>に対してトランジション効果を提供します。<code>&lt;transition-group&gt;</code> はあるがままに DOM 要素を描画します。デフォルトでは <code>&lt;span&gt;</code> で描画し、<code>tag</code> 属性経由で要素を描画するよう設定できます。</p>
 <p><code>&lt;transition-group&gt;</code> での全ての子は、アニメーションを正しく動作させるために<strong>一意なキーで割り振れられて</strong>なければならないことに注意してください。</p>
-<p><code>&lt;transition-group&gt;</code> は CSS transform 経由によるトランジション移動をサポートします。更新後、スクリーン上の子の位置が変更されたとき、CSS クラス (<code>name</code> 属性または <code>move-class</code> による設定か自動的に生成された) の移動を適用します。もし、クラスの移動が適用されるとき、CSS <code>transform</code> プロパティが”トランジション可能”な場合、要素は <a href="https://aerotwist.com/blog/flip-your-animations/" target="_blank" rel="noopener">FLIP 技術</a>を使用して宛先に滑らかにアニメーション化されます。</p>
+<p><code>&lt;transition-group&gt;</code> は CSS transform 経由によるトランジション移動をサポートします。更新後、スクリーン上の子の位置が変更されたとき、CSS クラス (<code>name</code> 属性または <code>move-class</code> による設定か自動的に生成された) の移動を適用します。もし、クラスの移動が適用されるとき、CSS <code>transform</code> プロパティが”トランジション可能”な場合、要素は <a href="https://aerotwist.com/blog/flip-your-animations/">FLIP 技術</a>を使用して宛先に滑らかにアニメーション化されます。</p>
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">transition-group</span> <span class="hljs-attr">tag</span>=<span class="hljs-string">"ul"</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"slide"</span>&gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-name">li</span> <span class="hljs-attr">v-for</span>=<span class="hljs-string">"item in items"</span> <span class="hljs-attr">:key</span>=<span class="hljs-string">"item.id"</span>&gt;</span>
     &#123;&#123; item.text &#125;&#125;
@@ -2614,6 +2675,7 @@ vm.$emit(<span class="hljs-string">'test'</span>, <span class="hljs-string">'hi'
     <span class="hljs-tag">&lt;<span class="hljs-name">component</span> <span class="hljs-attr">:is</span>=<span class="hljs-string">"view"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">component</span>&gt;</span>
   <span class="hljs-tag">&lt;/<span class="hljs-name">keep-alive</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">transition</span>&gt;</span></code></pre>
+
 <p><code>&lt;keep-alive&gt;</code> は、直接 1 つの子コンポーネントがトグルされているケースに対して設計されていることに注意してください。それが、 <code>v-for</code> 内部にある場合は動作しません。上記のように複数の条件付きで子がある場合は、<code>&lt;keep-alive&gt;</code> では一度に 1 つの子だけ描画されます。</p>
 </li>
 <li><p><strong><code>include</code> と <code>exclude</code></strong></p>
@@ -2635,6 +2697,7 @@ vm.$emit(<span class="hljs-string">'test'</span>, <span class="hljs-string">'hi'
 <span class="hljs-tag">&lt;<span class="hljs-name">keep-alive</span> <span class="hljs-attr">:include</span>=<span class="hljs-string">"['a', 'b']"</span>&gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-name">component</span> <span class="hljs-attr">:is</span>=<span class="hljs-string">"view"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">component</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">keep-alive</span>&gt;</span></code></pre>
+
 <p>一致は、まず <code>name</code> オプションが利用できない場合、コンポーネント自身の <code>name</code> オプションでローカル登録名（親の <code>components</code> オプションのキー）をチェックします。匿名のコンポーネントは照合できません。</p>
 </li>
 <li><p><strong><code>max</code></strong></p>
@@ -2645,7 +2708,8 @@ vm.$emit(<span class="hljs-string">'test'</span>, <span class="hljs-string">'hi'
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">keep-alive</span> <span class="hljs-attr">:max</span>=<span class="hljs-string">"10"</span>&gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-name">component</span> <span class="hljs-attr">:is</span>=<span class="hljs-string">"view"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">component</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">keep-alive</span>&gt;</span></code></pre>
-<p class="tip"><code>&lt;keep-alive&gt;</code> はキャッシュされるインスタンスを持っていないため、関数型コンポーネントで動作しません。</p>
+
+<p class="tip">`<keep-alive>` はキャッシュされるインスタンスを持っていないため、関数型コンポーネントで動作しません。</p>
 </li>
 <li><p><strong>参照:</strong> <a href="../guide/components.html#keep-alive">動的コンポーネント - keep-alive</a></p>
 </li>
@@ -2664,12 +2728,12 @@ vm.$emit(<span class="hljs-string">'test'</span>, <span class="hljs-string">'hi'
 </li>
 </ul>
 <h2 id="VNode-インターフェイス"><a href="#VNode-インターフェイス" class="headerlink" title="VNode インターフェイス"></a>VNode インターフェイス</h2><ul>
-<li><a href="https://github.com/vuejs/vue/blob/dev/src/core/vdom/vnode.js" target="_blank" rel="noopener">VNode クラスの宣言</a>を参照してください。</li>
+<li><a href="https://github.com/vuejs/vue/blob/dev/src/core/vdom/vnode.js">VNode クラスの宣言</a>を参照してください。</li>
 </ul>
 <h2 id="サーバサイドレンダリング"><a href="#サーバサイドレンダリング" class="headerlink" title="サーバサイドレンダリング"></a>サーバサイドレンダリング</h2><ul>
-<li><a href="https://github.com/vuejs/vue/tree/dev/packages/vue-server-renderer" target="_blank" rel="noopener">vue-server-renderer パッケージのドキュメント</a>を参照してください。</li>
+<li><a href="https://github.com/vuejs/vue/tree/dev/packages/vue-server-renderer">vue-server-renderer パッケージのドキュメント</a>を参照してください。</li>
 </ul>
-
+</style></p></li></ul>
   
   
   <div class="footer">

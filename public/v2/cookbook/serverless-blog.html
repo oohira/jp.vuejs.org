@@ -411,22 +411,28 @@
 <p><img src="https://user-images.githubusercontent.com/160873/36677285-648798e4-1ad3-11e8-9454-d22fca8280b7.png" alt="Butter Dashboard" title="Butter Dashboard"></p>
 <h2 id="インストール"><a href="#インストール" class="headerlink" title="インストール"></a>インストール</h2><p>コマンドラインで以下を実行してください:</p>
 <pre><code class="hljs bash">npm install buttercms --save</code></pre>
+
 <p>Butter は、CDN からも読み込めます:</p>
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://cdnjs.buttercms.com/buttercms-1.1.0.min.js"</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code></pre>
+
 <h2 id="クイックスタート"><a href="#クイックスタート" class="headerlink" title="クイックスタート"></a>クイックスタート</h2><p>API トークンの設定:</p>
 <pre><code class="hljs javascript"><span class="hljs-keyword">var</span> butter = <span class="hljs-built_in">require</span>(<span class="hljs-string">'buttercms'</span>)(<span class="hljs-string">'your_api_token'</span>);</code></pre>
+
 <p>ES6 の使用:</p>
 <pre><code class="hljs javascript"><span class="hljs-keyword">import</span> Butter <span class="hljs-keyword">from</span> <span class="hljs-string">'buttercms'</span>;
 <span class="hljs-keyword">const</span> butter = Butter(<span class="hljs-string">'your_api_token'</span>);</code></pre>
+
 <p>CDN の使用:</p>
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://cdnjs.buttercms.com/buttercms-1.1.0.min.js"</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="javascript">
   <span class="hljs-keyword">var</span> butter = Butter(<span class="hljs-string">'your_api_token'</span>);
 </span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code></pre>
+
 <p>このファイルを ButterCMS を使いたいコンポーネントでインポートし、コンソールで以下を実行します:</p>
 <pre><code class="hljs javascript">butter.post.list(&#123;<span class="hljs-attr">page</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">page_size</span>: <span class="hljs-number">10</span>&#125;).then(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">response</span>) </span>&#123;
   <span class="hljs-built_in">console</span>.log(response)
 &#125;)</code></pre>
+
 <p>この API リクエストは、ブログの投稿を取得します。あなたのアカウントには、1つの投稿例が付属していて、レスポンス内で見ることができるでしょう。</p>
 <h2 id="投稿の表示"><a href="#投稿の表示" class="headerlink" title="投稿の表示"></a>投稿の表示</h2><p>投稿を表示するには、アプリケーションで、<code>/blog</code> ルーティング (Vue Router を使用) を作成し、Butter API でブログの投稿を取得します。<code>/blog/:slug</code> ルーティングが同様に各々の投稿をハンドルします。</p>
 <p>カテゴリ、または著者によるフィルタリングのような追加オプションは、ButterCMS <a href="https://buttercms.com/docs/api/?javascript#blog-posts" target="_blank" rel="noopener">API リファレンス</a> を参照してください。 レスポンスは、ページネーションのために使用するいくつかのメタデータも含みます。</p>
@@ -453,6 +459,7 @@ Vue.use(Router)
     &#125;
   ]
 &#125;)</code></pre>
+
 <p>次に、直近の投稿を並べるブログのホームページを <code>components/BlogHome.vue</code> で作成します。</p>
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="javascript">
   <span class="hljs-keyword">import</span> &#123; butter &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">'@/buttercms'</span>
@@ -511,6 +518,7 @@ Vue.use(Router)
       <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
   <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span></code></pre>
+
 <p>これは以下のようになります（注釈：速くスタイリングするために、<a href="https://bulma.io/" target="_blank" rel="noopener">https://bulma.io/</a> の CSS フレームワークを追加しています）:</p>
 <p><img src="https://user-images.githubusercontent.com/160873/36868500-1b22e374-1d5e-11e8-82a0-20c8dc312716.png" alt="buttercms-bloglist"></p>
 <p>以下では、ブログの記事ページを個別投稿のリストにする <code>components/BlogPost.vue</code> を生成しています。</p>
@@ -561,11 +569,13 @@ Vue.use(Router)
     <span class="hljs-tag">&lt;/<span class="hljs-name">router-link</span>&gt;</span>
   <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span></code></pre>
+
 <p>以下がプレビューです:</p>
 <p><img src="https://user-images.githubusercontent.com/160873/36868506-218c86b6-1d5e-11e8-8691-0409d91366d6.png" alt="buttercms-blogdetail"></p>
 <p>いま、アプリケーションはすべてのブログの記事を取得し、各々の投稿ページへ遷移できます。しかし、次/前の投稿へのボタンは動作していません。</p>
 <p>ルーティングをパラメータと一緒に使用する際にもう1つ注意すべきなのは、ユーザが <code>/blog/foo</code> から <code>/blog/bar</code> へ遷移するとき、同じコンポーネントのインスタンスが再利用される点です。各々のルーティングが同じコンポーネントを描画するため、古いインスタンスの破棄と新しいインスタンスの生成をするより、効率的です。</p>
-<p class="tip">注意してください。この方法でコンポーネントが使われるということは、コンポーネントのライフサイクルによるフックが呼ばれないことを意味します。より詳しくは、Vue Router のドキュメントを参照してください。<br><a href="https://router.vuejs.org/ja/essentials/dynamic-matching.html" target="_blank" rel="noopener">動的ルートマッチング</a></p>
+<p class="tip">注意してください。この方法でコンポーネントが使われるということは、コンポーネントのライフサイクルによるフックが呼ばれないことを意味します。より詳しくは、Vue Router のドキュメントを参照してください。
+[動的ルートマッチング](https://router.vuejs.org/ja/essentials/dynamic-matching.html)</p>
 
 <p>これを修正するために、私たちは <code>$route</code> オブジェクトを監視し、ルーティングが変わるときに、<code>getPost()</code> を呼ぶ必要があります。</p>
 <p><code>components/BlogPost.vue</code> 内の <code>&lt;script&gt;</code> を以下のように更新します:</p>
@@ -598,6 +608,7 @@ Vue.use(Router)
     &#125;
   &#125;
 </span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code></pre>
+
 <p>これで、あなたのアプリケーションは、ButterCMS ダッシュボード内で、簡単に更新できるブログを手に入れました。</p>
 <h2 id="カテゴリー、タグ、および著者"><a href="#カテゴリー、タグ、および著者" class="headerlink" title="カテゴリー、タグ、および著者"></a>カテゴリー、タグ、および著者</h2><p>ブログ上で、コンテンツをカテゴリー、タグ、および著者で特徴づける、あるいはフィルタリングするために、Butter の API を使用します。</p>
 <p>これらのオブジェクトについて、より情報を得るには、ButterCMS の API リファレンスを参照してください。</p>
@@ -631,6 +642,7 @@ created() &#123;
   <span class="hljs-keyword">this</span>.getCategories()
   <span class="hljs-keyword">this</span>.getPostsByCategory()
 &#125;</code></pre>
+
 <h2 id="代替パターン"><a href="#代替パターン" class="headerlink" title="代替パターン"></a>代替パターン</h2><p>もし、あなたがマークダウンでのみの記述を好むなら、特に代替パターンとして考えられるのは、<a href="https://nuxtent-module.netlify.com/guide/writing/#async-components" target="_blank" rel="noopener">Nuxtent</a> のようなものを使う方法です。Nuxtent は、マークダウン形式のファイルの代わりに、<code>Vue Component</code> の利用を提供します。 このアプローチは、マークダウン形式のファイルでブログの投稿が構成される静的サイト（すなわち、Jekyll）のアプローチと類似するでしょう。Nuxtent は、Vue.js の世界で Vue.js とマークダウンの間で生きるための良いインテグレーションを追加します。</p>
 <h2 id="まとめ"><a href="#まとめ" class="headerlink" title="まとめ"></a>まとめ</h2><p>以上です！あなたはいま、アプリケーション上で動作する完全な機能を持った CMS によるブログを手に入れました。私たちは、このチュートリアルが役に立ち、Vue.js の開発経験がより一層楽しくなることを願っています:)</p>
 

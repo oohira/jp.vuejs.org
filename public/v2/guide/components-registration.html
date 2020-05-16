@@ -977,35 +977,42 @@
 
 <h2 id="コンポーネント名"><a href="#コンポーネント名" class="headerlink" title="コンポーネント名"></a>コンポーネント名</h2><p>コンポーネントを登録するときは、いつでも名前が与えられます。例えば、グローバル登録の場合:</p>
 <pre><code class="hljs js">Vue.component(<span class="hljs-string">'my-component-name'</span>, &#123; <span class="hljs-comment">/* ... */</span> &#125;)</code></pre>
+
 <p>コンポーネント名は <code>Vue.component</code> の第一引数です。</p>
 <p>コンポーネントの命名は、コンポーネントの使用箇所に左右されます。(文字列テンプレート、または<a href="single-file-components.html">単一ファイルコンポーネント</a>ではなく) DOM 上で直接コンポーネントを使用する場合は、<a href="https://html.spec.whatwg.org/multipage/custom-elements.html#valid-custom-element-name" target="_blank" rel="noopener">W3C rules</a> に従ったカスタムタグ名(全て小文字で、ハイフンが含まれていること)を推奨します。これは、既に存在する、そして将来定義される HTML 要素との衝突を防止するのに役立ちます。</p>
 <p><a href="../style-guide/#基底コンポーネントの名前-強く推奨">スタイルガイド</a>では、コンポーネント名についてのその他の推奨項目を見ることができます。</p>
 <h3 id="命名のケース-Name-Casing"><a href="#命名のケース-Name-Casing" class="headerlink" title="命名のケース (Name Casing)"></a>命名のケース (Name Casing)</h3><p>コンポーネント名を定義する時、2 つの選択肢があります:</p>
 <h4 id="ケバブケース-kebab-case"><a href="#ケバブケース-kebab-case" class="headerlink" title="ケバブケース (kebab-case)"></a>ケバブケース (kebab-case)</h4><pre><code class="hljs js">Vue.component(<span class="hljs-string">'my-component-name'</span>, &#123; <span class="hljs-comment">/* ... */</span> &#125;)</code></pre>
+
 <p>ケバブケースでコンポーネント名を定義する場合、そのカスタム要素を参照する時も同様に、 <code>&lt;my-component-name&gt;</code> のように、ケバブケースを用いなければいけません。</p>
 <h4 id="パスカルケース-PascalCase"><a href="#パスカルケース-PascalCase" class="headerlink" title="パスカルケース (PascalCase)"></a>パスカルケース (PascalCase)</h4><pre><code class="hljs js">Vue.component(<span class="hljs-string">'MyComponentName'</span>, &#123; <span class="hljs-comment">/* ... */</span> &#125;)</code></pre>
+
 <p>パスカルケースでコンポーネントを定義する場合、そのカスタム要素の参照には、どちらのケースも用いることができます。これは、  <code>&lt;my-component-name&gt;</code> と <code>&lt;MyComponentName&gt;</code> のどちらも許容されることを意味します。ただし、DOM 内 (すなわち、文字列でないテンプレート) に直接使用する場合には、ケバブケースの名前のみが有効なので注意してください。</p>
 <h2 id="グローバル登録"><a href="#グローバル登録" class="headerlink" title="グローバル登録"></a>グローバル登録</h2><p>ここまでは <code>Vue.component</code> だけを使ってコンポーネントを作成しました:</p>
 <pre><code class="hljs js">Vue.component(<span class="hljs-string">'my-component-name'</span>, &#123;
   <span class="hljs-comment">// ... options ...</span>
 &#125;)</code></pre>
+
 <p>これらのコンポーネントは <strong>グローバル登録</strong> されています。これは、登録後に作成された、全てのルート Vue インスタンス(<code>new Vue</code>)のテンプレート内で使用できることを意味します。例えば:</p>
 <pre><code class="hljs js">Vue.component(<span class="hljs-string">'component-a'</span>, &#123; <span class="hljs-comment">/* ... */</span> &#125;)
 Vue.component(<span class="hljs-string">'component-b'</span>, &#123; <span class="hljs-comment">/* ... */</span> &#125;)
 Vue.component(<span class="hljs-string">'component-c'</span>, &#123; <span class="hljs-comment">/* ... */</span> &#125;)
 
 <span class="hljs-keyword">new</span> Vue(&#123; <span class="hljs-attr">el</span>: <span class="hljs-string">'#app'</span> &#125;)</code></pre>
+
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"app"</span>&gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-name">component-a</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">component-a</span>&gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-name">component-b</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">component-b</span>&gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-name">component-c</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">component-c</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
+
 <p>これは全てのサブコンポーネントにも適用されます。これら 3 つのコンポーネント全てが <em>内部で相互に</em> 使用可能になることを意味します。</p>
 <h2 id="ローカル登録"><a href="#ローカル登録" class="headerlink" title="ローカル登録"></a>ローカル登録</h2><p>多くの場合、グローバル登録は理想的ではありません。例えば Webpack のようなビルドシステムを利用しているときに、グローバルに登録した全てのコンポーネントは、たとえ使用しなくなっても、依然として最終ビルドに含まれてしまうことでしょう。これは、ユーザがダウンロードしなくてはならない JavaScript のファイルサイズを不要に増加させてしまいます。</p>
 <p>このような場合に、コンポーネントを素の JavaScript オブジェクトとして定義することができます:</p>
 <pre><code class="hljs js"><span class="hljs-keyword">var</span> ComponentA = &#123; <span class="hljs-comment">/* ... */</span> &#125;
 <span class="hljs-keyword">var</span> ComponentB = &#123; <span class="hljs-comment">/* ... */</span> &#125;
 <span class="hljs-keyword">var</span> ComponentC = &#123; <span class="hljs-comment">/* ... */</span> &#125;</code></pre>
+
 <p>次に、<code>components</code> オプション内に使いたいコンポーネントを定義します:</p>
 <pre><code class="hljs js"><span class="hljs-keyword">new</span> Vue(&#123;
   <span class="hljs-attr">el</span>: <span class="hljs-string">'#app'</span>,
@@ -1014,6 +1021,7 @@ Vue.component(<span class="hljs-string">'component-c'</span>, &#123; <span class
     <span class="hljs-string">'component-b'</span>: ComponentB
   &#125;
 &#125;)</code></pre>
+
 <p><code>components</code> オブジェクトのそれぞれのプロパティは、キーはカスタム要素の名前になり、一方、値はコンポーネントのオプションオブジェクトを含みます。</p>
 <p><strong>ローカル登録されたコンポーネントは、他のサブコンポーネント内では使用<em>できない</em></strong> ことに注意して下さい。例えば、<code>ComponentA</code> を <code>ComponentB</code> 内で使用可能にしたいときは、このように使う必要があります:</p>
 <pre><code class="hljs js"><span class="hljs-keyword">var</span> ComponentA = &#123; <span class="hljs-comment">/* ... */</span> &#125;
@@ -1024,6 +1032,7 @@ Vue.component(<span class="hljs-string">'component-c'</span>, &#123; <span class
   &#125;,
   <span class="hljs-comment">// ...</span>
 &#125;</code></pre>
+
 <p>もしくは、Babel と Webpack のようなものを用いて ES2015 モジュールを利用しているならば、このようになるでしょう:</p>
 <pre><code class="hljs js"><span class="hljs-keyword">import</span> ComponentA <span class="hljs-keyword">from</span> <span class="hljs-string">'./ComponentA.vue'</span>
 
@@ -1033,6 +1042,7 @@ Vue.component(<span class="hljs-string">'component-c'</span>, &#123; <span class
   &#125;,
   <span class="hljs-comment">// ...</span>
 &#125;</code></pre>
+
 <p>ES2015+ では <code>ComponentA</code> のような変数名をオブジェクト内部に配置することは <code>ComponentA: ComponentA</code> の省略記法にあたり、変数の名前は次のどちらも意味することに注意して下さい:</p>
 <ul>
 <li>テンプレート内で使われるカスタム要素名</li>
@@ -1051,6 +1061,7 @@ Vue.component(<span class="hljs-string">'component-c'</span>, &#123; <span class
   &#125;,
   <span class="hljs-comment">// ...</span>
 &#125;</code></pre>
+
 <p>これで <code>ComponentA</code> と <code>ComponentC</code> の両方が <code>ComponentB</code> のテンプレート内で使えるようになります。</p>
 <h3 id="基底コンポーネントの自動グローバル登録"><a href="#基底コンポーネントの自動グローバル登録" class="headerlink" title="基底コンポーネントの自動グローバル登録"></a>基底コンポーネントの自動グローバル登録</h3><p>コンポーネントのうち多くは比較的共通して、 input や button のような要素をラップするだけです。時にこれらを <a href="../style-guide/#基底コンポーネントの名前-強く推奨">基底コンポーネント</a> と呼び、これらは複数のコンポーネントを横断して頻繁に用いられます。</p>
 <p>多数のコンポーネントが多数の基底コンポーネントを含めた結果:</p>
@@ -1065,6 +1076,7 @@ Vue.component(<span class="hljs-string">'component-c'</span>, &#123; <span class
     BaseInput
   &#125;
 &#125;</code></pre>
+
 <p>テンプレートでは、比較的少ないマークアップをサポートします:</p>
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">BaseInput</span>
   <span class="hljs-attr">v-model</span>=<span class="hljs-string">"searchText"</span>
@@ -1073,6 +1085,7 @@ Vue.component(<span class="hljs-string">'component-c'</span>, &#123; <span class
 <span class="hljs-tag">&lt;<span class="hljs-name">BaseButton</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"search"</span>&gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-name">BaseIcon</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"search"</span>/&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">BaseButton</span>&gt;</span></code></pre>
+
 <p>幸いにも、Webpack (または 内部的に Webpack を利用している <a href="https://github.com/vuejs/vue-cli" target="_blank" rel="noopener">Vue CLI 3+</a> ) を使用しているなら、 このような非常に汎用的な基底コンポーネントのグローバル登録に <code>require.context</code> を用いることができます。次に示す例は、アプリケーションのエントリファイル(例: <code>src/main.js</code> )で、基底コンポーネントをグローバルにインポートするコードです:</p>
 <pre><code class="hljs js"><span class="hljs-keyword">import</span> Vue <span class="hljs-keyword">from</span> <span class="hljs-string">'vue'</span>
 <span class="hljs-keyword">import</span> upperFirst <span class="hljs-keyword">from</span> <span class="hljs-string">'lodash/upperFirst'</span>
@@ -1112,6 +1125,7 @@ requireComponent.keys().forEach(<span class="hljs-function"><span class="hljs-pa
     componentConfig.default || componentConfig
   )
 &#125;)</code></pre>
+
 <p><strong>(<code>new Vue</code> を使って)ルート Vue インスタンスを作成するより前に、グローバル登録を行う必要があることを</strong> 覚えておいてください。<a href="https://github.com/chrisvfritz/vue-enterprise-boilerplate/blob/master/src/components/_globals.js" target="_blank" rel="noopener">この例は</a>実際のプロジェクトの文脈における、このパターンの一例です。</p>
 
   

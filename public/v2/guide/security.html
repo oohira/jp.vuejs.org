@@ -977,22 +977,29 @@
   <span class="hljs-attr">el</span>: <span class="hljs-string">'#app'</span>,
   <span class="hljs-attr">template</span>: <span class="hljs-string">`&lt;div&gt;`</span> + userProvidedString + <span class="hljs-string">`&lt;/div&gt;`</span> <span class="hljs-comment">// 絶対にしてはいけない</span>
 &#125;)</code></pre>
+
 <p>Vue のテンプレートは JavaScript にコンパイルされ、テンプレート中の式はレンダリング処理の過程で実行されます。式は特定のレンダリングコンテキストで評価されますが、潜在的にはグローバルに実行される複雑な実行環境となるため、Vue のようなフレームワークでパフォーマンスの非現実的なオーバーヘッドを受けることなく悪意のあるコード実行を完全に防ぐことは困難です。この手の問題を回避する最も直接的な方法は、完全にあなたの管理下にある信頼されたコンテンツだけを Vue テンプレートのコンテンツにすることです。</p>
 <h2 id="Vue-が行っているセキュリティ対策"><a href="#Vue-が行っているセキュリティ対策" class="headerlink" title="Vue が行っているセキュリティ対策"></a>Vue が行っているセキュリティ対策</h2><h3 id="HTML-コンテンツ"><a href="#HTML-コンテンツ" class="headerlink" title="HTML コンテンツ"></a>HTML コンテンツ</h3><p>テンプレートを使用する場合も、描画関数を使用する場合も、コンテンツは自動的にエスケープ処理されます。例えばこのようなテンプレートの場合:</p>
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>&#123;&#123; userProvidedString &#125;&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span></code></pre>
+
 <p>もし <code>userProvidedString</code> に以下が含まれていると:</p>
 <pre><code class="hljs js"><span class="hljs-string">'&lt;script&gt;alert("hi")&lt;/script&gt;'</span></code></pre>
+
 <p>以下のようにエスケープされた HTML になります。</p>
 <pre><code class="hljs html">&amp;lt;script&amp;gt;alert(&amp;quot;hi&amp;quot;)&amp;lt;/script&amp;gt;</code></pre>
+
 <p>Vue では、このようにスクリプトのインジェクションを防ぎます。このエスケープ処理は <code>textContent</code> 等のネイティブブラウザ API を使用して行われるため、ブラウザ自体が脆弱な場合のみ脆弱性が存在します。</p>
 <h3 id="属性のバインディング"><a href="#属性のバインディング" class="headerlink" title="属性のバインディング"></a>属性のバインディング</h3><p>同様に、動的な属性のバインディングも自動でエスケープ処理がされます。例えばこのようなテンプレートの場合:</p>
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">h1</span> <span class="hljs-attr">v-bind:title</span>=<span class="hljs-string">"userProvidedString"</span>&gt;</span>
   hello
 <span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span></code></pre>
+
 <p>もし <code>userProvidedString</code> に以下が含まれていると:</p>
 <pre><code class="hljs js"><span class="hljs-string">'" onclick="alert(\'hi\')'</span></code></pre>
+
 <p>以下のようにエスケープされた HTML になります。</p>
 <pre><code class="hljs html">&amp;quot; onclick=&amp;quot;alert('hi')</code></pre>
+
 <p>このように、<code>title</code> 属性に任意の HTML がインジェクトされることを防ぎます。このエスケープ処理も <code>setAttribute</code> 等のネイティブブラウザ API を使用して行われるため、ブラウザ自体が脆弱な場合のみ脆弱性が存在します。</p>
 <h2 id="潜在的な危険"><a href="#潜在的な危険" class="headerlink" title="潜在的な危険"></a>潜在的な危険</h2><p>どのような Web アプリケーションでも、ユーザの入力による無害化 (sanitize)されていないコンテンツを HTML、CSS、JavaScript として実行できるようにすることは潜在的な危険があるため、可能な限り避ける必要があります。しかしながら、ある程度のリスクなら許容される場合もあります。</p>
 <p>例えば、CodePen や JSFiddle などのサービスでは、ユーザによって入力されるコンテンツを実行できます。しかし、これは想定通りで、iframe 内である程度サンドボックス化されている状況においてです。重要な機能が本質的にある程度の脆弱性を必要とする場合、その機能の重要性と脆弱性による最悪のシナリオとをてんびんにかけることは、あなたのチームに委ねられます。</p>
@@ -1011,6 +1018,7 @@
 </li>
 <li><p>JSX による描画関数を利用する場合:</p>
 <pre><code class="hljs jsx">&lt;div domPropsInnerHTML=&#123;<span class="hljs-keyword">this</span>.userProvidedHtml&#125;&gt;<span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span></code></pre>
+
 </li>
 </ul>
 <p class="tip">ユーザが入力した HTML は、サンドボックス化された iframe、またはそれを入力したユーザのみがアクセスできるアプリの一部という場合を除き、100%安全とはみなされないことに注意して下さい。また、ユーザが独自の Vue テンプレートを作成できるようにすることも同様の危険があります。</p>
@@ -1019,8 +1027,9 @@
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">v-bind:href</span>=<span class="hljs-string">"userProvidedUrl"</span>&gt;</span>
   click me
 <span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span></code></pre>
+
 <p>URL を “無害化 (sanitize)” して javascript: の利用による JavaScript 実行を防いでいない場合、潜在的なセキュリティの問題があります。これの対策に、<a href="https://www.npmjs.com/package/@braintree/sanitize-url" target="_blank" rel="noopener">sanitize-url</a> 等のライブラリがあります。しかし注意してください:</p>
-<p class="tip">フロントエンドで URL の無害化 (sanitize)処理を行ったことがある場合、それはすでにセキュリティ上の問題をはらんでいます。ユーザの入力による URL は、常にバックエンドでデータベースに保存する前の処理が必要です。そうすることでモバイルのネイティブアプリを含め、API に接続する<em>すべての</em>クライアントで問題を回避することができます。また、無害化 (sanitize)処理がされた URL だとしても、Vue はリンク先の安全性を保証することはできません。</p>
+<p class="tip">フロントエンドで URL の無害化 (sanitize)処理を行ったことがある場合、それはすでにセキュリティ上の問題をはらんでいます。ユーザの入力による URL は、常にバックエンドでデータベースに保存する前の処理が必要です。そうすることでモバイルのネイティブアプリを含め、API に接続する_すべての_クライアントで問題を回避することができます。また、無害化 (sanitize)処理がされた URL だとしても、Vue はリンク先の安全性を保証することはできません。</p>
 
 <h3 id="スタイルの挿入"><a href="#スタイルの挿入" class="headerlink" title="スタイルの挿入"></a>スタイルの挿入</h3><p>この例を見てください:</p>
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">a</span>
@@ -1029,9 +1038,11 @@
 &gt;</span>
   click me
 <span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span></code></pre>
+
 <p><code>sanitizedUrl</code> は無害化 (sanitize)されていると仮定しましょう。 これは紛れもなく実際の URL で、JavaScript ではありません。<code>userProvidedStyles</code> を利用すると、悪意のあるユーザは”クリックジャック”のための CSS を設置できます。例えば、ログインボタンの上の透明ボックスにリンクをスタイリングします。そして、ログインページに似せた <code>https://user-controlled-website.com/</code> というサイトが構築されていた場合、ユーザーはログイン情報を盗まれてしまうかもしれません。</p>
 <p><code>&lt;style&gt;</code> 要素に対してユーザの入力するコンテンツを許可してしまうと、更に大きな脆弱性が発生し、そのページ全体のスタイルが制御されてしまうということが想像できるでしょう。そのために、Vue では以下のようなテンプレート内でのスタイルタグのレンダリングはやめるべきです:</p>
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">style</span>&gt;</span><span class="undefined">&#123;&#123; userProvidedStyles &#125;&#125;</span><span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span></code></pre>
+
 <p>ユーザによるクリックジャックを完全に防止するためには、CSS の完全な制御は iframe 内のサンドボックス化された場所でのみ行うことをお勧めします。または、スタイルバインディングを介してユーザに制御を与えたい場合は、<a href="class-and-style.html#Object-Syntax-1">オブジェクト構文</a> を利用し、特定のプロパティの値だけを設定できるようにすることをお勧めします、この例のように:</p>
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">a</span>
   <span class="hljs-attr">v-bind:href</span>=<span class="hljs-string">"sanitizedUrl"</span>
@@ -1042,6 +1053,7 @@
 &gt;</span>
   click me
 <span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span></code></pre>
+
 <h3 id="JavaScript-の挿入"><a href="#JavaScript-の挿入" class="headerlink" title="JavaScript の挿入"></a>JavaScript の挿入</h3><p>テンプレートと描画関数は副作用をもつべきではないため、Vue で <code>&lt;script&gt;</code> 要素をレンダリングすることは強くお勧めしません。ただしこれは、実行時に JavaScript として評価される文字列を含めるための唯一の方法ではありません。</p>
 <p>すべての HTML 要素には、<code>onclick</code> や <code>onfocus</code>、<code>onmouseenter</code> などの JavaScript 文字列を値として受け入れる属性があります。ユーザによって入力された JavaScript をこれらのイベント属性にバインドすることは、潜在的なセキュリティリスクとなるので避ける必要があります。</p>
 <p class="tip">ユーザが入力した JavaScript は、サンドボックス化された iframe、またはそれを入力したユーザのみがアクセスできるアプリの一部という場合を除き、100%安全とはみなされないことに注意してください。</p>

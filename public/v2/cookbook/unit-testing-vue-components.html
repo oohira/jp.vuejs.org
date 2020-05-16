@@ -438,6 +438,7 @@
   &#125;
 &#125;
 </span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code></pre>
+
 <pre><code class="hljs js"><span class="hljs-keyword">import</span> &#123; shallowMount &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">'@vue/test-utils'</span>
 <span class="hljs-keyword">import</span> Hello <span class="hljs-keyword">from</span> <span class="hljs-string">'./Hello.vue'</span>
 
@@ -457,6 +458,7 @@ test(<span class="hljs-string">'Hello'</span>, () =&gt; &#123;
   <span class="hljs-comment">// エラーがなくなったことをアサートします</span>
   expect(wrapper.find(<span class="hljs-string">'.error'</span>).exists()).toBe(<span class="hljs-literal">false</span>)
 &#125;)</code></pre>
+
 <p>上記のコードスニペットは、ユーザー名の長さに基づいてエラーメッセージが描画されるかどうかをテストする方法を示しています。 Vue コンポーネントの単体テストの一般的なアイデアを示します: コンポーネントを描画し、マークアップがコンポーネントの状態に一致するかをアサートします。</p>
 <h2 id="なぜテストをするのですか"><a href="#なぜテストをするのですか" class="headerlink" title="なぜテストをするのですか"></a>なぜテストをするのですか</h2><p>コンポーネントの単体テストにはたくさんの利点があります:</p>
 <ul>
@@ -514,6 +516,7 @@ test(<span class="hljs-string">'Hello'</span>, () =&gt; &#123;
   &#125;
 &#125;
 </span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code></pre>
+
 <p>私たちがテストすべきは:</p>
 <ul>
 <li><code>message</code> が表示されているか</li>
@@ -546,6 +549,7 @@ describe(<span class="hljs-string">'Foo'</span>, () =&gt; &#123;
     expect(wrapper.find(<span class="hljs-string">'.error'</span>).exists()).toBeFalsy()
   &#125;)
 &#125;)</code></pre>
+
 <p>上記テストにはいくつかの問題があります:</p>
 <ul>
 <li>1つのテストが異なることについてアサーションを行っています</li>
@@ -597,6 +601,7 @@ describe(<span class="hljs-string">'Foo'</span>, () =&gt; &#123;
     expect(wrapper.find(<span class="hljs-string">'.error'</span>).exists()).toBeFalsy()
   &#125;)
 &#125;)</code></pre>
+
 <p>注意すべき点:</p>
 <p>一番上に <code>values</code> オブジェクトをまとめて <code>data</code> にして、新しい <code>wrapper</code> インスタンスを返すファクトリ関数を宣言します。このようにすると、すべてのテストで <code>const wrapper = shallowMount（Foo）</code> を複製する必要がありません。このことのもう1つの大きな利点は、メソッドや算出プロパティを持つ複雑なコンポーネントをすべてのテストでモックまたはスタブにしたい場合は、一度だけ宣言すればいいということです。</p>
 <h2 id="コンテキストの追加"><a href="#コンテキストの追加" class="headerlink" title="コンテキストの追加"></a>コンテキストの追加</h2><p>上記のテストはかなりシンプルですが、実際の Vue コンポーネントは以下のような他のテストしたい振る舞いをよく持ちます:</p>

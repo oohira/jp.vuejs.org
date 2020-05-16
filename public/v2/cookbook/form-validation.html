@@ -466,6 +466,7 @@
   <span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
 
 <span class="hljs-tag">&lt;/<span class="hljs-name">form</span>&gt;</span></code></pre>
+
 <p>そして、その HTML をラップしましょう。 <code>&lt;form&gt;</code> タグには、 Vue コンポーネントに使用する ID が存在します。フォーム送信のハンドラと <code>action</code> がありますが、一時的な URL で、本来は現実のサーバーのどこかを指しています(ここでは、サーバーサイドでのバリデーションをバックアップしています)。</p>
 <p>その子には、エラーの状態にもとづいてそれ自身を表示・非表示とするための段落があります。これによって、フォーム上にシンプルなエラーのリストが表示されます。バリデーションはフィールドの変更時ではなく、フォーム送信の際に実行されることに注意してください。</p>
 <p>最後に、 3 つのフィールドそれぞれに対応、対応する <code>v-model</code> が存在し、これを JavaScript で利用する値と紐付ける必要があります。その例を見てみましょう。</p>
@@ -496,8 +497,9 @@
     &#125;
   &#125;
 &#125;)</code></pre>
+
 <p>短くてシンプルです。エラーを保持した上で、 3 つのフォームのフィールドに対して <code>null</code> を設定する配列を定義します。 <code>checkForm</code> のロジック(フォーム送信時に実行されるもの)では、 movie の値はオプショナルなので、 name および age についてのみチェックしています。それぞれについて、空ならばチェックをし、特定のエラーを設定するだけです。 以下のデモで実行してみることができます。なお、このデモでは送信が成功すると一時的な URL へと POST されることを忘れないでください。</p>
-<p></p><p data-height="265" data-theme-id="0" data-slug-hash="GObpZM" data-default-tab="html,result" data-user="cfjedimaster" data-embed-version="2" data-pen-title="form validation 1" class="codepen">See the Pen <a href="https://codepen.io/cfjedimaster/pen/GObpZM/" target="_blank" rel="noopener">form validation 1</a> by Raymond Camden (<a href="https://codepen.io/cfjedimaster" target="_blank" rel="noopener">@cfjedimaster</a>) on <a href="https://codepen.io" target="_blank" rel="noopener">CodePen</a>.</p><p></p>
+<p data-height="265" data-theme-id="0" data-slug-hash="GObpZM" data-default-tab="html,result" data-user="cfjedimaster" data-embed-version="2" data-pen-title="form validation 1" class="codepen">See the Pen <a href="https://codepen.io/cfjedimaster/pen/GObpZM/" target="_blank" rel="noopener">form validation 1</a> by Raymond Camden (<a href="https://codepen.io/cfjedimaster" target="_blank" rel="noopener">@cfjedimaster</a>) on <a href="https://codepen.io" target="_blank" rel="noopener">CodePen</a>.</p>
 <script async src="https://production-assets.codepen.io/assets/embed/ei.js"></script>
 
 <h2 id="カスタムバリデーションの利用"><a href="#カスタムバリデーションの利用" class="headerlink" title="カスタムバリデーションの利用"></a>カスタムバリデーションの利用</h2><p>次の例では、 2 つめのテキストフィールドを email へと切り替え、カスタマイズしたロジックでバリデーションをします。このコードは、 StackOverflow の質問「<a href="https://stackoverflow.com/questions/46155/how-to-validate-email-address-in-javascript" target="_blank" rel="noopener">How to validate email address in JavaScript?</a>」から持ってきています。 HTML はこちらですが、はじめの例と非常に似通っています。</p>
@@ -557,6 +559,7 @@
   <span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
 
 <span class="hljs-tag">&lt;/<span class="hljs-name">form</span>&gt;</span></code></pre>
+
 <p>ここでの変更は少しだけですが、トップのフォームに対して <code>novalidate=&quot;true&quot;</code> に注目してください。 <code>type=&quot;email&quot;</code> の場合、ブラウザがフィールドに入力された E メールアドレスをバリデーションしようするため、この設定は重要です。率直に言えば、この場合はブラウザを信用すべきかもしれませんが、ここではカスタムバリデーションのサンプルのため無効化しています。 JavaScript 側の更新は以下になります:</p>
 <pre><code class="hljs js"><span class="hljs-keyword">const</span> app = <span class="hljs-keyword">new</span> Vue(&#123;
   <span class="hljs-attr">el</span>: <span class="hljs-string">'#app'</span>,
@@ -591,8 +594,9 @@
     &#125;
   &#125;
 &#125;)</code></pre>
+
 <p>見て分かるとおり、 <code>validEmail</code> メソッドが新しく追加されました。これは、単純に <code>checkForm</code> から呼び出されています。こちらで実際に動作させることができます:</p>
-<p></p><p data-height="265" data-theme-id="0" data-slug-hash="vWqNXZ" data-default-tab="html,result" data-user="cfjedimaster" data-embed-version="2" data-pen-title="form validation 2" class="codepen">See the Pen <a href="https://codepen.io/cfjedimaster/pen/vWqNXZ/" target="_blank" rel="noopener">form validation 2</a> by Raymond Camden (<a href="https://codepen.io/cfjedimaster" target="_blank" rel="noopener">@cfjedimaster</a>) on <a href="https://codepen.io" target="_blank" rel="noopener">CodePen</a>.</p><p></p>
+<p data-height="265" data-theme-id="0" data-slug-hash="vWqNXZ" data-default-tab="html,result" data-user="cfjedimaster" data-embed-version="2" data-pen-title="form validation 2" class="codepen">See the Pen <a href="https://codepen.io/cfjedimaster/pen/vWqNXZ/" target="_blank" rel="noopener">form validation 2</a> by Raymond Camden (<a href="https://codepen.io/cfjedimaster" target="_blank" rel="noopener">@cfjedimaster</a>) on <a href="https://codepen.io" target="_blank" rel="noopener">CodePen</a>.</p>
 <script async src="https://production-assets.codepen.io/assets/embed/ei.js"></script>
 
 <h2 id="カスタムバリデーションにおけるその他の例"><a href="#カスタムバリデーションにおけるその他の例" class="headerlink" title="カスタムバリデーションにおけるその他の例"></a>カスタムバリデーションにおけるその他の例</h2><p>3 つめの例は、アンケートアプリにて見たことがあるかもしれません。ユーザーは、 戦艦のそれぞれの機能に対して予算を振り分ける必要があります。かつ合計は必ず 100 となる必要があります。まずは HTML です。</p>
@@ -657,6 +661,7 @@
   <span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
 
 <span class="hljs-tag">&lt;/<span class="hljs-name">form</span>&gt;</span></code></pre>
+
 <p>5 つの機能ごとの入力フォームを見てみてください。そして、 <code>v-model</code> 属性に対して、 <code>.number</code> が付与されていることを注目してください。これは、値が利用される時に、 number にキャストするように Vue に対して指定することが可能です。しかしながら、この機能にはバグがあり、値が空の場合は空文字列に戻ってしまいます。以下に、その回避策を示しています。ユーザーにとってわかりやすくするため、現在の合計値をリアルタイムで見ることができるように追加しました。 JavaScript 側を見てみましょう。</p>
 <pre><code class="hljs js"><span class="hljs-keyword">const</span> app = <span class="hljs-keyword">new</span> Vue(&#123;
   <span class="hljs-attr">el</span>: <span class="hljs-string">'#app'</span>,
@@ -693,8 +698,9 @@
     &#125;
   &#125;
 &#125;)</code></pre>
+
 <p>合計値を算出プロパティとして設定し、バグを取り除いて動かすために十分に簡潔でした。 checkForm メソッドでは、合計値が 100 かどうかだけ確認する必要があります。こちらで実際に動作させることができます:</p>
-<p></p><p data-height="265" data-theme-id="0" data-slug-hash="vWqGoy" data-default-tab="html,result" data-user="cfjedimaster" data-embed-version="2" data-pen-title="form validation 3" class="codepen">See the Pen <a href="https://codepen.io/cfjedimaster/pen/vWqGoy/" target="_blank" rel="noopener">form validation 3</a> by Raymond Camden (<a href="https://codepen.io/cfjedimaster" target="_blank" rel="noopener">@cfjedimaster</a>) on <a href="https://codepen.io" target="_blank" rel="noopener">CodePen</a>.</p><p></p>
+<p data-height="265" data-theme-id="0" data-slug-hash="vWqGoy" data-default-tab="html,result" data-user="cfjedimaster" data-embed-version="2" data-pen-title="form validation 3" class="codepen">See the Pen <a href="https://codepen.io/cfjedimaster/pen/vWqGoy/" target="_blank" rel="noopener">form validation 3</a> by Raymond Camden (<a href="https://codepen.io/cfjedimaster" target="_blank" rel="noopener">@cfjedimaster</a>) on <a href="https://codepen.io" target="_blank" rel="noopener">CodePen</a>.</p>
 <script async src="https://production-assets.codepen.io/assets/embed/ei.js"></script>
 
 <h2 id="サーバーサイドでのバリデーション"><a href="#サーバーサイドでのバリデーション" class="headerlink" title="サーバーサイドでのバリデーション"></a>サーバーサイドでのバリデーション</h2><p>最後の例では、 Ajax を利用してサーバーにてバリデーションを行うものを作成しました。このフォームでは、新しい product の名前を尋ね、その名前が一意かをチェックします。このバリデーションのために、サーバーレスな <a href="https://netlify.com/" target="_blank" rel="noopener">Netlify</a> アクションを書きました。ここでは重要ではありませんが、ロジックはこちらになります:</p>
@@ -715,6 +721,7 @@
     &#125;
 
 &#125;</code></pre>
+
 <p>基本的には “vista”, “empire”, “mbp” 以外の名前で問題ありません。フォームをみてみましょう。</p>
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">form</span>
   <span class="hljs-attr">id</span>=<span class="hljs-string">"app"</span>
@@ -747,6 +754,7 @@
   <span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
 
 <span class="hljs-tag">&lt;/<span class="hljs-name">form</span>&gt;</span></code></pre>
+
 <p>ここには特別な要素はありません。 JavaScript の例に進みましょう。</p>
 <pre><code class="hljs js"><span class="hljs-keyword">const</span> apiUrl = <span class="hljs-string">'https://vuecookbook.netlify.com/.netlify/functions/product-name?name='</span>;
 
@@ -778,8 +786,9 @@
     &#125;
   &#125;
 &#125;)</code></pre>
+
 <p>OpenWhisk にて実行される API の URL を表す変数から始まります。 <code>checkForm</code> を見てみましょう。この例においては、フォームが送信されないようにしています(ただし、 HTML 上で Vue にて動かすことはできます). ここで、 <code>this.name</code> が空かどうかのチェックを行い、その後 API を叩いていることが見てとれます。問題がある場合は、先ほどの例と同じようにエラーを追加しています。うまくいけば、なにもしません(ここではアラートのみ) URL に含まれる product の名前をもとに新しいページへと遷移させたり、他の動作を実行することもできます。以下でデモを実行できます:</p>
-<p></p><p data-height="265" data-theme-id="0" data-slug-hash="BmgzeM" data-default-tab="js,result" data-user="cfjedimaster" data-embed-version="2" data-pen-title="form validation 4" class="codepen">See the Pen <a href="https://codepen.io/cfjedimaster/pen/BmgzeM/" target="_blank" rel="noopener">form validation 4</a> by Raymond Camden (<a href="https://codepen.io/cfjedimaster" target="_blank" rel="noopener">@cfjedimaster</a>) on <a href="https://codepen.io" target="_blank" rel="noopener">CodePen</a>.</p><p></p>
+<p data-height="265" data-theme-id="0" data-slug-hash="BmgzeM" data-default-tab="js,result" data-user="cfjedimaster" data-embed-version="2" data-pen-title="form validation 4" class="codepen">See the Pen <a href="https://codepen.io/cfjedimaster/pen/BmgzeM/" target="_blank" rel="noopener">form validation 4</a> by Raymond Camden (<a href="https://codepen.io/cfjedimaster" target="_blank" rel="noopener">@cfjedimaster</a>) on <a href="https://codepen.io" target="_blank" rel="noopener">CodePen</a>.</p>
 <script async src="https://production-assets.codepen.io/assets/embed/ei.js"></script>
 
 <h2 id="代替パターン"><a href="#代替パターン" class="headerlink" title="代替パターン"></a>代替パターン</h2><p>このクックブックでは、手作業でフォームのバリデーションを行うことに焦点をあてていますが、もちろん、これを取り扱うための素晴らしい Vue ライブラリが多く存在します。パッケージ化されたライブラリに切り替えることで、アプリケーションの最終的なサイズに影響をあたえることがありますが、切り替えることは大きなメリットとなりえるでしょう。十分にテストされ、定期的に更新されているコードとして、 Vue のフォームバリデーションライブラリには次のようなものがあります:</p>

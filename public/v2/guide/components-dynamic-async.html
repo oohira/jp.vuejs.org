@@ -975,6 +975,7 @@
 </blockquote>
 <h2 id="動的コンポーネントにおける-keep-alive-の利用"><a href="#動的コンポーネントにおける-keep-alive-の利用" class="headerlink" title="動的コンポーネントにおける keep-alive の利用"></a>動的コンポーネントにおける <code>keep-alive</code> の利用</h2><p>まず、<code>is</code> 属性を利用してタブインタフェースのコンポーネントを切り替えることができます:</p>
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">component</span> <span class="hljs-attr">v-bind:is</span>=<span class="hljs-string">"currentTabComponent"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">component</span>&gt;</span></code></pre>
+
 <p>しかし、コンポーネントを切り替える時、コンポーネントの状態を保持したり、パフォーマンスの理由から再レンダリングを避けたいときもあるでしょう。例えば、タブインターフェースを少し拡張した場合:</p>
 
 <div id="dynamic-component-demo" class="demo">
@@ -1100,12 +1101,14 @@ new Vue({
 }
 </style>
 
+
 <p>投稿を選択し、 <em>Archive</em> タブに切り替えてから <em>Posts</em> に戻ると、選択していた投稿は表示されなくなります。 これは、新しいタブに切り替えるたびに、Vue が <code>currentTabComponent</code> の新しいインスタンスを作成するからです。</p>
 <p>動的コンポーネントの再生成は通常は便利な挙動です。しかし、このケースでは最初に作成されたタブコンポーネントのインスタンスがキャッシュされるのが好ましいでしょう。この解決策として、動的コンポーネントを <code>&lt;keep-alive&gt;</code> 要素でラップすることができます:</p>
 <pre><code class="hljs html"><span class="hljs-comment">&lt;!-- インアクティブなコンポーネントはキャッシュされます! --&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">keep-alive</span>&gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-name">component</span> <span class="hljs-attr">v-bind:is</span>=<span class="hljs-string">"currentTabComponent"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">component</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">keep-alive</span>&gt;</span></code></pre>
+
 <p>以下のようになります:</p>
 
 <div id="dynamic-component-keep-alive-demo" class="demo">
@@ -1129,8 +1132,9 @@ new Vue({
 })
 </script>
 
+
 <p>このように <em>Posts</em> タブがレンダリングされていなくても、自身の状態(選択された投稿)を保持するようになります。完全なコードは <a href="https://codesandbox.io/s/github/vuejs/vuejs.org/tree/master/src/v2/examples/vue-20-keep-alive-with-dynamic-components" target="_blank" rel="noopener">この例</a> を参照してください。</p>
-<p class="tip"><code>&lt;keep-alive&gt;</code> にラップされるコンポーネントは、全て <code>name</code> を持つ必要があります。 コンポーネントの <code>name</code> オプションを使うか、ローカル/グローバル登録を使用してください。</p>
+<p class="tip">`<keep-alive>` にラップされるコンポーネントは、全て `name` を持つ必要があります。 コンポーネントの `name` オプションを使うか、ローカル/グローバル登録を使用してください。</keep-alive></p>
 
 <p><code>&lt;keep-alive&gt;</code> の詳細な情報については <a href="../api/#keep-alive">API リファレンス</a> を参照してください。</p>
 <h2 id="非同期コンポーネント"><a href="#非同期コンポーネント" class="headerlink" title="非同期コンポーネント"></a>非同期コンポーネント</h2><div class="vueschool"><a href="https://vueschool.io/lessons/dynamically-load-components?friend=vuejs" target="_blank" rel="sponsored noopener" title="Free Vue.js Async Components lesson">Vue School で無料の動画レッスンを見る</a></div>
@@ -1144,18 +1148,21 @@ new Vue({
     &#125;)
   &#125;, <span class="hljs-number">1000</span>)
 &#125;)</code></pre>
+
 <p>見ての通り、ファクトリ関数は、コンポーネント定義をサーバから取得したときに呼び出す必要がある <code>resolve</code> コールバックを受け取ります。 ここでの <code>setTimeout</code> はデモのためです。 コンポーネントの取得方法はあなた次第です。1つの推奨される方法は、 非同期コンポーネントと <a href="https://webpack.js.org/guides/code-splitting/" target="_blank" rel="noopener">Webpack の code-splitting の機能</a> を使用することです:</p>
 <pre><code class="hljs js">Vue.component(<span class="hljs-string">'async-webpack-example'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">resolve</span>) </span>&#123;
   <span class="hljs-comment">// この特別な require 構文は、ビルドされたコードを</span>
   <span class="hljs-comment">// 自動的に Ajax リクエストを介してロードされるバンドルに分割するよう Webpack に指示します</span>
   <span class="hljs-built_in">require</span>([<span class="hljs-string">'./my-async-component'</span>], resolve)
 &#125;)</code></pre>
+
 <p>ファクトリ関数で <code>Promise</code> を返すこともできるので、Webpack 2 と ES2015 の構文では以下のように書けます:</p>
 <pre><code class="hljs js">Vue.component(
   <span class="hljs-string">'async-webpack-example'</span>,
   <span class="hljs-comment">// `import` 関数は Promise を返します。</span>
   () =&gt; <span class="hljs-keyword">import</span>(<span class="hljs-string">'./my-async-component'</span>)
 )</code></pre>
+
 <p><a href="components-registration.html#ローカル登録">ローカル登録</a> を使っている場合、<code>Promise</code> を返す関数を直接与えることもできます:</p>
 <pre><code class="hljs js"><span class="hljs-keyword">new</span> Vue(&#123;
   <span class="hljs-comment">// ...</span>
@@ -1163,7 +1170,8 @@ new Vue({
     <span class="hljs-string">'my-component'</span>: <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> <span class="hljs-keyword">import</span>(<span class="hljs-string">'./my-async-component'</span>)
   &#125;
 &#125;)</code></pre>
-<p class="tip">もしあなたが <strong>Browserify</strong> ユーザで非同期コンポーネントを利用したいとしても、残念なことに作者は「非同期読み込みはBrowserifyがサポートするものではない」ことを<a href="https://github.com/substack/node-browserify/issues/58#issuecomment-21978224" target="_blank" rel="noopener">明らかにしました</a>、少なくとも公式では。Browserify のコミュニティーは既存の複雑なアプリケーションの役に立ちうる <a href="https://github.com/vuejs/vuejs.org/issues/620" target="_blank" rel="noopener">回避策</a> を見つけました。その他の全ての場合、私たちはビルトインでファーストクラスの非同期サポートを理由に Webpack の利用を推奨します。</p>
+
+<p class="tip">もしあなたが <strong>Browserify</strong> ユーザで非同期コンポーネントを利用したいとしても、残念なことに作者は「非同期読み込みはBrowserifyがサポートするものではない」ことを[明らかにしました](https://github.com/substack/node-browserify/issues/58#issuecomment-21978224)、少なくとも公式では。Browserify のコミュニティーは既存の複雑なアプリケーションの役に立ちうる [回避策](https://github.com/vuejs/vuejs.org/issues/620) を見つけました。その他の全ての場合、私たちはビルトインでファーストクラスの非同期サポートを理由に Webpack の利用を推奨します。</p>
 
 <h3 id="ロード状態のハンドリング"><a href="#ロード状態のハンドリング" class="headerlink" title="ロード状態のハンドリング"></a>ロード状態のハンドリング</h3><blockquote>
 <p>2.3.0 から新規</p>
@@ -1182,6 +1190,7 @@ new Vue({
   <span class="hljs-comment">// デフォルト: Infinity</span>
   timeout: <span class="hljs-number">3000</span>
 &#125;)</code></pre>
+
 <blockquote>
 <p>上記の記法をルートコンポーネントに使用する場合、2.4.0 以上の <a href="https://github.com/vuejs/vue-router" target="_blank" rel="noopener">Vue Router</a> を使用しなければならないことに注意してください。</p>
 </blockquote>

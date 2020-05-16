@@ -977,8 +977,10 @@
     Hello world!
   <span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span></code></pre>
+
 <p>上記の HTML に対して、望ましいコンポーネントのインターフェイスを決めましょう。</p>
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">anchored-heading</span> <span class="hljs-attr">:level</span>=<span class="hljs-string">"1"</span>&gt;</span>Hello world!<span class="hljs-tag">&lt;/<span class="hljs-name">anchored-heading</span>&gt;</span></code></pre>
+
 <p><code>level</code> プロパティを元にしてヘッダを生成するだけのコンポーネントから始める時、すぐに以下の例にたどり着くでしょう。</p>
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text/x-template"</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"anchored-heading-template"</span>&gt;</span><span class="xml">
   <span class="hljs-tag">&lt;<span class="hljs-name">h1</span> <span class="hljs-attr">v-if</span>=<span class="hljs-string">"level === 1"</span>&gt;</span>
@@ -1000,6 +1002,7 @@
     <span class="hljs-tag">&lt;<span class="hljs-name">slot</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">slot</span>&gt;</span>
   <span class="hljs-tag">&lt;/<span class="hljs-name">h6</span>&gt;</span>
 </span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code></pre>
+
 <pre><code class="hljs js">Vue.component(<span class="hljs-string">'anchored-heading'</span>, &#123;
   <span class="hljs-attr">template</span>: <span class="hljs-string">'#anchored-heading-template'</span>,
   <span class="hljs-attr">props</span>: &#123;
@@ -1009,6 +1012,7 @@
     &#125;
   &#125;
 &#125;)</code></pre>
+
 <p>このテンプレートは良い気がしません。冗長なだけでなく、全てのヘッダレベルで <code>&lt;slot&gt;&lt;/slot&gt;</code> を重複させており、アンカー要素を追加したい時に同じことをする必要があります。</p>
 <p>テンプレートはほとんどのコンポーネントでうまく動作しますが、この例はそうではないことが明確です。では、 <code>render</code> 関数を使ってこれを書き直してみましょう。</p>
 <pre><code class="hljs js">Vue.component(<span class="hljs-string">'anchored-heading'</span>, &#123;
@@ -1025,6 +1029,7 @@
     &#125;
   &#125;
 &#125;)</code></pre>
+
 <p>少しシンプルになりましたね！コードは短くなりましたが、Vue インスタンスプロパティの豊富な知識を必要とします。このケースでは、 <code>v-slot</code> ディレクティブ無しでコンポーネントに子を渡した時に ( <code>anchored-heading</code> の内側の <code>Hello world!</code> のような) 、それらの子がコンポーネントインスタンス上の  <code>$slots.default</code> にストアされていることを知っている必要があります。もしまだ知らないなら、<strong>render 関数に進む前に <a href="../api/#インスタンスプロパティ">インスタンスプロパティAPI</a> を読むことをオススメします。</strong></p>
 <h2 id="ノード、ツリー、および仮想-DOM"><a href="#ノード、ツリー、および仮想-DOM" class="headerlink" title="ノード、ツリー、および仮想 DOM"></a>ノード、ツリー、および仮想 DOM</h2><p>render 関数を説明する前に、ブラウザの仕組みについて少し知っておくことが重要です。例えば、次のように HTML を入力します。</p>
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>
@@ -1032,20 +1037,24 @@
   Some text content
   <span class="hljs-comment">&lt;!-- <span class="hljs-doctag">TODO:</span> Add tagline  --&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
+
 <p>ブラウザはこのコードを読み込むと、血縁関係を追跡するために家系図を構築するのと同じように、全てを追跡する <a href="https://javascript.info/dom-nodes" target="_blank" rel="noopener">“DOM ノード”ツリー</a>を構築します。</p>
 <p>上記の HTML の DOM ノードのツリーは次のようになります。</p>
 <p><img src="/images/dom-tree.png" alt="DOM Tree Visualization"></p>
 <p>全ての要素はノードです。全てのテキストはノードです。コメントさえもノードです！ノードはページの一部に過ぎません。 そして、家系図のように、各ノードは子供を持つことができます(つまり、各部分には他の部分を含めることができます)。</p>
 <p>これらのノードを全て効率的に更新するのは難しいかもしれませんが、ありがたいことに、手動で行う必要はありません。テンプレート内のどの HTML をページに表示するかを Vue に伝えるだけです。</p>
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>&#123;&#123; blogTitle &#125;&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span></code></pre>
+
 <p>または render 関数の場合:</p>
 <pre><code class="hljs js">render: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">createElement</span>) </span>&#123;
   <span class="hljs-keyword">return</span> createElement(<span class="hljs-string">'h1'</span>, <span class="hljs-keyword">this</span>.blogTitle)
 &#125;</code></pre>
+
 <p>どちらの場合でも、<code>blogTitle</code>が変更されるときでさえ、Vue はページを自動的に更新します。</p>
 <h3 id="仮想-DOM"><a href="#仮想-DOM" class="headerlink" title="仮想 DOM"></a>仮想 DOM</h3><p>Vue は、実際の DOM に加える必要がある変更を追跡する<strong>仮想 DOM</strong> を構築することで、これを達成します。</p>
 <pre><code class="hljs js"><span class="hljs-keyword">return</span> createElement(<span class="hljs-string">'h1'</span>, <span class="hljs-keyword">this</span>.blogTitle)</code></pre>
-<p><code>createElement</code> は実際に何を返しているのでしょうか？<em>正確には</em>実際の DOM 要素ではありません。どのノードを描画するかを記述した情報が子ノードの記述を含んで Vue に含まれているため、より正確には <code>createNodeDescription</code> という名前になります。このノード記述は”仮想ノード”と呼ばれ、通常は <strong>VNode</strong> と略されます。”仮想 DOM” は、Vue コンポーネントのツリーで構築された VNode のツリー全体と呼んでいるものです。</p>
+
+<p><code>createElement</code> は実際に何を返しているのでしょうか？_正確には_実際の DOM 要素ではありません。どのノードを描画するかを記述した情報が子ノードの記述を含んで Vue に含まれているため、より正確には <code>createNodeDescription</code> という名前になります。このノード記述は”仮想ノード”と呼ばれ、通常は <strong>VNode</strong> と略されます。”仮想 DOM” は、Vue コンポーネントのツリーで構築された VNode のツリー全体と呼んでいるものです。</p>
 <h2 id="createElement-引数"><a href="#createElement-引数" class="headerlink" title="createElement 引数"></a><code>createElement</code> 引数</h2><p>あなたが精通する必要がある次のことは <code>createElement</code> 関数の中でテンプレートの機能をどのように使うかについてです。こちらが <code>createElement</code> の受け付ける引数です。</p>
 <pre><code class="hljs js"><span class="hljs-comment">// @returns &#123;VNode&#125;</span>
 createElement(
@@ -1074,6 +1083,7 @@ createElement(
     &#125;)
   ]
 )</code></pre>
+
 <h3 id="データオブジェクト詳解"><a href="#データオブジェクト詳解" class="headerlink" title="データオブジェクト詳解"></a>データオブジェクト詳解</h3><p>1 つ注意点: <code>v-bind:class</code> と <code>v-bind:style</code> がテンプレート内で特殊な扱いをされているのと同じように、それらは VNode のデータオブジェクト内で自身のトップレベルフィールドを持ちます。このオブジェクトは <code>innerHTML</code> のような通常の HTML 属性だけでなく DOM プロパティもバインドすることができます(これは <code>v-html</code> ディレクティブに取って代わるものです):</p>
 <pre><code class="hljs js">&#123;
   // `v-bind:class` と同じ API、いずれかを受け付ける
@@ -1141,6 +1151,7 @@ createElement(
   // array
   refInFor: true
 &#125;</code></pre>
+
 <h3 id="完全な例"><a href="#完全な例" class="headerlink" title="完全な例"></a>完全な例</h3><p>これらの知識を使えば、私たちが始めたコンポーネントを完了させることができるようになりました。</p>
 <pre><code class="hljs js"><span class="hljs-keyword">var</span> getChildrenTextContent = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">children</span>) </span>&#123;
   <span class="hljs-keyword">return</span> children.map(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">node</span>) </span>&#123;
@@ -1177,6 +1188,7 @@ Vue.component(<span class="hljs-string">'anchored-heading'</span>, &#123;
     &#125;
   &#125;
 &#125;)</code></pre>
+
 <h3 id="制約"><a href="#制約" class="headerlink" title="制約"></a>制約</h3><h4 id="VNode-は一意でなければならない"><a href="#VNode-は一意でなければならない" class="headerlink" title="VNode は一意でなければならない"></a>VNode は一意でなければならない</h4><p>コンポーネントツリーの中で全ての VNode は一意でなければなりません。つまり、以下の render 関数は不正です。</p>
 <pre><code class="hljs js">render: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">createElement</span>) </span>&#123;
   <span class="hljs-keyword">var</span> myParagraphVNode = createElement(<span class="hljs-string">'p'</span>, <span class="hljs-string">'hi'</span>)
@@ -1185,6 +1197,7 @@ Vue.component(<span class="hljs-string">'anchored-heading'</span>, &#123;
     myParagraphVNode, myParagraphVNode
   ])
 &#125;</code></pre>
+
 <p>もし同じ要素 / コンポーネントを何度も重複させたい場合には、factory 関数を使うことで対応できます。例えば、次の render 関数は 20 個の一意に特定できるパラグラフを描画する完全に正当な方法です。</p>
 <pre><code class="hljs js">render: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">createElement</span>) </span>&#123;
   <span class="hljs-keyword">return</span> createElement(<span class="hljs-string">'div'</span>,
@@ -1193,11 +1206,13 @@ Vue.component(<span class="hljs-string">'anchored-heading'</span>, &#123;
     &#125;)
   )
 &#125;</code></pre>
+
 <h2 id="素の-JavaScript-によるテンプレートの書き換え"><a href="#素の-JavaScript-によるテンプレートの書き換え" class="headerlink" title="素の JavaScript によるテンプレートの書き換え"></a>素の JavaScript によるテンプレートの書き換え</h2><h3 id="v-if-と-v-for"><a href="#v-if-と-v-for" class="headerlink" title="v-if と v-for"></a><code>v-if</code> と <code>v-for</code></h3><p>どんなところでも素の JavaScript で簡単に物事は成し遂げることができるので、Vue の render 関数は独自の代替手段を提供しません。例えば、以下の <code>v-if</code> と <code>v-for</code> を使ったテンプレート：</p>
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">ul</span> <span class="hljs-attr">v-if</span>=<span class="hljs-string">"items.length"</span>&gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-name">li</span> <span class="hljs-attr">v-for</span>=<span class="hljs-string">"item in items"</span>&gt;</span>&#123;&#123; item.name &#125;&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">v-else</span>&gt;</span>No items found.<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span></code></pre>
+
 <p>これは render 関数においては JavaScript の <code>if</code> / <code>else</code> と <code>map</code> を使って書き換えることができます。</p>
 <pre><code class="hljs js">props: [<span class="hljs-string">'items'</span>],
 <span class="hljs-attr">render</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">createElement</span>) </span>&#123;
@@ -1209,6 +1224,7 @@ Vue.component(<span class="hljs-string">'anchored-heading'</span>, &#123;
     <span class="hljs-keyword">return</span> createElement(<span class="hljs-string">'p'</span>, <span class="hljs-string">'No items found.'</span>)
   &#125;
 &#125;</code></pre>
+
 <h3 id="v-model"><a href="#v-model" class="headerlink" title="v-model"></a><code>v-model</code></h3><p>描画関数には直接的な <code>v-model</code> の対応はありません。 あなた自身でロジックを実装する必要があります:</p>
 <pre><code class="hljs js">props: [<span class="hljs-string">'value'</span>],
 <span class="hljs-attr">render</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">createElement</span>) </span>&#123;
@@ -1224,6 +1240,7 @@ Vue.component(<span class="hljs-string">'anchored-heading'</span>, &#123;
     &#125;
   &#125;)
 &#125;</code></pre>
+
 <p>これは低レベルのコストですが、<code>v-model</code> と比較してインタラクションをより詳細に制御することもできます。</p>
 <h3 id="イベントとキー修飾子"><a href="#イベントとキー修飾子" class="headerlink" title="イベントとキー修飾子"></a>イベントとキー修飾子</h3><p><code>.passive</code>、<code>.capture</code> と <code>.once</code> イベント修飾子に対して、Vue は <code>on</code> で使用できる接頭辞を提供しています:</p>
 <table>
@@ -1233,8 +1250,7 @@ Vue.component(<span class="hljs-string">'anchored-heading'</span>, &#123;
 <th>接頭辞</th>
 </tr>
 </thead>
-<tbody>
-<tr>
+<tbody><tr>
 <td><code>.passive</code></td>
 <td><code>&amp;</code></td>
 </tr>
@@ -1250,14 +1266,14 @@ Vue.component(<span class="hljs-string">'anchored-heading'</span>, &#123;
 <td><code>.capture.once</code> または <br><code>.once.capture</code></td>
 <td><code>~!</code></td>
 </tr>
-</tbody>
-</table>
+</tbody></table>
 <p>例:</p>
 <pre><code class="hljs javascript">on: &#123;
   <span class="hljs-string">'!click'</span>: <span class="hljs-keyword">this</span>.doThisInCapturingMode,
   <span class="hljs-string">'~keyup'</span>: <span class="hljs-keyword">this</span>.doThisOnce,
   <span class="hljs-string">'~!mouseover'</span>: <span class="hljs-keyword">this</span>.doThisOnceInCapturingMode
 &#125;</code></pre>
+
 <p>全ての他のイベントとキー修飾子に対しては、単にハンドラ内のイベントメソッドを使用できるため、独自の接頭辞は必要ありません:</p>
 <table>
 <thead>
@@ -1266,8 +1282,7 @@ Vue.component(<span class="hljs-string">'anchored-heading'</span>, &#123;
 <th>ハンドラに相当</th>
 </tr>
 </thead>
-<tbody>
-<tr>
+<tbody><tr>
 <td><code>.stop</code></td>
 <td><code>event.stopPropagation()</code></td>
 </tr>
@@ -1287,8 +1302,7 @@ Vue.component(<span class="hljs-string">'anchored-heading'</span>, &#123;
 <td>修飾子キー:<br><code>.ctrl</code>, <code>.alt</code>, <code>.shift</code>, <code>.meta</code></td>
 <td><code>if (!event.ctrlKey) return</code> (<code>ctrlKey</code> を <code>altKey</code>、<code>shiftKey</code>、または <code>metaKey</code>、それぞれ変更する)</td>
 </tr>
-</tbody>
-</table>
+</tbody></table>
 <p>以下に、これらの修飾子がすべて一緒に使用されている例を示します:</p>
 <pre><code class="hljs javascript">on: &#123;
   <span class="hljs-attr">keyup</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">event</span>) </span>&#123;
@@ -1305,11 +1319,13 @@ Vue.component(<span class="hljs-string">'anchored-heading'</span>, &#123;
     <span class="hljs-comment">// ...</span>
   &#125;
 &#125;</code></pre>
+
 <h3 id="スロット"><a href="#スロット" class="headerlink" title="スロット"></a>スロット</h3><p><a href="../api/#vm-slots"><code>this.$slots</code></a> から VNode の配列として静的なスロットの内容にアクセスできます:</p>
 <pre><code class="hljs js">render: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">createElement</span>) </span>&#123;
   <span class="hljs-comment">// `&lt;div&gt;&lt;slot&gt;&lt;/slot&gt;&lt;/div&gt;`</span>
   <span class="hljs-keyword">return</span> createElement(<span class="hljs-string">'div'</span>, <span class="hljs-keyword">this</span>.$slots.default)
 &#125;</code></pre>
+
 <p>そして、<a href="../api/#vm-scopedSlots"><code>this.$scopedSlots</code></a> から VNode を返す関数としてスコープ付きスロットにアクセスできます:</p>
 <pre><code class="hljs js">props: [<span class="hljs-string">'message'</span>],
 <span class="hljs-attr">render</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">createElement</span>) </span>&#123;
@@ -1320,6 +1336,7 @@ Vue.component(<span class="hljs-string">'anchored-heading'</span>, &#123;
     &#125;)
   ])
 &#125;</code></pre>
+
 <p>スコープ付きスロットを描画関数を使って子コンポーネントに渡すには、VNode データの <code>scopedSlots</code> フィールドを使います:</p>
 <pre><code class="hljs js">render: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">createElement</span>) </span>&#123;
   <span class="hljs-comment">// `&lt;div&gt;&lt;child v-slot="props"&gt;&lt;span&gt;&#123;&#123; props.text &#125;&#125;&lt;/span&gt;&lt;/child&gt;&lt;/div&gt;`</span>
@@ -1335,6 +1352,7 @@ Vue.component(<span class="hljs-string">'anchored-heading'</span>, &#123;
     &#125;)
   ])
 &#125;</code></pre>
+
 <h2 id="JSX"><a href="#JSX" class="headerlink" title="JSX"></a>JSX</h2><p>もしあなたが多くの render 関数を書いている場合は、このような書き方はつらいと感じるかもしれません。</p>
 <pre><code class="hljs js">createElement(
   <span class="hljs-string">'anchored-heading'</span>, &#123;
@@ -1346,10 +1364,12 @@ Vue.component(<span class="hljs-string">'anchored-heading'</span>, &#123;
     <span class="hljs-string">' world!'</span>
   ]
 )</code></pre>
+
 <p>特に、テンプレートならそれにくらべてこんなに簡単に書けるという場合は:</p>
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">anchored-heading</span> <span class="hljs-attr">:level</span>=<span class="hljs-string">"1"</span>&gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span>Hello<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span> world!
 <span class="hljs-tag">&lt;/<span class="hljs-name">anchored-heading</span>&gt;</span></code></pre>
+
 <p>そのような理由から Vue で JSX を使うための <a href="https://github.com/vuejs/jsx" target="_blank" rel="noopener">Babel プラグイン</a> があります。よりテンプレートに近い文法が戻ってきました。</p>
 <pre><code class="hljs js"><span class="hljs-keyword">import</span> AnchoredHeading <span class="hljs-keyword">from</span> <span class="hljs-string">'./AnchoredHeading.vue'</span>
 
@@ -1363,7 +1383,8 @@ Vue.component(<span class="hljs-string">'anchored-heading'</span>, &#123;
     )
   &#125;
 &#125;)</code></pre>
-<p class="tip"><code>createElement</code> を <code>h</code> にエイリアスしていることは、 Vue のエコシステムの中でよく見かける慣習です。そして、それは実は JSX には必須です。Vue の Babel プラグインの <a href="https://github.com/vuejs/babel-plugin-transform-vue-jsx#h-auto-injection" target="_blank" rel="noopener">バージョン 3.4.0</a> 以降では、ES2015 のシンタックスで宣言された JSX を含むメソッドや getter（関数やアロー関数は対象外）に対しては、自動的に <code>const h = this.$createElement</code> が注入されるため、<code>(h)</code> パラメーターは省略できます。それ以前のバージョンでは、もし <code>h</code> がそのスコープ内で利用可能でない場合、アプリケーションはエラーを throw するでしょう。</p>
+
+<p class="tip">`createElement` を `h` にエイリアスしていることは、 Vue のエコシステムの中でよく見かける慣習です。そして、それは実は JSX には必須です。Vue の Babel プラグインの [バージョン 3.4.0](https://github.com/vuejs/babel-plugin-transform-vue-jsx#h-auto-injection) 以降では、ES2015 のシンタックスで宣言された JSX を含むメソッドや getter（関数やアロー関数は対象外）に対しては、自動的に `const h = this.$createElement` が注入されるため、`(h)` パラメーターは省略できます。それ以前のバージョンでは、もし `h` がそのスコープ内で利用可能でない場合、アプリケーションはエラーを throw するでしょう。</p>
 
 <p>より詳しい JSX の JavaScript へのマップの仕方については、<a href="https://github.com/vuejs/jsx#installation" target="_blank" rel="noopener">usage ドキュメント</a> をご参照ください。</p>
 <h2 id="関数型コンポーネント"><a href="#関数型コンポーネント" class="headerlink" title="関数型コンポーネント"></a>関数型コンポーネント</h2><p>先ほど作成したアンカーヘッダコンポーネントは比較的シンプルです。状態の管理や渡された状態の watch をしておらず、また、何もライフサイクルメソッドを持ちません。実際、これはいくつかのプロパティを持つただの関数です。</p>
@@ -1380,6 +1401,7 @@ Vue.component(<span class="hljs-string">'anchored-heading'</span>, &#123;
     <span class="hljs-comment">// ...</span>
   &#125;
 &#125;)</code></pre>
+
 <blockquote>
 <p>注意: 2.3.0 以前のバージョンでは、<code>props</code> オプションは、関数型コンポーネントでプロパティを受け入れたい場合必須です。2.3.0 以降では、<code>props</code> オプションを省略することができ、そしてコンポーネントのノード上にある全ての属性は、暗黙的にプロパティとして抽出されます。</p>
 <p>関数型コンポーネントは状態を持たずインスタンス化もできないので、その参照は HTMLElement になります。</p>
@@ -1387,6 +1409,7 @@ Vue.component(<span class="hljs-string">'anchored-heading'</span>, &#123;
 <p>2.5.0以降では、<a href="single-file-components.html">単一ファイルコンポーネント</a>を使用している場合、テンプレートベースの関数型コンポーネントは次のように宣言できます。</p>
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">template</span> <span class="hljs-attr">functional</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span></code></pre>
+
 <p>コンポーネントが必要とする全てのものは <code>context</code> を通して渡されます。それは次を含むオブジェクトです。</p>
 <ul>
 <li><code>props</code>: 提供されるプロパティのオブジェクト</li>
@@ -1438,6 +1461,7 @@ Vue.component(<span class="hljs-string">'smart-list'</span>, &#123;
     )
   &#125;
 &#125;)</code></pre>
+
 <h3 id="子要素-コンポーネントへの属性およびイベントの受け渡し"><a href="#子要素-コンポーネントへの属性およびイベントの受け渡し" class="headerlink" title="子要素/コンポーネントへの属性およびイベントの受け渡し"></a>子要素/コンポーネントへの属性およびイベントの受け渡し</h3><p>通常のコンポーネントでは、props として定義されていない属性はコンポーネントのルート要素に自動的に追加され、同名の既存の属性と置換または<a href="class-and-style.html">賢くマージ</a>されます。</p>
 <p>ところが、関数型コンポーネントでは、この動作を明示的に定義する必要があります:</p>
 <pre><code class="hljs js">Vue.component(<span class="hljs-string">'my-functional-button'</span>, &#123;
@@ -1447,6 +1471,7 @@ Vue.component(<span class="hljs-string">'smart-list'</span>, &#123;
     <span class="hljs-keyword">return</span> createElement(<span class="hljs-string">'button'</span>, context.data, context.children)
   &#125;
 &#125;)</code></pre>
+
 <p><code>context.data</code> を <code>createElement</code> の第2引数として渡すことで、<code>my-function-button</code> で使用された属性やイベントリスナを渡しています。実際、イベントは <code>.native</code> 修飾子を必要としないため、とても透過的です。</p>
 <p>もしあなたがテンプレートベースの関数型コンポーネントを使用している場合、属性とリスナーも手動で追加する必要があります。私たちは個々のコンテキストの内容にアクセスできるので、イベントリスナを渡すための <code>listeners</code> <em>(<code>data.on</code> のエイリアス)</em> と HTML の属性を渡すための <code>data.attrs</code> を使用することができます。</p>
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">template</span> <span class="hljs-attr">functional</span>&gt;</span>
@@ -1458,6 +1483,7 @@ Vue.component(<span class="hljs-string">'smart-list'</span>, &#123;
     <span class="hljs-tag">&lt;<span class="hljs-name">slot</span>/&gt;</span>
   <span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span></code></pre>
+
 <h3 id="slots-vs-children"><a href="#slots-vs-children" class="headerlink" title="slots() vs children"></a><code>slots()</code> vs <code>children</code></h3><p>もしかするとなぜ <code>slots()</code> と <code>children</code> の両方が必要なのか不思議に思うかもしれません。 <code>slots().default</code> は <code>children</code> と同じではないのですか？いくつかのケースではそうですが、もし以下の子を持つ関数型コンポーネントの場合はどうなるでしょう。</p>
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">my-functional-component</span>&gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">v-slot:foo</span>&gt;</span>
@@ -1465,6 +1491,7 @@ Vue.component(<span class="hljs-string">'smart-list'</span>, &#123;
   <span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>second<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">my-functional-component</span>&gt;</span></code></pre>
+
 <p>このコンポーネントの場合、 <code>children</code> は両方のパラグラフが与えられます。<code>slots().default</code> は 2 つ目のものだけ与えられます。そして <code>slots().foo</code> は 1 つ目のものだけです。したがって、 <code>children</code> と <code>slots()</code> の両方を持つことで このコンポーネントが slot システムを知っているか、もしくは、単純に <code>children</code> を渡しておそらく他のコンポーネントへその責任を委譲するかどうかを選べるようになります。</p>
 <h2 id="テンプレートのコンパイル"><a href="#テンプレートのコンパイル" class="headerlink" title="テンプレートのコンパイル"></a>テンプレートのコンパイル</h2><p>もしかすると Vue のテンプレートが実際に render 関数にコンパイルされることを知ることに興味を持つかもしれません。これは普段あなたは知る必要もない実装の詳細ですが、どのように特定のテンプレート機能がコンパイルされるかをもし見たいならこれに興味を持つかもしれません。以下は <code>Vue.compile</code> を使ってテンプレート文字列をその場でコンパイルをするちょっとしたデモです。</p>
 <iframe src="https://codesandbox.io/embed/github/vuejs/vuejs.org/tree/master/src/v2/examples/vue-20-template-compilation?codemirror=1&hidedevtools=1&hidenavigation=1&theme=light&view=preview" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" title="vue-20-template-compilation" allow="geolocation; microphone; camera; midi; vr; accelerometer; gyroscope; payment; ambient-light-sensor; encrypted-media; usb" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>

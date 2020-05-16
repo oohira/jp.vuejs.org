@@ -990,6 +990,7 @@
     &#125;
   &#125;
 </span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code></pre>
+
 <p>コンポーネントをテストする際には、 Vue と合わせて options のオブジェクトをインポートし、検証を実施します (ここでは、例として Jasmine/Jest スタイルの <code>expect</code> アサーションを使用しています):</p>
 <pre><code class="hljs js"><span class="hljs-comment">// Vue と テスト対象のコンポーネントをインポートする</span>
 <span class="hljs-keyword">import</span> Vue <span class="hljs-keyword">from</span> <span class="hljs-string">'vue'</span>
@@ -1024,6 +1025,7 @@ describe(<span class="hljs-string">'MyComponent'</span>, () =&gt; &#123;
     expect(vm.$el.textContent).toBe(<span class="hljs-string">'bye!'</span>)
   &#125;)
 &#125;)</code></pre>
+
 <h2 id="テストしやすいコンポーネントの記述"><a href="#テストしやすいコンポーネントの記述" class="headerlink" title="テストしやすいコンポーネントの記述"></a>テストしやすいコンポーネントの記述</h2><p>コンポーネントの描画結果は、コンポーネントの受け取るプロパティによってその大半が決定されます。実際、コンポーネントの描画結果が、単にプロパティの値によってのみ決まる場合、異なる引数を用いた関数の戻り値の検証と同じ様に、シンプルに考えることができます。例を見てみましょう。</p>
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">template</span>&gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>&#123;&#123; msg &#125;&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
@@ -1034,6 +1036,7 @@ describe(<span class="hljs-string">'MyComponent'</span>, () =&gt; &#123;
     <span class="hljs-attr">props</span>: [<span class="hljs-string">'msg'</span>]
   &#125;
 </span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code></pre>
+
 <p><a href="https://vue-test-utils.vuejs.org/ja/" target="_blank" rel="noopener">Vue Test Utils</a> を利用して、異なるプロパティを用いた描画結果の検証が可能です。</p>
 <pre><code class="hljs js"><span class="hljs-keyword">import</span> &#123; shallowMount &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">'@vue/test-utils'</span>
 <span class="hljs-keyword">import</span> MyComponent <span class="hljs-keyword">from</span> <span class="hljs-string">'./MyComponent.vue'</span>
@@ -1060,6 +1063,7 @@ describe(<span class="hljs-string">'MyComponent'</span>, () =&gt; &#123;
     ).toBe(<span class="hljs-string">'Bye'</span>)
   &#125;)
 &#125;)</code></pre>
+
 <h2 id="非同期な更新の検証"><a href="#非同期な更新の検証" class="headerlink" title="非同期な更新の検証"></a>非同期な更新の検証</h2><p>Vue は<a href="reactivity.html#非同期更新キュー">非同期に DOM の更新を行う</a>ため、state の変更に対する DOM の更新に関する検証は、<code>Vue.nextTick()</code> が解決した後に行う必要があります。</p>
 <pre><code class="hljs js"><span class="hljs-comment">// state の更新後、生成された HTML の検証を行う</span>
 it(<span class="hljs-string">'updates the rendered message when wrapper.message updates'</span>, <span class="hljs-keyword">async</span> () =&gt; &#123;
@@ -1070,6 +1074,7 @@ it(<span class="hljs-string">'updates the rendered message when wrapper.message 
   <span class="hljs-keyword">await</span> wrapper.vm.$nextTick()
   expect(wrapper.text()).toBe(<span class="hljs-string">'foo'</span>)
 &#125;)</code></pre>
+
 <p>Vue の単体テストに関する詳細情報については、<a href="https://vue-test-utils.vuejs.org/ja/" target="_blank" rel="noopener">Vue Test Utils</a> とクックブックエントリの <a href="../cookbook/unit-testing-vue-components.html">Vue コンポーネントの単体テスト</a> について確認してください。</p>
 
   

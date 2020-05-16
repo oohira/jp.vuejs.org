@@ -978,24 +978,32 @@
 <h2 id="lt-script-gt-直接組み込み"><a href="#lt-script-gt-直接組み込み" class="headerlink" title="&lt;script&gt; 直接組み込み"></a><code>&lt;script&gt;</code> 直接組み込み</h2><p>ダウンロードし script タグで読み込んでください。<code>Vue</code> はグローバル変数として登録されます。</p>
 <p class="tip">開発中は本番バージョンを使用しないでください。 警告や一般的な間違いを見逃す可能性があります!</p>
 
-<div id="downloads"><br>  <a class="button" href="/js/vue.js" download="">開発バージョン</a><span class="light info">警告出力とデバッグモードあり </span><br><br>  <a class="button" href="/js/vue.min.js" download="">本番バージョン</a><span class="light info">警告出力なし、 33.30 KB min+gzip</span><br></div>
+<div id="downloads">
+  <a class="button" href="/js/vue.js" download="">開発バージョン</a><span class="light info">警告出力とデバッグモードあり </span>
+
+<p>  <a class="button" href="/js/vue.min.js" download="">本番バージョン</a><span class="light info">警告出力なし、 33.30 KB min+gzip</span></p>
+</div>
 
 <h3 id="CDN"><a href="#CDN" class="headerlink" title="CDN"></a>CDN</h3><p>プロトタイピングや学習を目的とする場合は、以下のようにして最新バージョンを使うことができます:</p>
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://cdn.jsdelivr.net/npm/vue/dist/vue.js"</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code></pre>
+
 <p>本番環境では、新しいバージョンによる意図しない不具合を避けるため、特定のバージョン番号とビルド番号にリンクすることをお勧めします:</p>
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://cdn.jsdelivr.net/npm/vue@2.6.11"</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code></pre>
+
 <p>もしもネイティブの ES Modules を使っているなら、ES Modules 互換のビルドもあります:</p>
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"module"</span>&gt;</span><span class="javascript">
   <span class="hljs-keyword">import</span> Vue <span class="hljs-keyword">from</span> <span class="hljs-string">'https://cdn.jsdelivr.net/npm/vue@2.6.11/dist/vue.esm.browser.js'</span>
 </span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code></pre>
+
 <p><a href="https://cdn.jsdelivr.net/npm/vue/" target="_blank" rel="noopener">cdn.jsdelivr.net/npm/vue</a> で NPM パッケージのソースを参照することができます。</p>
 <p>Vue は <a href="https://unpkg.com/vue@2.6.11/dist/vue.js" target="_blank" rel="noopener">unpkg</a> または <a href="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.11/vue.js" target="_blank" rel="noopener">cdnjs</a> 上でも利用可能です(cdnjs は同期に少し時間がかかるため、最新版ではない可能性があります)。</p>
 <p><a href="#さまざまなビルドについて">Vue のさまざまなビルドについて</a> を読み、公開されたサイトでは<strong>本番バージョン</strong>を使用し、<code>vue.js</code> を <code>vue.min.js</code> に置き換えてください。これは開発体験の代わりにスピードのために最適化された小さなビルドです。</p>
 <h2 id="NPM"><a href="#NPM" class="headerlink" title="NPM"></a>NPM</h2><p>Vue.js による大規模アプリケーションを構築するときには、NPM を利用したインストールを推奨しています。 <a href="https://webpack.js.org" target="_blank" rel="noopener">Webpack</a> または <a href="http://browserify.org/" target="_blank" rel="noopener">Browserify</a> のようモジュールハンドラとうまく組み合わせられます。 Vue は<a href="single-file-components.html">単一ファイルコンポーネント</a> を作成するための、付随するツールも提供しています。</p>
 <pre><code class="hljs bash"><span class="hljs-comment"># 最新の安定版</span>
 $ npm install vue</code></pre>
+
 <h2 id="CLI"><a href="#CLI" class="headerlink" title="CLI"></a>CLI</h2><p>大規模なシングルページアプリケーション開発のための足場を素早く組むために、Vue.js では <a href="https://github.com/vuejs/vue-cli" target="_blank" rel="noopener">オフィシャル CLI</a> を提供します。この CLI にはモダンなフロントエンドワークフローのための、すぐに使えるビルド設定を用意しています。ホットリロード、保存時のリント、製品リリース用ビルドができるようになるまでに、ほんの数分しかかかりません。より詳細は <a href="https://cli.vuejs.org" target="_blank" rel="noopener">Vue CLI ドキュメント</a> を参照してください。</p>
-<p class="tip">CLI は Node.js および関連するビルドツールに関する事前知識を前提としています。Vue またはフロントエンドビルドツールを初めて使用している場合、CLI を使用する前に、ビルドツールなしで<a href="./">ガイド</a>を参照することを強くお勧めします。</p>
+<p class="tip">CLI は Node.js および関連するビルドツールに関する事前知識を前提としています。Vue またはフロントエンドビルドツールを初めて使用している場合、CLI を使用する前に、ビルドツールなしで[ガイド](./)を参照することを強くお勧めします。</p>
 
 <div class="vue-mastery"><a href="https://www.vuemastery.com/courses/real-world-vue-js/vue-cli" target="_blank" rel="sponsored noopener" title="Vue CLI">Vue Masteryで動画の説明を見る</a></div>
 
@@ -1010,8 +1018,7 @@ $ npm install vue</code></pre>
 <th>ES Module (ブラウザ用)</th>
 </tr>
 </thead>
-<tbody>
-<tr>
+<tbody><tr>
 <td><strong>完全</strong></td>
 <td>vue.js</td>
 <td>vue.common.js</td>
@@ -1039,8 +1046,7 @@ $ npm install vue</code></pre>
 <td>-</td>
 <td>-</td>
 </tr>
-</tbody>
-</table>
+</tbody></table>
 <h3 id="用語"><a href="#用語" class="headerlink" title="用語"></a>用語</h3><ul>
 <li><p><strong>完全</strong>: コンパイラとランタイムの両方が含まれたビルドです。</p>
 </li>
@@ -1073,6 +1079,7 @@ $ npm install vue</code></pre>
     <span class="hljs-keyword">return</span> h(<span class="hljs-string">'div'</span>, <span class="hljs-keyword">this</span>.hi)
   &#125;
 &#125;)</code></pre>
+
 <p><code>vue-loader</code> や <code>vueify</code> を利用する場合、 <code>*.vue</code> ファイルに中のテンプレートはビルド時に JavaScript に事前コンパイルされます。最終成果物の中にコンパイラは本当に必要なく、したがってランタイム限定ビルドを利用することが出来ます。</p>
 <p>ランタイム限定ビルドは完全ビルドに比べおよそ 30% 軽量なため、利用できるときにはこれを利用したほうが良いでしょう。それでもなお完全ビルドを利用したい場合は、バンドラでエイリアスを設定する必要があります。</p>
 <h4 id="Webpack"><a href="#Webpack" class="headerlink" title="Webpack"></a>Webpack</h4><pre><code class="hljs js"><span class="hljs-built_in">module</span>.exports = &#123;
@@ -1083,6 +1090,7 @@ $ npm install vue</code></pre>
     &#125;
   &#125;
 &#125;</code></pre>
+
 <h4 id="Rollup"><a href="#Rollup" class="headerlink" title="Rollup"></a>Rollup</h4><pre><code class="hljs js"><span class="hljs-keyword">const</span> alias = <span class="hljs-built_in">require</span>(<span class="hljs-string">'rollup-plugin-alias'</span>)
 
 rollup(&#123;
@@ -1093,6 +1101,7 @@ rollup(&#123;
     &#125;)
   ]
 &#125;)</code></pre>
+
 <h4 id="Browserify"><a href="#Browserify" class="headerlink" title="Browserify"></a>Browserify</h4><p>プロジェクトの <code>package.json</code> に追加してください:</p>
 <pre><code class="hljs js">&#123;
   <span class="hljs-comment">// ...</span>
@@ -1100,6 +1109,7 @@ rollup(&#123;
     <span class="hljs-string">"vue"</span>: <span class="hljs-string">"vue/dist/vue.common.js"</span>
   &#125;
 &#125;</code></pre>
+
 <h4 id="Parcel"><a href="#Parcel" class="headerlink" title="Parcel"></a>Parcel</h4><p>プロジェクトの <code>package.json</code> に追加してください:</p>
 <pre><code class="hljs js">&#123;
   <span class="hljs-comment">// ...</span>
@@ -1107,6 +1117,7 @@ rollup(&#123;
     <span class="hljs-string">"vue"</span> : <span class="hljs-string">"./node_modules/vue/dist/vue.common.js"</span>
   &#125;
 &#125;</code></pre>
+
 <h3 id="開発モードと本番モードの違い"><a href="#開発モードと本番モードの違い" class="headerlink" title="開発モードと本番モードの違い"></a>開発モードと本番モードの違い</h3><p>開発/本番モードは UMD ビルドではハードコードされています: 開発用では非縮小ファイルで、本番用では圧縮されたファイルになっています。</p>
 <p>CommonJS と ES Module ビルドはバンドラでの利用を意図しているため、圧縮バージョンを提供していません。あなたの責任で最終成果物を圧縮する必要があります。</p>
 <p>CommonJS と ES Module ビルドはまた、実行モードを決めるために <code>process.env.NODE_ENV</code> を直接チェックするように保持されています。 Vue が実行するモードをコントロールするために適切なバンドラ設定を利用してこれらの環境変数を置換するようにしてください。 <code>process.env.NODE_ENV</code> を置換することで、 UglifyJS のような圧縮ツールが開発用コードのブロックを削除し、最終ファイルのサイズを削減することができます。</p>
@@ -1114,6 +1125,7 @@ rollup(&#123;
 <pre><code class="hljs js"><span class="hljs-built_in">module</span>.exports = &#123;
   <span class="hljs-attr">mode</span>: <span class="hljs-string">'production'</span>
 &#125;</code></pre>
+
 <p>しかし、Webpack 3 以前では、<a href="https://webpack.js.org/plugins/define-plugin/" target="_blank" rel="noopener">DefinePlugin</a> を使用する必要があります:</p>
 <pre><code class="hljs js"><span class="hljs-keyword">var</span> webpack = <span class="hljs-built_in">require</span>(<span class="hljs-string">'webpack'</span>)
 
@@ -1128,6 +1140,7 @@ rollup(&#123;
     &#125;)
   ]
 &#125;</code></pre>
+
 <h4 id="Rollup-1"><a href="#Rollup-1" class="headerlink" title="Rollup"></a>Rollup</h4><p><a href="https://github.com/rollup/rollup-plugin-replace" target="_blank" rel="noopener">rollup-plugin-replace</a> は以下のようにして利用します:</p>
 <pre><code class="hljs js"><span class="hljs-keyword">const</span> replace = <span class="hljs-built_in">require</span>(<span class="hljs-string">'rollup-plugin-replace'</span>)
 
@@ -1139,8 +1152,10 @@ rollup(&#123;
     &#125;)
   ]
 &#125;).then(...)</code></pre>
+
 <h4 id="Browserify-1"><a href="#Browserify-1" class="headerlink" title="Browserify"></a>Browserify</h4><p>グローバルな <a href="https://github.com/hughsk/envify" target="_blank" rel="noopener">envify</a> transform は以下のようにしてバンドラに適用します:</p>
 <pre><code class="hljs bash">NODE_ENV=production browserify -g envify -e main.js | uglifyjs -c -m &gt; build.js</code></pre>
+
 <p><a href="deployment.html">プロダクション環境への配信のヒント</a> も参考にしてください。</p>
 <h3 id="CSP-環境"><a href="#CSP-環境" class="headerlink" title="CSP 環境"></a>CSP 環境</h3><p>Google Chrome アプリのようなある環境では、Content Security Policy (CSP) を強制し、そして式を評価するために <code>new Function()</code> の使用を禁止しています。テンプレートのコンパイルは、完全ビルドに依存するため、これらの環境では使用できません。</p>
 <p>一方では、ランタイム限定ビルドでは CSP に準拠しています。 <a href="https://github.com/vuejs-templates/webpack-simple" target="_blank" rel="noopener">Webpack + vue-loader</a> または <a href="https://github.com/vuejs-templates/browserify-simple" target="_blank" rel="noopener">Browserify + vueify</a> でランタイム限定ビルドを使用する場合は、テンプレートは CSP 環境でも完璧に動作する <code>render</code> 関数にプリコンパイルされます。</p>
@@ -1149,9 +1164,11 @@ rollup(&#123;
 <span class="hljs-built_in">cd</span> node_modules/vue
 npm install
 npm run build</code></pre>
+
 <h2 id="Bower"><a href="#Bower" class="headerlink" title="Bower"></a>Bower</h2><p>Bower では UMD ビルドのみで利用できます。</p>
 <pre><code class="hljs bash"><span class="hljs-comment"># 最新の安定板</span>
 $ bower install vue</code></pre>
+
 <h2 id="AMD-モジュールローダ"><a href="#AMD-モジュールローダ" class="headerlink" title="AMD モジュールローダ"></a>AMD モジュールローダ</h2><p>全ての UMD ビルドは AMD モジュールとして直接利用できます。</p>
 
   

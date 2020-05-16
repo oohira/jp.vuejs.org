@@ -971,7 +971,7 @@
   
   
     <h2 id="基本的な使い方"><a href="#基本的な使い方" class="headerlink" title="基本的な使い方"></a>基本的な使い方</h2><p>form の input 要素 や textarea 要素、 select 要素に双方向 (two-way) データバインディングを作成するには、<code>v-model</code> ディレクティブを使用することができます。それは、自動的に入力要素のタイプに基づいて要素を更新するための正しい方法を選択します。ちょっと魔法のようですが、<code>v-model</code> はユーザーの入力イベントにおいてデータを更新するための基本的な糖衣構文 (syntax sugar) で、それに加えて、いくつかのエッジケースに対しては特別な配慮をしてくれます。</p>
-<p class="tip"><code>v-model</code> は任意の form 要素にある <code>value</code>、<code>checked</code>、または <code>selected</code> 属性の初期値を無視します。input または textarea は常に、信頼できる情報源として Vue インスタンスを扱います。コンポーネントの <code>data</code> オプションの中で JavaScript 側で初期値を宣言する必要があります。</p>
+<p class="tip">`v-model` は任意の form 要素にある `value`、`checked`、または `selected` 属性の初期値を無視します。input または textarea は常に、信頼できる情報源として Vue インスタンスを扱います。コンポーネントの `data` オプションの中で JavaScript 側で初期値を宣言する必要があります。</p>
 
 <p><code>v-model</code> は、内部的には input 要素に応じて異なるプロパティを使用し、異なるイベントを送出します:</p>
 <ul>
@@ -979,10 +979,11 @@
 <li>チェックボックスとラジオボタンは、<code>checked</code> プロパティと <code>change</code> イベントを使用します</li>
 <li>選択フィールドは、<code>value</code> プロパティと <code>change</code> イベントを使用します</li>
 </ul>
-<p class="tip" id="vmodel-ime-tip"><a href="https://en.wikipedia.org/wiki/Input_method" target="_blank" rel="noopener">IME</a> (中国語、日本語、韓国語、その他) が必須な言語において、<code>v-model</code> では IME でテキストが確定するまでは更新されないことに注意してください。これらの更新に対して対応したい場合は、<code>input</code> イベントを代わりに使用します。</p>
+<p class="tip" id="vmodel-ime-tip">[IME](https://en.wikipedia.org/wiki/Input_method) (中国語、日本語、韓国語、その他) が必須な言語において、`v-model` では IME でテキストが確定するまでは更新されないことに注意してください。これらの更新に対して対応したい場合は、`input` イベントを代わりに使用します。</p>
 
 <h3 id="テキスト"><a href="#テキスト" class="headerlink" title="テキスト"></a>テキスト</h3><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">v-model</span>=<span class="hljs-string">"message"</span> <span class="hljs-attr">placeholder</span>=<span class="hljs-string">"edit me"</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>Message is: &#123;&#123; message &#125;&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span></code></pre>
+
 
 <div id="example-1" class="demo">
   <input v-model="message" placeholder="edit me">
@@ -997,10 +998,12 @@ new Vue({
 })
 </script>
 
+
 <h3 id="複数行テキスト"><a href="#複数行テキスト" class="headerlink" title="複数行テキスト"></a>複数行テキスト</h3><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span>Multiline message is:<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">style</span>=<span class="hljs-string">"white-space: pre-line;"</span>&gt;</span>&#123;&#123; message &#125;&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">br</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">textarea</span> <span class="hljs-attr">v-model</span>=<span class="hljs-string">"message"</span> <span class="hljs-attr">placeholder</span>=<span class="hljs-string">"add multiple lines"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">textarea</span>&gt;</span></code></pre>
+
 
 <div id="example-textarea" class="demo">
   <span>Multiline message is:</span>
@@ -1018,11 +1021,14 @@ new Vue({
 </script>
 
 
+
 <p class="tip">textarea への挿入 (<code>&lt;textarea&gt;{{text}}&lt;/textarea&gt;</code>) は動きません。代わりに、<code>v-model</code>を使用してください。</p>
+
 
 <h3 id="チェックボックス"><a href="#チェックボックス" class="headerlink" title="チェックボックス"></a>チェックボックス</h3><p>単体のチェックボックスは、 boolean 値です:</p>
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"checkbox"</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"checkbox"</span> <span class="hljs-attr">v-model</span>=<span class="hljs-string">"checked"</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">label</span> <span class="hljs-attr">for</span>=<span class="hljs-string">"checkbox"</span>&gt;</span>&#123;&#123; checked &#125;&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span></code></pre>
+
 
 <div id="example-2" class="demo">
   <input type="checkbox" id="checkbox" v-model="checked">
@@ -1037,6 +1043,7 @@ new Vue({
 })
 </script>
 
+
 <p>複数のチェックボックスは、同じ配列に束縛します。:</p>
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"checkbox"</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"jack"</span> <span class="hljs-attr">value</span>=<span class="hljs-string">"Jack"</span> <span class="hljs-attr">v-model</span>=<span class="hljs-string">"checkedNames"</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">label</span> <span class="hljs-attr">for</span>=<span class="hljs-string">"jack"</span>&gt;</span>Jack<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
@@ -1046,12 +1053,14 @@ new Vue({
 <span class="hljs-tag">&lt;<span class="hljs-name">label</span> <span class="hljs-attr">for</span>=<span class="hljs-string">"mike"</span>&gt;</span>Mike<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">br</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span>Checked names: &#123;&#123; checkedNames &#125;&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span></code></pre>
+
 <pre><code class="hljs js"><span class="hljs-keyword">new</span> Vue(&#123;
   <span class="hljs-attr">el</span>: <span class="hljs-string">'...'</span>,
   <span class="hljs-attr">data</span>: &#123;
     <span class="hljs-attr">checkedNames</span>: []
   &#125;
 &#125;)</code></pre>
+
 
 <div id="example-3" class="demo">
   <input type="checkbox" id="jack" value="Jack" v-model="checkedNames">
@@ -1072,6 +1081,7 @@ new Vue({
 })
 </script>
 
+
 <h3 id="ラジオ"><a href="#ラジオ" class="headerlink" title="ラジオ"></a>ラジオ</h3><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"radio"</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"one"</span> <span class="hljs-attr">value</span>=<span class="hljs-string">"One"</span> <span class="hljs-attr">v-model</span>=<span class="hljs-string">"picked"</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">label</span> <span class="hljs-attr">for</span>=<span class="hljs-string">"one"</span>&gt;</span>One<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">br</span>&gt;</span>
@@ -1079,6 +1089,7 @@ new Vue({
 <span class="hljs-tag">&lt;<span class="hljs-name">label</span> <span class="hljs-attr">for</span>=<span class="hljs-string">"two"</span>&gt;</span>Two<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">br</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span>Picked: &#123;&#123; picked &#125;&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span></code></pre>
+
 
 <div id="example-4" class="demo">
   <input type="radio" id="one" value="One" v-model="picked">
@@ -1098,6 +1109,7 @@ new Vue({
 })
 </script>
 
+
 <h3 id="選択"><a href="#選択" class="headerlink" title="選択"></a>選択</h3><p>単体の選択:</p>
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">select</span> <span class="hljs-attr">v-model</span>=<span class="hljs-string">"selected"</span>&gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-name">option</span> <span class="hljs-attr">disabled</span> <span class="hljs-attr">value</span>=<span class="hljs-string">""</span>&gt;</span>Please select one<span class="hljs-tag">&lt;/<span class="hljs-name">option</span>&gt;</span>
@@ -1106,12 +1118,14 @@ new Vue({
   <span class="hljs-tag">&lt;<span class="hljs-name">option</span>&gt;</span>C<span class="hljs-tag">&lt;/<span class="hljs-name">option</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">select</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span>Selected: &#123;&#123; selected &#125;&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span></code></pre>
+
 <pre><code class="hljs js"><span class="hljs-keyword">new</span> Vue(&#123;
   <span class="hljs-attr">el</span>: <span class="hljs-string">'...'</span>,
   <span class="hljs-attr">data</span>: &#123;
     <span class="hljs-attr">selected</span>: <span class="hljs-string">''</span>
   &#125;
 &#125;)</code></pre>
+
 
 <div id="example-5" class="demo">
   <select v-model="selected">
@@ -1131,7 +1145,8 @@ new Vue({
 })
 </script>
 
-<p class="tip"><code>v-model</code> の式の初期値がオプションのどれとも一致しない場合、<code>&lt;select&gt;</code> 要素は “未選択” の状態で描画されます。iOS では、この場合 iOS が <code>change</code> イベントを発生させないため、最初のアイテムを選択できなくなります。したがって、上記の例に示すように、disabled な空の値のオプションを追加しておくことをおすすめします。</p>
+
+<p class="tip">`v-model` の式の初期値がオプションのどれとも一致しない場合、`<select>` 要素は "未選択" の状態で描画されます。iOS では、この場合 iOS が `change` イベントを発生させないため、最初のアイテムを選択できなくなります。したがって、上記の例に示すように、disabled な空の値のオプションを追加しておくことをおすすめします。</select></p>
 
 <p>複数の選択（配列に束縛）:</p>
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">select</span> <span class="hljs-attr">v-model</span>=<span class="hljs-string">"selected"</span> <span class="hljs-attr">multiple</span>&gt;</span>
@@ -1141,6 +1156,7 @@ new Vue({
 <span class="hljs-tag">&lt;/<span class="hljs-name">select</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">br</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span>Selected: &#123;&#123; selected &#125;&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span></code></pre>
+
 
 <div id="example-6" class="demo">
   <select v-model="selected" multiple style="width: 50px;">
@@ -1160,6 +1176,7 @@ new Vue({
 })
 </script>
 
+
 <p>動的オプションは <code>v-for</code> で描画できます:</p>
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">select</span> <span class="hljs-attr">v-model</span>=<span class="hljs-string">"selected"</span>&gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-name">option</span> <span class="hljs-attr">v-for</span>=<span class="hljs-string">"option in options"</span> <span class="hljs-attr">v-bind:value</span>=<span class="hljs-string">"option.value"</span>&gt;</span>
@@ -1167,6 +1184,7 @@ new Vue({
   <span class="hljs-tag">&lt;/<span class="hljs-name">option</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">select</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span>Selected: &#123;&#123; selected &#125;&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span></code></pre>
+
 <pre><code class="hljs js"><span class="hljs-keyword">new</span> Vue(&#123;
   <span class="hljs-attr">el</span>: <span class="hljs-string">'...'</span>,
   <span class="hljs-attr">data</span>: &#123;
@@ -1178,6 +1196,7 @@ new Vue({
     ]
   &#125;
 &#125;)</code></pre>
+
 
 <div id="example-7" class="demo">
   <select v-model="selected">
@@ -1201,6 +1220,7 @@ new Vue({
 })
 </script>
 
+
 <h2 id="値のバインディング"><a href="#値のバインディング" class="headerlink" title="値のバインディング"></a>値のバインディング</h2><p>radio 、 checkbox 、 select オプションの、 <code>v-model</code> でバインディングされる値は通常は静的な文字列 (チェックボックスなら boolean) です:</p>
 <pre><code class="hljs html"><span class="hljs-comment">&lt;!-- チェックされたとき、`picked` は文字列"a"になります --&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"radio"</span> <span class="hljs-attr">v-model</span>=<span class="hljs-string">"picked"</span> <span class="hljs-attr">value</span>=<span class="hljs-string">"a"</span>&gt;</span>
@@ -1212,6 +1232,7 @@ new Vue({
 <span class="hljs-tag">&lt;<span class="hljs-name">select</span> <span class="hljs-attr">v-model</span>=<span class="hljs-string">"selected"</span>&gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-name">option</span> <span class="hljs-attr">value</span>=<span class="hljs-string">"abc"</span>&gt;</span>ABC<span class="hljs-tag">&lt;/<span class="hljs-name">option</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">select</span>&gt;</span></code></pre>
+
 <p>しかし、時には、Vue インスタンスの動的なプロパティに値を束縛したくなるかもしれません。それを達成するために <code>v-bind</code> を使用することができます。 加えて、<code>v-bind</code> を使用することで input 値に文字列以外の値を束縛することができるようになります。</p>
 <h3 id="チェックボックス-1"><a href="#チェックボックス-1" class="headerlink" title="チェックボックス"></a>チェックボックス</h3><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">input</span>
   <span class="hljs-attr">type</span>=<span class="hljs-string">"checkbox"</span>
@@ -1219,30 +1240,39 @@ new Vue({
   <span class="hljs-attr">true-value</span>=<span class="hljs-string">"yes"</span>
   <span class="hljs-attr">false-value</span>=<span class="hljs-string">"no"</span>
 &gt;</span></code></pre>
+
 <pre><code class="hljs js"><span class="hljs-comment">// チェックされたとき:</span>
 vm.toggle === <span class="hljs-string">'yes'</span>
 <span class="hljs-comment">// チェックが外されたとき:</span>
 vm.toggle === <span class="hljs-string">'no'</span></code></pre>
-<p class="tip"><code>true-value</code> と <code>false-value</code> 属性は入力フォームの <code>value</code> 属性には影響を及ぼしません。なぜならブラウザはフォームの送信の中にチェックされていないチェックボックスを含めないからです。 2つの値 (つまり “yes” または “no”) のどちらかが必ずフォームで送信されることを保証するには、代わりにラジオを使用してください。</p>
+
+<p class="tip">`true-value` と ` false-value` 属性は入力フォームの `value` 属性には影響を及ぼしません。なぜならブラウザはフォームの送信の中にチェックされていないチェックボックスを含めないからです。 2つの値 (つまり "yes" または "no") のどちらかが必ずフォームで送信されることを保証するには、代わりにラジオを使用してください。</p>
 
 <h3 id="ラジオ-1"><a href="#ラジオ-1" class="headerlink" title="ラジオ"></a>ラジオ</h3><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"radio"</span> <span class="hljs-attr">v-model</span>=<span class="hljs-string">"pick"</span> <span class="hljs-attr">v-bind:value</span>=<span class="hljs-string">"a"</span>&gt;</span></code></pre>
+
 <pre><code class="hljs js"><span class="hljs-comment">// チェックしたとき:</span>
 vm.pick === vm.a</code></pre>
+
 <h3 id="選択オプション"><a href="#選択オプション" class="headerlink" title="選択オプション"></a>選択オプション</h3><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">select</span> <span class="hljs-attr">v-model</span>=<span class="hljs-string">"selected"</span>&gt;</span>
 <span class="hljs-comment">&lt;!-- インラインオブジェクトリテラル --&gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-name">option</span> <span class="hljs-attr">v-bind:value</span>=<span class="hljs-string">"&#123; number: 123 &#125;"</span>&gt;</span>123<span class="hljs-tag">&lt;/<span class="hljs-name">option</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">select</span>&gt;</span></code></pre>
+
 <pre><code class="hljs js"><span class="hljs-comment">// 選択したとき:</span>
 <span class="hljs-keyword">typeof</span> vm.selected <span class="hljs-comment">// =&gt; 'object'</span>
 vm.selected.number <span class="hljs-comment">// =&gt; 123</span></code></pre>
+
 <h2 id="修飾子"><a href="#修飾子" class="headerlink" title="修飾子"></a>修飾子</h2><h3 id="lazy"><a href="#lazy" class="headerlink" title=".lazy"></a><code>.lazy</code></h3><p>デフォルトでは、 <code>v-model</code> は各 <code>input</code> イベント (<a href="#vmodel-ime-tip">上記</a>の IME 確定前を除いて) 後に、データと入力を同期します。 <code>change</code> イベント <em>の後に</em> 同期するように変更するために <code>lazy</code> 修飾子を追加することができます:</p>
 <pre><code class="hljs html"><span class="hljs-comment">&lt;!-- "input" の代わりに "change" 後に同期します --&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">v-model.lazy</span>=<span class="hljs-string">"msg"</span>&gt;</span></code></pre>
+
 <h3 id="number"><a href="#number" class="headerlink" title=".number"></a><code>.number</code></h3><p>ユーザの入力を Number として自動的に型変換したいとき、 <code>v-model</code> に管理された入力に <code>number</code> 修飾子を追加することができます:</p>
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">v-model.number</span>=<span class="hljs-string">"age"</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"number"</span>&gt;</span></code></pre>
+
 <p>これは、しばしば有用です。なぜなら、 <code>type=number</code> と書いたときでさえ、 HTML の input 要素の value は常に文字列を返すからです。もし値が <code>parseFloat()</code> で解釈できない場合は、もとの値が返却されます。</p>
 <h3 id="trim"><a href="#trim" class="headerlink" title=".trim"></a><code>.trim</code></h3><p>ユーザの入力から空白を自動的に取り除きたいときは、 <code>v-model</code> に管理された入力に <code>trim</code> 修飾子を追加することができます:</p>
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">v-model.trim</span>=<span class="hljs-string">"msg"</span>&gt;</span></code></pre>
+
 <h2 id="コンポーネントの-v-model"><a href="#コンポーネントの-v-model" class="headerlink" title="コンポーネントの v-model"></a>コンポーネントの <code>v-model</code></h2><blockquote>
 <p>Vue のコンポーネントにまだ精通していない人は、この部分をスキップしてください。</p>
 </blockquote>

@@ -989,6 +989,7 @@
     <span class="hljs-attr">baz</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123; <span class="hljs-comment">/* ... */</span> &#125;
   &#125;
 &#125;)</code></pre>
+
 <p>全てのサブコンポーネントはこのインスタンスにアクセスすることができ、グローバルストアとして使うことができます:</p>
 <pre><code class="hljs js"><span class="hljs-comment">// ルートデータの取得</span>
 <span class="hljs-keyword">this</span>.$root.foo
@@ -1001,15 +1002,17 @@
 
 <span class="hljs-comment">// ルートメソッドの呼び出し</span>
 <span class="hljs-keyword">this</span>.$root.baz()</code></pre>
+
 <p class="tip">これはデモや一握りのコンポーネントで構成された非常に小さいアプリケーションとしては便利かもしれませんが、中〜大規模のアプリケーションにスケールさせづらいです。なので私達はほとんどのケースでステートを管理するために<a href="https://github.com/vuejs/vuex" target="_blank" rel="noopener">Vuex</a>の使用を強くおすすめしています。</p>
 
 <h3 id="親コンポーネントインスタンスへのアクセス"><a href="#親コンポーネントインスタンスへのアクセス" class="headerlink" title="親コンポーネントインスタンスへのアクセス"></a>親コンポーネントインスタンスへのアクセス</h3><p><code>$root</code> と似たように、<code>$parent</code> プロパティは子から親インスタンスへアクセスするために使われます。これはプロパティでデータを渡すことへの怠惰な代替手段として魅力あることでしょう。</p>
 <p class="tip">ほとんどのケースで、親へのアクセスはアプリケーションのデバッグや理解をより難しくします。特に、あなたが親のデータを変化させる場合はなおさらです。後々になってそのコンポーネントを扱うとき、その変化がどこから生じたものなのかを理解することはとても難しいことでしょう。</p>
 
-<p>しかしとりわけ共有コンポーネントライブラリの場合は、これが適切で<em>あるかもしれない</em>場合があります。例えば、仮想的な Google Map コンポーネントのように、HTML を描画する代わりに JavaScript の API を扱う抽象コンポーネントで:</p>
+<p>しかしとりわけ共有コンポーネントライブラリの場合は、これが適切で_あるかもしれない_場合があります。例えば、仮想的な Google Map コンポーネントのように、HTML を描画する代わりに JavaScript の API を扱う抽象コンポーネントで:</p>
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">google-map</span>&gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-name">google-map-markers</span> <span class="hljs-attr">v-bind:places</span>=<span class="hljs-string">"iceCreamShops"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">google-map-markers</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">google-map</span>&gt;</span></code></pre>
+
 <p><code>&lt;google-map&gt;</code> コンポーネントは全てのサブコンポーネントがアクセスする必要がある <code>map</code>プロパティを定義しています。この場合、<code>&lt;google-map-markers&gt;</code> は地図上にマーカーを設定するため  <code>this.$parent.getMap</code> のような方法で map プロパティにアクセスしたいことでしょう。<a href="https://codesandbox.io/s/github/vuejs/vuejs.org/tree/master/src/v2/examples/vue-20-accessing-parent-component-instance" target="_blank" rel="noopener">ここから</a>このパターンをみることができます。</p>
 <p>しかし、このパターンで作成されたコンポーネントはやはり本質的に壊れやすくなるということを覚えておいてください。例えば、<code>&lt;google-map-region&gt;</code> という新しいコンポーネントを追加することをイメージしてください。そして、<code>&lt;google-map-markers&gt;</code> が <code>&lt;google-map-region&gt;</code> 内に現れるとき、その領域内のマーカーのみ描画すべきです:</p>
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">google-map</span>&gt;</span>
@@ -1017,15 +1020,20 @@
     <span class="hljs-tag">&lt;<span class="hljs-name">google-map-markers</span> <span class="hljs-attr">v-bind:places</span>=<span class="hljs-string">"iceCreamShops"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">google-map-markers</span>&gt;</span>
   <span class="hljs-tag">&lt;/<span class="hljs-name">google-map-region</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">google-map</span>&gt;</span></code></pre>
+
 <p>そのとき <code>&lt;google-map-markers&gt;</code> の内部で、あなたはこのようなハックに行き着くかもしれません:</p>
 <pre><code class="hljs js"><span class="hljs-keyword">var</span> map = <span class="hljs-keyword">this</span>.$parent.map || <span class="hljs-keyword">this</span>.$parent.$parent.map</code></pre>
+
 <p>このハックはすぐに手に負えなくなります。コンテキストの情報を子孫のコンポーネントに深く提供するからです。私達は代わりに<a href="#依存性の注入">依存性の注入</a>を勧めます。</p>
 <h3 id="子コンポーネントインスタンスと子要素へのアクセス"><a href="#子コンポーネントインスタンスと子要素へのアクセス" class="headerlink" title="子コンポーネントインスタンスと子要素へのアクセス"></a>子コンポーネントインスタンスと子要素へのアクセス</h3><p>プロパティとイベントが存在するにも関わらず、ときどき JavaScript で直接子コンポーネントにアクセスする必要があるかもしれません。このために <code>ref</code> 属性を使い、子コンポーネントにリファレンス ID を割り当てることができます。例えば:</p>
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">base-input</span> <span class="hljs-attr">ref</span>=<span class="hljs-string">"usernameInput"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">base-input</span>&gt;</span></code></pre>
+
 <p>今この <code>ref</code> を定義したコンポーネントで、このように:</p>
 <pre><code class="hljs js"><span class="hljs-keyword">this</span>.$refs.usernameInput</code></pre>
+
 <p><code>&lt;base-input&gt;</code> インスタンスにアクセスすることができるようになります。例えばあなたがプログラムによって、親コンポーネントからこのインプットフォームにフォーカスしたいときに役立ちます。この場合、<code>&lt;base-input&gt;</code> コンポーネントは内部の特定要素へのアクセスを提供するため、親と同様に次のように <code>ref</code> を使うかもしれません:</p>
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">ref</span>=<span class="hljs-string">"input"</span>&gt;</span></code></pre>
+
 <p>そして親によって使用されるメソッドを定義して:</p>
 <pre><code class="hljs js">methods: &#123;
   <span class="hljs-comment">// 親からインプット要素をフォーカスするために使われる</span>
@@ -1033,8 +1041,10 @@
     <span class="hljs-keyword">this</span>.$refs.input.focus()
   &#125;
 &#125;</code></pre>
+
 <p>このようなコードで、親コンポーネントに <code>&lt;base-input&gt;</code> 内部の input 要素にフォーカスさせます:</p>
 <pre><code class="hljs js"><span class="hljs-keyword">this</span>.$refs.usernameInput.focus()</code></pre>
+
 <p><code>ref</code> が <code>v-for</code> と共に使用されるとき、あなたが得る参照はデータソースをミラーリングした子コンポーネントの配列でしょう。</p>
 <p class="tip"><code>$refs</code>はコンポーネントの描画後にデータが反映されるだけで、リアクティブではありません。子コンポーネントへの直接操作のための、退避用ハッチのような意味合いです(テンプレート内または算出プロパティから<code>$refs</code>にアクセスするのは避けるべきです)。</p>
 
@@ -1044,6 +1054,7 @@
     <span class="hljs-tag">&lt;<span class="hljs-name">google-map-markers</span> <span class="hljs-attr">v-bind:places</span>=<span class="hljs-string">"iceCreamShops"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">google-map-markers</span>&gt;</span>
   <span class="hljs-tag">&lt;/<span class="hljs-name">google-map-region</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">google-map</span>&gt;</span></code></pre>
+
 <p>このコンポーネントで、<code>&lt;google-map&gt;</code> の全ての子孫は地図のどの部分に作用させるのかを知るために <code>getMap</code> へアクセスすることを必要としていました。不幸にも <code>$parent</code> プロパティの使用は、より深くネストされたコンポーネントに適合できませんでした。この点こそが、2つの新しいインスタンスオプション、<code>provide</code> と <code>inject</code> の使用により、依存性の注入が役立つところです。</p>
 <p><code>provide</code> オプションは子孫のコンポーネントに<strong>提供</strong>したいデータやメソッドを特定させます。この場合、それは <code>&lt;google-map&gt;</code> 内にある <code>getMap</code> です:</p>
 <pre><code class="hljs js">provide: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;
@@ -1051,8 +1062,10 @@
     <span class="hljs-attr">getMap</span>: <span class="hljs-keyword">this</span>.getMap
   &#125;
 &#125;</code></pre>
+
 <p>このとき全ての子孫で、私達はインスタンスに追加したい特定のプロパティを受け取るため <code>inject</code> オプションを使うことができます:</p>
 <pre><code class="hljs js">inject: [<span class="hljs-string">'getMap'</span>]</code></pre>
+
 <p>以上の<a href="https://codesandbox.io/s/github/vuejs/vuejs.org/tree/master/src/v2/examples/vue-20-dependency-injection" target="_blank" rel="noopener">完例はここから</a>確認できます。<code>$parent</code> を使う以上の利点は <code>&lt;google-map&gt;</code> インスタンス全体を晒すことなく、どの子孫コンポーネントからでも <code>getMap</code> にアクセスできることです。これは子コンポーネントが依存する何かを変更や削除するかもしれないという恐怖を無くし、より安全にコンポーネントを開発できるようにします。これらのコンポーネント間のインターフェースは、ちょうど<code>プロパティ</code>を用いるように明確に定義されます。</p>
 <p>実際、以下を除けば、いわば”広範囲のプロパティ”のようなものとした依存性の注入と考えることができます:</p>
 <ul>
@@ -1083,6 +1096,7 @@ mounted: <span class="hljs-function"><span class="hljs-keyword">function</span> 
 beforeDestroy: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;
   <span class="hljs-keyword">this</span>.picker.destroy()
 &#125;</code></pre>
+
 <p>これには2つの潜在的な問題があります:</p>
 <ul>
 <li>ライフサイクルフックが <code>picker</code> オブジェクトにアクセスする必要がある可能性があるとき、コンポーネントインスタンスにそれを保存する必要があります。酷くはないですが、煩雑に感じられるかもしれません。</li>
@@ -1099,6 +1113,7 @@ beforeDestroy: <span class="hljs-function"><span class="hljs-keyword">function</
     picker.destroy()
   &#125;)
 &#125;</code></pre>
+
 <p>この戦略を使用することによって、いくつかのインプット要素で Pikaday を使用することができ、そのライフサイクル自身のコードで、各新しいインスタンスは自動的にクリーンアップできます。</p>
 <pre><code class="hljs js">mounted: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;
   <span class="hljs-keyword">this</span>.attachDatepicker(<span class="hljs-string">'startDateInput'</span>)
@@ -1116,25 +1131,30 @@ beforeDestroy: <span class="hljs-function"><span class="hljs-keyword">function</
     &#125;)
   &#125;
 &#125;</code></pre>
+
 <p>全てのコードが載っている<a href="https://codesandbox.io/s/github/vuejs/vuejs.org/tree/master/src/v2/examples/vue-20-programmatic-event-listeners" target="_blank" rel="noopener">この例</a>を見てください。しかし注意して欲しいのが、もし1つのコンポーネント内で多くのセットアップやクリーンアップをしなければならない場合、ベストな解決策はたいていより細分化したコンポーネントを作ることです。このケースでは、再利用可能な <code>&lt;input-datepicker&gt;</code> コンポーネントを作ることをおすすめします。</p>
 <p>よりプログラム的なリスナーの詳細を学ぶなら、<a href="https://jp.vuejs.org/v2/api/#%E3%82%A4%E3%83%B3%E3%82%B9%E3%82%BF%E3%83%B3%E3%82%B9%E3%83%A1%E3%82%BD%E3%83%83%E3%83%89-%E3%82%A4%E3%83%99%E3%83%B3%E3%83%88">インスタンスメソッドイベント</a>の API をチェックしてください。</p>
 <p class="tip">Vue のイベントシステムは<a href="https://developer.mozilla.org/en-US/docs/Web/API/EventTarget" target="_blank" rel="noopener">ブラウザのイベントターゲット API </a>とは異なっていることに注意してください。それらは<code>$emit</code>, <code>$on</code>, <code>$off</code>と似たように動作しますが、<code>dispatchEvent</code>, <code>addEventListener</code>, <code>removeEventListener</code>のエイリアスでは<strong>ありません</strong>。</p>
 
 <h2 id="循環参照"><a href="#循環参照" class="headerlink" title="循環参照"></a>循環参照</h2><h3 id="再帰的コンポーネント"><a href="#再帰的コンポーネント" class="headerlink" title="再帰的コンポーネント"></a>再帰的コンポーネント</h3><p>コンポーネントは自身をテンプレートで再帰的に呼び出すことができます。<code>name</code>オプションを使用することによって、それは可能です:</p>
 <pre><code class="hljs js">name: <span class="hljs-string">'unique-name-of-my-component'</span></code></pre>
+
 <p><code>Vue.component</code> を用いてグローバルにコンポーネントを登録するとき、グローバル ID は自動的に、コンポーネントの <code>name</code> オプションとしてセットされます。</p>
 <pre><code class="hljs js">Vue.component(<span class="hljs-string">'unique-name-of-my-component'</span>, &#123;
   <span class="hljs-comment">// ...</span>
 &#125;)</code></pre>
+
 <p>注意しないと、再帰的なコンポーネントも無限ループに繋がる可能性があります:</p>
 <pre><code class="hljs js">name: <span class="hljs-string">'stack-overflow'</span>,
 <span class="hljs-attr">template</span>: <span class="hljs-string">'&lt;div&gt;&lt;stack-overflow&gt;&lt;/stack-overflow&gt;&lt;/div&gt;'</span></code></pre>
+
 <p>上記のようなコンポーネントは”max stack size exceeded”エラーに終わるでしょう。なので必ず再帰的な呼び出しは条件付きにしましょう(例えば最終的に <code>false</code> になる <code>v-if</code> を使用するように)。</p>
 <h3 id="コンポーネント間の循環参照"><a href="#コンポーネント間の循環参照" class="headerlink" title="コンポーネント間の循環参照"></a>コンポーネント間の循環参照</h3><p>あなたは Finder やファイルエクスプローラのようなファイルディレクトリツリーを構築しているとしましょう。このテンプレートのような <code>tree-folder</code> コンポーネントを持つかもしれません:</p>
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span>&#123;&#123; folder.name &#125;&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-name">tree-folder-contents</span> <span class="hljs-attr">:children</span>=<span class="hljs-string">"folder.children"</span>/&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span></code></pre>
+
 <p><code>tree-folder-contents</code> は以下のようなテンプレートです:</p>
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">ul</span>&gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-name">li</span> <span class="hljs-attr">v-for</span>=<span class="hljs-string">"child in children"</span>&gt;</span>
@@ -1142,18 +1162,22 @@ beforeDestroy: <span class="hljs-function"><span class="hljs-keyword">function</
     <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">v-else</span>&gt;</span>&#123;&#123; child.name &#125;&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
   <span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span></code></pre>
-<p>よく見ると、これらのコンポーネントが実際にそれぞれ他のレンダリングツリーの子孫_と_祖先になっていますね。矛盾してますね！<code>Vue.component</code> でグローバルにコンポーネントを登録するとき、この矛盾は自動的に解決されます。何を言っているのか分からないなら、これ以降読むのやめることができます。</p>
+
+<p>よく見ると、これらのコンポーネントが実際にそれぞれ他のレンダリングツリーの子孫<em>と</em>祖先になっていますね。矛盾してますね！<code>Vue.component</code> でグローバルにコンポーネントを登録するとき、この矛盾は自動的に解決されます。何を言っているのか分からないなら、これ以降読むのやめることができます。</p>
 <p>しかしもしあなたが、例えば Webpack や Browserify 経由で、<strong>モジュールシステム</strong>を使用するコンポーネントを require/import するならば、以下のようなエラーに遭遇するでしょう:</p>
 <pre><code class="hljs undefined">Failed to mount component: template or render function not defined.</code></pre>
+
 <p>何が起こったかを説明するために、コンポーネント A と B を呼び出してみましょう。モジュールシステムはコンポーネント A を必要とすると認識します。しかしコンポーネント A はコンポーネント B を必要とします。しかしコンポーネント B はコンポーネント A を必要とします。しかしコンポーネント A はコンポーネント B を必要とします(以下略)。最初に他のものを解決することなく、いずれかのコンポーネントを完全に解決する方法がわからずにループで詰まってしまっています。これを直すため、モジュールシステムに「コンポーネント A は最終的にコンポーネント B を必要としますが、B を最初に解決する必要はありません」ということを教える必要があります。</p>
 <p>今回は、そのことを <code>tree-folder</code> コンポーネントに教えてみましょう。私達はその矛盾を生み出す子が、<code>tree-folder-contents</code> コンポーネントだということを知っています。なので、<code>beforeCreate</code> ライフサイクルフックが <code>tree-folder-contents</code> コンポーネントを登録するまで待ってみましょう:</p>
 <pre><code class="hljs js">beforeCreate: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;
   <span class="hljs-keyword">this</span>.$options.components.TreeFolderContents = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./tree-folder-contents.vue'</span>).default
 &#125;</code></pre>
+
 <p>もしくは別の方法として、コンポーネントをローカルに登録するときに Webpack の非同期 <code>import</code> を使用することができます:</p>
 <pre><code class="hljs js">components: &#123;
   <span class="hljs-attr">TreeFolderContents</span>: <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> <span class="hljs-keyword">import</span>(<span class="hljs-string">'./tree-folder-contents.vue'</span>)
 &#125;</code></pre>
+
 <p>これで問題が解決されました！</p>
 <h2 id="代替テンプレート定義"><a href="#代替テンプレート定義" class="headerlink" title="代替テンプレート定義"></a>代替テンプレート定義</h2><h3 id="インラインテンプレート"><a href="#インラインテンプレート" class="headerlink" title="インラインテンプレート"></a>インラインテンプレート</h3><p><code>inline-template</code> 属性が子コンポーネントの上に存在するとき、子コンポーネントを別のコンテントして扱うよりむしろ、自身のテンプレートとしてそれを使用します。これはよりテンプレート作成をフレキシブルにします。</p>
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">my-component</span> <span class="hljs-attr">inline-template</span>&gt;</span>
@@ -1162,6 +1186,7 @@ beforeDestroy: <span class="hljs-function"><span class="hljs-keyword">function</
     <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>Not parent's transclusion content.<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
   <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">my-component</span>&gt;</span></code></pre>
+
 <p>インラインテンプレートは、Vue がアタッチされた DOM 要素の内側で定義する必要があります。</p>
 <p class="tip">しかし、<code>inline-template</code>はテンプレートのスコープの推論を難しくします。ベストプラクティスとして、<code>template</code>オプションを使用してコンポーネント内部でテンプレート定義するようにしてください。または<code>.vue</code>ファイルの<code>&lt;template&gt;</code>要素で定義するのもいいでしょう。</p>
 
@@ -1169,9 +1194,11 @@ beforeDestroy: <span class="hljs-function"><span class="hljs-keyword">function</
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text/x-template"</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"hello-world-template"</span>&gt;</span><span class="xml">
   <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>Hello hello hello<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
 </span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code></pre>
+
 <pre><code class="hljs js">Vue.component(<span class="hljs-string">'hello-world'</span>, &#123;
   <span class="hljs-attr">template</span>: <span class="hljs-string">'#hello-world-template'</span>
 &#125;)</code></pre>
+
 <p>x-template は、Vue がアタッチされた DOM 要素の外側で定義する必要があります。</p>
 <p class="tip">これらは大規模なテンプレートを必要とするデモや非常に小さなアプリケーションで役立ちます。しかし一方で避けられるべきでもあります。なぜなら、それらはコンポーネント定義からテンプレートを分離させるからです。</p>
 
@@ -1189,6 +1216,7 @@ beforeDestroy: <span class="hljs-function"><span class="hljs-keyword">function</
     &lt;/div&gt;
   `</span>
 &#125;)</code></pre>
+
 <p class="tip">再度注意しますが、このパターンを多用しないようにしてください。多くの静的な内容を描画しなければならないとき、これらのレアケースは便利である一方、あなたが実際に遅いレンダリングに気付かない限りは絶対に必要ではありません。さらにそれは後に多くの混乱の原因になり得るでしょう。例えば、<code>v-once</code>に精通していない開発者や、単純にテンプレート内にそれを見逃した開発者を想像してみてください。それらはなぜテンプレートが正確に更新されないのかの原因究明に時間を費やすことになるかもしれません。</p>
 
   

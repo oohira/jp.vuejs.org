@@ -427,6 +427,7 @@
     <span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span>
   <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span></code></pre>
+
 <p>Now, our script needs to pass some props to the component which allows us to set the <a href="https://developers.google.com/maps/documentation/javascript/reference/" target="_blank" rel="noopener">Google Maps API</a> and <a href="https://developers.google.com/maps/documentation/javascript/reference/map#Map" target="_blank" rel="noopener">Map object</a>:</p>
 <pre><code class="hljs js"><span class="hljs-keyword">import</span> GoogleMapsApiLoader <span class="hljs-keyword">from</span> <span class="hljs-string">'google-maps-api-loader'</span>
 
@@ -460,6 +461,7 @@
     &#125;
   &#125;
 &#125;</code></pre>
+
 <p>This is just part of a working example, you can find the whole example in the Codesandbox below.</p>
 <iframe src="https://codesandbox.io/embed/1o45zvxk0q" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
@@ -470,6 +472,7 @@
     <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"google-map"</span> <span class="hljs-attr">ref</span>=<span class="hljs-string">"googleMap"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
   <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span></code></pre>
+
 <p>Next up, our script needs to receive props from the parent component which will allow us to set the Google Map. Those props consist of:</p>
 <ul>
 <li><a href="https://developers.google.com/maps/documentation/javascript/reference/3/map#MapOptions" target="_blank" rel="noopener">mapConfig</a>: Google Maps config object</li>
@@ -482,6 +485,7 @@
     <span class="hljs-attr">mapConfig</span>: <span class="hljs-built_in">Object</span>,
     <span class="hljs-attr">apiKey</span>: <span class="hljs-built_in">String</span>,
   &#125;,</code></pre>
+
 <p>Then, we set the initial values of google and map to null:</p>
 <pre><code class="hljs js">data() &#123;
   <span class="hljs-keyword">return</span> &#123;
@@ -489,6 +493,7 @@
     <span class="hljs-attr">map</span>: <span class="hljs-literal">null</span>
   &#125;
 &#125;,</code></pre>
+
 <p>On <code>mounted</code> hook we instantiate a <code>googleMapApi</code> and <code>Map</code> objects from the <code>GoogleMapsApi</code> and we set the values of <code>google</code> and <code>map</code> to the created instances:</p>
 <pre><code class="hljs js">  <span class="hljs-keyword">async</span> mounted() &#123;
     <span class="hljs-keyword">const</span> googleMapApi = <span class="hljs-keyword">await</span> GoogleMapsApiLoader(&#123;
@@ -505,6 +510,7 @@
     &#125;
   &#125;
 &#125;</code></pre>
+
 <p>So far, so good. With all that done, we could continue adding the other objects to the map (Markers, Polylines, etc.) and use it as an ordinary map component.</p>
 <p>But, we want to use our <code>GoogleMapLoader</code> component only as a loader that prepares the map — we don’t want to render anything on it.</p>
 <p>To achieve that, we need to allow the parent component that will use our <code>GoogleMapLoader</code> to access <code>this.google</code> and <code>this.map</code> that are set inside the <code>GoogleMapLoader</code> component. That’s where <a href="https://vuejs.org/v2/guide/components-slots.html#Scoped-Slots" target="_blank" rel="noopener">scoped slots</a> really shine. Scoped slots allow us to expose the properties set in a child component to the parent component. It may sound like Inception, but bear with me one more minute as we break that down further.</p>
@@ -516,6 +522,7 @@
     <span class="hljs-attr">apiKey</span>=<span class="hljs-string">"yourApiKey"</span>
   /&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span></code></pre>
+
 <p>Our script tag will look like this:</p>
 <pre><code class="hljs js">&lt;script&gt;
 <span class="hljs-keyword">import</span> GoogleMapLoader <span class="hljs-keyword">from</span> <span class="hljs-string">'./GoogleMapLoader'</span>
@@ -536,6 +543,7 @@
   &#125;,
 &#125;
 &lt;<span class="hljs-regexp">/script&gt;</span></code></pre>
+
 <p>Still no scoped slots, so let’s add one.</p>
 <h3 id="3-Expose-google-and-map-properties-to-the-parent-component-by-adding-a-scoped-slot"><a href="#3-Expose-google-and-map-properties-to-the-parent-component-by-adding-a-scoped-slot" class="headerlink" title="3. Expose google and map properties to the parent component by adding a scoped slot."></a>3. Expose <code>google</code> and <code>map</code> properties to the parent component by adding a scoped slot.</h3><p>Finally, we can add a scoped slot that will do the job and allow us to access the child component props in the parent component. We do that by adding the <code>&lt;slot&gt;</code> tag in the child component and passing the props that we want to expose (using <code>v-bind</code> directive or <code>:propName</code> shorthand). It does not differ from passing the props down to the child component, but doing it in the <code>&lt;slot&gt;</code> tag will reverse the direction of data flow.</p>
 <p><code>GoogleMapLoader.vue</code></p>
@@ -550,6 +558,7 @@
     <span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span>
   <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span></code></pre>
+
 <p>Now, when we have the slot in the child component, we need to receive and consume the exposed props in the parent component.</p>
 <h3 id="4-Receive-exposed-props-in-the-parent-component-using-slot-scope-attribute"><a href="#4-Receive-exposed-props-in-the-parent-component-using-slot-scope-attribute" class="headerlink" title="4. Receive exposed props in the parent component using slot-scope attribute."></a>4. Receive exposed props in the parent component using <code>slot-scope</code> attribute.</h3><p>To receive the props in the parent component, we declare a template element and use the <code>slot-scope</code> attribute. This attribute has access to the object carrying all the props exposed from the child component. We can grab the whole object or we can <a href="https://vuejs.org/v2/guide/components-slots.html#Destructuring-slot-scope" target="_blank" rel="noopener">de-structure that object</a> and only what we need.</p>
 <p>Let’s de-structure this thing to get what we need.</p>
@@ -563,6 +572,7 @@
   	&#123;&#123; google &#125;&#125;
   <span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">GoogleMapLoader</span>&gt;</span></code></pre>
+
 <p>Even though the <code>google</code> and <code>map</code> props do not exist in the <code>TravelMap</code> scope, the component has access to them and we can use them in the template.</p>
 <p>You might wonder why would we do things like that and what is the use of all that?</p>
 <p>Scoped slots allow us to pass a template to the slot instead of a rendered element. It’s called a <code>scoped</code> slot because it will have access to certain child component data even though the template is rendered in the parent component scope. This gives us the freedom to fill the template with custom content from the parent component.</p>
@@ -595,6 +605,7 @@
     &#125;)
   &#125;
 &#125;</code></pre>
+
 <p><code>GoogleMapLine.vue</code></p>
 <pre><code class="hljs js"><span class="hljs-keyword">import</span> &#123; LINE_PATH_CONFIG &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">'@/constants/mapSettings'</span>
 
@@ -622,6 +633,7 @@
     &#125;)
   &#125;
 &#125;</code></pre>
+
 <p>Both of these receive <code>google</code> that we use to extract the required object (Marker or Polyline) as well as <code>map</code> which gives as a reference to the map on which we want to place our element.</p>
 <p>Each component also expects an extra prop to create a corresponding element. In this case, we have <code>marker</code> and <code>path</code>, respectively.</p>
 <p>On the mounted hook, we create an element (Marker/Polyline) and attach it to our map by passing the <code>map</code> property to the object constructor.</p>
@@ -650,6 +662,7 @@
     /&gt;</span>
   <span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">GoogleMapLoader</span>&gt;</span></code></pre>
+
 <p>We need to import the required factory components in our script and set the data that will be passed to the markers and lines:</p>
 <pre><code class="hljs js"><span class="hljs-keyword">import</span> &#123; mapSettings &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">'@/constants/mapSettings'</span>
 
@@ -687,6 +700,7 @@
     &#125;
   &#125;,
 &#125;</code></pre>
+
 <h2 id="When-To-Avoid-This-Pattern"><a href="#When-To-Avoid-This-Pattern" class="headerlink" title="When To Avoid This Pattern"></a>When To Avoid This Pattern</h2><p>It might be tempting to create a very complex solution based on the example, but at some point we can get to the situation where this abstraction becomes an independent part of the code living in our codebase. If we get to that point it might be worth considering extraction to an add-on.</p>
 <h2 id="Wrapping-Up"><a href="#Wrapping-Up" class="headerlink" title="Wrapping Up"></a>Wrapping Up</h2><p>That’s it. With all those bits and pieces created we can now re-use the <code>GoogleMapLoader</code> component as a base for all our maps by passing different templates to each one of them. Imagine that you need to create another map with different Markers or just Markers without Polylines. By using the above pattern it becomes very easy as we just need to pass different content to the <code>GoogleMapLoader</code> component.</p>
 <p>This pattern is not strictly connected to Google Maps; it can be used with any library to set the base component and expose the library’s API that might be then used in the component that summoned the base component.</p>

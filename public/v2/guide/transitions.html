@@ -994,18 +994,21 @@
     <span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">v-if</span>=<span class="hljs-string">"show"</span>&gt;</span>hello<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
   <span class="hljs-tag">&lt;/<span class="hljs-name">transition</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
+
 <pre><code class="hljs js"><span class="hljs-keyword">new</span> Vue(&#123;
   <span class="hljs-attr">el</span>: <span class="hljs-string">'#demo'</span>,
   <span class="hljs-attr">data</span>: &#123;
     <span class="hljs-attr">show</span>: <span class="hljs-literal">true</span>
   &#125;
 &#125;)</code></pre>
+
 <pre><code class="hljs css"><span class="hljs-selector-class">.fade-enter-active</span>, <span class="hljs-selector-class">.fade-leave-active</span> &#123;
   <span class="hljs-attribute">transition</span>: opacity .<span class="hljs-number">5s</span>;
 &#125;
 <span class="hljs-selector-class">.fade-enter</span>, <span class="hljs-selector-class">.fade-leave-to</span> <span class="hljs-comment">/* .fade-leave-active below version 2.1.8 */</span> &#123;
   <span class="hljs-attribute">opacity</span>: <span class="hljs-number">0</span>;
 &#125;</code></pre>
+
 
 <div id="demo">
   <button v-on:click="show = !show">
@@ -1031,6 +1034,7 @@ new Vue({
   opacity: 0
 }
 </style>
+
 
 <p><code>transition</code> コンポーネントにラップされた要素が挿入あるいは削除されるとき、次のことが行われます:</p>
 <ol>
@@ -1062,12 +1066,14 @@ new Vue({
     <span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">v-if</span>=<span class="hljs-string">"show"</span>&gt;</span>hello<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
   <span class="hljs-tag">&lt;/<span class="hljs-name">transition</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
+
 <pre><code class="hljs js"><span class="hljs-keyword">new</span> Vue(&#123;
   <span class="hljs-attr">el</span>: <span class="hljs-string">'#example-1'</span>,
   <span class="hljs-attr">data</span>: &#123;
     <span class="hljs-attr">show</span>: <span class="hljs-literal">true</span>
   &#125;
 &#125;)</code></pre>
+
 <pre><code class="hljs css"><span class="hljs-comment">/* enter、 leave アニメーションで異なる間隔やタイミング関数を利用することができます */</span>
 <span class="hljs-selector-class">.slide-fade-enter-active</span> &#123;
   <span class="hljs-attribute">transition</span>: all .<span class="hljs-number">3s</span> ease;
@@ -1080,6 +1086,7 @@ new Vue({
   <span class="hljs-attribute">transform</span>: <span class="hljs-built_in">translateX</span>(10px);
   <span class="hljs-attribute">opacity</span>: <span class="hljs-number">0</span>;
 &#125;</code></pre>
+
 
 <div id="example-1" class="demo">
   <button @click="show = !show">
@@ -1110,6 +1117,7 @@ new Vue({
 }
 </style>
 
+
 <h3 id="CSS-アニメーション"><a href="#CSS-アニメーション" class="headerlink" title="CSS アニメーション"></a>CSS アニメーション</h3><p>CSS アニメーションは、CSS トランジションと同じように適用されますが、異なるのは <code>v-enter</code> が要素が挿入された直後に削除されないことです。しかし、<code>animationend</code> イベント時には削除されています。</p>
 <p>これは簡潔にするために CSS ルールの接頭辞を除いた例です。</p>
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"example-2"</span>&gt;</span>
@@ -1118,12 +1126,14 @@ new Vue({
     <span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">v-if</span>=<span class="hljs-string">"show"</span>&gt;</span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris facilisis enim libero, at lacinia diam fermentum id. Pellentesque habitant morbi tristique senectus et netus.<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
   <span class="hljs-tag">&lt;/<span class="hljs-name">transition</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
+
 <pre><code class="hljs js"><span class="hljs-keyword">new</span> Vue(&#123;
   <span class="hljs-attr">el</span>: <span class="hljs-string">'#example-2'</span>,
   <span class="hljs-attr">data</span>: &#123;
     <span class="hljs-attr">show</span>: <span class="hljs-literal">true</span>
   &#125;
 &#125;)</code></pre>
+
 <pre><code class="hljs css"><span class="hljs-selector-class">.bounce-enter-active</span> &#123;
   <span class="hljs-attribute">animation</span>: bounce-in .<span class="hljs-number">5s</span>;
 &#125;
@@ -1141,6 +1151,7 @@ new Vue({
     <span class="hljs-attribute">transform</span>: <span class="hljs-built_in">scale</span>(1);
   &#125;
 &#125;</code></pre>
+
 
 <div id="example-2" class="demo">
   <button @click="show = !show">Toggle show</button>
@@ -1196,6 +1207,7 @@ new Vue({
 })
 </script>
 
+
 <h3 id="カスタムトランジションクラス"><a href="#カスタムトランジションクラス" class="headerlink" title="カスタムトランジションクラス"></a>カスタムトランジションクラス</h3><p>次の属性で、カスタムトランジションクラスを指定できます:</p>
 <ul>
 <li><code>enter-class</code></li>
@@ -1221,12 +1233,14 @@ new Vue({
     <span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">v-if</span>=<span class="hljs-string">"show"</span>&gt;</span>hello<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
   <span class="hljs-tag">&lt;/<span class="hljs-name">transition</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
+
 <pre><code class="hljs js"><span class="hljs-keyword">new</span> Vue(&#123;
   <span class="hljs-attr">el</span>: <span class="hljs-string">'#example-3'</span>,
   <span class="hljs-attr">data</span>: &#123;
     <span class="hljs-attr">show</span>: <span class="hljs-literal">true</span>
   &#125;
 &#125;)</code></pre>
+
 
 <link href="https://cdn.jsdelivr.net/npm/animate.css@3.5.1" rel="stylesheet" type="text/css">
 <div id="example-3" class="demo">
@@ -1246,6 +1260,7 @@ new Vue({
 })
 </script>
 
+
 <h3 id="トランジションとアニメーションを両方使う"><a href="#トランジションとアニメーションを両方使う" class="headerlink" title="トランジションとアニメーションを両方使う"></a>トランジションとアニメーションを両方使う</h3><p>Vue はトランジションが終了したことを把握するためのイベントリスナのアタッチを必要とします。イベントは、適用される CSS ルールに応じて <code>transitionend</code> か <code>animationend</code> のいずれかのタイプになります。あなたがトランジションとアニメーション、どちらか一方だけ使用する場合は、Vue は自動的に正しいタイプを判断することができます。</p>
 <p>しかし、例えば、ホバーの CSS トランジション効果と Vue による CSS アニメーションのトリガの両方を持つ場合など、時には、同じ要素に両方を使うこともあるかもしれません。これらのケースでは、Vue に扱って欲しいタイプを <code>type</code> 属性で明示的に宣言するべきでしょう。この属性の値は、<code>animation</code> あるいは <code>transition</code> を取ります。</p>
 <h3 id="明示的なトランジション期間の設定"><a href="#明示的なトランジション期間の設定" class="headerlink" title="明示的なトランジション期間の設定"></a>明示的なトランジション期間の設定</h3><blockquote>
@@ -1254,8 +1269,10 @@ new Vue({
 <p>ほとんどの場合、 Vue は、自動的にトランジションが終了したことを見つけ出すことは可能です。デフォルトでは、 Vue はルート要素の初めの <code>transitionend</code> もしくは <code>animationend</code> イベントを待ちます。しかし、これが常に望む形とは限りません。例えば、幾つかの入れ子となっている内部要素にてトランジションの遅延がある場合や、ルートのトランジション要素よりも非常に長いトランジション期間を設けている場合の、一連のトランジションのまとまりなどです。</p>
 <p>このような場合 <code>&lt;transition&gt;</code> コンポーネントがもつ <code>duration</code> プロパティを利用することで、明示的に遷移にかかる時間（ミリ秒単位）を指定することが可能です:</p>
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">transition</span> <span class="hljs-attr">:duration</span>=<span class="hljs-string">"1000"</span>&gt;</span>...<span class="hljs-tag">&lt;/<span class="hljs-name">transition</span>&gt;</span></code></pre>
+
 <p>また、活性化時と終了時の期間を、個別に指定することも可能です:</p>
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">transition</span> <span class="hljs-attr">:duration</span>=<span class="hljs-string">"&#123; enter: 500, leave: 800 &#125;"</span>&gt;</span>...<span class="hljs-tag">&lt;/<span class="hljs-name">transition</span>&gt;</span></code></pre>
+
 <h3 id="JavaScript-フック"><a href="#JavaScript-フック" class="headerlink" title="JavaScript フック"></a>JavaScript フック</h3><p>属性で JavaScript フックを定義することができます:</p>
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">transition</span>
   <span class="hljs-attr">v-on:before-enter</span>=<span class="hljs-string">"beforeEnter"</span>
@@ -1270,6 +1287,7 @@ new Vue({
 &gt;</span>
   <span class="hljs-comment">&lt;!-- ... --&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">transition</span>&gt;</span></code></pre>
+
 <pre><code class="hljs js"><span class="hljs-comment">// ...</span>
 methods: &#123;
   <span class="hljs-comment">// --------</span>
@@ -1311,10 +1329,11 @@ methods: &#123;
     <span class="hljs-comment">// ...</span>
   &#125;
 &#125;</code></pre>
-<p>これらのフックは、CSS トランジション/アニメーション、または別の何かと組み合わせて使うことができます。</p>
-<p class="tip">JavaScript のみを利用したトランジションの場合は、<strong><code>done</code> コールバックを <code>enter</code> と <code>leave</code> フックで呼ぶ必要があります</strong>。呼ばない場合は、フックは同期的に呼ばれ、トランジションはただちに終了します。</p>
 
-<p class="tip">JavaScript のみのトランジションのために明示的に <code>v-bind:css=&quot;false&quot;</code> を追加するのは良いアイデアです。これは、Vue に CSS 判定をスキップさせます。また、誤って CSS ルールがトランジションに干渉するのを防ぎます。</p>
+<p>これらのフックは、CSS トランジション/アニメーション、または別の何かと組み合わせて使うことができます。</p>
+<p class="tip">JavaScript のみを利用したトランジションの場合は、**`done` コールバックを `enter` と `leave` フックで呼ぶ必要があります**。呼ばない場合は、フックは同期的に呼ばれ、トランジションはただちに終了します。</p>
+
+<p class="tip">JavaScript のみのトランジションのために明示的に `v-bind:css="false"` を追加するのは良いアイデアです。これは、Vue に CSS 判定をスキップさせます。また、誤って CSS ルールがトランジションに干渉するのを防ぎます。</p>
 
 <p>今から例をみていきましょう。これは Velocity.js を使ったシンプルな JavaScript トランジションの例です:</p>
 <pre><code class="hljs html"><span class="hljs-comment">&lt;!--
@@ -1338,6 +1357,7 @@ JavaScript アニメーションのための良い選択です。
     <span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
   <span class="hljs-tag">&lt;/<span class="hljs-name">transition</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
+
 <pre><code class="hljs js"><span class="hljs-keyword">new</span> Vue(&#123;
   <span class="hljs-attr">el</span>: <span class="hljs-string">'#example-4'</span>,
   <span class="hljs-attr">data</span>: &#123;
@@ -1364,6 +1384,7 @@ JavaScript アニメーションのための良い選択です。
     &#125;
   &#125;
 &#125;)</code></pre>
+
 
 <div id="example-4" class="demo">
   <button @click="show = !show">
@@ -1405,10 +1426,12 @@ new Vue({
 })
 </script>
 
+
 <h2 id="初期描画時のトランジション"><a href="#初期描画時のトランジション" class="headerlink" title="初期描画時のトランジション"></a>初期描画時のトランジション</h2><p>ノードの初期描画時にトランジションを適用したい場合は、<code>appear</code> 属性を追加することができます:</p>
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">transition</span> <span class="hljs-attr">appear</span>&gt;</span>
   <span class="hljs-comment">&lt;!-- ... --&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">transition</span>&gt;</span></code></pre>
+
 <p>デフォルトで、これは entering と leaving のために指定されたトランジションが使用されます。あるいは、カスタム CSS クラスを指定することもできます:</p>
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">transition</span>
   <span class="hljs-attr">appear</span>
@@ -1418,6 +1441,7 @@ new Vue({
 &gt;</span>
   <span class="hljs-comment">&lt;!-- ... --&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">transition</span>&gt;</span></code></pre>
+
 <p>そして、カスタム JavaScript フックも指定できます:</p>
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">transition</span>
   <span class="hljs-attr">appear</span>
@@ -1428,6 +1452,7 @@ new Vue({
 &gt;</span>
   <span class="hljs-comment">&lt;!-- ... --&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">transition</span>&gt;</span></code></pre>
+
 <p>上の例で、<code>appear</code> 属性と <code>v-on:appear</code> フックのどちらも appear トランジションを引き起こします。</p>
 <h2 id="要素間のトランジション"><a href="#要素間のトランジション" class="headerlink" title="要素間のトランジション"></a>要素間のトランジション</h2><p>あとで <a href="#コンポーネント間のトランジション">コンポーネント間のトランジション</a> について説明しますが、<code>v-if</code>/<code>v-else</code> を使った通常の要素同士でもトランジションできます。最も共通の2つの要素のトランジションの例として、リストコンテナとリストが空と説明するメッセージの間で行うものがあります:</p>
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">transition</span>&gt;</span>
@@ -1436,8 +1461,9 @@ new Vue({
   <span class="hljs-tag">&lt;/<span class="hljs-name">table</span>&gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">v-else</span>&gt;</span>Sorry, no items found.<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">transition</span>&gt;</span></code></pre>
+
 <p>これは動きますが、注意すべき点がひとつあります:</p>
-<p class="tip"><strong>同じタグ名</strong>を持つ要素同士でトグルするとき、それらに <code>key</code> 属性を指定することで、個別の要素であることを Vue に伝えなければいけません。そうしないと、 Vue のコンパイラは効率化のために要素の内容だけを置き換えようとします。技術的には不要な場合でも、<strong>常に <code>&lt;transition&gt;</code> コンポーネント内の複数のアイテムを区別しようとすることは、よい習慣です</strong></p>
+<p class="tip">**同じタグ名**を持つ要素同士でトグルするとき、それらに `key` 属性を指定することで、個別の要素であることを Vue に伝えなければいけません。そうしないと、 Vue のコンパイラは効率化のために要素の内容だけを置き換えようとします。技術的には不要な場合でも、**常に `<transition>` コンポーネント内の複数のアイテムを区別しようとすることは、よい習慣です**</transition></p>
 
 <p>例:</p>
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">transition</span>&gt;</span>
@@ -1448,12 +1474,14 @@ new Vue({
     Edit
   <span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">transition</span>&gt;</span></code></pre>
+
 <p>このケースでは、他にも <code>key</code> 属性を同一要素の異なる状態のトランジションのために使うこともできます。<code>v-if</code> と <code>v-else</code> を使う代わりに、以下のように書きかえることができます:</p>
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">transition</span>&gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">v-bind:key</span>=<span class="hljs-string">"isEditing"</span>&gt;</span>
     &#123;&#123; isEditing ? 'Save' : 'Edit' &#125;&#125;
   <span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">transition</span>&gt;</span></code></pre>
+
 <p><code>v-if</code> を複数使ったり、ひとつの要素に対して動的プロパティでバインディングを行ういずれの場合でも、複数個の要素を対象にトランジションすることが可能です。例:</p>
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">transition</span>&gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">v-if</span>=<span class="hljs-string">"docState === 'saved'"</span> <span class="hljs-attr">key</span>=<span class="hljs-string">"saved"</span>&gt;</span>
@@ -1466,12 +1494,14 @@ new Vue({
     Cancel
   <span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">transition</span>&gt;</span></code></pre>
+
 <p>このようにも書き換えることもできます:</p>
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">transition</span>&gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">v-bind:key</span>=<span class="hljs-string">"docState"</span>&gt;</span>
     &#123;&#123; buttonMessage &#125;&#125;
   <span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">transition</span>&gt;</span></code></pre>
+
 <pre><code class="hljs js"><span class="hljs-comment">// ...</span>
 computed: &#123;
   <span class="hljs-attr">buttonMessage</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;
@@ -1482,6 +1512,7 @@ computed: &#123;
     &#125;
   &#125;
 &#125;</code></pre>
+
 <h3 id="トランジションモード"><a href="#トランジションモード" class="headerlink" title="トランジションモード"></a>トランジションモード</h3><p>まだひとつ問題が残っています。以下のボタンをクリックしてください:</p>
 
 <div id="no-mode-demo" class="demo">
@@ -1510,6 +1541,7 @@ new Vue({
   opacity: 0
 }
 </style>
+
 
 <p>それは、”on” ボタンと “off” ボタン間でトランジションを行うとき、片方のボタンがトランジションアウトして、別の片方がトランジションインするとき、両方のボタンが描画されてしまうことです。これは、<code>&lt;transition&gt;</code> のデフォルトの振る舞いです - entering と leaving は同時に起きます。</p>
 <p>時には、これで問題なく、うまく動作する場合があります。例えば、位置が絶対位置で指定されているアイテムのトランジションを行うような場合です:</p>
@@ -1549,6 +1581,7 @@ new Vue({
   opacity: 0;
 }
 </style>
+
 
 <p>また、スライドのようなトランジションを行う場合も同様です:</p>
 
@@ -1594,7 +1627,8 @@ new Vue({
 }
 </style>
 
-<p>ただ、同時に entering と leaving が行われることは必ずしも望ましくないこともあります。このために Vue は代替となる <strong>トランジションモード </strong> を提供しています:</p>
+
+<p>ただ、同時に entering と leaving が行われることは必ずしも望ましくないこともあります。このために Vue は代替となる *<em>トランジションモード *</em> を提供しています:</p>
 <ul>
 <li><p><code>in-out</code>: 最初に新しい要素がトランジションして、それが完了したら、現在の要素がトランジションアウトする。</p>
 </li>
@@ -1605,6 +1639,7 @@ new Vue({
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">transition</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"fade"</span> <span class="hljs-attr">mode</span>=<span class="hljs-string">"out-in"</span>&gt;</span>
   <span class="hljs-comment">&lt;!-- ... the buttons ... --&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">transition</span>&gt;</span></code></pre>
+
 
 <div id="with-mode-demo" class="demo">
   <transition name="with-mode-fade" mode="out-in">
@@ -1632,6 +1667,7 @@ new Vue({
   opacity: 0
 }
 </style>
+
 
 <p>特別なスタイルの追加無しで、ひとつのシンプルな属性を追加するだけでオリジナルのトランジションを修正できました。</p>
 <p><code>in-out</code> モードは使用されることは多くありませんが、微妙に異なるトランジション効果を実現するために有用です。前の例のスライドフェードトランジションと組み合わせてみましょう:</p>
@@ -1678,11 +1714,13 @@ new Vue({
 }
 </style>
 
+
 <p>かなり良いと思いませんか？</p>
 <h2 id="コンポーネント間のトランジション"><a href="#コンポーネント間のトランジション" class="headerlink" title="コンポーネント間のトランジション"></a>コンポーネント間のトランジション</h2><p>コンポーネント間のトランジションは、 <code>key</code> 属性が必要ではないのでさらに単純です。代わりに、ただ <a href="components.html#動的コンポーネント">動的コンポーネント</a> でラップするだけです:</p>
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">transition</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"component-fade"</span> <span class="hljs-attr">mode</span>=<span class="hljs-string">"out-in"</span>&gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-name">component</span> <span class="hljs-attr">v-bind:is</span>=<span class="hljs-string">"view"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">component</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">transition</span>&gt;</span></code></pre>
+
 <pre><code class="hljs js"><span class="hljs-keyword">new</span> Vue(&#123;
   <span class="hljs-attr">el</span>: <span class="hljs-string">'#transition-components-demo'</span>,
   <span class="hljs-attr">data</span>: &#123;
@@ -1697,6 +1735,7 @@ new Vue({
     &#125;
   &#125;
 &#125;)</code></pre>
+
 <pre><code class="hljs css"><span class="hljs-selector-class">.component-fade-enter-active</span>, <span class="hljs-selector-class">.component-fade-leave-active</span> &#123;
   <span class="hljs-attribute">transition</span>: opacity .<span class="hljs-number">3s</span> ease;
 &#125;
@@ -1704,6 +1743,7 @@ new Vue({
 <span class="hljs-comment">/* .component-fade-leave-active for below version 2.1.8 */</span> &#123;
   <span class="hljs-attribute">opacity</span>: <span class="hljs-number">0</span>;
 &#125;</code></pre>
+
 
 <div id="transition-components-demo" class="demo">
   <input v-model="view" type="radio" value="v-a" id="a" name="view"><label for="a">A</label>
@@ -1737,6 +1777,7 @@ new Vue({
 })
 </script>
 
+
 <h2 id="リストトランジション"><a href="#リストトランジション" class="headerlink" title="リストトランジション"></a>リストトランジション</h2><p>ここまでで、次のトランジションを扱えるようになりました:</p>
 <ul>
 <li>独立したノード</li>
@@ -1759,6 +1800,7 @@ new Vue({
     <span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
   <span class="hljs-tag">&lt;/<span class="hljs-name">transition-group</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
+
 <pre><code class="hljs js"><span class="hljs-keyword">new</span> Vue(&#123;
   <span class="hljs-attr">el</span>: <span class="hljs-string">'#list-demo'</span>,
   <span class="hljs-attr">data</span>: &#123;
@@ -1777,6 +1819,7 @@ new Vue({
     &#125;,
   &#125;
 &#125;)</code></pre>
+
 <pre><code class="hljs css"><span class="hljs-selector-class">.list-item</span> &#123;
   <span class="hljs-attribute">display</span>: inline-block;
   <span class="hljs-attribute">margin-right</span>: <span class="hljs-number">10px</span>;
@@ -1788,6 +1831,7 @@ new Vue({
   <span class="hljs-attribute">opacity</span>: <span class="hljs-number">0</span>;
   <span class="hljs-attribute">transform</span>: <span class="hljs-built_in">translateY</span>(30px);
 &#125;</code></pre>
+
 
 <div id="list-demo" class="demo">
   <button v-on:click="add">Add</button>
@@ -1832,6 +1876,7 @@ new Vue({
 }
 </style>
 
+
 <p>この例にはひとつ問題があります。アイテムを追加、削除するとき、周りのアイテムはスムーズにトランジションするのではなく、新しい位置にカチッと収まってしまうことです。それは後ほど修正します。</p>
 <h3 id="リスト移動トランジション"><a href="#リスト移動トランジション" class="headerlink" title="リスト移動トランジション"></a>リスト移動トランジション</h3><p><code>&lt;transition-group&gt;</code> コンポーネントは、別の秘策を持っています。 entering と leaving のアニメーションだけでなく、位置の変化も同様にアニメーションできます。この新しい機能を使うために知らないといけない新しいコンセプトは、アイテムの位置が変わる時に追加される<strong><code>v-move</code> クラス</strong>だけです。他のクラスと同様に、接頭辞は <code>name</code> 属性値と一致しますし、<code>move-class</code> 属性でクラスを指定することもできます。</p>
 <p>以下で分かるように、このクラスは主にトランジションのタイミングやイージングカーブを指定するのに便利です:</p>
@@ -1845,6 +1890,7 @@ new Vue({
     <span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
   <span class="hljs-tag">&lt;/<span class="hljs-name">transition-group</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
+
 <pre><code class="hljs js"><span class="hljs-keyword">new</span> Vue(&#123;
   <span class="hljs-attr">el</span>: <span class="hljs-string">'#flip-list-demo'</span>,
   <span class="hljs-attr">data</span>: &#123;
@@ -1856,9 +1902,11 @@ new Vue({
     &#125;
   &#125;
 &#125;)</code></pre>
+
 <pre><code class="hljs css"><span class="hljs-selector-class">.flip-list-move</span> &#123;
   <span class="hljs-attribute">transition</span>: transform <span class="hljs-number">1s</span>;
 &#125;</code></pre>
+
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.14.1/lodash.min.js"></script>
 <div id="flip-list-demo" class="demo">
@@ -1888,6 +1936,7 @@ new Vue({
 }
 </style>
 
+
 <p>これは魔法のように見えるかもしれませんが、内部で Vue は transforms を使って、前の位置から新しい位置へ要素を滑らかにトランジションさせるために <a href="https://aerotwist.com/blog/flip-your-animations/" target="_blank" rel="noopener">FLIP</a> と呼ばれる単純なアニメーションテクニックを使っています。</p>
 <p>これまでの実装とこのテクニックを組み合わせることで、リストに対する全ての変更をアニメーションさせることができます！</p>
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.14.1/lodash.min.js"</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
@@ -1906,6 +1955,7 @@ new Vue({
     <span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
   <span class="hljs-tag">&lt;/<span class="hljs-name">transition-group</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
+
 <pre><code class="hljs js"><span class="hljs-keyword">new</span> Vue(&#123;
   <span class="hljs-attr">el</span>: <span class="hljs-string">'#list-complete-demo'</span>,
   <span class="hljs-attr">data</span>: &#123;
@@ -1927,6 +1977,7 @@ new Vue({
     &#125;
   &#125;
 &#125;)</code></pre>
+
 <pre><code class="hljs css"><span class="hljs-selector-class">.list-complete-item</span> &#123;
   <span class="hljs-attribute">transition</span>: all <span class="hljs-number">1s</span>;
   <span class="hljs-attribute">display</span>: inline-block;
@@ -1940,6 +1991,7 @@ new Vue({
 <span class="hljs-selector-class">.list-complete-leave-active</span> &#123;
   <span class="hljs-attribute">position</span>: absolute;
 &#125;</code></pre>
+
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.14.1/lodash.min.js"></script>
 <div id="list-complete-demo" class="demo">
@@ -1990,7 +2042,8 @@ new Vue({
 }
 </style>
 
-<p class="tip">一点、FLIP トランジションは <code>display: inline</code> が指定されていると動かないことに注意しましょう。 代わりに <code>display: inline-block</code> を使うか、flex コンテキストに要素を置き換えることで動かすことができます。</p>
+
+<p class="tip">一点、FLIP トランジションは `display: inline` が指定されていると動かないことに注意しましょう。 代わりに `display: inline-block` を使うか、flex コンテキストに要素を置き換えることで動かすことができます。</p>
 
 <p>FLIP アニメーションは、単一の軸だけに限定されるものではありません。多次元のグリッドにあるアイテムも <a href="https://codesandbox.io/s/github/vuejs/vuejs.org/tree/master/src/v2/examples/vue-20-list-move-transitions" target="_blank" rel="noopener">同じように簡単に</a> トランジションできます:</p>
 
@@ -2053,6 +2106,7 @@ new Vue({
 }
 </style>
 
+
 <h3 id="スタッガリングリストトランジション"><a href="#スタッガリングリストトランジション" class="headerlink" title="スタッガリングリストトランジション"></a>スタッガリングリストトランジション</h3><p>data 属性を介して、JavaScript トランジションとやりとりを行うことで、リスト内の遷移をずらすことが可能です:</p>
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://cdnjs.cloudflare.com/ajax/libs/velocity/1.2.3/velocity.min.js"</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
 
@@ -2073,6 +2127,7 @@ new Vue({
     &gt;</span>&#123;&#123; item.msg &#125;&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
   <span class="hljs-tag">&lt;/<span class="hljs-name">transition-group</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
+
 <pre><code class="hljs js"><span class="hljs-keyword">new</span> Vue(&#123;
   <span class="hljs-attr">el</span>: <span class="hljs-string">'#staggered-list-demo'</span>,
   <span class="hljs-attr">data</span>: &#123;
@@ -2120,6 +2175,7 @@ new Vue({
     &#125;
   &#125;
 &#125;)</code></pre>
+
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/velocity/1.2.3/velocity.min.js"></script>
 <div id="example-5" class="demo">
@@ -2178,6 +2234,7 @@ new Vue({
 })
 </script>
 
+
 <h2 id="トランジションの再利用"><a href="#トランジションの再利用" class="headerlink" title="トランジションの再利用"></a>トランジションの再利用</h2><p>Vue のコンポーネントシステムを通して、トランジションを再利用することができます。再利用できるトランジションを生成するには、ルートに <code>&lt;transition&gt;</code> や <code>&lt;transition-group&gt;</code> を配置しなければいけません。そして、トランジションコンポーネントに子を渡します。</p>
 <p>ここにテンプレートを使ったコンポーネントの例があります:</p>
 <pre><code class="hljs js">Vue.component(<span class="hljs-string">'my-special-transition'</span>, &#123;
@@ -2200,6 +2257,7 @@ new Vue({
     &#125;
   &#125;
 &#125;)</code></pre>
+
 <p>そして、<a href="render-function.html#関数型コンポーネント">関数型コンポーネント</a>は、このタスクにとてもよく適しています:</p>
 <pre><code class="hljs js">Vue.component(<span class="hljs-string">'my-special-transition'</span>, &#123;
   <span class="hljs-attr">functional</span>: <span class="hljs-literal">true</span>,
@@ -2221,10 +2279,12 @@ new Vue({
     <span class="hljs-keyword">return</span> createElement(<span class="hljs-string">'transition'</span>, data, context.children)
   &#125;
 &#125;)</code></pre>
+
 <h2 id="動的トランジション"><a href="#動的トランジション" class="headerlink" title="動的トランジション"></a>動的トランジション</h2><p>はい、Vue ではトランジションさえも、データドリブンです！動的トランジションの最も基本的な例は、<code>name</code> 属性を動的プロパティとして束縛することでしょう。</p>
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">transition</span> <span class="hljs-attr">v-bind:name</span>=<span class="hljs-string">"transitionName"</span>&gt;</span>
   <span class="hljs-comment">&lt;!-- ... --&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">transition</span>&gt;</span></code></pre>
+
 <p>これは、Vue のトランジションクラス規約を使って CSS トランジション/アニメーションを定義したとき、それらをシンプルに切り替える場合に便利でしょう。</p>
 <p>任意のトランジション属性を動的に束縛できますが、それは属性だけに限りません。イベントフックはメソッドなので、コンテキストのいかなるデータにもアクセスできます。これは、コンポーネントの状態に応じて、JavaScript トランジションが異なる振る舞いをすることを意味します。</p>
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://cdnjs.cloudflare.com/ajax/libs/velocity/1.2.3/velocity.min.js"</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
@@ -2249,6 +2309,7 @@ new Vue({
     <span class="hljs-attr">v-on:click</span>=<span class="hljs-string">"stop = true"</span>
   &gt;</span>Stop it!<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
+
 <pre><code class="hljs js"><span class="hljs-keyword">new</span> Vue(&#123;
   <span class="hljs-attr">el</span>: <span class="hljs-string">'#dynamic-fade-demo'</span>,
   <span class="hljs-attr">data</span>: &#123;
@@ -2293,6 +2354,7 @@ new Vue({
     &#125;
   &#125;
 &#125;)</code></pre>
+
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/velocity/1.2.3/velocity.min.js"></script>
 <div id="dynamic-fade-demo" class="demo">
@@ -2350,6 +2412,7 @@ new Vue({
   }
 })
 </script>
+
 
 <p>動的なトランジションを作成する究極の方法は、プロパティでトランジションの性質を変えながら試行錯誤することです。小さく聞こえるかもしれませんが、本当の限界はあなたの想像力だけなのです。</p>
 

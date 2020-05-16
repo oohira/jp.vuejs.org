@@ -978,6 +978,7 @@
     &#123;&#123; item.message &#125;&#125;
   <span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span></code></pre>
+
 <pre><code class="hljs js"><span class="hljs-keyword">var</span> example1 = <span class="hljs-keyword">new</span> Vue(&#123;
   <span class="hljs-attr">el</span>: <span class="hljs-string">'#example-1'</span>,
   <span class="hljs-attr">data</span>: &#123;
@@ -987,6 +988,7 @@
     ]
   &#125;
 &#125;)</code></pre>
+
 <p>結果:</p>
 
 <ul id="example-1" class="demo">
@@ -1006,12 +1008,14 @@ var example1 = new Vue({
 })
 </script>
 
+
 <p><code>v-for</code> ブロック内では、親スコープのプロパティへの完全なアクセスを持っています。また <code>v-for</code> は現在のアイテムに対する配列のインデックスを、任意の2つ目の引数としてサポートしています。</p>
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">ul</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"example-2"</span>&gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-name">li</span> <span class="hljs-attr">v-for</span>=<span class="hljs-string">"(item, index) in items"</span>&gt;</span>
     &#123;&#123; parentMessage &#125;&#125; - &#123;&#123; index &#125;&#125; - &#123;&#123; item.message &#125;&#125;
   <span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span></code></pre>
+
 <pre><code class="hljs js"><span class="hljs-keyword">var</span> example2 = <span class="hljs-keyword">new</span> Vue(&#123;
   <span class="hljs-attr">el</span>: <span class="hljs-string">'#example-2'</span>,
   <span class="hljs-attr">data</span>: &#123;
@@ -1022,6 +1026,7 @@ var example1 = new Vue({
     ]
   &#125;
 &#125;)</code></pre>
+
 <p>結果:</p>
 
 <ul id="example-2" class="demo">
@@ -1042,14 +1047,17 @@ var example2 = new Vue({
 })
 </script>
 
+
 <p>また、区切り文字として <code>in</code> の代わりに <code>of</code> を使用することができます。これは JavaScript のイテレータ構文に近いものです:</p>
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">v-for</span>=<span class="hljs-string">"item of items"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
+
 <h2 id="オブジェクトの-v-for"><a href="#オブジェクトの-v-for" class="headerlink" title="オブジェクトの v-for"></a>オブジェクトの <code>v-for</code></h2><p>オブジェクトのプロパティに対して、<code>v-for</code> を使って反復処理することができます。</p>
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">ul</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"v-for-object"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"demo"</span>&gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-name">li</span> <span class="hljs-attr">v-for</span>=<span class="hljs-string">"value in object"</span>&gt;</span>
     &#123;&#123; value &#125;&#125;
   <span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span></code></pre>
+
 <pre><code class="hljs js"><span class="hljs-keyword">new</span> Vue(&#123;
   <span class="hljs-attr">el</span>: <span class="hljs-string">'#v-for-object'</span>,
   <span class="hljs-attr">data</span>: &#123;
@@ -1060,6 +1068,7 @@ var example2 = new Vue({
     &#125;
   &#125;
 &#125;)</code></pre>
+
 <p>結果:</p>
 
 <ul id="v-for-object" class="demo">
@@ -1080,10 +1089,12 @@ new Vue({
 })
 </script>
 
+
 <p>2 つ目の引数としてプロパティ名（すなわちキー）も提供できます:</p>
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">v-for</span>=<span class="hljs-string">"(value, name) in object"</span>&gt;</span>
   &#123;&#123; name &#125;&#125;: &#123;&#123; value &#125;&#125;
 <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
+
 
 <div id="v-for-object-value-name" class="demo">
   <div v-for="(value, name) in object">
@@ -1103,10 +1114,12 @@ new Vue({
 })
 </script>
 
+
 <p>index も提供できます:</p>
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">v-for</span>=<span class="hljs-string">"(value, name, index) in object"</span>&gt;</span>
   &#123;&#123; index &#125;&#125;. &#123;&#123; name &#125;&#125;: &#123;&#123; value &#125;&#125;
 <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
+
 
 <div id="v-for-object-value-name-index" class="demo">
   <div v-for="(value, name, index) in object">
@@ -1126,7 +1139,8 @@ new Vue({
 })
 </script>
 
-<p class="tip">オブジェクトを反復処理するとき、順序は <code>Object.keys()</code> の列挙順のキーに基づいており、全ての JavaScript エンジンの実装で一貫性が保証されて<strong>いません</strong>。</p>
+
+<p class="tip">オブジェクトを反復処理するとき、順序は `Object.keys()` の列挙順のキーに基づいており、全ての JavaScript エンジンの実装で一貫性が保証されて**いません**。</p>
 
 <h2 id="状態の維持"><a href="#状態の維持" class="headerlink" title="状態の維持"></a>状態の維持</h2><p>Vue が <code>v-for</code> で描画された要素のリストを更新する際、標準では “その場でパッチを適用する” (in-place patch) 戦略が用いられます。データのアイテムの順序が変更された場合、アイテムの順序に合わせて DOM 要素を移動する代わりに、 Vue は各要素にその場でパッチを適用して、その特定のインデックスに何を描画するべきかを確実に反映します。これは Vue 1.x にあった機能の <code>track-by=&quot;$index&quot;</code> に似たものです。</p>
 <p>この標準のモードは効率がいいです。しかしこれは、<strong>描画されたリストが子コンポーネントの状態や、一時的な DOM の状態に依存していないときにだけ適しています (例: フォームのインプットの値)</strong>。</p>
@@ -1134,9 +1148,10 @@ new Vue({
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">v-for</span>=<span class="hljs-string">"item in items"</span> <span class="hljs-attr">v-bind:key</span>=<span class="hljs-string">"item.id"</span>&gt;</span>
   <span class="hljs-comment">&lt;!-- content --&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
+
 <p>繰り返される DOM の内容が単純な場合や、性能向上のために標準の動作に意図的に頼る場合を除いて、可能なときはいつでも <code>v-for</code> に <code>key</code> 属性を与えることが推奨されます。</p>
 <p>これは Vue がノードを識別する汎用的な仕組みなので、<code>key</code> はガイドの後半でわかるように <code>v-for</code> に縛られない他の用途もあります。</p>
-<p class="tip">オブジェクトや配列のような非プリミティブ値を <code>v-for</code> のキーとして使わないでください。代わりに、文字列や数値を使ってください。</p>
+<p class="tip">オブジェクトや配列のような非プリミティブ値を `v-for` のキーとして使わないでください。代わりに、文字列や数値を使ってください。</p>
 
 <p><code>key</code> 属性の詳細な使い方は、<a href="https://jp.vuejs.org/v2/api/#key"><code>key</code> API ドキュメント</a> を参照してください。</p>
 <h2 id="配列の変化を検出"><a href="#配列の変化を検出" class="headerlink" title="配列の変化を検出"></a>配列の変化を検出</h2><h3 id="変更メソッド"><a href="#変更メソッド" class="headerlink" title="変更メソッド"></a>変更メソッド</h3><p>Vue は画面の更新もトリガするために、監視された配列の変更メソッドを抱合 (wrap) します。抱合されたメソッドは次のとおりです:</p>
@@ -1154,11 +1169,13 @@ new Vue({
 <pre><code class="hljs js">example1.items = example1.items.filter(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">item</span>) </span>&#123;
   <span class="hljs-keyword">return</span> item.message.match(<span class="hljs-regexp">/Foo/</span>)
 &#125;)</code></pre>
+
 <p>これは、Vue が既存の DOM を捨てて、リスト全体を再描画の原因になると思うかもしれません。幸いにもそれはそうではありません。Vue は DOM 要素の再利用を最大化するためにいくつかのスマートなヒューリスティックを実装しているので、重複するオブジェクトを含んでいる他の配列を配列で置き換えることは、とても効率的な作業です。</p>
 <h3 id="注意事項"><a href="#注意事項" class="headerlink" title="注意事項"></a>注意事項</h3><p>JavaScript の制限のため、Vue は、配列やオブジェクトでは<strong>検出することができない</strong>変更のタイプがあります。これらは、<a href="reactivity.html#変更検出の注意事項">reactivity</a> セクションで議論されています。</p>
 <h2 id="フィルタ-ソートされた結果の表示"><a href="#フィルタ-ソートされた結果の表示" class="headerlink" title="フィルタ/ソートされた結果の表示"></a>フィルタ/ソートされた結果の表示</h2><p>ときどき、元のデータを実際に変更またはリセットすることなしに、フィルタリングやソートされたバージョンの配列を表示したいことがあります。このケースでは、フィルタリングやソートされた配列を返す算出プロパティを作ることができます。</p>
 <p>例えば:</p>
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">li</span> <span class="hljs-attr">v-for</span>=<span class="hljs-string">"n in evenNumbers"</span>&gt;</span>&#123;&#123; n &#125;&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span></code></pre>
+
 <pre><code class="hljs js">data: &#123;
   <span class="hljs-attr">numbers</span>: [ <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span> ]
 &#125;,
@@ -1169,10 +1186,12 @@ new Vue({
     &#125;)
   &#125;
 &#125;</code></pre>
+
 <p>算出プロパティが使えない状況ではメソッドを使うこともできます。(例: 入れ子になった <code>v-for</code> のループの中):</p>
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">ul</span> <span class="hljs-attr">v-for</span>=<span class="hljs-string">"set in sets"</span>&gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-name">li</span> <span class="hljs-attr">v-for</span>=<span class="hljs-string">"n in even(set)"</span>&gt;</span>&#123;&#123; n &#125;&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span></code></pre>
+
 <pre><code class="hljs js">data: &#123;
   <span class="hljs-attr">sets</span>: [[ <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span> ], [<span class="hljs-number">6</span>, <span class="hljs-number">7</span>, <span class="hljs-number">8</span>, <span class="hljs-number">9</span>, <span class="hljs-number">10</span>]]
 &#125;,
@@ -1183,10 +1202,12 @@ new Vue({
     &#125;)
   &#125;
 &#125;</code></pre>
+
 <h2 id="範囲付き-v-for"><a href="#範囲付き-v-for" class="headerlink" title="範囲付き v-for"></a>範囲付き <code>v-for</code></h2><p><code>v-for</code> は整数値を取ることもできます。このケースでは、指定された数だけテンプレートが繰り返されます。</p>
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">v-for</span>=<span class="hljs-string">"n in 10"</span>&gt;</span>&#123;&#123; n &#125;&#125; <span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
+
 <p>結果:</p>
 
 <div id="range" class="demo">
@@ -1196,6 +1217,7 @@ new Vue({
   new Vue({ el: '#range' })
 </script>
 
+
 <h2 id="lt-template-gt-での-v-for"><a href="#lt-template-gt-での-v-for" class="headerlink" title="&lt;template&gt; での v-for"></a><code>&lt;template&gt;</code> での <code>v-for</code></h2><p>テンプレート <code>v-if</code> と同様に、複数の要素のブロックをレンダリングするために、 <code>v-for</code> で <code>&lt;template&gt;</code> タグを使うこともできます。例：</p>
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">ul</span>&gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-name">template</span> <span class="hljs-attr">v-for</span>=<span class="hljs-string">"item in items"</span>&gt;</span>
@@ -1203,12 +1225,14 @@ new Vue({
     <span class="hljs-tag">&lt;<span class="hljs-name">li</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"divider"</span> <span class="hljs-attr">role</span>=<span class="hljs-string">"presentation"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
   <span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span></code></pre>
-<h2 id="v-for-と-v-if"><a href="#v-for-と-v-if" class="headerlink" title="v-for と v-if"></a><code>v-for</code> と <code>v-if</code></h2><p class="tip"><code>v-if</code> と <code>v-for</code> を同時に利用することは <strong>推奨されません</strong>。 詳細については <a href="/v2/style-guide/#v-for-と一緒に-v-if-を使うのを避ける-必須">スタイルガイド</a> を参照ください。</p>
 
-<p>それらが同じノードに存在するとき、 <code>v-for</code> は <code>v-if</code> よりも高い優先度を持ちます。これは <code>v-if</code> がループの各繰り返しで実行されることを意味します。以下のように、これは<em>いくつかの</em>項目のみのノードを描画する場合に便利です。</p>
+<h2 id="v-for-と-v-if"><a href="#v-for-と-v-if" class="headerlink" title="v-for と v-if"></a><code>v-for</code> と <code>v-if</code></h2><p class="tip">`v-if` と `v-for` を同時に利用することは **推奨されません**。 詳細については [スタイルガイド](/v2/style-guide/#v-for-と一緒に-v-if-を使うのを避ける-必須) を参照ください。</p>
+
+<p>それらが同じノードに存在するとき、 <code>v-for</code> は <code>v-if</code> よりも高い優先度を持ちます。これは <code>v-if</code> がループの各繰り返しで実行されることを意味します。以下のように、これは_いくつかの_項目のみのノードを描画する場合に便利です。</p>
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">li</span> <span class="hljs-attr">v-for</span>=<span class="hljs-string">"todo in todos"</span> <span class="hljs-attr">v-if</span>=<span class="hljs-string">"!todo.isComplete"</span>&gt;</span>
   &#123;&#123; todo &#125;&#125;
 <span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span></code></pre>
+
 <p>上記は、完了していない項目だけを描画します。</p>
 <p>代わりに、ループの実行を条件付きでスキップすることを目的にしている場合は、ラッパー(wrapper) 要素 (または <a href="conditional.html#テンプレートでの-v-if-による条件グループ"><code>&lt;template&gt;</code></a>)上で <code>v-if</code> に置き換えます。例えば:</p>
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">ul</span> <span class="hljs-attr">v-if</span>=<span class="hljs-string">"todos.length"</span>&gt;</span>
@@ -1217,11 +1241,13 @@ new Vue({
   <span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">v-else</span>&gt;</span>No todos left!<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span></code></pre>
+
 <h2 id="コンポーネントと-v-for"><a href="#コンポーネントと-v-for" class="headerlink" title="コンポーネントと v-for"></a>コンポーネントと <code>v-for</code></h2><blockquote>
 <p>このセクションでは、<a href="components.html">コンポーネント</a>についての知識を前提としています。もし分からなければ、このセクションを遠慮なく飛ばして、理解した後に戻ってきてください。</p>
 </blockquote>
 <p>普通の要素のように、カスタムコンポーネントで直接 <code>v-for</code> を使うことができます:</p>
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">my-component</span> <span class="hljs-attr">v-for</span>=<span class="hljs-string">"item in items"</span> <span class="hljs-attr">:key</span>=<span class="hljs-string">"item.id"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">my-component</span>&gt;</span></code></pre>
+
 <blockquote>
 <p>2.2.0 以降で、コンポーネントで <code>v-for</code> を使用するとき、<a href="list.html#key"><code>key</code></a> は必須です</p>
 </blockquote>
@@ -1232,6 +1258,7 @@ new Vue({
   <span class="hljs-attr">v-bind:index</span>=<span class="hljs-string">"index"</span>
   <span class="hljs-attr">v-bind:key</span>=<span class="hljs-string">"item.id"</span>
 &gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">my-component</span>&gt;</span></code></pre>
+
 <p>自動的に <code>item</code> をコンポーネントに渡さない理由は、それが <code>v-for</code> の動作と密結合になってしまうからです。どこからデータが来たのかを明確にすることが、他の場面でコンポーネントを再利用できるようにします。</p>
 <p>これは、単純な ToDo リストの完全な例です:</p>
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"todo-list-example"</span>&gt;</span>
@@ -1254,7 +1281,8 @@ new Vue({
     &gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
   <span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
-<p class="tip"><code>is=&quot;todo-item&quot;</code> 属性に注意してください。 これは DOM テンプレートでは必要で、なぜなら <code>&lt;ul&gt;</code> 要素の中では <code>&lt;li&gt;</code> のみが有効だからです。これは <code>&lt;todo-item&gt;</code> と同じ意味ですが、潜在的なブラウザの解析エラーを回避します。詳細は  <a href="components.html#DOM-テンプレート解析の注意事項">DOM テンプレート解析の注意事項</a> を参照してください。</p>
+
+<p class="tip">`is="todo-item"` 属性に注意してください。 これは DOM テンプレートでは必要で、なぜなら `<ul>` 要素の中では `<li>` のみが有効だからです。これは `<todo-item>` と同じ意味ですが、潜在的なブラウザの解析エラーを回避します。詳細は  [DOM テンプレート解析の注意事項](components.html#DOM-テンプレート解析の注意事項) を参照してください。</todo-item></li></ul></p>
 
 <pre><code class="hljs js">Vue.component(<span class="hljs-string">'todo-item'</span>, &#123;
   <span class="hljs-attr">template</span>: <span class="hljs-string">'\
@@ -1296,6 +1324,7 @@ new Vue({
     &#125;
   &#125;
 &#125;)</code></pre>
+
 
 <div id="todo-list-example" class="demo">
   <form v-on:submit.prevent="addNewTodo">

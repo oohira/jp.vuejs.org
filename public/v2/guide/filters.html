@@ -976,6 +976,7 @@
 
 <span class="hljs-comment">&lt;!-- v-bind --&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">v-bind:id</span>=<span class="hljs-string">"rawId | formatId"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
+
 <p>コンポーネントのオプション内でローカルフィルタを定義できます:</p>
 <pre><code class="hljs js">filters: &#123;
   <span class="hljs-attr">capitalize</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">value</span>) </span>&#123;
@@ -984,6 +985,7 @@
     <span class="hljs-keyword">return</span> value.charAt(<span class="hljs-number">0</span>).toUpperCase() + value.slice(<span class="hljs-number">1</span>)
   &#125;
 &#125;</code></pre>
+
 <p>もしくは Vue インスタンスを作成する前にグローバルでフィルタを定義することもできます:</p>
 <pre><code class="hljs js">Vue.filter(<span class="hljs-string">'capitalize'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">value</span>) </span>&#123;
   <span class="hljs-keyword">if</span> (!value) <span class="hljs-keyword">return</span> <span class="hljs-string">''</span>
@@ -994,6 +996,7 @@
 <span class="hljs-keyword">new</span> Vue(&#123;
   <span class="hljs-comment">// ...</span>
 &#125;)</code></pre>
+
 <p>グローバルフィルタがローカルフィルタと同じ名前をもつ場合、ローカルフィルタが優先されます。</p>
 <p>以下は <code>capitalize</code> フィルタの使用例です。</p>
 
@@ -1019,12 +1022,15 @@
   })
 </script>
 
+
 <p>フィルタ関数は常に式の値(前のチェーンの結果)を第一引数として受け取ります。この例では、 <code>capitalize</code> フィルタ関数は引数として <code>message</code> の値を受け取ります。</p>
 <p>フィルタは連結できます:</p>
 <pre><code class="hljs html">&#123;&#123; message | filterA | filterB &#125;&#125;</code></pre>
+
 <p>この場合、単一の引数で定義された <code>filterA</code> は <code>message</code> の値を受け取り、<code>filterB</code>の単一引数に <code>filterA</code> の結果を渡して <code>filterB</code> 関数が呼び出されます。</p>
 <p>フィルタは JavaScript 関数なので、引数を取ることができます:</p>
 <pre><code class="hljs html">&#123;&#123; message | filterA('arg1', arg2) &#125;&#125;</code></pre>
+
 <p>ここで <code>filterA</code> は3つの引数をとる関数として定義されています。<code>message</code> の値は最初の引数に渡されます。プレーン文字列 <code>&#39;arg1&#39;</code> は、第2引数として <code>filterA</code> に渡されます。そして、式 <code>arg2</code> の値が評価され、第3引数としてフィルタに渡されます。</p>
 
   

@@ -985,6 +985,7 @@
   <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">v-model.number</span>=<span class="hljs-string">"number"</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"number"</span> <span class="hljs-attr">step</span>=<span class="hljs-string">"20"</span>&gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>&#123;&#123; animatedNumber &#125;&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
+
 <pre><code class="hljs js"><span class="hljs-keyword">new</span> Vue(&#123;
   <span class="hljs-attr">el</span>: <span class="hljs-string">'#animated-number-demo'</span>,
   <span class="hljs-attr">data</span>: &#123;
@@ -1002,6 +1003,7 @@
     &#125;
   &#125;
 &#125;)</code></pre>
+
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.2.4/gsap.min.js"></script>
 <div id="animated-number-demo" class="demo">
@@ -1028,6 +1030,7 @@ new Vue({
 })
 </script>
 
+
 <p>数値を更新すると、その変更が入力の下でアニメーションします。これはよいデモですが、例えば有効な CSS の色のように、直接的に数値として保持されていないものの場合はどうでしょうか？こちらのように、<a href="https://github.com/tweenjs/tween.js" target="_blank" rel="noopener">Tween.js</a> と <a href="https://github.com/brehaut/color-js" target="_blank" rel="noopener">Color.js</a> を加えることによってそれを成し遂げられます:</p>
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://cdn.jsdelivr.net/npm/tween.js@16.3.4"</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://cdn.jsdelivr.net/npm/color-js@1.0.3"</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
@@ -1046,6 +1049,7 @@ new Vue({
   &gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>&#123;&#123; tweenedCSSColor &#125;&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
+
 <pre><code class="hljs js"><span class="hljs-keyword">var</span> Color = net.brehaut.Color
 
 <span class="hljs-keyword">new</span> Vue(&#123;
@@ -1095,11 +1099,13 @@ new Vue({
     &#125;
   &#125;
 &#125;)</code></pre>
+
 <pre><code class="hljs css"><span class="hljs-selector-class">.example-7-color-preview</span> &#123;
   <span class="hljs-attribute">display</span>: inline-block;
   <span class="hljs-attribute">width</span>: <span class="hljs-number">50px</span>;
   <span class="hljs-attribute">height</span>: <span class="hljs-number">50px</span>;
 &#125;</code></pre>
+
 
 <script src="https://cdn.jsdelivr.net/npm/tween.js@16.3.4"></script>
 <script src="https://cdn.jsdelivr.net/npm/color-js@1.0.3"></script>
@@ -1167,6 +1173,7 @@ new Vue({
   height: 50px;
 }
 </style>
+
 
 <h2 id="動的な状態のトランジション"><a href="#動的な状態のトランジション" class="headerlink" title="動的な状態のトランジション"></a>動的な状態のトランジション</h2><p>Vue のトランジションコンポーネントを使う場合と同様に、状態のトランジションの背後にあるデータはリタルタイムに更新でき、これは特にプロトタイピングにおいて便利です！単純な SVG のポリゴンに使用して、変数で少し遊ぶだけで、それまで思い付くのが難しかった多くの効果を得られます。</p>
 
@@ -1281,6 +1288,7 @@ function generatePoints (stats) {
 }
 </style>
 
+
 <p>上記のデモの背後にある完全なコードについては<a href="https://codesandbox.io/s/github/vuejs/vuejs.org/tree/master/src/v2/examples/vue-20-dynamic-state-transitions" target="_blank" rel="noopener">この例</a> を参照してください。</p>
 <h2 id="コンポーネント内のトランジションの整理"><a href="#コンポーネント内のトランジションの整理" class="headerlink" title="コンポーネント内のトランジションの整理"></a>コンポーネント内のトランジションの整理</h2><p>多くの状態のトランジションを管理することで、素早く Vue インスタンスやコンポーネントの複雑さを増加させることができます。幸いにも、多くのアニメーションは専用の子コンポーネントに抽出できます。前の例のアニメーションする数値でこれをやってみましょう:</p>
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://cdn.jsdelivr.net/npm/tween.js@16.3.4"</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
@@ -1295,6 +1303,7 @@ function generatePoints (stats) {
     <span class="hljs-tag">&lt;<span class="hljs-name">animated-integer</span> <span class="hljs-attr">v-bind:value</span>=<span class="hljs-string">"result"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">animated-integer</span>&gt;</span>
   <span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
+
 <pre><code class="hljs js"><span class="hljs-comment">// この複雑な中間フレーム生成ロジックは現在、アプリケーション内の</span>
 <span class="hljs-comment">// アニメーションさせたいと望むあらゆる数値で再利用できます。</span>
 <span class="hljs-comment">// コンポーネントは、よりダイナミックなトランジションと複雑な</span>
@@ -1354,6 +1363,7 @@ Vue.component(<span class="hljs-string">'animated-integer'</span>, &#123;
     &#125;
   &#125;
 &#125;)</code></pre>
+
 
 <script src="https://cdn.jsdelivr.net/npm/tween.js@16.3.4"></script>
 <div id="example-8" class="demo">
@@ -1422,11 +1432,12 @@ new Vue({
 })
 </script>
 
+
 <p>子コンポーネントの中では、Vue の <a href="transitions.html">組み込みのトランジションシステム</a>によるものと同時に、このページで取り扱ったあらゆるトランジション戦略の組み合わせを利用できます。同時に、達成できることにはごくわずかの制限があります。</p>
 <h2 id="デザインに命を吹き込む"><a href="#デザインに命を吹き込む" class="headerlink" title="デザインに命を吹き込む"></a>デザインに命を吹き込む</h2><p>1 つの定義によってアニメーションすること、それは命を吹き込むことを意味します。残念なことに、デザイナーがアイコン、ロゴ、そしてマスコットを作成するとき、それらは一般的に画像や静的 SVG として配布されます。そのため GitHub のオクトキャットや Twitter の青い鳥、そして多くのその他ロゴは生き物に似ていますが、本当に生きているようにはみえません。</p>
 <p>Vue はそれを手助けできます。 SVG は単なるデータなので、これらの生き物が興奮したり、考えたり、または驚いたりしたときにどう見えるかの例が必要なだけです。そして Vue はこれらの状態間のトランジションを支援して、あなたのウェルカムページ、ローディングインジケータ、そして通知をより感情的で魅力的にします。</p>
 <p>Sarah Drasner は以下のデモでタイマーとインタラクティブ駆動での状態変更の組合せを用いてこれを示しています: </p>
-<p></p><p data-height="265" data-theme-id="light" data-slug-hash="YZBGNp" data-default-tab="result" data-user="sdras" data-embed-version="2" data-pen-title="Vue-controlled Wall-E" class="codepen">Pen を見る <a href="https://codepen.io/sdras/pen/YZBGNp/" target="_blank" rel="noopener">Vue-controlled Wall-E</a> by Sarah Drasner (<a href="https://codepen.io/sdras" target="_blank" rel="noopener">@sdras</a>) on <a href="https://codepen.io" target="_blank" rel="noopener">CodePen</a>.</p><p></p>
+<p data-height="265" data-theme-id="light" data-slug-hash="YZBGNp" data-default-tab="result" data-user="sdras" data-embed-version="2" data-pen-title="Vue-controlled Wall-E" class="codepen">Pen を見る <a href="https://codepen.io/sdras/pen/YZBGNp/" target="_blank" rel="noopener">Vue-controlled Wall-E</a> by Sarah Drasner (<a href="https://codepen.io/sdras" target="_blank" rel="noopener">@sdras</a>) on <a href="https://codepen.io" target="_blank" rel="noopener">CodePen</a>.</p>
 <script async src="https://production-assets.codepen.io/assets/embed/ei.js"></script>
 
   

@@ -974,6 +974,7 @@
 <pre><code class="hljs js"><span class="hljs-keyword">var</span> vm = <span class="hljs-keyword">new</span> Vue(&#123;
   <span class="hljs-comment">// オプション</span>
 &#125;)</code></pre>
+
 <p>Vue のデザインは、<a href="https://ja.wikipedia.org/wiki/Model_View_ViewModel" target="_blank" rel="noopener">MVVM パターン</a>と厳密には関連が無いものの、部分的には影響を受けています。慣例として、 <code>vm</code> (ViewModel の略) を Vue インスタンスの変数名としてよく使います。</p>
 <p>Vue インスタンスを生成するには、<strong>オプションオブジェクト</strong>を渡します。このガイドの大部分では、これらのオプションを使用して望んだ挙動にするための方法について説明しています。参考までに、全てのオプションの一覧は<a href="../api/#オプション-データ">API リファレンス</a>で参照できます。</p>
 <p>Vue アプリケーションは、 <code>new Vue</code> で作成された<strong>ルート Vue インスタンス(root Vue instance)</strong>で構成され、必要に応じてネストされたツリーや再利用可能なコンポーネントで形成されます。例えば、Todo アプリのコンポーネントツリーは次のようになります。</p>
@@ -985,6 +986,7 @@
    └─ Todoリストフッター
       ├─ Todoクリアボタン
       └─ Todoリスト統計</code></pre>
+
 <p><a href="components.html">コンポーネントシステム</a> については後ほど詳細を説明します。今は、全ての Vue コンポーネントは Vue インスタンスで、同じオプションオブジェクトを受け入れる(いくつかのルート特有のオプションを除く)と理解しておけば十分です。</p>
 <h2 id="データとメソッド"><a href="#データとメソッド" class="headerlink" title="データとメソッド"></a>データとメソッド</h2><p>Vue インスタンスが作成されると、自身の <code>data</code> オブジェクトの全てのプロパティを<strong>リアクティブシステム</strong>に追加します。これらのプロパティの値を変更すると、ビューが”反応”し、新しい値に一致するように更新します。</p>
 <pre><code class="hljs js"><span class="hljs-comment">// データオブジェクト</span>
@@ -1006,8 +1008,10 @@ data.a <span class="hljs-comment">// =&gt; 2</span>
 <span class="hljs-comment">// ... そして、その逆もまたしかりです</span>
 data.a = <span class="hljs-number">3</span>
 vm.a <span class="hljs-comment">// =&gt; 3</span></code></pre>
+
 <p>このデータを変更すると、ビューが再レンダリングされます。<code>data</code>のプロパティは、インスタンスが作成されたときに存在していた場合にのみ<strong>リアクティブ</strong>です。 つまり、以下のように新しいプロパティを追加する場合、</p>
 <pre><code class="hljs js">vm.b = <span class="hljs-string">'hi'</span></code></pre>
+
 <p>その後、 <code>b</code> への変更はビューの更新を引き起こさないでしょう。 後でプロパティが必要になることがわかっているならば、空でも存在しない場合でも初期値を設定するだけで済みます。 例：</p>
 <pre><code class="hljs js">data: &#123;
   <span class="hljs-attr">newTodoText</span>: <span class="hljs-string">''</span>,
@@ -1016,6 +1020,7 @@ vm.a <span class="hljs-comment">// =&gt; 3</span></code></pre>
   <span class="hljs-attr">todos</span>: [],
   <span class="hljs-attr">error</span>: <span class="hljs-literal">null</span>
 &#125;</code></pre>
+
 <p>これに対する唯一の例外は、既存のプロパティの変更を防ぐ <code>Object.freeze（）</code>の使用です。これはリアクティブシステムが変更を <em>追跡</em> することができないことも意味します。</p>
 <pre><code class="hljs js"><span class="hljs-keyword">var</span> obj = &#123;
   <span class="hljs-attr">foo</span>: <span class="hljs-string">'bar'</span>
@@ -1027,11 +1032,13 @@ vm.a <span class="hljs-comment">// =&gt; 3</span></code></pre>
   <span class="hljs-attr">el</span>: <span class="hljs-string">'#app'</span>,
   <span class="hljs-attr">data</span>: obj
 &#125;)</code></pre>
+
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"app"</span>&gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>&#123;&#123; foo &#125;&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
   <span class="hljs-comment">&lt;!-- これは `foo` を更新しなくなります! --&gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">v-on:click</span>=<span class="hljs-string">"foo = 'baz'"</span>&gt;</span>Change it<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
+
 <p>data プロパティに加えて、Vue インスタンスは、いくつかの便利なプロパティとメソッドを持っています。これらはユーザ定義のプロパティと区別するために、頭に <code>$</code> が付けられています。 例：</p>
 <pre><code class="hljs js"><span class="hljs-keyword">var</span> data = &#123; <span class="hljs-attr">a</span>: <span class="hljs-number">1</span> &#125;
 <span class="hljs-keyword">var</span> vm = <span class="hljs-keyword">new</span> Vue(&#123;
@@ -1046,6 +1053,7 @@ vm.$el === <span class="hljs-built_in">document</span>.getElementById(<span clas
 vm.$watch(<span class="hljs-string">'a'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">newValue, oldValue</span>) </span>&#123;
    <span class="hljs-comment">// このコールバックは `vm.a` の値が変わる時に呼ばれます</span>
 &#125;)</code></pre>
+
 <p>将来的には、インスタンスのプロパティとメソッドの完全なリストについては、 <a href="../api/#インスタンスプロパティ">API リファレンス</a> を参照してください。</p>
 <h2 id="インスタンスライフサイクルフック"><a href="#インスタンスライフサイクルフック" class="headerlink" title="インスタンスライフサイクルフック"></a>インスタンスライフサイクルフック</h2><div class="vueschool"><a href="https://vueschool.io/lessons/understanding-the-vuejs-lifecycle-hooks?friend=vuejs" target="_blank" rel="sponsored noopener" title="Free Vue.js Lifecycle Hooks Lesson">Vue School で無料の動画レッスンを見る</a></div>
 
@@ -1061,8 +1069,9 @@ vm.$watch(<span class="hljs-string">'a'</span>, <span class="hljs-function"><spa
   &#125;
 &#125;)
 <span class="hljs-comment">// =&gt; "a is: 1"</span></code></pre>
+
 <p>この他にもインスタンスのライフサイクルの様々な段階で呼ばれるフックがあります。例えば、<a href="../api/#mounted"><code>mounted</code></a>、 <a href="../api/#updated"><code>updated</code></a>、そして <a href="../api/#destroyed"><code>destroyed</code></a> などがあります。全てのライフサイクルフックは、<code>this</code> が Vue インスタンスを指す形で実行されます。</p>
-<p class="tip">インスタンスプロパティまたはコールバックで<a href="https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Functions/Arrow_functions" target="_blank" rel="noopener">アロー関数</a> を使用しないでください。例えば、 <code>created: () =&gt; console.log(this.a)</code> や <code>vm.$watch(&#39;a&#39;, newValue =&gt; this.myMethod())</code> です。アロー関数は <code>this</code> をもたないため、<code>this</code> は他の変数と同様に見つかるまで親スコープをレキシカルに探索され、そしてしばしば、<code>Uncaught TypeError: Cannot read property of undefined</code> または <code>Uncaught TypeError: this.myMethod is not a function</code> のようなエラーが発生します。</p>
+<p class="tip">インスタンスプロパティまたはコールバックで[アロー関数](https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Functions/Arrow_functions) を使用しないでください。例えば、 `created: () => console.log(this.a)` や `vm.$watch('a', newValue => this.myMethod())` です。アロー関数は `this` をもたないため、`this` は他の変数と同様に見つかるまで親スコープをレキシカルに探索され、そしてしばしば、`Uncaught TypeError: Cannot read property of undefined` または `Uncaught TypeError: this.myMethod is not a function` のようなエラーが発生します。</p>
 
 <h2 id="ライフサイクルダイアグラム"><a href="#ライフサイクルダイアグラム" class="headerlink" title="ライフサイクルダイアグラム"></a>ライフサイクルダイアグラム</h2><p>以下は、インスタンスライフサイクルのダイアグラムです。<br>今はこのダイアグラムを完全に理解する必要はありませんが、将来役に立つことでしょう。</p>
 <p><img src="/images/lifecycle.png" alt="The Vue Instance Lifecycle"></p>

@@ -447,19 +447,20 @@
 <p>Vue CLI 3 にはもはや “テンプレート” がありませんー代わりに、独自の<a href="https://cli.vuejs.org/guide/plugins-and-presets.html#remote-presets" target="_blank" rel="noopener">リモートプリセット</a>を作成してプラグインやオプションの選択肢を他の開発者と共有することができます。</p>
 <h2 id="グラフィカルユーザーインターフェース"><a href="#グラフィカルユーザーインターフェース" class="headerlink" title="グラフィカルユーザーインターフェース"></a>グラフィカルユーザーインターフェース</h2><p><a href="https://medium.com/@Akryum" target="_blank" rel="noopener">Guillaume CHAU</a> の素晴らしい仕事のおかげで、 Vue CLI 3 には完全な GUI が付属しており、それは新しいプロジェクトを作成するだけでなく、プロジェクト内のプラグインやタスクも管理できます（そう、以下の上質な webpack ダッシュボードも付属しています）：</p>
 <p><img src="https://cdn-images-1.medium.com/max/880/1*gFc-hzoWXxts2VT40pic1Q.png" alt=""></p>
-<figcaption style="font-size:14px;text-align:center;">これは Electron を必要としませんー 単に <code>vue ui</code> で起動します.</figcaption>
+<figcaption style="font-size:14px;text-align:center;">これは Electron を必要としませんー 単に `vue ui` で起動します.</figcaption>
 
 <blockquote>
 <p>注： Vue CLI 3 は安定版としてリリースされていますが、 UI は未だベータ版です。あちこちにいくつかのおかしな挙動が見受けられます。</p>
 </blockquote>
 <h2 id="即時プロトタイピング"><a href="#即時プロトタイピング" class="headerlink" title="即時プロトタイピング"></a>即時プロトタイピング</h2><p>コードを書く前に <code>npm install</code> を待つのは楽しいことではありません。時にはインスピレーションを呼び起こすために作業環境への即時アクセスが必要な場合もあります。<span style="background-color: transparent !important; background-image: linear-gradient(to bottom, rgba(219, 249, 229, 1), rgba(219, 249, 229, 1));">Vue CLI 3 の <code>vue serve</code> コマンドは、Vue 単一ファイルコンポーネントでプロトタイピングを開始するための唯一必要な作業です：</span></p>
 <p><img src="https://cdn-images-1.medium.com/max/880/1*3eLVIg4G46mc5nEte_tzzA.png" alt=""></p>
-<figcaption style="font-size:14px;text-align:center;"><code>vue serve</code> での即時プロトタイピング</figcaption>
+<figcaption style="font-size:14px;text-align:center;">`vue serve` での即時プロトタイピング</figcaption>
 
 <p>プロトタイプ開発サーバーには標準のアプリケーションと同じ設定が用意されているので、プロトタイプの<code>*.vue</code>ファイルを適切に生成されたプロジェクトの<code>src</code>フォルダに簡単に移動して作業を続けることができます。</p>
 <h2 id="多目的かつ将来への備え"><a href="#多目的かつ将来への備え" class="headerlink" title="多目的かつ将来への備え"></a>多目的かつ将来への備え</h2><h3 id="モダンモード"><a href="#モダンモード" class="headerlink" title="モダンモード"></a>モダンモード</h3><p>Babel を使って ES2015+ の最新の言語機能全てを活用することができますが、それは古いブラウザをサポートするためにはトランスコンパイルとポリフィルされたバンドルを出荷する必要があることも意味します。これらのトランスコンパイルされたバンドルはしばしば元のネイティブ ES2015+ コードよりも冗長で、解析や実行も遅くなります。モダンブラウザの大多数がネイティブの ES2015+ をうまくサポートしていることを考えると、いくら古いブラウザをサポートする必要があるからといってもこれらのブラウザではコードが重く非効率です。</p>
 <p>Vue CLI はこの問題を解決するのに役立つ “モダンモード” を提供します。プロダクション用にビルドする場合は以下のコマンド：</p>
 <pre><code class="hljs undefined">vue-cli-service build --modern</code></pre>
+
 <p>Vue CLI は 2 種類のバージョンを生成します：1つは<a href="https://jakearchibald.com/2017/es-modules-in-browsers/" target="_blank" rel="noopener">ES モジュール</a>をサポートするモダンブラウザを対象としたモダンバンドル、もう1つはそうでない古いブラウザを対象としたレガシーバンドル。</p>
 <p>しかしクールなところは特別なデプロイ要件が無いことです。生成された HTML ファイルは、<a href="https://philipwalton.com/articles/deploying-es2015-code-in-production-today/" target="_blank" rel="noopener">Phillip Walton の素晴らしい記事</a>で説明されているテクニックを自動的に用います：</p>
 <ul>
@@ -473,9 +474,11 @@
 </blockquote>
 <h3 id="Web-コンポーネントとしてビルド"><a href="#Web-コンポーネントとしてビルド" class="headerlink" title="Web コンポーネントとしてビルド"></a>Web コンポーネントとしてビルド</h3><p>Vue CLI 3 プロジェクトの任意の <code>*.vue</code> コンポーネントを Web コンポーネントにビルドできます：</p>
 <pre><code class="hljs undefined">vue-cli-service build --target wc --name my-element src/MyComponent.vue</code></pre>
+
 <p>これはページ内のネイティブカスタム要素として内部 Vue コンポーネントをラップし登録する JavaScript バンドルを生成し、それは単に <code>&lt;my-element&gt;</code> として使用できます。使用するページでは Vue をページにグローバルとして含める必要がありますが、それ以外の場合、 Vue は実装の詳細として完全に隠されています。</p>
 <p>複数の <code>*.vue</code> コンポーネントを複数のチャンクを持つコード分割バンドルとしてビルドすることもできます：</p>
 <pre><code class="hljs undefined">vue-cli-service build --target wc-async &apos;src/components/*.vue&apos;</code></pre>
+
 <p>ビルド結果のバンドルから小さなエントリファイルをインクルードすることで、全てのコンポーネントをネイティブカスタム要素として登録しますが、基礎となる Vue コンポーネントのコードを取得するのは対応するカスタム要素がページ上で最初にインスタンス化されたときだけです。</p>
 <hr>
 <p>Vue CLI 3 で、同じコードベースを使用してアプリケーション、 UMD ライブラリ、またはネイティブ Web コンポーネントを構築できます。どんなターゲットを構築していても同じ Vue 開発体験を楽しむことができます。</p>

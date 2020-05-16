@@ -992,6 +992,7 @@
 &#125;)
 
 <span class="hljs-keyword">var</span> component = <span class="hljs-keyword">new</span> Component() <span class="hljs-comment">// =&gt; "hello from mixin!"</span></code></pre>
+
 <h2 id="オプションのマージ"><a href="#オプションのマージ" class="headerlink" title="オプションのマージ"></a>オプションのマージ</h2><p>ミックスインとコンポーネントそれ自身がオプションと重複するとき、それらは適切なストラテジを使用して”マージ”されます。</p>
 <p>例えば、データオブジェクトは再帰的マージされ、コンフリクトした場合にはコンポーネントのデータが優先されます。</p>
 <pre><code class="hljs js"><span class="hljs-keyword">var</span> mixin = &#123;
@@ -1016,6 +1017,7 @@
     <span class="hljs-comment">// =&gt; &#123; message: "goodbye", foo: "abc", bar: "def" &#125;</span>
   &#125;
 &#125;)</code></pre>
+
 <p>同じ名前のフック関数はそれら全てが呼び出されるよう配列にマージされます。ミックスインのフックはコンポーネント自身のフック<strong>前</strong>に呼ばれます。</p>
 <pre><code class="hljs js"><span class="hljs-keyword">var</span> mixin = &#123;
   <span class="hljs-attr">created</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;
@@ -1032,6 +1034,7 @@
 
 <span class="hljs-comment">// =&gt; "mixin hook called"</span>
 <span class="hljs-comment">// =&gt; "component hook called"</span></code></pre>
+
 <p>オブジェクトの値を期待するオプションは、例えば、<code>methods</code>、<code>components</code>、そして <code>directives</code> らは同じオブジェクトにマージされます。コンポーネントオプションはこれらのオブジェクトでキーのコンフリクトがあるとき、優先されます:</p>
 <pre><code class="hljs js"><span class="hljs-keyword">var</span> mixin = &#123;
   <span class="hljs-attr">methods</span>: &#123;
@@ -1059,6 +1062,7 @@
 vm.foo() <span class="hljs-comment">// =&gt; "foo"</span>
 vm.bar() <span class="hljs-comment">// =&gt; "bar"</span>
 vm.conflicting() <span class="hljs-comment">// =&gt; "from self"</span></code></pre>
+
 <p>同じマージストラテジが <code>Vue.extend()</code> で使用されることに注意してください。</p>
 <h2 id="グローバルミックスイン"><a href="#グローバルミックスイン" class="headerlink" title="グローバルミックスイン"></a>グローバルミックスイン</h2><p>グローバルにミックスインを適用することもできます。使用に注意してください！一度、グローバルにミックスインを適用すると、それはその後に作成する<strong>全ての</strong> Vue インスタンスに影響します。適切に使用されるとき、これはカスタムオプションに対して処理ロジックを注入するために使用することができます:</p>
 <pre><code class="hljs js"><span class="hljs-comment">// `myOption` カスタムオプションにハンドラを注入する</span>
@@ -1075,15 +1079,18 @@ Vue.mixin(&#123;
   <span class="hljs-attr">myOption</span>: <span class="hljs-string">'hello!'</span>
 &#125;)
 <span class="hljs-comment">// =&gt; "hello!"</span></code></pre>
-<p class="tip">サードパーティのコンポーネントを含んでいる、すべての単一の作成された Vue インスタンスに影響があるため、グローバルミックスインは多用せずかつ慎重に使用してください。多くのケースでは、上記の例のような、カスタムオプションを処理するようなものに使用すべきです。また、重複適用を避けるため <a href="../guide/plugins.html">プラグイン</a> としてそれらを作成することをお勧めします。</p>
+
+<p class="tip">サードパーティのコンポーネントを含んでいる、すべての単一の作成された Vue インスタンスに影響があるため、グローバルミックスインは多用せずかつ慎重に使用してください。多くのケースでは、上記の例のような、カスタムオプションを処理するようなものに使用すべきです。また、重複適用を避けるため [プラグイン](../guide/plugins.html) としてそれらを作成することをお勧めします。</p>
 
 <h2 id="カスタムオプションのマージストラテジ"><a href="#カスタムオプションのマージストラテジ" class="headerlink" title="カスタムオプションのマージストラテジ"></a>カスタムオプションのマージストラテジ</h2><p>カスタムオプションがマージされるとき、それらは単純に既存の値を上書きするデフォルトのストラテジを使用します。カスタムロジックを使用してカスタムオプションをマージする場合、<code>Vue.config.optionMergeStrategies</code> をアタッチする必要があります:</p>
 <pre><code class="hljs js">Vue.config.optionMergeStrategies.myOption = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">toVal, fromVal</span>) </span>&#123;
   <span class="hljs-comment">// マージされた値を返す</span>
 &#125;</code></pre>
+
 <p>ほとんどのオブジェクトベースのオプションでは、単純に <code>methods</code> で使用されるのと同じストラテジを使用することができます:</p>
 <pre><code class="hljs js"><span class="hljs-keyword">var</span> strategies = Vue.config.optionMergeStrategies
 strategies.myOption = strategies.methods</code></pre>
+
 <p>より高度な例として <a href="https://github.com/vuejs/vuex" target="_blank" rel="noopener">Vuex</a> 1.x のマージストラテジがあります:</p>
 <pre><code class="hljs js"><span class="hljs-keyword">const</span> merge = Vue.config.optionMergeStrategies.computed
 Vue.config.optionMergeStrategies.vuex = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">toVal, fromVal</span>) </span>&#123;
@@ -1095,6 +1102,7 @@ Vue.config.optionMergeStrategies.vuex = <span class="hljs-function"><span class=
     <span class="hljs-attr">actions</span>: merge(toVal.actions, fromVal.actions)
   &#125;
 &#125;</code></pre>
+
 
   
   

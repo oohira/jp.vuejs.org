@@ -412,6 +412,7 @@
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"app"</span>&gt;</span>
   My name is <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">v-model</span>=<span class="hljs-string">"name"</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
+
 <p>この例では <code>name</code> という Vue にバインドされたひとつのフォームフィールドがあります。ここに JavaScript があります:</p>
 <pre><code class="hljs js"><span class="hljs-keyword">const</span> app = <span class="hljs-keyword">new</span> Vue(&#123;
   <span class="hljs-attr">el</span>: <span class="hljs-string">'#app'</span>,
@@ -429,9 +430,19 @@
     &#125;
   &#125;
 &#125;);</code></pre>
+
 <p><code>mounted</code> と <code>watch</code> パーツに注目してください。localStorage の値のロードを処理するために <code>mounted</code> を使います。データベースの作成を扱うために、<code>name</code> 値を監視し変更したら、直ちに書き込みます。</p>
 <p>あなたはここで実行することができます:</p>
-<p data-height="265" data-theme-id="0" data-slug-hash="KodaKb" data-default-tab="js,result" data-user="cfjedimaster" data-embed-version="2" data-pen-title="testing localstorage" class="codepen">See the Pen <a href="https://codepen.io/cfjedimaster/pen/KodaKb/" target="_blank" rel="noopener">testing localstorage</a> by Raymond Camden (<a href="https://codepen.io/cfjedimaster" target="_blank" rel="noopener">@cfjedimaster</a>) on <a href="https://codepen.io" target="_blank" rel="noopener">CodePen</a>.</p><br><script async src="https://static.codepen.io/assets/embed/ei.js"></script><br><br>フォームに何か入力してこのページをリロードしてください。前に入力した値が自動的に表示されます。ブラウザがクラインアントサイドストレージを詳しく調べるための優れた開発者ツールを提供していることを忘れないでください。ここでは、Firefox の例です:<br><br><img src="/images/devtools-storage.png" alt="Storage devtools in Firefox"><br><br>そしてここでは Chrome です:<br><br><img src="/images/devtools-storage-chrome.png" alt="Storage devtools in Chrome"><br><br>最後に、Microsoft Edge の例です。アプリケーションのストレージ値は、デバッガタブで確認することができます。<br><br><img src="/images/devtools-storage-edge.png" alt="Storage devtools in Edge"><br><br><p class="tip">これらの開発ツールは、すぐにストレージ値を削除する手段を提供します。これはテスト時に非常に便利です。</p>
+<p data-height="265" data-theme-id="0" data-slug-hash="KodaKb" data-default-tab="js,result" data-user="cfjedimaster" data-embed-version="2" data-pen-title="testing localstorage" class="codepen">See the Pen <a href="https://codepen.io/cfjedimaster/pen/KodaKb/" target="_blank" rel="noopener">testing localstorage</a> by Raymond Camden (<a href="https://codepen.io/cfjedimaster" target="_blank" rel="noopener">@cfjedimaster</a>) on <a href="https://codepen.io" target="_blank" rel="noopener">CodePen</a>.</p>
+<script async src="https://static.codepen.io/assets/embed/ei.js"></script>
+
+<p>フォームに何か入力してこのページをリロードしてください。前に入力した値が自動的に表示されます。ブラウザがクラインアントサイドストレージを詳しく調べるための優れた開発者ツールを提供していることを忘れないでください。ここでは、Firefox の例です:</p>
+<p><img src="/images/devtools-storage.png" alt="Storage devtools in Firefox"></p>
+<p>そしてここでは Chrome です:</p>
+<p><img src="/images/devtools-storage-chrome.png" alt="Storage devtools in Chrome"></p>
+<p>最後に、Microsoft Edge の例です。アプリケーションのストレージ値は、デバッガタブで確認することができます。</p>
+<p><img src="/images/devtools-storage-edge.png" alt="Storage devtools in Edge"></p>
+<p class="tip">これらの開発ツールは、すぐにストレージ値を削除する手段を提供します。これはテスト時に非常に便利です。</p>
 
 <p>直ちに値を書くことはお勧めできません。やや高度な例を考えてみましょう。まず、更新されたフォーム。</p>
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"app"</span>&gt;</span>
@@ -443,6 +454,7 @@
     <span class="hljs-tag">&lt;<span class="hljs-name">button</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"persist"</span>&gt;</span>Save<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
   <span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
+
 <p>今度は2つのフィールド（Vue インスタンスにバインドされています）がありますが、<code>persist</code> メソッドを実行するボタンが追加されています。JavaScript を見てみましょう。</p>
 <pre><code class="hljs js"><span class="hljs-keyword">const</span> app = <span class="hljs-keyword">new</span> Vue(&#123;
   <span class="hljs-attr">el</span>: <span class="hljs-string">'#app'</span>,
@@ -466,8 +478,9 @@
     &#125;
   &#125;
 &#125;)</code></pre>
+
 <p>前述したように、<code>mounted</code> は永続されたデータがあれば、それを読み込みます。ただし、今回は、ボタンがクリックされたときにのみデータが保持されます。値を保持する前に、ここで検証や変換を行うことも可能です。値が格納された日を表す日付を格納することもできます。このメタデータを使用することで、<code>mounted</code> メソッドは値を再度格納するかどうかを論理的に呼び出すことができます。次のバージョンを試してください。</p>
-<p></p><p data-height="265" data-theme-id="0" data-slug-hash="rdOjLN" data-default-tab="js,result" data-user="cfjedimaster" data-embed-version="2" data-pen-title="testing localstorage 2" class="codepen">See the Pen <a href="https://codepen.io/cfjedimaster/pen/rdOjLN/" target="_blank" rel="noopener">testing localstorage 2</a> by Raymond Camden (<a href="https://codepen.io/cfjedimaster" target="_blank" rel="noopener">@cfjedimaster</a>) on <a href="https://codepen.io" target="_blank" rel="noopener">CodePen</a>.</p><p></p>
+<p data-height="265" data-theme-id="0" data-slug-hash="rdOjLN" data-default-tab="js,result" data-user="cfjedimaster" data-embed-version="2" data-pen-title="testing localstorage 2" class="codepen">See the Pen <a href="https://codepen.io/cfjedimaster/pen/rdOjLN/" target="_blank" rel="noopener">testing localstorage 2</a> by Raymond Camden (<a href="https://codepen.io/cfjedimaster" target="_blank" rel="noopener">@cfjedimaster</a>) on <a href="https://codepen.io" target="_blank" rel="noopener">CodePen</a>.</p>
 <script async src="https://static.codepen.io/assets/embed/ei.js"></script>
 
 <h2 id="複雑な値を扱う"><a href="#複雑な値を扱う" class="headerlink" title="複雑な値を扱う"></a>複雑な値を扱う</h2><p>上記のように、ローカルストレージは単純な値でしか動作しません。オブジェクトや配列などのより複雑な値を格納するには、JSON を使用して値をシリアライズまたデシリアライズする必要があります。以下は、猫の配列を維持するより高度な例です（可能な限り最良の配列）。</p>
@@ -486,6 +499,7 @@
   <span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
 
 <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
+
 <p>この “app” は、上部のシンプルなリスト（猫を除外するボタン付き）と新しい猫を追加するための下部の小さなフォームから成り立っています。JavaScript を見てみましょう。</p>
 <pre><code class="hljs js"><span class="hljs-keyword">const</span> app = <span class="hljs-keyword">new</span> Vue(&#123;
   <span class="hljs-attr">el</span>: <span class="hljs-string">'#app'</span>,
@@ -523,9 +537,10 @@
     &#125;
   &#125;
 &#125;)</code></pre>
+
 <p>このアプリケーションでは、”ダイレクト” アクセスに対しローカルストレージ API を使用するように切り替えました。どちらも機能しますが API メソッドのほうが一般的に好まれます。<code>mounted</code> は値を取得し JSON の値を解析する必要があります。もし何か問題が発生した場合データが破損していると判断しそれを削除します。（Web アプリケーションがクライアントサイドストレージを使用するときはいつでも、ユーザーはそれにアクセスして好きなように変更することができるということを忘れないでください）</p>
 <p>猫を処理するための3つのメソッドがあります。<code>addCat</code> と <code>removeCat</code> は <code>this.cats</code> に格納されている “生” Vue データの更新を処理します。次にデータのシリアライズと永続化を処理する <code>saveCats</code> を実行します。あなたは次のバージョンを試すことができます:</p>
-<p></p><p data-height="265" data-theme-id="0" data-slug-hash="qoYbyW" data-default-tab="js,result" data-user="cfjedimaster" data-embed-version="2" data-pen-title="localstorage, complex" class="codepen">See the Pen <a href="https://codepen.io/cfjedimaster/pen/qoYbyW/" target="_blank" rel="noopener">localstorage, complex</a> by Raymond Camden (<a href="https://codepen.io/cfjedimaster" target="_blank" rel="noopener">@cfjedimaster</a>) on <a href="https://codepen.io" target="_blank" rel="noopener">CodePen</a>.</p><p></p>
+<p data-height="265" data-theme-id="0" data-slug-hash="qoYbyW" data-default-tab="js,result" data-user="cfjedimaster" data-embed-version="2" data-pen-title="localstorage, complex" class="codepen">See the Pen <a href="https://codepen.io/cfjedimaster/pen/qoYbyW/" target="_blank" rel="noopener">localstorage, complex</a> by Raymond Camden (<a href="https://codepen.io/cfjedimaster" target="_blank" rel="noopener">@cfjedimaster</a>) on <a href="https://codepen.io" target="_blank" rel="noopener">CodePen</a>.</p>
 <script async src="https://static.codepen.io/assets/embed/ei.js"></script>
 
 <h2 id="代替パターン"><a href="#代替パターン" class="headerlink" title="代替パターン"></a>代替パターン</h2><p>ローカルストレージ API は比較的シンプルですが、多くのアプリケーションで役に立ついくつかの基本的な機能が欠けています。以下のプラグインでは、ローカルストレージをラップして使いやすくし、デフォルト値のような機能を追加します。</p>

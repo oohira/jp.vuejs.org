@@ -973,7 +973,7 @@
     <h2 id="公式-Flux-ライクな実装"><a href="#公式-Flux-ライクな実装" class="headerlink" title="公式 Flux ライクな実装"></a>公式 Flux ライクな実装</h2><p>大規模なアプリケーションは、多くの状態が色々なコンポーネントに散らばったり、コンポーネント間の相互作用のために複雑になりがちです。この問題を解消するために、 Vue は Elm から触発された状態管理ライブラリの <a href="https://github.com/vuejs/vuex" target="_blank" rel="noopener">vuex</a> を提供します。<a href="https://github.com/vuejs/vue-devtools" target="_blank" rel="noopener">vue-devtools</a> とも連携し、特別なセットアップなしで<a href="https://raw.githubusercontent.com/vuejs/vue-devtools/master/media/demo.gif" target="_blank" rel="noopener">タイムトラベルデバッグ</a>を提供します。</p>
 <div class="vue-mastery"><a href="https://www.vuemastery.com/courses/mastering-vuex/intro-to-vuex/" target="_blank" rel="sponsored noopener" title="Vuex Tutorial">Vue Masteryで動画の説明を見る</a></div>
 
-<h3 id="React-開発者への情報"><a href="#React-開発者への情報" class="headerlink" title="React 開発者への情報"></a>React 開発者への情報</h3><p>もしあなたが React のエコシステムから来たのなら、最も人気のある Flux 実装の <a href="https://github.com/reactjs/redux" target="_blank" rel="noopener">redux</a> と vuex がどう比較されるか気になっていることでしょう。Redux は実際に view レイヤの知識を持たないので、<a href="https://classic.yarnpkg.com/en/packages?q=redux%20vue&amp;p=1" target="_blank" rel="noopener">シンプルなバインディング</a> を通して簡単に Vue とあわせて利用することができます。Vuex は、 自らが Vue のアプリケーション内にいることを<strong>知っている</strong>、という点で異なります。これにより Vue といっそう良く連携することができ、より直感的な API を提供したり、開発体験を向上させることができます。</p>
+<h3 id="React-開発者への情報"><a href="#React-開発者への情報" class="headerlink" title="React 開発者への情報"></a>React 開発者への情報</h3><p>もしあなたが React のエコシステムから来たのなら、最も人気のある Flux 実装の <a href="https://github.com/reactjs/redux" target="_blank" rel="noopener">redux</a> と vuex がどう比較されるか気になっていることでしょう。Redux は実際に view レイヤの知識を持たないので、<a href="https://classic.yarnpkg.com/en/packages?q=redux%20vue&p=1" target="_blank" rel="noopener">シンプルなバインディング</a> を通して簡単に Vue とあわせて利用することができます。Vuex は、 自らが Vue のアプリケーション内にいることを<strong>知っている</strong>、という点で異なります。これにより Vue といっそう良く連携することができ、より直感的な API を提供したり、開発体験を向上させることができます。</p>
 <h2 id="シンプルな状態管理をゼロから作る"><a href="#シンプルな状態管理をゼロから作る" class="headerlink" title="シンプルな状態管理をゼロから作る"></a>シンプルな状態管理をゼロから作る</h2><p>Vue アプリケーションの妥当性を担保しているのが生の <code>data</code> オブジェクトだということは見過ごされがちです。Vue インスタンスは単純に <code>data</code> オブジェクトへのアクセスをプロキシします。それゆえに、複数のインスタンスによって共有されうる状態がある場合、シンプルに同一の状態を共有することができます:</p>
 <pre><code class="hljs js"><span class="hljs-keyword">var</span> sourceOfTruth = &#123;&#125;
 
@@ -984,6 +984,7 @@
 <span class="hljs-keyword">var</span> vmB = <span class="hljs-keyword">new</span> Vue(&#123;
   <span class="hljs-attr">data</span>: sourceOfTruth
 &#125;)</code></pre>
+
 <p>こうすれば、<code>sourceOfTruth</code> が変化するたびに、<code>vmA</code> と <code>vmB</code> の両方が自動的にそれぞれの view を更新します。これらのインスタンス内のサブコンポーネントから <code>this.$root.$data</code> を通じてアクセスすることもできます。ただ1つの情報源を持つことにはなりましたが、このままだとデバッグは悪夢になるでしょう。どんなデータでも、アプリケーションのどこからでも痕跡を残すことなく変えることができてしまいます。</p>
 <p>単純な <strong>store パターン</strong> を適用することで、この問題を解決することができます:</p>
 <pre><code class="hljs js"><span class="hljs-keyword">var</span> store = &#123;
@@ -1000,6 +1001,7 @@
     <span class="hljs-keyword">this</span>.state.message = <span class="hljs-string">''</span>
   &#125;
 &#125;</code></pre>
+
 <p>Store の状態を変える action はすべて store 自身の中にあることに注意してください。このように状態管理を中央集権的にすることで、どういった種類の状態変化が起こりうるか、あるいはそれがどうやってトリガされているか、が分かりやすくなります。これなら何か良くないことが起きても、バグが起きるに至ったまでのログを見ることもできます。</p>
 <p>さらに、それぞれのインスタンスやコンポーネントに、プライベートな状態を持たせ管理することも可能です:</p>
 <pre><code class="hljs js"><span class="hljs-keyword">var</span> vmA = <span class="hljs-keyword">new</span> Vue(&#123;
@@ -1015,6 +1017,7 @@
     <span class="hljs-attr">sharedState</span>: store.state
   &#125;
 &#125;)</code></pre>
+
 <p><img src="/images/state.png" alt="State Management"></p>
 <p class="tip">action によって元の状態を決して置き換えてはいけないことに注意してください。状態変化が監視され続けるためには、コンポーネントと store が同じオブジェクトへの参照を共有している必要があるからです。</p>
 

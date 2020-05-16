@@ -988,6 +988,7 @@ new Vue({
 })
 </script>
 
+
 <p>ページを読み込むと、この要素はフォーカスを手に入れます。実際、このページに訪れてから他のところをクリックしていなければ、この input にフォーカス(注意:モバイル Safari では自動でフォーカスしません)が当たっているでしょう。さあ、これを実現させるディレクティブを作りましょう。</p>
 <pre><code class="hljs js"><span class="hljs-comment">// `v-focus` というグローバルカスタムディレクティブを登録します</span>
 Vue.directive(<span class="hljs-string">'focus'</span>, &#123;
@@ -997,6 +998,7 @@ Vue.directive(<span class="hljs-string">'focus'</span>, &#123;
     el.focus()
   &#125;
 &#125;)</code></pre>
+
 <p>代わりにローカルディレクティブに登録したいならば、コンポーネントの <code>directives</code> オプションで登録できます:</p>
 <pre><code class="hljs js">directives: &#123;
   <span class="hljs-attr">focus</span>: &#123;
@@ -1006,8 +1008,10 @@ Vue.directive(<span class="hljs-string">'focus'</span>, &#123;
     &#125;
   &#125;
 &#125;</code></pre>
+
 <p>これでテンプレートで、以下のような新しい <code>v-focus</code> 属性が使えるようになります。</p>
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">v-focus</span>&gt;</span></code></pre>
+
 <h2 id="フック関数"><a href="#フック関数" class="headerlink" title="フック関数"></a>フック関数</h2><p>directive definition object はいくつかのフック関数(全て任意)を提供します:</p>
 <ul>
 <li><p><code>bind</code>: ディレクティブが初めて対象の要素にひも付いた時に 1 度だけ呼ばれます。ここで 1 回だけ実行するセットアップ処理を行えます。</p>
@@ -1015,9 +1019,9 @@ Vue.directive(<span class="hljs-string">'focus'</span>, &#123;
 <li><p><code>inserted</code>: ひも付いている要素が親 Node に挿入された時に呼ばれます(これは、親 Node が存在している時にだけ保証します。必ずしも、ドキュメントにあるとは限りません)。</p>
 </li>
 <li><p><code>update</code>: ひも付いた要素を抱合しているコンポーネントの VNode が更新される度に呼ばれます。<strong>しかし、おそらく子コンポーネントが更新される前でしょう。</strong> ディレクティブの値が変化してもしなくても、バインディングされている値と以前の値との比較によって不要な更新を回避することができます。(フック引数に関しては下記を参照してください)</p>
-<p class="tip">VNodes については <a href="./render-function.html#仮想-DOM">あとで</a> 詳細に扱います。 <a href="./render-function.html">描画関数</a> を説明するときです。</p>
+<p class="tip">VNodes については [あとで](./render-function.html#仮想-DOM) 詳細に扱います。 [描画関数](./render-function.html) を説明するときです。</p>
 </li>
-<li><p><code>componentUpdated</code>: 抱合しているコンポーネントの VNode <strong>と子コンポーネントの VNode </strong>が更新された後に呼ばれます。</p>
+<li><p><code>componentUpdated</code>: 抱合しているコンポーネントの VNode __と子コンポーネントの VNode __が更新された後に呼ばれます。</p>
 </li>
 <li><p><code>unbind</code>: ディレクティブがひも付いている要素から取り除かれた時に 1 度だけ呼ばれます。</p>
 </li>
@@ -1038,10 +1042,11 @@ Vue.directive(<span class="hljs-string">'focus'</span>, &#123;
 <li><code>vnode</code>: Vue のコンパイラによって生成される仮想ノード。さらに詳しくは <a href="../api/#VNodeインターフェイス">VNode API</a> を参照してください。</li>
 <li><code>oldVnode</code>: <code>update</code> と <code>componentUpdated</code> フックにおいてのみ利用できる以前の仮想ノード。</li>
 </ul>
-<p class="tip"><code>el</code> を除いて、これらの全てのプロパティは読み込みのみ (read-only) で変更しないものとして扱わなくてはいけません。フックを超えてデータを共有する必要がある場合は, 要素の <a href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/dataset" target="_blank" rel="noopener">dataset</a> を通じて行うことが推奨されています。</p>
+<p class="tip">`el` を除いて、これらの全てのプロパティは読み込みのみ (read-only) で変更しないものとして扱わなくてはいけません。フックを超えてデータを共有する必要がある場合は, 要素の [dataset](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/dataset) を通じて行うことが推奨されています。</p>
 
 <p>いくつかのプロパティを使用したカスタムディレクティブの例:</p>
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"hook-arguments-example"</span> <span class="hljs-attr">v-demo:foo.a.b</span>=<span class="hljs-string">"message"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
+
 <pre><code class="hljs js">Vue.directive(<span class="hljs-string">'demo'</span>, &#123;
   <span class="hljs-attr">bind</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">el, binding, vnode</span>) </span>&#123;
     <span class="hljs-keyword">var</span> s = <span class="hljs-built_in">JSON</span>.stringify
@@ -1061,6 +1066,7 @@ Vue.directive(<span class="hljs-string">'focus'</span>, &#123;
     <span class="hljs-attr">message</span>: <span class="hljs-string">'hello!'</span>
   &#125;
 &#125;)</code></pre>
+
 
 <div id="hook-arguments-example" v-demo:foo.a.b="message" class="demo"></div>
 <script>
@@ -1084,12 +1090,14 @@ new Vue({
 })
 </script>
 
+
 <h3 id="動的なディレクティブ引数"><a href="#動的なディレクティブ引数" class="headerlink" title="動的なディレクティブ引数"></a>動的なディレクティブ引数</h3><p>ディレクティブの引数は動的にできます。例えば、<code>v-mydirective:[argument]=&quot;value&quot;</code> において、<code>argument</code> はコンポーネントインスタンスの data プロパティに基づいて更新されます！これにより、アプリケーション内でのカスタムディレクティブの利用が柔軟になります。</p>
 <p>要素をページの固定位置にピン留めするカスタムディレクティブを作りたいとしましょう。縦方向のピクセル位置を値で設定するカスタムディレクティブを次のように作ることができます:</p>
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"baseexample"</span>&gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>Scroll down the page<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">v-pin</span>=<span class="hljs-string">"200"</span>&gt;</span>Stick me 200px from the top of the page<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
+
 <pre><code class="hljs js">Vue.directive(<span class="hljs-string">'pin'</span>, &#123;
   <span class="hljs-attr">bind</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">el, binding, vnode</span>) </span>&#123;
     el.style.position = <span class="hljs-string">'fixed'</span>
@@ -1100,11 +1108,13 @@ new Vue({
 <span class="hljs-keyword">new</span> Vue(&#123;
   <span class="hljs-attr">el</span>: <span class="hljs-string">'#baseexample'</span>
 &#125;)</code></pre>
+
 <p>これにより、ページの上端から 200px の位置に要素を固定できます。しかし、上端からではなく左端からの位置で要素をピン留めしたくなったらどうでしょうか？動的引数はコンポーネントのインスタンス毎に更新できるので、こういう場合に役立ちます:</p>
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"dynamicexample"</span>&gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-name">h3</span>&gt;</span>Scroll down inside this section ↓<span class="hljs-tag">&lt;/<span class="hljs-name">h3</span>&gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">v-pin:</span>[<span class="hljs-attr">direction</span>]=<span class="hljs-string">"200"</span>&gt;</span>I am pinned onto the page at 200px to the left.<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
+
 <pre><code class="hljs js">Vue.directive(<span class="hljs-string">'pin'</span>, &#123;
   <span class="hljs-attr">bind</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">el, binding, vnode</span>) </span>&#123;
     el.style.position = <span class="hljs-string">'fixed'</span>
@@ -1121,6 +1131,7 @@ new Vue({
     &#125;
   &#125;
 &#125;)</code></pre>
+
 <p>結果:</p>
 
 <iframe height="200" style="width: 100%;" class="demo" scrolling="no" title="Dynamic Directive Arguments" src="//codepen.io/team/Vue/embed/rgLLzb/?height=300&theme-id=32763&default-tab=result" frameborder="no" allowtransparency="true" allowfullscreen="true">
@@ -1128,17 +1139,21 @@ new Vue({
   (<a href="https://codepen.io/Vue" target="_blank" rel="noopener">@Vue</a>) on <a href="https://codepen.io" target="_blank" rel="noopener">CodePen</a>.
 </iframe>
 
+
 <p>このカスタムディレクティブは、ちょっとした違いのユースケースを柔軟にサポートできるようになりました。</p>
 <h2 id="関数による省略記法"><a href="#関数による省略記法" class="headerlink" title="関数による省略記法"></a>関数による省略記法</h2><p>多くの場合、<code>bind</code> と <code>update</code> には同じ振舞いが欲しいでしょうが、その他のフックに関しては気にかけません。例えば:</p>
 <pre><code class="hljs js">Vue.directive(<span class="hljs-string">'color-swatch'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">el, binding</span>) </span>&#123;
   el.style.backgroundColor = binding.value
 &#125;)</code></pre>
+
 <h2 id="オブジェクトリテラル"><a href="#オブジェクトリテラル" class="headerlink" title="オブジェクトリテラル"></a>オブジェクトリテラル</h2><p>あなたのディレクティブが複数の値を必要ならば、JavaScript オブジェクトリテラルも渡すことができます。ディレクティブは任意の妥当な JavaScript 式を取ることができるのを覚えておいてください:</p>
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">v-demo</span>=<span class="hljs-string">"&#123; color: 'white', text: 'hello!' &#125;"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
+
 <pre><code class="hljs js">Vue.directive(<span class="hljs-string">'demo'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">el, binding</span>) </span>&#123;
   <span class="hljs-built_in">console</span>.log(binding.value.color) <span class="hljs-comment">// =&gt; "white"</span>
   <span class="hljs-built_in">console</span>.log(binding.value.text)  <span class="hljs-comment">// =&gt; "hello!"</span>
 &#125;)</code></pre>
+
 
   
   

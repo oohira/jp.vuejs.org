@@ -983,6 +983,7 @@
 <p><strong>Vuex 1.0</strong> はほとんど下位互換性があるため、アップグレードするための変更はほとんど必要ありません。既存の大規模なコードベースを持つ人、または Vue 2.0 への最もスムーズなアップグレードパスが必要な人にはおすすめです。このガイドは、そのプロセスを容易にすることを目的としていますが、移行に関する注意事項のみを含んでいます。完全な使い方については <a href="https://github.com/vuejs/vuex/tree/1.0/docs/ja" target="_blank" rel="noopener">Vuex 1.0 ドキュメント</a> を参照してください。</p>
 <h2 id="文字列プロパティパスによる-store-watch-置き換え"><a href="#文字列プロパティパスによる-store-watch-置き換え" class="headerlink" title="文字列プロパティパスによる store.watch 置き換え"></a>文字列プロパティパスによる <code>store.watch</code> <sup>置き換え</sup></h2><p><code>store.watch</code> は関数を受け付けるようになりました。たとえば、次のように置き換える必要があります:</p>
 <pre><code class="hljs js">store.watch(<span class="hljs-string">'user.notifications'</span>, callback)</code></pre>
+
 <p>は以下により:</p>
 <pre><code class="hljs js">store.watch(
   <span class="hljs-comment">// 返された結果が変更されたとき...</span>
@@ -992,12 +993,14 @@
   <span class="hljs-comment">// このコールバックを動かす</span>
   callback
 )</code></pre>
+
 <p>これにより、リアクティブをより完全に制御することができます。</p>
 
 <div class="upgrade-path">
   <h4>移行ガイド</h4>
   <p>コードに対し <a href="https://github.com/vuejs/vue-migration-helper" target="_blank" rel="noopener">移行ヘルパー</a> を実行し 最初の引数として文字列による <code>store.watch</code> が呼び出される箇所を検出してください。</p>
 </div>
+
 
 <h2 id="store-のイベントエミッタ-削除"><a href="#store-のイベントエミッタ-削除" class="headerlink" title="store のイベントエミッタ 削除"></a>store のイベントエミッタ <sup>削除</sup></h2><p>store インスタンスは、イベントエミッタインタフェース (<code>on</code>、<code>off</code>、<code>emit</code>) を公開しなくなりました。以前に store をグローバルイベントバスとして使用していた場合は、移行手順については、<a href="migration.html#dispatch-および-broadcast-置き換え">こちらのセクション</a> を参照してください。</p>
 <p>このインターフェイスを使用して store 自体が発行する監視イベント (例 <code>store.on(&#39;mutation&#39;, callback)</code>) の代わりに、新しいメソッド <code>store.subscribe</code> が導入されています。プラグインの典型的な使い方は次のとおりです:</p>
@@ -1006,6 +1009,7 @@
     <span class="hljs-comment">// 何かの処理 ...</span>
   &#125;)
 &#125;</code></pre>
+
 <p>より詳細については、<a href="https://github.com/vuejs/vuex/blob/1.0/docs/ja/plugins.md" target="_blank" rel="noopener">プラグインのドキュメント</a> の example を参照してください。</p>
 
 <div class="upgrade-path">
@@ -1013,12 +1017,14 @@
   <p>コードに対し <a href="https://github.com/vuejs/vue-migration-helper" target="_blank" rel="noopener">移行ヘルパー</a> を実行し、<code>store.on</code>、<code>store.off</code>、<code>store.emit</code>が呼び出される箇所を検出してください。</p>
 </div>
 
+
 <h2 id="ミドルウェア-置き換え"><a href="#ミドルウェア-置き換え" class="headerlink" title="ミドルウェア 置き換え"></a>ミドルウェア <sup>置き換え</sup></h2><p>ミドルウェアはプラグインとして置き換えられました。プラグインは、単に引数として store を受け取る関数で、store で mutation イベントを購読することができます:</p>
 <pre><code class="hljs js"><span class="hljs-keyword">const</span> myPlugins = <span class="hljs-function"><span class="hljs-params">store</span> =&gt;</span> &#123;
   store.subscribe(<span class="hljs-string">'mutation'</span>, (mutation, state) =&gt; &#123;
     <span class="hljs-comment">// 何かの処理 ...</span>
   &#125;)
 &#125;</code></pre>
+
 <p>より詳細については、<a href="https://github.com/vuejs/vuex/blob/1.0/docs/ja/plugins.md" target="_blank" rel="noopener">プラグインのドキュメント</a> の example を参照してください。</p>
 
 <div class="upgrade-path">

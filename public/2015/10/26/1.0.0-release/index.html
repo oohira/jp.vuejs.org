@@ -410,18 +410,21 @@
 </blockquote>
 <p>300 以上のコミットの後に、8 つのアルファ (alpha) バージョン 、4 つのベータ (beta) バージョン 、そして 2 つのリリース候補(RC)バージョン、今日、私は <a href="https://github.com/vuejs/vue/releases/tag/1.0.0" target="_blank" rel="noopener">Vue.js 1.0.0 エヴァンゲリオン (Evangelion)</a>のリリースを発表するのをとても誇りに思っています！それはコミュニティから全てのフィードバックなしには不可能でした。API の再設計プロセスに参加した全ての人びとに感謝します。</p>
 <a id="more"></a>
+
 <h3 id="テンプレート構文を改善しました"><a href="#テンプレート構文を改善しました" class="headerlink" title="テンプレート構文を改善しました"></a>テンプレート構文を改善しました</h3><p>1.0 のテンプレート構文は、多くの微妙な整合性の問題を解決し、Vue のテンプレートをより簡潔で一般的に読みやすくなります。最も注目すべき新機能は、<code>v-on</code> と <code>v-bind</code> に対する省略記法構文です:</p>
 <pre><code class="hljs html"><span class="hljs-comment">&lt;!-- v-bind:href の省略 --&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">:href</span>=<span class="hljs-string">"someURL"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span>
 
 <span class="hljs-comment">&lt;!-- v-on:click の省略 --&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">button</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">"onClick"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></code></pre>
+
 <p>子コンポーネントで使用したとき、カスタムイベントに対する <code>v-on</code> リッスン、そして <code>v-bind</code> は props をバインドするために使用することができます。省略記法を子コンポーネントで使用することでとても簡潔になります:</p>
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">item-list</span>
   <span class="hljs-attr">:items</span>=<span class="hljs-string">"items"</span>
   @<span class="hljs-attr">ready</span>=<span class="hljs-string">"onItemsReady"</span>
   @<span class="hljs-attr">update</span>=<span class="hljs-string">"onItemsUpdate"</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">item-list</span>&gt;</span></code></pre>
+
 <h3 id="API-を整理しました"><a href="#API-を整理しました" class="headerlink" title="API を整理しました"></a>API を整理しました</h3><p>Vue.js 1.0 の全体的なゴールは、大規模プロジェクトに適合することです。これは多くの非推奨な API がある理由です。ほとんど使用されているものを除き、非推奨のために最も一般的な理由は、その機能が保守性の損害パターンの結果につながるということです、具体的には、私達が非推奨になる機能を維持するのと、プロジェクトの他の部分に影響を与えることなく、単独でコンポーネントをリファクタリングするのが難しいです。</p>
 <p>例えば、0.12 でのデフォルトアセットの解決は、コンポーネントツリーで親に暗黙的なフォールバックがあります。これは決定論的ではないコンポーネントを利用可能なアセットと、実行時に使用される題目を作ります。1.0 では、全てのアセットは厳密なモード (strict mode) で解決され、そして親への暗黙的なフォールバックはもはやありません。<code>inherit</code> オプションは、それはとにかく密結合されたコンポーネントにつながり、リファクタリングするのが難しいため、削除されます。</p>
 <h3 id="迅速な初期レンダリング"><a href="#迅速な初期レンダリング" class="headerlink" title="迅速な初期レンダリング"></a>迅速な初期レンダリング</h3><p>1.0 は古い <code>v-repeat</code> ディレクティブを <code>v-for</code> で置き換えます。同じ機能でそしてより直感的なスコープを提供することに加えて、<code>v-for</code> は大きいリストやテーブルをレンダリングするとき、初期レンダリングのパフォーマンス向上を <strong>100%</strong> 提供します！</p>

@@ -988,13 +988,17 @@
 
 vm.b = <span class="hljs-number">2</span>
 <span class="hljs-comment">// `vm.b` はリアクティブでは"ありません"</span></code></pre>
+
 <p>Vue では、すでに作成されたインスタンスに対して新しいルートレベルのリアクティブなプロパティを動的に追加することはできません。しかしながら、<code>Vue.set(object, propertyName, value)</code> メソッドを使ってネストしたオブジェクトにリアクティブなプロパティを追加することができます:</p>
 <pre><code class="hljs js">Vue.set(vm.someObject, <span class="hljs-string">'b'</span>, <span class="hljs-number">2</span>)</code></pre>
+
 <p><code>vm.$set</code> インスタンスメソッドを使用することもできます。これはグローバルの <code>Vue.set</code> のエイリアスです:</p>
 <pre><code class="hljs js"><span class="hljs-keyword">this</span>.$set(<span class="hljs-keyword">this</span>.someObject, <span class="hljs-string">'b'</span>, <span class="hljs-number">2</span>)</code></pre>
+
 <p>既存のオブジェクトに複数のプロパティを割り当てたいということがあるかもしれません。例えば、<code>Object.assign()</code> や <code>_.extend()</code> を使って。しかし、オブジェクトに追加された新しいプロパティは変更をトリガしません。このような場合は、元のオブジェクトとミックスインオブジェクトの両方のプロパティを持つ新たなオブジェクトを作成してください:</p>
 <pre><code class="hljs js"><span class="hljs-comment">// `Object.assign(this.someObject, &#123; a: 1, b: 2 &#125;)` の代わり</span>
 <span class="hljs-keyword">this</span>.someObject = <span class="hljs-built_in">Object</span>.assign(&#123;&#125;, <span class="hljs-keyword">this</span>.someObject, &#123; <span class="hljs-attr">a</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">b</span>: <span class="hljs-number">2</span> &#125;)</code></pre>
+
 <h3 id="配列に関して"><a href="#配列に関して" class="headerlink" title="配列に関して"></a>配列に関して</h3><p>Vue は、配列における次の変更は検知できません:</p>
 <ol>
 <li>インデックスと一緒にアイテムを直接セットする場合、例えば <code>vm.items[indexOfItem] = newValue</code></li>
@@ -1008,15 +1012,20 @@ vm.b = <span class="hljs-number">2</span>
 &#125;)
 vm.items[<span class="hljs-number">1</span>] = <span class="hljs-string">'x'</span> <span class="hljs-comment">// is NOT reactive</span>
 vm.items.length = <span class="hljs-number">2</span> <span class="hljs-comment">// is NOT reactive</span></code></pre>
+
 <p>注意事項 1 を克服するに、次のいずれも <code>vm.items[indexOfItem] = newValue</code> と同様に機能しますが、リアクティビティシステムで状態の更新をトリガします:</p>
 <pre><code class="hljs js"><span class="hljs-comment">// Vue.set</span>
 Vue.set(vm.items, indexOfItem, newValue)</code></pre>
+
 <pre><code class="hljs js"><span class="hljs-comment">// Array.prototype.splice</span>
 vm.items.splice(indexOfItem, <span class="hljs-number">1</span>, newValue)</code></pre>
+
 <p>また、<a href="https://vuejs.org/v2/api/#vm-set" target="_blank" rel="noopener"><code>vm.$set</code></a> インスタンスメソッドを使うこともできます。これはグローバルな <code>Vue.set</code> のエイリアスです:</p>
 <pre><code class="hljs js">vm.$set(vm.items, indexOfItem, newValue)</code></pre>
+
 <p>注意事項 2 に対応するには、<code>splice</code> を使うことができます。</p>
 <pre><code class="hljs js">vm.items.splice(newLength)</code></pre>
+
 <h2 id="リアクティブプロパティの宣言"><a href="#リアクティブプロパティの宣言" class="headerlink" title="リアクティブプロパティの宣言"></a>リアクティブプロパティの宣言</h2><p>Vue では新しいルートレベルのリアクティブなプロパティを動的に追加することはできないため、インスタンスの初期化時に前もって全てのルートレベルのリアクティブな data プロパティを宣言する必要があります。空の値でもかまいません:</p>
 <pre><code class="hljs js"><span class="hljs-keyword">var</span> vm = <span class="hljs-keyword">new</span> Vue(&#123;
   <span class="hljs-attr">data</span>: &#123;
@@ -1027,11 +1036,13 @@ vm.items.splice(indexOfItem, <span class="hljs-number">1</span>, newValue)</code
 &#125;)
 <span class="hljs-comment">// 後で、`message` を追加する</span>
 vm.message = <span class="hljs-string">'Hello!'</span></code></pre>
+
 <p>data オプションで <code>message</code> を宣言していないと、Vue は render ファンクションが存在しないプロパティにアクセスしようとしていることを警告します。</p>
 <p>この制限の背後には技術的な理由があります。それは依存性追跡システムにおける一連のエッジケースを排除し、また Vue インスタンスと型チェックシステムとの親和性を高めます。しかしコードの保守性の観点からも重要な事項があります。<code>data</code> オブジェクトはコンポーネントの状態のスキーマのようなものです。前もって全てのリアクティブなプロパティを宣言しておくと、後から見直したり別の開発者が読んだりしたときにコンポーネントのコードを簡単に理解することができます。</p>
 <h2 id="非同期更新キュー"><a href="#非同期更新キュー" class="headerlink" title="非同期更新キュー"></a>非同期更新キュー</h2><p>おそらく既にお気づきでしょうが、Vue は <strong>非同期</strong> に DOM 更新を実行します。データ変更が検出されると、Vue はキューをオープンし、同じイベントループで起こる全てのデータ変更をバッファリングします。同じウォッチャが複数回トリガされる場合、キューには一度だけ入ります。この重複除外バッファリングは不要な計算や DOM 操作を回避する上で重要です。そして、次のイベントループ “tick” で、Vue はキューをフラッシュし、実際の(すでに重複が除外された)作業を実行します。内部的には、Vue は非同期キューイング向けにネイティブな <code>Promise.then</code> と <code>MutationObserver</code>、<code>setImmediate</code> が利用可能ならそれを使い、<code>setTimeout(fn, 0)</code> にフォールバックします。</p>
 <p>例として、<code>vm.someData = &#39;new value&#39;</code> をセットした時、そのコンポーネントはすぐには再描画しません。 次の “tick” でキューがフラッシュされる時に更新します。ほとんどの場合、私達はこれについて気にする必要はありませんが、更新した DOM の状態に依存する何かをしたい時は注意が必要です。Vue.js は一般的に”データ駆動”的な流儀で考え、DOM を直接触るのを避けることを開発者に奨励しますが、時にはその手を汚す必要があるかもしれません。データの変更後に Vue.js の DOM 更新の完了を待つには、データが変更された直後に <code>Vue.nextTick(callback)</code> を使用することができます。そのコールバックは DOM が更新された後に呼ばれます。例えば:</p>
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"example"</span>&gt;</span>&#123;&#123; message &#125;&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
+
 <pre><code class="hljs js"><span class="hljs-keyword">var</span> vm = <span class="hljs-keyword">new</span> Vue(&#123;
   <span class="hljs-attr">el</span>: <span class="hljs-string">'#example'</span>,
   <span class="hljs-attr">data</span>: &#123;
@@ -1043,6 +1054,7 @@ vm.$el.textContent === <span class="hljs-string">'new message'</span> <span clas
 Vue.nextTick(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;
   vm.$el.textContent === <span class="hljs-string">'new message'</span> <span class="hljs-comment">// true</span>
 &#125;)</code></pre>
+
 <p><code>vm.$nextTick()</code> というインスタンスメソッドもあります。これは、グローバルな Vue を必要とせず、コールバックの <code>this</code> コンテキストが自動的に現在の Vue インスタンスに束縛されるため、コンポーネント内で特に役立ちます:</p>
 <pre><code class="hljs js">Vue.component(<span class="hljs-string">'example'</span>, &#123;
   <span class="hljs-attr">template</span>: <span class="hljs-string">'&lt;span&gt;&#123;&#123; message &#125;&#125;&lt;/span&gt;'</span>,
@@ -1061,6 +1073,7 @@ Vue.nextTick(<span class="hljs-function"><span class="hljs-keyword">function</sp
     &#125;
   &#125;
 &#125;)</code></pre>
+
 <p><code>$nextTick()</code> は Promise を返却するため、新しい <a href="https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Statements/async_function" target="_blank" rel="noopener">ES2017 async/await</a> 構文を用いて、同じことができます:</p>
 <pre><code class="hljs js">methods: &#123;
   <span class="hljs-attr">updateMessage</span>: <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;
@@ -1070,6 +1083,7 @@ Vue.nextTick(<span class="hljs-function"><span class="hljs-keyword">function</sp
     <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">this</span>.$el.textContent) <span class="hljs-comment">// =&gt; 'updated'</span>
   &#125;
 &#125;</code></pre>
+
 
   
   

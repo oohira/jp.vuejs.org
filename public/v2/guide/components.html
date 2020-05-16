@@ -982,11 +982,14 @@ Vue.component(<span class="hljs-string">'button-counter'</span>, &#123;
   &#125;,
   <span class="hljs-attr">template</span>: <span class="hljs-string">'&lt;button v-on:click="count++"&gt;You clicked me &#123;&#123; count &#125;&#125; times.&lt;/button&gt;'</span>
 &#125;)</code></pre>
+
 <p>コンポーネントは名前付きの再利用可能な Vue インスタンスです。この例の場合、<code>&lt;button-counter&gt;</code>です。このコンポーネントを <code>new Vue</code> で作成されたルート Vue インスタンス内でカスタム要素として使用することができます。</p>
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"components-demo"</span>&gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-name">button-counter</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">button-counter</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
+
 <pre><code class="hljs js"><span class="hljs-keyword">new</span> Vue(&#123; <span class="hljs-attr">el</span>: <span class="hljs-string">'#components-demo'</span> &#125;)</code></pre>
+
 
 <div id="components-demo" class="demo">
   <button-counter></button-counter>
@@ -1003,6 +1006,7 @@ Vue.component('button-counter', {
 new Vue({ el: '#components-demo' })
 </script>
 
+
 <p>コンポーネントは再利用可能な Vue インスタンスなので、<code>data</code>、<code>computed</code>、<code>watch</code>、<code>methods</code>、ライフサイクルフックなどの <code>new Vue</code> と同じオプションを受け入れます。唯一の例外は <code>el</code> のようなルート固有のオプションです。</p>
 <h2 id="コンポーネントの再利用"><a href="#コンポーネントの再利用" class="headerlink" title="コンポーネントの再利用"></a>コンポーネントの再利用</h2><p>コンポーネントは必要なだけ何度でも再利用できます:</p>
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"components-demo"</span>&gt;</span>
@@ -1010,6 +1014,7 @@ new Vue({ el: '#components-demo' })
   <span class="hljs-tag">&lt;<span class="hljs-name">button-counter</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">button-counter</span>&gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-name">button-counter</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">button-counter</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
+
 
 <div id="components-demo2" class="demo">
   <button-counter></button-counter>
@@ -1020,18 +1025,21 @@ new Vue({ el: '#components-demo' })
 new Vue({ el: '#components-demo2' })
 </script>
 
+
 <p>ボタンをクリックすると、それぞれが独自の <code>count</code> を保持することに注意してください。これはコンポーネントを使用するたびに、新しい<strong>インスタンス</strong>が作成されるためです。</p>
 <h3 id="data-は関数でなければなりません"><a href="#data-は関数でなければなりません" class="headerlink" title="data は関数でなければなりません"></a><code>data</code> は関数でなければなりません</h3><p><code>&lt;button-counter&gt;</code>コンポーネントを定義したとき、<code>data</code> が直接オブジェクトとして提供されていなかったことに気づいたかもしれません:</p>
 <pre><code class="hljs js">data: &#123;
   <span class="hljs-attr">count</span>: <span class="hljs-number">0</span>
 &#125;</code></pre>
+
 <p>代わりに、<strong>コンポーネントの <code>data</code> オプションは関数でなければなりません</strong>。各インスタンスが返されるデータオブジェクトの独立したコピーを保持できるためです:</p>
 <pre><code class="hljs js">data: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;
   <span class="hljs-keyword">return</span> &#123;
     <span class="hljs-attr">count</span>: <span class="hljs-number">0</span>
   &#125;
 &#125;</code></pre>
-<p>Vue にこのルールがない場合、ボタンを1つクリックすると、以下のように<em>すべての他のインスタンスの</em>データに影響します:</p>
+
+<p>Vue にこのルールがない場合、ボタンを1つクリックすると、以下のように_すべての他のインスタンスの_データに影響します:</p>
 
 <div id="components-demo3" class="demo">
   <button-counter2></button-counter2>
@@ -1051,6 +1059,7 @@ Vue.component('button-counter2', {
 new Vue({ el: '#components-demo3' })
 </script>
 
+
 <h2 id="コンポーネントの編成"><a href="#コンポーネントの編成" class="headerlink" title="コンポーネントの編成"></a>コンポーネントの編成</h2><p>アプリケーションがネストされたコンポーネントのツリーに編成されるのは一般的です:</p>
 <p><img src="/images/components.png" alt="Component Tree"></p>
 <p>例えば、ヘッダー、サイドバー、およびコンテンツ領域のコンポーネントがあり、それぞれには一般的にナビゲーションリンク、ブログ投稿などの他のコンポーネントが含まれています。</p>
@@ -1058,6 +1067,7 @@ new Vue({ el: '#components-demo3' })
 <pre><code class="hljs js">Vue.component(<span class="hljs-string">'my-component-name'</span>, &#123;
   <span class="hljs-comment">// ... オプション ...</span>
 &#125;)</code></pre>
+
 <p>グローバルに登録されたコンポーネントは、その後に作成されたルート Vue インスタンス(<code>new Vue</code>)のテンプレートで使用できます。さらに、その Vue インスタンスのコンポーネントツリーのすべてのサブコンポーネント内でも使用できます。</p>
 <p>今のところコンポーネント登録について知っておくべきことはこれですべてですが、このページを読んで内容が分かり次第、<a href="components-registration.html">コンポーネント登録</a>の全ガイドを読むことをお勧めします。</p>
 <h2 id="プロパティを使用した子コンポーネントへのデータの受け渡し"><a href="#プロパティを使用した子コンポーネントへのデータの受け渡し" class="headerlink" title="プロパティを使用した子コンポーネントへのデータの受け渡し"></a>プロパティを使用した子コンポーネントへのデータの受け渡し</h2><p>先程、ブログ投稿用のコンポーネントの作成についてふれました。問題は、表示する特定の投稿のタイトルやコンテンツなどのデータをコンポーネントに渡すことができない限り、そのコンポーネントは役に立たないということです。プロパティはここで役立ちます。</p>
@@ -1066,11 +1076,13 @@ new Vue({ el: '#components-demo3' })
   <span class="hljs-attr">props</span>: [<span class="hljs-string">'title'</span>],
   <span class="hljs-attr">template</span>: <span class="hljs-string">'&lt;h3&gt;&#123;&#123; title &#125;&#125;&lt;/h3&gt;'</span>
 &#125;)</code></pre>
+
 <p>コンポーネントは必要に応じて多くのプロパティを持つことができます。デフォルトでは、任意の値を任意のプロパティに渡すことができます。上記のテンプレートでは、<code>data</code> と同様に、コンポーネントインスタンスでこの値にアクセスできることがわかります。</p>
 <p>プロパティが登録されると、次のようにそれをカスタム属性としてデータを渡すことができます:</p>
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">blog-post</span> <span class="hljs-attr">title</span>=<span class="hljs-string">"My journey with Vue"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">blog-post</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">blog-post</span> <span class="hljs-attr">title</span>=<span class="hljs-string">"Blogging with Vue"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">blog-post</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">blog-post</span> <span class="hljs-attr">title</span>=<span class="hljs-string">"Why Vue is so fun"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">blog-post</span>&gt;</span></code></pre>
+
 
 <div id="blog-post-demo" class="demo">
   <blog-post1 title="My journey with Vue"></blog-post1>
@@ -1085,6 +1097,7 @@ Vue.component('blog-post1', {
 new Vue({ el: '#blog-post-demo' })
 </script>
 
+
 <p>しかしながら、普通のアプリケーションでは、おそらく <code>data</code> に投稿の配列があります:</p>
 <pre><code class="hljs js"><span class="hljs-keyword">new</span> Vue(&#123;
   <span class="hljs-attr">el</span>: <span class="hljs-string">'#blog-post-demo'</span>,
@@ -1096,24 +1109,29 @@ new Vue({ el: '#blog-post-demo' })
     ]
   &#125;
 &#125;)</code></pre>
+
 <p>それぞれの投稿ごとにコンポーネントを描画します:</p>
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">blog-post</span>
   <span class="hljs-attr">v-for</span>=<span class="hljs-string">"post in posts"</span>
   <span class="hljs-attr">v-bind:key</span>=<span class="hljs-string">"post.id"</span>
   <span class="hljs-attr">v-bind:title</span>=<span class="hljs-string">"post.title"</span>
 &gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">blog-post</span>&gt;</span></code></pre>
+
 <p>上記では、<code>v-bind</code> を使って動的にプロパティを渡すことができることがわかります。これは、<a href="https://codesandbox.io/s/github/vuejs/vuejs.org/tree/master/src/v2/examples/vue-20-component-blog-post-example" target="_blank" rel="noopener">API から投稿を取得する</a>ときのように、前もって描画する正確なコンテンツがわからない場合に特に便利です。</p>
 <p>これがプロパティについて今のところ知っておくべきことですが、このページを読んで内容が分かり次第、後で<a href="components-props.html">プロパティ</a>の全ガイドを読むことをお勧めします。</p>
 <h2 id="単一のルート要素"><a href="#単一のルート要素" class="headerlink" title="単一のルート要素"></a>単一のルート要素</h2><p><code>&lt;blog-post&gt;</code>コンポーネントを構築するとき、テンプレートには最終的にタイトル以上のものが含まれます:</p>
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">h3</span>&gt;</span>&#123;&#123; title &#125;&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">h3</span>&gt;</span></code></pre>
+
 <p>最低でも、投稿の内容を含めたいでしょう:</p>
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">h3</span>&gt;</span>&#123;&#123; title &#125;&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">h3</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">v-html</span>=<span class="hljs-string">"content"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
+
 <p>テンプレートで試してみると、Vue は<strong>すべてのコンポーネントに単一のルート要素</strong>が必要ということを示すエラーを表示します。このエラーは、次のようにテンプレートを親要素でラップすることで修正できます:</p>
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"blog-post"</span>&gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-name">h3</span>&gt;</span>&#123;&#123; title &#125;&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">h3</span>&gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">v-html</span>=<span class="hljs-string">"content"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
+
 <p>コンポーネントが大きくなると、タイトルや投稿内容だけでなく、公開日やコメントなども必要になってくるかもしれません。しかし、それぞれの情報ごとにプロパティを定義してしまうと、とてもうるさいものになります:</p>
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">blog-post</span>
   <span class="hljs-attr">v-for</span>=<span class="hljs-string">"post in posts"</span>
@@ -1123,12 +1141,14 @@ new Vue({ el: '#blog-post-demo' })
   <span class="hljs-attr">v-bind:publishedAt</span>=<span class="hljs-string">"post.publishedAt"</span>
   <span class="hljs-attr">v-bind:comments</span>=<span class="hljs-string">"post.comments"</span>
 &gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">blog-post</span>&gt;</span></code></pre>
+
 <p>そうなったら、<code>&lt;blog-post&gt;</code> コンポーネントをリファクタする好機かもしれません。代わりに、単一の <code>post</code> プロパティを受け入れる形にするのです:</p>
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">blog-post</span>
   <span class="hljs-attr">v-for</span>=<span class="hljs-string">"post in posts"</span>
   <span class="hljs-attr">v-bind:key</span>=<span class="hljs-string">"post.id"</span>
   <span class="hljs-attr">v-bind:post</span>=<span class="hljs-string">"post"</span>
 &gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">blog-post</span>&gt;</span></code></pre>
+
 <pre><code class="hljs js">Vue.component(<span class="hljs-string">'blog-post'</span>, &#123;
   <span class="hljs-attr">props</span>: [<span class="hljs-string">'post'</span>],
   <span class="hljs-attr">template</span>: <span class="hljs-string">`
@@ -1138,7 +1158,8 @@ new Vue({ el: '#blog-post-demo' })
     &lt;/div&gt;
   `</span>
 &#125;)</code></pre>
-<p class="tip">上記の例や後に出てくる例では、JavaScript の<a href="https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/template_strings" target="_blank" rel="noopener">テンプレート文字列</a>を使用して、複数行にわたるテンプレートをより読みやすくします。これらはインターネットエクスプローラー(IE)ではサポートされていないので、IE をサポートして、かつトランスパイル(例: Babel もしくは TypeScript を使用した)を行わない場合、代わりに<a href="https://css-tricks.com/snippets/javascript/multiline-string-variables-in-javascript/" target="_blank" rel="noopener">改行エスケープ</a>を使用してください。</p>
+
+<p class="tip">上記の例や後に出てくる例では、JavaScript の[テンプレート文字列](https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/template_strings)を使用して、複数行にわたるテンプレートをより読みやすくします。これらはインターネットエクスプローラー(IE)ではサポートされていないので、IE をサポートして、かつトランスパイル(例: Babel もしくは TypeScript を使用した)を行わない場合、代わりに[改行エスケープ](https://css-tricks.com/snippets/javascript/multiline-string-variables-in-javascript/)を使用してください。</p>
 
 <p>これで、新しいプロパティが <code>post</code> オブジェクトに追加される際にはいつでも、<code>&lt;blog-post&gt;</code> 内で自動的に利用可能になるのです。</p>
 <h2 id="子コンポーネントのイベントを購読する"><a href="#子コンポーネントのイベントを購読する" class="headerlink" title="子コンポーネントのイベントを購読する"></a>子コンポーネントのイベントを購読する</h2><p><code>&lt;blog-post&gt;</code> コンポーネントを開発する際、親コンポーネントとやり取りする機能が必要になるかもしれません。例えば、ブログの投稿のテキストを拡大するためのアクセシビリティ機能を追加し、他のページのデフォルトのサイズにすることができます。</p>
@@ -1150,6 +1171,7 @@ new Vue({ el: '#blog-post-demo' })
     <span class="hljs-attr">postFontSize</span>: <span class="hljs-number">1</span>
   &#125;
 &#125;)</code></pre>
+
 <p>すべてのブログ投稿のフォントサイズを制御するためにテンプレート内で使用できます:</p>
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"blog-posts-events-demo"</span>&gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">:style</span>=<span class="hljs-string">"&#123; fontSize: postFontSize + 'em' &#125;"</span>&gt;</span>
@@ -1160,6 +1182,7 @@ new Vue({ el: '#blog-post-demo' })
     &gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">blog-post</span>&gt;</span>
   <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
+
 <p>それでは、すべての投稿の内容の前にテキストを拡大するボタンを追加します:</p>
 <pre><code class="hljs js">Vue.component(<span class="hljs-string">'blog-post'</span>, &#123;
   <span class="hljs-attr">props</span>: [<span class="hljs-string">'post'</span>],
@@ -1173,19 +1196,23 @@ new Vue({ el: '#blog-post-demo' })
     &lt;/div&gt;
   `</span>
 &#125;)</code></pre>
+
 <p>問題は、このボタンがなにもしないことです:</p>
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">button</span>&gt;</span>
   Enlarge text
 <span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></code></pre>
+
 <p>ボタンをクリックすると、すべての投稿のテキストを拡大する必要があることを親コンポーネントに伝える必要があります。幸いにも、Vue インスタンスはこの問題を解決するカスタムイベントシステムを提供しています。親コンポーネントは、ネイティブの DOM イベントと同じように、<code>v-on</code> を使って子コンポーネントで起きた任意のイベントを購読することができます:</p>
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">blog-post</span>
   <span class="hljs-attr">...</span>
   <span class="hljs-attr">v-on:enlarge-text</span>=<span class="hljs-string">"postFontSize += 0.1"</span>
 &gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">blog-post</span>&gt;</span></code></pre>
+
 <p>そして、子コンポーネントでは、ビルトインの <a href="../api/#インスタンスメソッド-イベント"><strong><code>$emit</code></strong> メソッド</a> にイベントの名前を渡して呼び出すことで、イベントを送出することができます:</p>
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">v-on:click</span>=<span class="hljs-string">"$emit('enlarge-text')"</span>&gt;</span>
   Enlarge text
 <span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></code></pre>
+
 <p>親コンポーネントは、<code>v-on:enlarge-text=&quot;postFontSize += 0.1&quot;</code> リスナのおかげで、このイベントを受け取って <code>postFontSize</code> の値を更新することができます。</p>
 
 <div id="blog-posts-events-demo" class="demo">
@@ -1219,38 +1246,46 @@ new Vue({
 })
 </script>
 
+
 <h3 id="イベントと値を送出する"><a href="#イベントと値を送出する" class="headerlink" title="イベントと値を送出する"></a>イベントと値を送出する</h3><p>イベントを特定の値付きで送出すると便利なことがあります。例えば、<code>&lt;blog-post&gt;</code> コンポーネントにテキストをどれだけ拡大するかを責務とさせたいかもしれません。そのような場合、<code>$emit</code> の2番目のパラメータを使ってこの値を提供することができます:</p>
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">v-on:click</span>=<span class="hljs-string">"$emit('enlarge-text', 0.1)"</span>&gt;</span>
   Enlarge text
 <span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></code></pre>
+
 <p>親コンポーネントでイベントをリッスンすると、送出されたイベントの値に <code>$event</code> でアクセスできます:</p>
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">blog-post</span>
   <span class="hljs-attr">...</span>
   <span class="hljs-attr">v-on:enlarge-text</span>=<span class="hljs-string">"postFontSize += $event"</span>
 &gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">blog-post</span>&gt;</span></code></pre>
+
 <p>または、イベントハンドラがメソッドの場合:</p>
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">blog-post</span>
   <span class="hljs-attr">...</span>
   <span class="hljs-attr">v-on:enlarge-text</span>=<span class="hljs-string">"onEnlargeText"</span>
 &gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">blog-post</span>&gt;</span></code></pre>
+
 <p>値は、そのメソッドの最初のパラメータとして渡されます:</p>
 <pre><code class="hljs js">methods: &#123;
   <span class="hljs-attr">onEnlargeText</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">enlargeAmount</span>) </span>&#123;
     <span class="hljs-keyword">this</span>.postFontSize += enlargeAmount
   &#125;
 &#125;</code></pre>
+
 <h3 id="コンポーネントで-v-model-を使う"><a href="#コンポーネントで-v-model-を使う" class="headerlink" title="コンポーネントで v-model を使う"></a>コンポーネントで <code>v-model</code> を使う</h3><p>カスタムイベントは <code>v-model</code> で動作するカスタム入力を作成することもできます。このことを覚えておいてください:</p>
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">v-model</span>=<span class="hljs-string">"searchText"</span>&gt;</span></code></pre>
+
 <p>これは以下と同じことです:</p>
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">input</span>
   <span class="hljs-attr">v-bind:value</span>=<span class="hljs-string">"searchText"</span>
   <span class="hljs-attr">v-on:input</span>=<span class="hljs-string">"searchText = $event.target.value"</span>
 &gt;</span></code></pre>
+
 <p>コンポーネントで使用する場合、<code>v-model</code> は代わりにこれを行います:</p>
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">custom-input</span>
   <span class="hljs-attr">v-bind:value</span>=<span class="hljs-string">"searchText"</span>
   <span class="hljs-attr">v-on:input</span>=<span class="hljs-string">"searchText = $event"</span>
 &gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">custom-input</span>&gt;</span></code></pre>
+
 <p>これを実際に動作させるためには、コンポーネント内の <code>&lt;input&gt;</code> は以下でなければなりません:</p>
 <ul>
 <li><code>value</code> 属性を <code>value</code> プロパティにバインドする</li>
@@ -1266,13 +1301,16 @@ new Vue({
     &gt;
   `</span>
 &#125;)</code></pre>
+
 <p><code>v-model</code> はこのコンポーネントで完璧に動作するはずです:</p>
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">custom-input</span> <span class="hljs-attr">v-model</span>=<span class="hljs-string">"searchText"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">custom-input</span>&gt;</span></code></pre>
+
 <p>これがカスタムコンポーネントについて今のところ知っておくべきことですが、このページを読んで内容が分かり次第、後で<a href="components-custom-events.html">カスタムイベント</a>の全ガイドを読むことをお勧めします。</p>
 <h2 id="スロットによるコンテンツ配信"><a href="#スロットによるコンテンツ配信" class="headerlink" title="スロットによるコンテンツ配信"></a>スロットによるコンテンツ配信</h2><p>HTML 要素と同様に、コンポーネントにコンテンツを渡すことができると便利なことがよくあります。例えば以下です:</p>
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">alert-box</span>&gt;</span>
   Something bad happened.
 <span class="hljs-tag">&lt;/<span class="hljs-name">alert-box</span>&gt;</span></code></pre>
+
 <p>これは以下のように描画されるでしょう:</p>
 
 <div id="slots-demo" class="demo">
@@ -1299,6 +1337,7 @@ new Vue({ el: '#slots-demo' })
 }
 </style>
 
+
 <p>幸いにも、この作業は Vue のカスタム <code>&lt;slot&gt;</code> 要素によって非常に簡単になります:</p>
 <pre><code class="hljs js">Vue.component(<span class="hljs-string">'alert-box'</span>, &#123;
   <span class="hljs-attr">template</span>: <span class="hljs-string">`
@@ -1308,6 +1347,7 @@ new Vue({ el: '#slots-demo' })
     &lt;/div&gt;
   `</span>
 &#125;)</code></pre>
+
 <p>上で見たように、ただ渡したいところにスロットを追加するだけです。それだけです。終わりです！</p>
 <p>これがスロットについて今のところ知っておくべきことですが、このページを読んで内容が分かり次第、後で<a href="components-slots.html">スロット</a>の全ガイドを読むことをお勧めします。</p>
 <h2 id="動的なコンポーネント"><a href="#動的なコンポーネント" class="headerlink" title="動的なコンポーネント"></a>動的なコンポーネント</h2><p>タブ付きのインターフェイスのように、コンポーネント間を動的に切り替えると便利なことがあります:</p>
@@ -1358,26 +1398,30 @@ new Vue({
 }
 </style>
 
+
 <p>上記は、Vue の <code>&lt;component&gt;</code> 要素と 特別な属性の <code>is</code> で可能になりました:</p>
 <pre><code class="hljs html"><span class="hljs-comment">&lt;!-- currentTabComponent が変更されたとき、コンポーネントを変更します --&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">component</span> <span class="hljs-attr">v-bind:is</span>=<span class="hljs-string">"currentTabComponent"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">component</span>&gt;</span></code></pre>
+
 <p>上記の例では、<code>currentTabComponent</code> は次のいずれかを含むことができます:</p>
 <ul>
 <li>登録されたコンポーネントの名前、もしくは</li>
 <li>コンポーネントのオプションオブジェクト</li>
 </ul>
 <p>完全なコードを試してみるには<a href="https://codesandbox.io/s/github/vuejs/vuejs.org/tree/master/src/v2/examples/vue-20-dynamic-components" target="_blank" rel="noopener">この例</a>、もしくは登録された名前の代わりにコンポーネントのオプションオブジェクトをバインディングしている例となる<a href="https://codesandbox.io/s/github/vuejs/vuejs.org/tree/master/src/v2/examples/vue-20-dynamic-components-with-binding" target="_blank" rel="noopener">このバージョン</a>を参照してください。</p>
-<p>この属性は通常の HTML 要素にも使えますが、コンポーネントとして取り扱われることに注意してください。つまり、全ての属性が <strong> DOM の属性としてバインドされる</strong> ということになります。 <code>value</code> などの一部のプロパティが、期待通りに動作するためには、<a href="../api/#v-bind"><code>.prop</code> 修飾子</a> を使ってバインドする必要があります。</p>
+<p>この属性は通常の HTML 要素にも使えますが、コンポーネントとして取り扱われることに注意してください。つまり、全ての属性が ** DOM の属性としてバインドされる** ということになります。 <code>value</code> などの一部のプロパティが、期待通りに動作するためには、<a href="../api/#v-bind"><code>.prop</code> 修飾子</a> を使ってバインドする必要があります。</p>
 <p>これが動的なコンポーネントについて今のところ知っておくべきことですが、このページを読んで内容が分かり次第、後で <a href="components-dynamic-async.html">動的 &amp; 非同期コンポーネント</a>の全ガイドを読むことをお勧めします。</p>
 <h2 id="DOM-テンプレートパース時の警告"><a href="#DOM-テンプレートパース時の警告" class="headerlink" title="DOM テンプレートパース時の警告"></a>DOM テンプレートパース時の警告</h2><p><code>&lt;ul&gt;</code>、<code>&lt;ol&gt;</code>、<code>&lt;table&gt;</code>、<code>&lt;select&gt;</code>のようないくつかの HTML 要素には、それらの要素の中でどの要素が現れるかに制限があり、 <code>&lt;li&gt;</code>、<code>&lt;tr&gt;</code>、<code>&lt;option&gt;</code> は他の特定の要素の中にしか現れません。</p>
 <p>このような制限がある要素を持つコンポーネントを使用すると、問題が発生することがあります。例:</p>
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">table</span>&gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-name">blog-post-row</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">blog-post-row</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">table</span>&gt;</span></code></pre>
+
 <p>カスタムコンポーネント <code>&lt;blog-post-row&gt;</code> は無効なコンテンツとしてつまみ出され、最終的に描画された出力にエラーが発生します。幸いにも、特別な属性の <code>is</code> は回避策を提供します:</p>
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">table</span>&gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-name">tr</span> <span class="hljs-attr">is</span>=<span class="hljs-string">"blog-post-row"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">tr</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">table</span>&gt;</span></code></pre>
+
 <p><strong>次のソースのいずれかの文字列テンプレートを使用している場合、この制限は適用され<em>ない</em></strong>ことに注意してください:</p>
 <ul>
 <li>文字列テンプレート(例: <code>template： &#39;...&#39;</code>)</li>

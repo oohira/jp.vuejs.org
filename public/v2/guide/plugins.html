@@ -990,8 +990,10 @@ Vue.use(MyPlugin)
 <span class="hljs-keyword">new</span> Vue(&#123;
   <span class="hljs-comment">// ... オプション</span>
 &#125;)</code></pre>
+
 <p>いくつかのオプションに任意で渡すことができます:</p>
 <pre><code class="hljs js">Vue.use(MyPlugin, &#123; <span class="hljs-attr">someOption</span>: <span class="hljs-literal">true</span> &#125;)</code></pre>
+
 <p><code>Vue.use</code> は、同じプラグインを 1 回以上使用することを自動的に防ぎます。そのため、同じプラグインを同時に複数回呼び出しても、一度しかそのプラグインをインストールしません。</p>
 <p><code>vue-router</code> のような Vue.js 公式プラグインによって提供されるプラグインは、<code>Vue</code> がグローバル変数として使用可能な場合、自動的に <code>Vue.use()</code> を呼びます。しかしながら、 <code>CommonJS</code> のようなモジュール環境では、常に明示的に <code>Vue.use()</code> を呼ぶ必要があります:</p>
 <pre><code class="hljs js"><span class="hljs-comment">// Browserify または Webpack 経由で CommonJS を使用</span>
@@ -1000,6 +1002,7 @@ Vue.use(MyPlugin)
 
 <span class="hljs-comment">// これを呼びだすのを忘れてはいけません</span>
 Vue.use(VueRouter)</code></pre>
+
 <p>コミュニティの貢献による膨大なプラグインやライブラリは <a href="https://github.com/vuejs/awesome-vue#components--libraries" target="_blank" rel="noopener">awesome-vue</a> で確認できます。</p>
 <h2 id="プラグインの記述"><a href="#プラグインの記述" class="headerlink" title="プラグインの記述"></a>プラグインの記述</h2><p>Vue.js プラグインは <code>install</code> メソッドを公開する必要があります。このメソッドは第 1 引数は <code>Vue</code> コンストラクタ、第 2 引数は任意で <code>options</code> が指定されて呼び出されます:</p>
 <pre><code class="hljs js">MyPlugin.install = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">Vue, options</span>) </span>&#123;
@@ -1026,6 +1029,7 @@ Vue.use(VueRouter)</code></pre>
     <span class="hljs-comment">// 何らかのロジック ...</span>
   &#125;
 &#125;</code></pre>
+
 
   
   

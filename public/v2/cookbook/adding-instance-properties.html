@@ -408,11 +408,14 @@
   
     <h2 id="基本的な例"><a href="#基本的な例" class="headerlink" title="基本的な例"></a>基本的な例</h2><p>多くのコンポーネントで使用したいデータ/ユーティリティがあるかもしれませんが、<a href="https://github.com/getify/You-Dont-Know-JS/blob/2nd-ed/scope-closures/ch3.md" target="_blank" rel="noopener">グローバルスコープを汚染したくはありません</a>。この場合は、プロトタイプに追加すれば全ての Vue インスタンスで使用できます：</p>
 <pre><code class="hljs js">Vue.prototype.$appName = <span class="hljs-string">'My App'</span></code></pre>
-<p>今 <code>$appName</code> は、作成前でも全ての Vue インスタンスで使用可能です。 実行した場合：<br><pre><code class="hljs js"><span class="hljs-keyword">new</span> Vue(&#123;
+
+<p>今 <code>$appName</code> は、作成前でも全ての Vue インスタンスで使用可能です。 実行した場合：</p>
+<pre><code class="hljs js"><span class="hljs-keyword">new</span> Vue(&#123;
   <span class="hljs-attr">beforeCreate</span>: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>&#123;
     <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">this</span>.$appName)
   &#125;
-&#125;)</code></pre></p>
+&#125;)</code></pre>
+
 <p><code>&quot;My App&quot;</code> はコンソールに記録されます。</p>
 <h2 id="スコープインスタンスプロパティの重要性"><a href="#スコープインスタンスプロパティの重要性" class="headerlink" title="スコープインスタンスプロパティの重要性"></a>スコープインスタンスプロパティの重要性</h2><p>あなたは疑問に思うかもしれません：</p>
 <blockquote>
@@ -424,6 +427,7 @@
 </blockquote>
 <p>とても良い質問です！もしこのように設定した場合：</p>
 <pre><code class="hljs js">Vue.prototype.appName = <span class="hljs-string">'My App'</span></code></pre>
+
 <p>以下にどのようなログが記録されると思いますか？</p>
 <pre><code class="hljs js"><span class="hljs-keyword">new</span> Vue(&#123;
   <span class="hljs-attr">data</span>: &#123;
@@ -438,6 +442,7 @@
     <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">this</span>.appName)
   &#125;
 &#125;)</code></pre>
+
 <p>この場合、まずは <code>&quot;My App&quot;</code> が記録され、それから <code>&quot;The name of some other app&quot;</code> が記録されます。なぜなら <code>this.appName</code> はインスタンスが作成されるときに <code>data</code> によって上書き(<a href="https://github.com/getify/You-Dont-Know-JS/blob/2nd-ed/objects-classes/ch5.md" target="_blank" rel="noopener">並び替え</a>)されるからです。これを避けるために、インスタンスプロパティを <code>$</code> でスコープする規約を利用します。<code>$_appName</code> や <code>ΩappName</code> のような独自の規約を使うことにより、プラグインや、将来の機能との衝突を防ぐこともできます。</p>
 <h2 id="実例：-Vue-のリソースを-Axios-に置き換える"><a href="#実例：-Vue-のリソースを-Axios-に置き換える" class="headerlink" title="実例： Vue のリソースを Axios に置き換える"></a>実例： Vue のリソースを Axios に置き換える</h2><p>それでは<a href="https://medium.com/the-vue-point/retiring-vue-resource-871a82880af4" target="_blank" rel="noopener">使われなくなった Vue Resource を置き換えるとしましょう</a>。あなたは <code>this.$http</code> を通してリクエストメソッドにアクセスすることを凄く楽しんでいましたが、代わりに Axios で同じことをしたいと思います。</p>
 <p>ただ、プロジェクトに axios を含めるだけです:</p>
@@ -448,8 +453,10 @@
     <span class="hljs-tag">&lt;<span class="hljs-name">li</span> <span class="hljs-attr">v-for</span>=<span class="hljs-string">"user in users"</span>&gt;</span>&#123;&#123; user.name &#125;&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
   <span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
+
 <p><code>Vue.prototype.$http</code> に <code>axios</code> を代入し、alias とします：</p>
 <pre><code class="hljs js">Vue.prototype.$http = axios</code></pre>
+
 <p>そうすれば、全ての Vue インスタンスで <code>this.$http.get</code> のようにメソッドを使うことができます：</p>
 <pre><code class="hljs js"><span class="hljs-keyword">new</span> Vue(&#123;
   <span class="hljs-attr">el</span>: <span class="hljs-string">'#app'</span>,
@@ -465,6 +472,7 @@
       &#125;)
   &#125;
 &#125;)</code></pre>
+
 <h2 id="プロトタイプメソッドのコンテキスト"><a href="#プロトタイプメソッドのコンテキスト" class="headerlink" title="プロトタイプメソッドのコンテキスト"></a>プロトタイプメソッドのコンテキスト</h2><p>気付いてないかもしれませんが、JavaScript のプロトタイプに追加されたメソッドはインスタンスのコンテキストを取得します。 つまり、インスタンスに定義されたデータ、算出プロパティ、メソッド、その他のものにアクセスするために this を使用できます。</p>
 <p>this を <code>$reverseText</code>メソッドで利用してみましょう：</p>
 <pre><code class="hljs js">Vue.prototype.$reverseText = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">propertyName</span>) </span>&#123;
@@ -484,6 +492,7 @@
     <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">this</span>.message) <span class="hljs-comment">// =&gt; "olleH"</span>
   &#125;
 &#125;)</code></pre>
+
 <p>コンテキストバインディングは、ES6/2015のアロー演算子を使用している場合は、親スコープに暗黙的にバインドされるため、<strong>機能しません</strong>。次はアロー関数のパターン：</p>
 <pre><code class="hljs js">Vue.prototype.$reverseText = <span class="hljs-function"><span class="hljs-params">propertyName</span> =&gt;</span> &#123;
   <span class="hljs-keyword">this</span>[propertyName] = <span class="hljs-keyword">this</span>[propertyName]
@@ -491,8 +500,10 @@
     .reverse()
     .join(<span class="hljs-string">''</span>)
 &#125;</code></pre>
+
 <p>これはエラーが発生します:</p>
 <pre><code class="hljs log">Uncaught TypeError: Cannot read property &apos;split&apos; of undefined</code></pre>
+
 <h2 id="このパターンを避ける時"><a href="#このパターンを避ける時" class="headerlink" title="このパターンを避ける時"></a>このパターンを避ける時</h2><p>プロトタイプのプロパティのスコープを慎重にしている限り、このパターンを使用するのは非常に安全です（バグを生成する可能性は低いです）。</p>
 <p>ただし、他の開発者との間で混乱を引き起こすことがあります。例えば、<code>this.$http</code> を見て、「ああ、私はこの Vue の機能について知らなかった！」と思うかもしれません。 その後、彼らは別のプロジェクトに移り、<code>this.$http</code> が定義されていなかった場合は混乱します。 あるいは、Google で <code>this.$http</code> で何かできないか調べたいかもしれませんが、実際は Axios を別名で使用していることを認識していないため、何も見つけることはできません。</p>
 <p><strong>この利便性は明確さとのトレードオフです</strong>。コンポーネントを見たとき、<code>$http</code> がどこから来たのかを知ることは不可能です。Vue 本体ですか？プラグインですか？それとも同僚ですか？</p>
@@ -513,7 +524,8 @@
     &#125;
   &#125;
 &#125;)</code></pre>
-<p class="tip"><code>Object.freeze</code> で眉を釣り上げましたか？これはオブジェクトのプロパティを固定するメソッドです。これは基本的にすべてのプロパティを固定し、将来、 state バグからあなたを守ります。</p>
+
+<p class="tip">`Object.freeze` で眉を釣り上げましたか？これはオブジェクトのプロパティを固定するメソッドです。これは基本的にすべてのプロパティを固定し、将来、 state バグからあなたを守ります。</p>
 
 <p>これらの共有プロパティのソースははるかに明白です。アプリケーションのどこかに定義された <code>App</code> オブジェクトがあります。これを見つけるためには、開発者はプロジェクト全体の検索を実行するだけです。</p>
 <p>もう1つの利点は、Vue 関連だろうとなかろうと、あなたのコードでは <code>App</code> が <em>anywhere</em> で使用できるようになりました。これでインスタンスに直接オプションを追加する必要がなくなり、関数で <code>this</code> からプロパティにアクセスする必要がなくなりました。</p>
@@ -525,6 +537,7 @@
     <span class="hljs-attr">reverseText</span>: App.helpers.reverseText
   &#125;
 &#125;)</code></pre>
+
 <h3 id="モジュールシステムを使用する場合"><a href="#モジュールシステムを使用する場合" class="headerlink" title="モジュールシステムを使用する場合"></a>モジュールシステムを使用する場合</h3><p>モジュールシステムにアクセスができると、共有されたコードをモジュールへ簡単に統合できます。必要な場所で<code>require</code>/<code>import</code> を行なってください。<br>これはとてもわかりやすく、各ファイルで依存関係のリストが正確に得られます。それにより、あなたはそれぞれのコードがどこからのコードかを正確に知ることができます。</p>
 <p>冗長ですが、このアプローチは、他の開発者と働いたり、大規模なアプリケーションを開発する際に、最も保守性が高いです。</p>
 

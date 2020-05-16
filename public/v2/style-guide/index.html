@@ -343,20 +343,28 @@
 <h4 id="悪い例"><a href="#悪い例" class="headerlink" title="悪い例"></a>悪い例</h4><pre><code class="hljs js">Vue.component(<span class="hljs-string">'todo'</span>, &#123;
   <span class="hljs-comment">// ...</span>
 &#125;)</code></pre>
+
 <pre><code class="hljs js"><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> &#123;
   <span class="hljs-attr">name</span>: <span class="hljs-string">'Todo'</span>,
   <span class="hljs-comment">// ...</span>
 &#125;</code></pre>
+
 </div>
+
 <div class="style-example example-good">
 <h4 id="良い例"><a href="#良い例" class="headerlink" title="良い例"></a>良い例</h4><pre><code class="hljs js">Vue.component(<span class="hljs-string">'todo-item'</span>, &#123;
   <span class="hljs-comment">// ...</span>
 &#125;)</code></pre>
+
 <pre><code class="hljs js"><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> &#123;
   <span class="hljs-attr">name</span>: <span class="hljs-string">'TodoItem'</span>,
   <span class="hljs-comment">// ...</span>
 &#125;</code></pre>
+
 </div>
+
+
+
 <h3 id="コンポーネントのデータ-必須"><a href="#コンポーネントのデータ-必須" class="headerlink" title="コンポーネントのデータ 必須"></a>コンポーネントのデータ <sup data-p="a">必須</sup></h3><p><strong>コンポーネントの <code>data</code> は関数でなければなりません。</strong></p>
 <p>コンポーネントで <code>data</code> プロパティを使用する際 (つまり <code>new Vue</code> 以外のどこでも)、その値はオブジェクトを返す関数でなければなりません。</p>
 
@@ -365,11 +373,13 @@
   <h4>詳細な説明</h4>
 </summary>
 
+
 <p><code>data</code> の値がオブジェクトの時、それはコンポーネントの全てのインスタンスで共有されます。例として、このデータを持つ <code>TodoList</code> コンポーネントを想像してみましょう:</p>
 <pre><code class="hljs js">data: &#123;
   <span class="hljs-attr">listTitle</span>: <span class="hljs-string">''</span>,
   <span class="hljs-attr">todos</span>: []
 &#125;</code></pre>
+
 <p>私たちは、ユーザーが複数のリスト(例えば 買い物、ウィッシュリスト、毎日の仕事など)を管理できるように、このコンポーネントを再利用したいかもしれません。しかし問題があります。コンポーネントの全てのインスタンスが同じデータオブジェクトを参照しているので、1つのリストのタイトルを変えることは、他の全てのリストのタイトルを変えることになるでしょう。1つの todo を追加/編集/削除する場合も同様です。</p>
 <p>代わりに、各コンポーネントのインスタンスにはそれ自身のデータだけを管理してもらいたいです。そのためには、各インスタンスは一意のデータオブジェクトを生成しなければなりません。 JavaScript において、それは関数内でオブジェクトを返すことにより達成されます。</p>
 <pre><code class="hljs js">data: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;
@@ -378,19 +388,24 @@
     <span class="hljs-attr">todos</span>: []
   &#125;
 &#125;</code></pre>
+
 </details>
+
 <div class="style-example example-bad">
 <h4 id="悪い例-1"><a href="#悪い例-1" class="headerlink" title="悪い例"></a>悪い例</h4><pre><code class="hljs js">Vue.component(<span class="hljs-string">'some-comp'</span>, &#123;
   <span class="hljs-attr">data</span>: &#123;
     <span class="hljs-attr">foo</span>: <span class="hljs-string">'bar'</span>
   &#125;
 &#125;)</code></pre>
+
 <pre><code class="hljs js"><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> &#123;
   <span class="hljs-attr">data</span>: &#123;
     <span class="hljs-attr">foo</span>: <span class="hljs-string">'bar'</span>
   &#125;
 &#125;</code></pre>
+
 </div>
+
 <div class="style-example example-good">
 <h4 id="良い例-1"><a href="#良い例-1" class="headerlink" title="良い例"></a>良い例</h4><pre><code class="hljs js">Vue.component(<span class="hljs-string">'some-comp'</span>, &#123;
   <span class="hljs-attr">data</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;
@@ -399,6 +414,7 @@
     &#125;
   &#125;
 &#125;)</code></pre>
+
 <pre><code class="hljs js"><span class="hljs-comment">// .vue ファイル内</span>
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> &#123;
   data () &#123;
@@ -407,6 +423,7 @@
     &#125;
   &#125;
 &#125;</code></pre>
+
 <pre><code class="hljs js"><span class="hljs-comment">// ルートで直接オブジェクトを使うのは OK です</span>
 <span class="hljs-comment">// なぜなら Vue インスタンスはずっと存在する唯一のインスタンスだからです</span>
 <span class="hljs-keyword">new</span> Vue(&#123;
@@ -414,7 +431,11 @@
     <span class="hljs-attr">foo</span>: <span class="hljs-string">'bar'</span>
   &#125;
 &#125;)</code></pre>
+
 </div>
+
+
+
 <h3 id="プロパティの定義-必須"><a href="#プロパティの定義-必須" class="headerlink" title="プロパティの定義 必須"></a>プロパティの定義 <sup data-p="a">必須</sup></h3><p><strong>プロパティの定義はできる限り詳細とするべきです。</strong></p>
 <p>コミットされたコード内で、プロパティの定義は常に少なくとも1つのタイプを指定し、できる限り詳細とするべきです。</p>
 
@@ -423,20 +444,25 @@
   <h4>詳細な説明</h4>
 </summary>
 
+
 <p>詳細な <a href="../guide/components-props.html#%E3%83%97%E3%83%AD%E3%83%91%E3%83%86%E3%82%A3%E3%81%AE%E3%83%90%E3%83%AA%E3%83%87%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3">プロパティの定義</a> には2つの利点があります:</p>
 <ul>
 <li>それらはコンポーネントの API を記録するため、そのコンポーネントの使用方法が簡単に分かります。</li>
 <li>開発中にもしコンポーネントに対して誤った設定のプロパティが提供されたら、 Vue はあなたに警告します。それは潜在的なエラー原因の検知に役立ちます。</li>
 </ul>
 </details>
+
 <div class="style-example example-bad">
 <h4 id="悪い例-2"><a href="#悪い例-2" class="headerlink" title="悪い例"></a>悪い例</h4><pre><code class="hljs js"><span class="hljs-comment">// プロトタイピングの時だけ OK</span>
 props: [<span class="hljs-string">'status'</span>]</code></pre>
+
 </div>
+
 <div class="style-example example-good">
 <h4 id="良い例-2"><a href="#良い例-2" class="headerlink" title="良い例"></a>良い例</h4><pre><code class="hljs js">props: &#123;
   <span class="hljs-attr">status</span>: <span class="hljs-built_in">String</span>
 &#125;</code></pre>
+
 <pre><code class="hljs js"><span class="hljs-comment">// さらに良いです!</span>
 props: &#123;
   <span class="hljs-attr">status</span>: &#123;
@@ -452,7 +478,11 @@ props: &#123;
     &#125;
   &#125;
 &#125;</code></pre>
+
 </div>
+
+
+
 <h3 id="キー付き-v-for-必須"><a href="#キー付き-v-for-必須" class="headerlink" title="キー付き v-for 必須"></a>キー付き <code>v-for</code> <sup data-p="a">必須</sup></h3><p><strong>常に <code>v-for</code> に対しては <code>key</code> を使用してください。</strong></p>
 <p>サブツリー下に内部コンポーネントの状態を維持するために <code>v-for</code> に <code>key</code> は <em>常に</em> コンポーネントに必要です。それが要素の場合においても、 アニメーションにおける <a href="https://bost.ocks.org/mike/constancy/" target="_blank" rel="noopener">オブジェクトの一貫性</a> のような予測可能な振る舞いを維持するためには良い手法でしょう。</p>
 
@@ -460,6 +490,7 @@ props: &#123;
 <summary>
   <h4>詳細な説明</h4>
 </summary>
+
 
 <p>TODO リストを持っているとしましょう:</p>
 <pre><code class="hljs js">data: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;
@@ -476,17 +507,21 @@ props: &#123;
     ]
   &#125;
 &#125;</code></pre>
+
 <p>アルファベット順に並べ替えます。 DOM を更新する時、 Vue はできる限りコストをかけずに DOM 変化を実行するために描画を最適化します。それは、最初の todo 要素を削除してから、それを再びリストの最後に加えることを意味します。</p>
 <p>問題は、 DOM に残る要素を削除しないことが重要な場合があることです。例えば、リストの並び替えに <code>&lt;transition-group&gt;</code> を使いたいかもしれないですし、描画された要素が <code>&lt;input&gt;</code> の場合は、フォーカスを維持したいかもしれません。このような場合には、各アイテムに対して一意のキー (つまり <code>:key=&quot;todo.id&quot;</code> ) を与えることによって、 Vue により予測可能な振る舞いを伝えることができます。</p>
 <p>私たちの経験では、 <em>常に</em> 一意のキーを与える方が良いので、あなたやあなたのチームはこれらのエッジケースについて心配する必要はありません。稀に、オブジェクトの一貫性が必要とされないパフォーマンスが重要なシナリオにおいては、意識的に例外を作ることはできます。</p>
 </details>
+
 <div class="style-example example-bad">
 <h4 id="悪い例-3"><a href="#悪い例-3" class="headerlink" title="悪い例"></a>悪い例</h4><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">ul</span>&gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-name">li</span> <span class="hljs-attr">v-for</span>=<span class="hljs-string">"todo in todos"</span>&gt;</span>
     &#123;&#123; todo.text &#125;&#125;
   <span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span></code></pre>
+
 </div>
+
 <div class="style-example example-good">
 <h4 id="良い例-3"><a href="#良い例-3" class="headerlink" title="良い例"></a>良い例</h4><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">ul</span>&gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-name">li</span>
@@ -496,7 +531,11 @@ props: &#123;
     &#123;&#123; todo.text &#125;&#125;
   <span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span></code></pre>
+
 </div>
+
+
+
 <h3 id="v-for-と一緒に-v-if-を使うのを避ける-必須"><a href="#v-for-と一緒に-v-if-を使うのを避ける-必須" class="headerlink" title="v-for と一緒に v-if を使うのを避ける 必須"></a><code>v-for</code> と一緒に <code>v-if</code> を使うのを避ける <sup data-p="a">必須</sup></h3><p><strong><code>v-for</code> と同じ要素に <code>v-if</code> を使わないでください。</strong></p>
 <p>こうしたくなってしまう2つの一般的なケースがあります:</p>
 <ul>
@@ -511,6 +550,7 @@ props: &#123;
   <h4>詳細な説明</h4>
 </summary>
 
+
 <p>Vue がディレクティブを処理するとき、<code>v-for</code>は <code>v-if</code> よりも優先度が高いので、このテンプレートは、</p>
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">ul</span>&gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-name">li</span>
@@ -521,12 +561,14 @@ props: &#123;
     &#123;&#123; user.name &#125;&#125;
   <span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span></code></pre>
+
 <p>以下と同様に評価されます:</p>
 <pre><code class="hljs js"><span class="hljs-keyword">this</span>.users.map(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">user</span>) </span>&#123;
   <span class="hljs-keyword">if</span> (user.isActive) &#123;
     <span class="hljs-keyword">return</span> user.name
   &#125;
 &#125;)</code></pre>
+
 <p>たとえほんの少しのユーザーだけをレンダリングする場合でも、アクティブユーザーが変更されたかどうかに関わらず、再レンダリングするたびにリスト全体を繰り返し処理する必要があります。</p>
 <p>代わりに算出プロパティを繰り返し処理すると、次のようになります:</p>
 <pre><code class="hljs js">computed: &#123;
@@ -536,6 +578,7 @@ props: &#123;
     &#125;)
   &#125;
 &#125;</code></pre>
+
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">ul</span>&gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-name">li</span>
     <span class="hljs-attr">v-for</span>=<span class="hljs-string">"user in activeUsers"</span>
@@ -544,10 +587,11 @@ props: &#123;
     &#123;&#123; user.name &#125;&#125;
   <span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span></code></pre>
+
 <p>以下のような利点を得ます:</p>
 <ul>
-<li>フィルタリングされたリストは <code>users</code> 配列に関連する変更があった場合に _のみ_ 再評価されるので、フィルタリングがはるかに効率的になります。</li>
-<li><code>v-for=&quot;user in activeUsers&quot;</code> を使用して、描画中にアクティブユーザー _のみ_ 繰り返し処理するので、描画がはるかに効率的になります。</li>
+<li>フィルタリングされたリストは <code>users</code> 配列に関連する変更があった場合に <em>のみ</em> 再評価されるので、フィルタリングがはるかに効率的になります。</li>
+<li><code>v-for=&quot;user in activeUsers&quot;</code> を使用して、描画中にアクティブユーザー <em>のみ</em> 繰り返し処理するので、描画がはるかに効率的になります。</li>
 <li>ロジックがプレゼンテーションレイヤから切り離され、メンテナンス(ロジックの変更/拡張)がはるかに容易になります。</li>
 </ul>
 <p>更新でも同様のメリットが得られます:</p>
@@ -560,6 +604,7 @@ props: &#123;
     &#123;&#123; user.name &#125;&#125;
   <span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span></code></pre>
+
 <p>は以下のように書き換えられます:</p>
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">ul</span> <span class="hljs-attr">v-if</span>=<span class="hljs-string">"shouldShowUsers"</span>&gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-name">li</span>
@@ -569,8 +614,10 @@ props: &#123;
     &#123;&#123; user.name &#125;&#125;
   <span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span></code></pre>
+
 <p><code>v-if</code> をコンテナ要素に移動することで、リスト内の <em>すべての</em> ユーザーに対して <code>shouldShowUsers</code> をチェックしなくなりました。代わりに、それを一度チェックし、<code>shouldShowUsers</code>が false の場合は <code>v-for</code> を評価しません。</p>
 </details>
+
 <div class="style-example example-bad">
 <h4 id="悪い例-4"><a href="#悪い例-4" class="headerlink" title="悪い例"></a>悪い例</h4><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">ul</span>&gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-name">li</span>
@@ -581,6 +628,7 @@ props: &#123;
     &#123;&#123; user.name &#125;&#125;
   <span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span></code></pre>
+
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">ul</span>&gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-name">li</span>
     <span class="hljs-attr">v-for</span>=<span class="hljs-string">"user in users"</span>
@@ -590,7 +638,9 @@ props: &#123;
     &#123;&#123; user.name &#125;&#125;
   <span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span></code></pre>
+
 </div>
+
 <div class="style-example example-good">
 <h4 id="良い例-4"><a href="#良い例-4" class="headerlink" title="良い例"></a>良い例</h4><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">ul</span>&gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-name">li</span>
@@ -600,6 +650,7 @@ props: &#123;
     &#123;&#123; user.name &#125;&#125;
   <span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span></code></pre>
+
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">ul</span> <span class="hljs-attr">v-if</span>=<span class="hljs-string">"shouldShowUsers"</span>&gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-name">li</span>
     <span class="hljs-attr">v-for</span>=<span class="hljs-string">"user in users"</span>
@@ -608,9 +659,13 @@ props: &#123;
     &#123;&#123; user.name &#125;&#125;
   <span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span></code></pre>
+
 </div>
+
+
+
 <h3 id="コンポーネントスタイルのスコープ-必須"><a href="#コンポーネントスタイルのスコープ-必須" class="headerlink" title="コンポーネントスタイルのスコープ 必須"></a>コンポーネントスタイルのスコープ <sup data-p="a">必須</sup></h3><p><strong>アプリケーションにとって、トップレベルの <code>App</code> コンポーネントとレイアウトコンポーネント内のスタイルはグローバルかもしれませんが、他のすべてのコンポーネントは常にスコープされているべきです。</strong></p>
-<p>これは<a href="../guide/single-file-components.html">単一ファイルコンポーネント</a>にのみ関係します。 <a href="https://vue-loader.vuejs.org/en/features/scoped-css.html" target="_blank" rel="noopener"><code>scoped</code> 属性</a>の使用は必須<em>ではありません</em>。スコープは <a href="https://vue-loader.vuejs.org/en/features/css-modules.html" target="_blank" rel="noopener">CSS modules</a> 、 <a href="http://getbem.com/" target="_blank" rel="noopener">BEM</a> のようなクラスに基づいた戦略、あるいは他のライブラリや慣例を介して行うことができます。</p>
+<p>これは<a href="../guide/single-file-components.html">単一ファイルコンポーネント</a>にのみ関係します。 <a href="https://vue-loader.vuejs.org/en/features/scoped-css.html" target="_blank" rel="noopener"><code>scoped</code> 属性</a>の使用は必須_ではありません_。スコープは <a href="https://vue-loader.vuejs.org/en/features/css-modules.html" target="_blank" rel="noopener">CSS modules</a> 、 <a href="http://getbem.com/" target="_blank" rel="noopener">BEM</a> のようなクラスに基づいた戦略、あるいは他のライブラリや慣例を介して行うことができます。</p>
 <p><strong>しかしながら、コンポーネントライブラリでは <code>scoped</code> 属性を使用する代わりに、クラスに基づいた戦略の方がむしろ好ましいです。</strong></p>
 <p>これは内部スタイルの上書きを容易にし、人間が読みやすいクラス名は高い詳細度を持ちませんが、しかし依然として衝突する可能性はほとんどありません。</p>
 
@@ -619,9 +674,11 @@ props: &#123;
   <h4>詳細な説明</h4>
 </summary>
 
+
 <p>もしあなたが、他の開発者と一緒に、あるいは時々サードパーティ(例えば Auth0 から)の HTML/CSS を含んだりする大きなプロジェクトを開発しているのなら、一貫したスコープは意図されたコンポーネントだけにあなたのスタイルを適用することを保証します。</p>
 <p><code>scoped</code> 属性を超えて、一意のクラス名を使うことはサードパーティの CSS があなたの HTML に適用されないことを保証するのに役立ちます。 例えば、多くのプロジェクトは <code>button</code> 、 <code>btn</code> 、 や <code>icon</code> のようなクラス名を使っているので、たとえ BEM のような戦略を使わなくても、アプリケーション固有 かつ/あるいは コンポーネント固有のプレフィックス(例 <code>ButtonClose-icon</code> )を付与することはいくらかの防御になります。</p>
 </details>
+
 <div class="style-example example-bad">
 <h4 id="悪い例-5"><a href="#悪い例-5" class="headerlink" title="悪い例"></a>悪い例</h4><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">template</span>&gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"btn btn-close"</span>&gt;</span>X<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
@@ -632,7 +689,9 @@ props: &#123;
   <span class="hljs-attribute">background-color</span>: red;
 &#125;
 </span><span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span></code></pre>
+
 </div>
+
 <div class="style-example example-good">
 <h4 id="良い例-5"><a href="#良い例-5" class="headerlink" title="良い例"></a>良い例</h4><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">template</span>&gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"button button-close"</span>&gt;</span>X<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
@@ -649,6 +708,7 @@ props: &#123;
   <span class="hljs-attribute">background-color</span>: red;
 &#125;
 </span><span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span></code></pre>
+
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">template</span>&gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">:class</span>=<span class="hljs-string">"[$style.button, $style.buttonClose]"</span>&gt;</span>X<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span>
@@ -664,6 +724,7 @@ props: &#123;
   <span class="hljs-attribute">background-color</span>: red;
 &#125;
 </span><span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span></code></pre>
+
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">template</span>&gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"c-Button c-Button--close"</span>&gt;</span>X<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span>
@@ -679,7 +740,11 @@ props: &#123;
   <span class="hljs-attribute">background-color</span>: red;
 &#125;
 </span><span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span></code></pre>
+
 </div>
+
+
+
 <h3 id="プライベートなプロパティ名-必須"><a href="#プライベートなプロパティ名-必須" class="headerlink" title="プライベートなプロパティ名 必須"></a>プライベートなプロパティ名 <sup data-p="a">必須</sup></h3><p><strong>プライベートな関数に外部からアクセスできないようにするために、モジュールスコープを使用してください。それが難しい場合は、プラグインやミックスインなどのプライベートなカスタムプロパティには常に <code>$_</code> プレフィックスを使用してください。さらに、他の著者によるコードとの衝突を避けるため、名前付きのスコープを含めてください (例 <code>$_yourPluginName_</code> )。</strong></p>
 
 <details>
@@ -687,10 +752,12 @@ props: &#123;
   <h4>詳細な説明</h4>
 </summary>
 
+
 <p>Vue は、それ自体のプライベートなプロパティを定義するために <code>_</code> プレフィックスを使用しているので、同じプレフィックス(例 <code>_update</code> )を使用することはインスタンスのプロパティを上書きする危険があります。たとえ Vue が現在特定のプロパティ名を使用していないことを確認するとしても、後のバージョンで衝突が起きないという保証はありません。</p>
-<p><code>$</code> プレフィックスについて、 Vue のエコシステム間でのその目的はユーザーに公開される特別なインスタンスのプロパティなので、それを <em>プライベートな</em>プロパティに対して使用するのは適切ではありません。</p>
+<p><code>$</code> プレフィックスについて、 Vue のエコシステム間でのその目的はユーザーに公開される特別なインスタンスのプロパティなので、それを _プライベートな_プロパティに対して使用するのは適切ではありません。</p>
 <p>代わりに、 Vue と衝突しないユーザー定義されたプライベートなプロパティの慣例として、2つのプレフィックスを組み合わせて <code>$_</code> にすることを推奨します。</p>
 </details>
+
 <div class="style-example example-bad">
 <h4 id="悪い例-6"><a href="#悪い例-6" class="headerlink" title="悪い例"></a>悪い例</h4><pre><code class="hljs js"><span class="hljs-keyword">var</span> myGreatMixin = &#123;
   <span class="hljs-comment">// ...</span>
@@ -700,6 +767,7 @@ props: &#123;
     &#125;
   &#125;
 &#125;</code></pre>
+
 <pre><code class="hljs js"><span class="hljs-keyword">var</span> myGreatMixin = &#123;
   <span class="hljs-comment">// ...</span>
   methods: &#123;
@@ -708,6 +776,7 @@ props: &#123;
     &#125;
   &#125;
 &#125;</code></pre>
+
 <pre><code class="hljs js"><span class="hljs-keyword">var</span> myGreatMixin = &#123;
   <span class="hljs-comment">// ...</span>
   methods: &#123;
@@ -716,6 +785,7 @@ props: &#123;
     &#125;
   &#125;
 &#125;</code></pre>
+
 <pre><code class="hljs js"><span class="hljs-keyword">var</span> myGreatMixin = &#123;
   <span class="hljs-comment">// ...</span>
   methods: &#123;
@@ -724,7 +794,9 @@ props: &#123;
     &#125;
   &#125;
 &#125;</code></pre>
+
 </div>
+
 <div class="style-example example-good">
 <h4 id="良い例-6"><a href="#良い例-6" class="headerlink" title="良い例"></a>良い例</h4><pre><code class="hljs js"><span class="hljs-keyword">var</span> myGreatMixin = &#123;
   <span class="hljs-comment">// ...</span>
@@ -734,6 +806,7 @@ props: &#123;
     &#125;
   &#125;
 &#125;</code></pre>
+
 <pre><code class="hljs js"><span class="hljs-comment">// さらによい!</span>
 <span class="hljs-keyword">var</span> myGreatMixin = &#123;
   <span class="hljs-comment">// ...</span>
@@ -750,7 +823,11 @@ props: &#123;
 &#125;
 
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> myGreatMixin</code></pre>
+
 </div>
+
+
+
 <h2 id="優先度B-のルール-強く推奨-読みやすさの向上"><a href="#優先度B-のルール-強く推奨-読みやすさの向上" class="headerlink" title="優先度B のルール: 強く推奨 (読みやすさの向上)"></a>優先度B のルール: 強く推奨 (読みやすさの向上)</h2><h3 id="コンポーネントのファイル-強く推奨"><a href="#コンポーネントのファイル-強く推奨" class="headerlink" title="コンポーネントのファイル 強く推奨"></a>コンポーネントのファイル <sup data-p="b">強く推奨</sup></h3><p><strong>ファイルを結合してくれるビルドシステムがあるときは必ず、各コンポーネントはそれぞれ別のファイルに書くべきです。</strong></p>
 <p>そうすれば、コンポーネントを編集したり使い方を確認するときにより素早く見つけることができます。</p>
 <div class="style-example example-bad">
@@ -761,35 +838,51 @@ props: &#123;
 Vue.component(<span class="hljs-string">'TodoItem'</span>, &#123;
   <span class="hljs-comment">// ...</span>
 &#125;)</code></pre>
+
 </div>
+
 <div class="style-example example-good">
 <h4 id="良い例-7"><a href="#良い例-7" class="headerlink" title="良い例"></a>良い例</h4><pre><code class="hljs undefined">components/
 |- TodoList.js
 |- TodoItem.js</code></pre>
+
 <pre><code class="hljs undefined">components/
 |- TodoList.vue
 |- TodoItem.vue</code></pre>
+
 </div>
+
+
+
 <h3 id="単一ファイルコンポーネントのファイル名の形式-強く推奨"><a href="#単一ファイルコンポーネントのファイル名の形式-強く推奨" class="headerlink" title="単一ファイルコンポーネントのファイル名の形式 強く推奨"></a>単一ファイルコンポーネントのファイル名の形式 <sup data-p="b">強く推奨</sup></h3><p><strong><a href="../guide/single-file-components.html">単一ファイルコンポーネント</a> のファイル名は、すべてパスカルケース (PascalCase) にするか、すべてケバブケース (kebab-case) にするべきです。</strong></p>
 <p>パスカルケースは、JS(X) やテンプレートの中でコンポーネントを参照する方法と一致しているので、コードエディタ上でオートコンプリートが可能な場合はとてもうまく働きます。しかし、大文字と小文字が混ざったファイル名は、大文字と小文字を区別しないファイルシステム上で時々問題を起こす可能性があります。そのため、ケバブケースもまた完全に受け入れられています。</p>
 <div class="style-example example-bad">
 <h4 id="悪い例-8"><a href="#悪い例-8" class="headerlink" title="悪い例"></a>悪い例</h4><pre><code class="hljs undefined">components/
 |- mycomponent.vue</code></pre>
+
 <pre><code class="hljs undefined">components/
 |- myComponent.vue</code></pre>
+
 </div>
+
 <div class="style-example example-good">
 <h4 id="良い例-8"><a href="#良い例-8" class="headerlink" title="良い例"></a>良い例</h4><pre><code class="hljs undefined">components/
 |- MyComponent.vue</code></pre>
+
 <pre><code class="hljs undefined">components/
 |- my-component.vue</code></pre>
+
 </div>
+
+
+
 <h3 id="基底コンポーネントの名前-強く推奨"><a href="#基底コンポーネントの名前-強く推奨" class="headerlink" title="基底コンポーネントの名前 強く推奨"></a>基底コンポーネントの名前 <sup data-p="b">強く推奨</sup></h3><p><strong>アプリケーション特有のスタイルやルールを適用する基底コンポーネント (またはプレゼンテーションコンポーネント: Presentation Components、ダムコンポーネント: Dumb Components、純粋コンポーネント: Pure Components とも) は、すべて <code>Base</code> 、 <code>App</code> 、<code>V</code> などの固有のプレフィックスで始まるべきです。</strong></p>
 
 <details>
 <summary>
   <h4>詳細な説明</h4>
 </summary>
+
 
 <p>これらのコンポーネントは、あなたのアプリケーションに一貫したスタイルやふるまいをもたせる基礎として位置づけられます。これらは、おそらく以下のもの <strong>だけ</strong> を含むでしょう:</p>
 <ul>
@@ -816,41 +909,57 @@ requireComponent.keys().forEach(<span class="hljs-function"><span class="hljs-ke
   )
   Vue.component(baseComponentName, baseComponentConfig)
 &#125;)</code></pre>
+
 </li>
 </ul>
 </details>
+
 <div class="style-example example-bad">
 <h4 id="悪い例-9"><a href="#悪い例-9" class="headerlink" title="悪い例"></a>悪い例</h4><pre><code class="hljs undefined">components/
 |- MyButton.vue
 |- VueTable.vue
 |- Icon.vue</code></pre>
+
 </div>
+
 <div class="style-example example-good">
 <h4 id="良い例-9"><a href="#良い例-9" class="headerlink" title="良い例"></a>良い例</h4><pre><code class="hljs undefined">components/
 |- BaseButton.vue
 |- BaseTable.vue
 |- BaseIcon.vue</code></pre>
+
 <pre><code class="hljs undefined">components/
 |- AppButton.vue
 |- AppTable.vue
 |- AppIcon.vue</code></pre>
+
 <pre><code class="hljs undefined">components/
 |- VButton.vue
 |- VTable.vue
 |- VIcon.vue</code></pre>
+
 </div>
+
+
+
 <h3 id="単一インスタンスのコンポーネント名-強く推奨"><a href="#単一インスタンスのコンポーネント名-強く推奨" class="headerlink" title="単一インスタンスのコンポーネント名 強く推奨"></a>単一インスタンスのコンポーネント名 <sup data-p="b">強く推奨</sup></h3><p><strong>常に 1 つのアクティブなインスタンスしか持たないコンポーネントは、1 つしか存在しえないことを示すために <code>The</code> というプレフィックスで始めるべきです。</strong></p>
 <p>これはそのコンポーネントが 1 つのページでしか使われないということを意味するのではなく、 <em>ページごとに</em>  1 回しか使われないという意味です。これらのコンポーネントは、アプリケーション内のコンテキストではなく、アプリケーションに対して固有のため、決してプロパティを受け入れることはありません。もしプロパティを追加する必要があることに気づいたのなら、それは <em>現時点で</em> ページごとに 1 回しか使われていないだけで、実際には再利用可能なコンポーネントだということを示すよい目印です。</p>
 <div class="style-example example-bad">
 <h4 id="悪い例-10"><a href="#悪い例-10" class="headerlink" title="悪い例"></a>悪い例</h4><pre><code class="hljs undefined">components/
 |- Heading.vue
 |- MySidebar.vue</code></pre>
+
 </div>
+
 <div class="style-example example-good">
 <h4 id="良い例-10"><a href="#良い例-10" class="headerlink" title="良い例"></a>良い例</h4><pre><code class="hljs undefined">components/
 |- TheHeading.vue
 |- TheSidebar.vue</code></pre>
+
 </div>
+
+
+
 <h3 id="密結合コンポーネントの名前-強く推奨"><a href="#密結合コンポーネントの名前-強く推奨" class="headerlink" title="密結合コンポーネントの名前 強く推奨"></a>密結合コンポーネントの名前 <sup data-p="b">強く推奨</sup></h3><p><strong>親コンポーネントと密結合した子コンポーネントには、親コンポーネントの名前をプレフィックスとして含むべきです。</strong></p>
 <p>もし、コンポーネントが単一の親コンポーネントの中でだけ意味をもつものなら、その関連性は名前からはっきりわかるようにするべきです。一般的にエディタはファイルをアルファベット順に並べるので、関連をもつものどうしが常に隣り合って並ぶことにもなります。</p>
 
@@ -859,6 +968,7 @@ requireComponent.keys().forEach(<span class="hljs-function"><span class="hljs-ke
   <h4>詳細な説明</h4>
 </summary>
 
+
 <p>この問題を、子コンポーネントを親コンポーネントの名前を元に命名したディレクトリの中に入れることで解決したいと思うかもしれません。<br>例えば:</p>
 <pre><code class="hljs undefined">components/
 |- TodoList/
@@ -866,6 +976,7 @@ requireComponent.keys().forEach(<span class="hljs-function"><span class="hljs-ke
       |- index.vue
       |- Button.vue
    |- index.vue</code></pre>
+
 <p>もしくは:</p>
 <pre><code class="hljs undefined">components/
 |- TodoList/
@@ -873,36 +984,47 @@ requireComponent.keys().forEach(<span class="hljs-function"><span class="hljs-ke
       |- Button.vue
    |- Item.vue
 |- TodoList.vue</code></pre>
+
 <p>これは推奨されません。以下のような結果を生むからです:</p>
 <ul>
 <li>同じような名前のファイルがたくさんできてしまい、コードエディタ上で素早くファイルを切り替えるのが難しくなります。</li>
 <li>ネストしたサブディレクトリがたくさんできてしまい、エディタのサイドバーでコンポーネントを参照するのに時間がかかるようになります。</li>
 </ul>
 </details>
+
 <div class="style-example example-bad">
 <h4 id="悪い例-11"><a href="#悪い例-11" class="headerlink" title="悪い例"></a>悪い例</h4><pre><code class="hljs undefined">components/
 |- TodoList.vue
 |- TodoItem.vue
 |- TodoButton.vue</code></pre>
+
 <pre><code class="hljs undefined">components/
 |- SearchSidebar.vue
 |- NavigationForSearchSidebar.vue</code></pre>
+
 </div>
+
 <div class="style-example example-good">
 <h4 id="良い例-11"><a href="#良い例-11" class="headerlink" title="良い例"></a>良い例</h4><pre><code class="hljs undefined">components/
 |- TodoList.vue
 |- TodoListItem.vue
 |- TodoListItemButton.vue</code></pre>
+
 <pre><code class="hljs undefined">components/
 |- SearchSidebar.vue
 |- SearchSidebarNavigation.vue</code></pre>
+
 </div>
+
+
+
 <h3 id="コンポーネント名における単語の順番-強く推奨"><a href="#コンポーネント名における単語の順番-強く推奨" class="headerlink" title="コンポーネント名における単語の順番 強く推奨"></a>コンポーネント名における単語の順番 <sup data-p="b">強く推奨</sup></h3><p><strong>コンポーネント名は、最高レベルの(たいていは最も一般的な)単語から始めて、説明的な修飾語で終わるべきです。</strong></p>
 
 <details>
 <summary>
   <h4>詳細な説明</h4>
 </summary>
+
 
 <p>あなたは疑問に思うかもしれません:</p>
 <blockquote>
@@ -923,6 +1045,7 @@ requireComponent.keys().forEach(<span class="hljs-function"><span class="hljs-ke
 |- RunSearchButton.vue
 |- SearchInput.vue
 |- TermsCheckbox.vue</code></pre>
+
 <p>あなたも気づいたと思いますが、これではどのコンポーネントが検索に特有のものなのかとても分かりづらいです。では、このルールに従ってコンポーネントの名前を変えてみましょう。</p>
 <pre><code class="hljs undefined">components/
 |- SearchButtonClear.vue
@@ -931,12 +1054,14 @@ requireComponent.keys().forEach(<span class="hljs-function"><span class="hljs-ke
 |- SearchInputQuery.vue
 |- SettingsCheckboxLaunchOnStartup.vue
 |- SettingsCheckboxTerms.vue</code></pre>
+
 <p>一般的にエディタではファイルはアルファベット順に並ぶので、コンポーネント間のあらゆる重要な関連性はひと目ではっきりと分かります。</p>
 <p>あなたは、これを別の方法で解決したいと思うかもしれません。つまり、すべての検索コンポーネントは search ディレクトリの下に、すべての設定コンポーネントは settings ディレクトリの下にネストするという方法です。以下の理由から、とても大規模なアプリケーション(例えば 100 以上のコンポーネントがあるような)の場合に限ってこのアプローチを考慮することを推奨します:</p>
 <ul>
 <li>一般的に、入れ子のサブディレクトリの中を移動するのは、単一の components ディレクトリをスクロールするのと比べて余分に時間がかかります。</li>
 </ul>
 </details>
+
 <div class="style-example example-bad">
 <h4 id="悪い例-12"><a href="#悪い例-12" class="headerlink" title="悪い例"></a>悪い例</h4><pre><code class="hljs undefined">components/
 |- ClearSearchButton.vue
@@ -945,7 +1070,9 @@ requireComponent.keys().forEach(<span class="hljs-function"><span class="hljs-ke
 |- RunSearchButton.vue
 |- SearchInput.vue
 |- TermsCheckbox.vue</code></pre>
+
 </div>
+
 <div class="style-example example-good">
 <h4 id="良い例-12"><a href="#良い例-12" class="headerlink" title="良い例"></a>良い例</h4><pre><code class="hljs undefined">components/
 |- SearchButtonClear.vue
@@ -954,22 +1081,34 @@ requireComponent.keys().forEach(<span class="hljs-function"><span class="hljs-ke
 |- SearchInputExcludeGlob.vue
 |- SettingsCheckboxTerms.vue
 |- SettingsCheckboxLaunchOnStartup.vue</code></pre>
+
 </div>
+
+
+
 <h3 id="自己終了形式のコンポーネント-強く推奨"><a href="#自己終了形式のコンポーネント-強く推奨" class="headerlink" title="自己終了形式のコンポーネント 強く推奨"></a>自己終了形式のコンポーネント <sup data-p="b">強く推奨</sup></h3><p><strong>中身を持たないコンポーネントは、 <a href="../guide/single-file-components.html">単一ファイルコンポーネント</a> 、文字列テンプレート、および <a href="render-function.html#JSX">JSX</a> の中では自己終了形式で書くべきです。ただし、DOM テンプレート内ではそうしてはいけません。</strong></p>
 <p>自己終了形式のコンポーネントは、単に中身を持たないというだけでなく、中身を持たないことを <strong>意図したものだ</strong> ということをはっきりと表現します。本の中にある白紙のページと、「このページは意図的に白紙のままにしています」と書かれたページとは違うということです。また、不要な閉じタグがなくなることによってあなたのコードはより読みやすくなります。</p>
 <p>残念ながら、HTML はカスタム要素の自己終了形式を許していません。<a href="https://www.w3.org/TR/html/syntax.html#void-elements" target="_blank" rel="noopener">公式の「空」要素</a> だけです。これが、Vue のテンプレートコンパイラが DOM よりも先にテンプレートにアクセスして、その後 DOM の仕様に準拠した HTML を出力することができる場合にだけこの方策を使うことができる理由です。</p>
 <div class="style-example example-bad">
 <h4 id="悪い例-13"><a href="#悪い例-13" class="headerlink" title="悪い例"></a>悪い例</h4><pre><code class="hljs html"><span class="hljs-comment">&lt;!-- 単一ファイルコンポーネント、文字列テンプレート、JSX の中 --&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">MyComponent</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">MyComponent</span>&gt;</span></code></pre>
+
 <pre><code class="hljs html"><span class="hljs-comment">&lt;!-- DOM テンプレートの中 --&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">my-component</span>/&gt;</span></code></pre>
+
 </div>
+
 <div class="style-example example-good">
 <h4 id="良い例-13"><a href="#良い例-13" class="headerlink" title="良い例"></a>良い例</h4><pre><code class="hljs html"><span class="hljs-comment">&lt;!-- 単一ファイルコンポーネント、文字列テンプレート、JSX の中 --&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">MyComponent</span>/&gt;</span></code></pre>
+
 <pre><code class="hljs html"><span class="hljs-comment">&lt;!-- DOM テンプレートの中 --&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">my-component</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">my-component</span>&gt;</span></code></pre>
+
 </div>
+
+
+
 <h3 id="テンプレート内でのコンポーネント名の形式-強く推奨"><a href="#テンプレート内でのコンポーネント名の形式-強く推奨" class="headerlink" title="テンプレート内でのコンポーネント名の形式 強く推奨"></a>テンプレート内でのコンポーネント名の形式 <sup data-p="b">強く推奨</sup></h3><p><strong>ほとんどのプロジェクトでは、コンポーネント名は <a href="../guide/single-file-components.html">単一ファイルコンポーネント</a> と文字列テンプレートの中では常にパスカルケース(PascalCase)になるべきです。 - しかし、 DOM テンプレートの中ではケバブケース(kebab-case)です。</strong></p>
 <p>パスカルケースには、ケバブケースよりも優れた点がいくつかあります:</p>
 <ul>
@@ -982,26 +1121,37 @@ requireComponent.keys().forEach(<span class="hljs-function"><span class="hljs-ke
 <div class="style-example example-bad">
 <h4 id="悪い例-14"><a href="#悪い例-14" class="headerlink" title="悪い例"></a>悪い例</h4><pre><code class="hljs html"><span class="hljs-comment">&lt;!-- 単一ファイルコンポーネント、文字列テンプレートの中 --&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">mycomponent</span>/&gt;</span></code></pre>
+
 <pre><code class="hljs html"><span class="hljs-comment">&lt;!-- 単一ファイルコンポーネント、文字列テンプレートの中 --&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">myComponent</span>/&gt;</span></code></pre>
+
 <pre><code class="hljs html"><span class="hljs-comment">&lt;!-- DOM テンプレートの中 --&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">MyComponent</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">MyComponent</span>&gt;</span></code></pre>
+
 </div>
+
 <div class="style-example example-good">
 <h4 id="良い例-14"><a href="#良い例-14" class="headerlink" title="良い例"></a>良い例</h4><pre><code class="hljs html"><span class="hljs-comment">&lt;!-- 単一ファイルコンポーネント、文字列テンプレートの中 --&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">MyComponent</span>/&gt;</span></code></pre>
+
 <pre><code class="hljs html"><span class="hljs-comment">&lt;!-- DOM テンプレートの中 --&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">my-component</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">my-component</span>&gt;</span></code></pre>
+
 <p>または</p>
 <pre><code class="hljs html"><span class="hljs-comment">&lt;!-- どこでも --&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">my-component</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">my-component</span>&gt;</span></code></pre>
+
 </div>
+
+
+
 <h3 id="JS-JSX-内でのコンポーネント名の形式-強く推奨"><a href="#JS-JSX-内でのコンポーネント名の形式-強く推奨" class="headerlink" title="JS/JSX 内でのコンポーネント名の形式 強く推奨"></a>JS/JSX 内でのコンポーネント名の形式 <sup data-p="b">強く推奨</sup></h3><p><strong>JS/<a href="../guide/render-function.html#JSX">JSX</a> 内でのコンポーネント名はつねにパスカルケース(PascalCase)にするべきです。ただし、 <code>Vue.component</code> で登録したグローバルコンポーネントしか使わないような単純なアプリケーションでは、ケバブケース(kebab-case)を含む文字列になるかもしれません。</strong></p>
 
 <details>
 <summary>
   <h4>詳細な説明</h4>
 </summary>
+
 
 <p>JavaScript では、クラスやプロトタイプのコンストラクタは - 原則として異なるインスタンスを持ちうるものはすべて- パスカルケースにするのがしきたりです。Vue コンポーネントもインスタンスをもつので、同じようにパスカルケースにするのが理にかなっています。さらなる利点として、JSX(とテンプレート)の中でパスカルケースを使うことによって、コードを読む人がコンポーネントと HTML 要素をより簡単に見分けられるようになります。</p>
 <p>しかし、<code>Vue.component</code> によるグローバルコンポーネント定義 <strong>だけ</strong> を使うアプリケーションでは、代わりにケバブケースを使うことを推奨します。理由は以下の通りです:</p>
@@ -1010,76 +1160,109 @@ requireComponent.keys().forEach(<span class="hljs-function"><span class="hljs-ke
 <li>そのようなアプリケーションはたくさんの DOM 内テンプレート をもつのが常ですが、 そこでは ケバブケースを <a href="#テンプレート内でのコンポーネント名の形式-強く推奨"><strong>必ず</strong> 使う必要があります</a></li>
 </ul>
 </details>
+
 <div class="style-example example-bad">
 <h4 id="悪い例-15"><a href="#悪い例-15" class="headerlink" title="悪い例"></a>悪い例</h4><pre><code class="hljs js">Vue.component(<span class="hljs-string">'myComponent'</span>, &#123;
   <span class="hljs-comment">// ...</span>
 &#125;)</code></pre>
+
 <pre><code class="hljs js"><span class="hljs-keyword">import</span> myComponent <span class="hljs-keyword">from</span> <span class="hljs-string">'./MyComponent.vue'</span></code></pre>
+
 <pre><code class="hljs js"><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> &#123;
   <span class="hljs-attr">name</span>: <span class="hljs-string">'myComponent'</span>,
   <span class="hljs-comment">// ...</span>
 &#125;</code></pre>
+
 <pre><code class="hljs js"><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> &#123;
   <span class="hljs-attr">name</span>: <span class="hljs-string">'my-component'</span>,
   <span class="hljs-comment">// ...</span>
 &#125;</code></pre>
+
 </div>
+
 <div class="style-example example-good">
 <h4 id="良い例-15"><a href="#良い例-15" class="headerlink" title="良い例"></a>良い例</h4><pre><code class="hljs js">Vue.component(<span class="hljs-string">'MyComponent'</span>, &#123;
   <span class="hljs-comment">// ...</span>
 &#125;)</code></pre>
+
 <pre><code class="hljs js">Vue.component(<span class="hljs-string">'my-component'</span>, &#123;
   <span class="hljs-comment">// ...</span>
 &#125;)</code></pre>
+
 <pre><code class="hljs js"><span class="hljs-keyword">import</span> MyComponent <span class="hljs-keyword">from</span> <span class="hljs-string">'./MyComponent.vue'</span></code></pre>
+
 <pre><code class="hljs js"><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> &#123;
   <span class="hljs-attr">name</span>: <span class="hljs-string">'MyComponent'</span>,
   <span class="hljs-comment">// ...</span>
 &#125;</code></pre>
+
 </div>
+
+
+
 <h3 id="完全な単語によるコンポーネント名-強く推奨"><a href="#完全な単語によるコンポーネント名-強く推奨" class="headerlink" title="完全な単語によるコンポーネント名 強く推奨"></a>完全な単語によるコンポーネント名 <sup data-p="b">強く推奨</sup></h3><p><strong>コンポーネント名には、略語よりも完全な単語を使うべきです。</strong></p>
 <p>長い名前によってもたらされる明快さは非常に貴重ですが、それをタイプする労力はエディタの自動補完によってとても小さくなります。特に、一般的でない略語は常に避けるべきです。</p>
 <div class="style-example example-bad">
 <h4 id="悪い例-16"><a href="#悪い例-16" class="headerlink" title="悪い例"></a>悪い例</h4><pre><code class="hljs undefined">components/
 |- SdSettings.vue
 |- UProfOpts.vue</code></pre>
+
 </div>
+
 <div class="style-example example-good">
 <h4 id="良い例-16"><a href="#良い例-16" class="headerlink" title="良い例"></a>良い例</h4><pre><code class="hljs undefined">components/
 |- StudentDashboardSettings.vue
 |- UserProfileOptions.vue</code></pre>
+
 </div>
+
+
+
 <h3 id="プロパティ名の型式-強く推奨"><a href="#プロパティ名の型式-強く推奨" class="headerlink" title="プロパティ名の型式 強く推奨"></a>プロパティ名の型式 <sup data-p="b">強く推奨</sup></h3><p><strong>プロパティ名は、定義の時は常にキャメルケース(camelCase)にするべきですが、テンプレートや <a href="../guide/render-function.html#JSX">JSX</a> ではケバブケース(kebab-case)にするべきです。</strong></p>
 <p>私たちは単純にこの慣習に従っています。JavaScript の中ではキャメルケースがより自然で、HTML の中ではケバブケースが自然です。</p>
 <div class="style-example example-bad">
 <h4 id="悪い例-17"><a href="#悪い例-17" class="headerlink" title="悪い例"></a>悪い例</h4><pre><code class="hljs js">props: &#123;
   <span class="hljs-string">'greeting-text'</span>: <span class="hljs-built_in">String</span>
 &#125;</code></pre>
+
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">WelcomeMessage</span> <span class="hljs-attr">greetingText</span>=<span class="hljs-string">"hi"</span>/&gt;</span></code></pre>
 </div>
+
 <div class="style-example example-good">
 <h4 id="良い例-17"><a href="#良い例-17" class="headerlink" title="良い例"></a>良い例</h4><pre><code class="hljs js">props: &#123;
   <span class="hljs-attr">greetingText</span>: <span class="hljs-built_in">String</span>
 &#125;</code></pre>
+
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">WelcomeMessage</span> <span class="hljs-attr">greeting-text</span>=<span class="hljs-string">"hi"</span>/&gt;</span></code></pre>
 </div>
+
+
+
 <h3 id="複数の属性をもつ要素-強く推奨"><a href="#複数の属性をもつ要素-強く推奨" class="headerlink" title="複数の属性をもつ要素 強く推奨"></a>複数の属性をもつ要素 <sup data-p="b">強く推奨</sup></h3><p><strong>複数の属性をもつ要素は、1 行に 1 要素ずつ、複数の行にわたって書くべきです。</strong></p>
 <p>JavaScript では、複数のプロパティをもつ要素を複数の行に分けて書くことはよい慣習だと広く考えられています。なぜなら、その方がより読みやすいからです。Vue のテンプレートや <a href="../guide/render-function.html#JSX">JSX</a> も同じように考えることがふさわしいです。</p>
 <div class="style-example example-bad">
 <h4 id="悪い例-18"><a href="#悪い例-18" class="headerlink" title="悪い例"></a>悪い例</h4><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">img</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://vuejs.org/images/logo.png"</span> <span class="hljs-attr">alt</span>=<span class="hljs-string">"Vue Logo"</span>&gt;</span></code></pre>
+
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">MyComponent</span> <span class="hljs-attr">foo</span>=<span class="hljs-string">"a"</span> <span class="hljs-attr">bar</span>=<span class="hljs-string">"b"</span> <span class="hljs-attr">baz</span>=<span class="hljs-string">"c"</span>/&gt;</span></code></pre>
+
 </div>
+
 <div class="style-example example-good">
 <h4 id="良い例-18"><a href="#良い例-18" class="headerlink" title="良い例"></a>良い例</h4><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">img</span>
   <span class="hljs-attr">src</span>=<span class="hljs-string">"https://vuejs.org/images/logo.png"</span>
   <span class="hljs-attr">alt</span>=<span class="hljs-string">"Vue Logo"</span>
 &gt;</span></code></pre>
+
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">MyComponent</span>
   <span class="hljs-attr">foo</span>=<span class="hljs-string">"a"</span>
   <span class="hljs-attr">bar</span>=<span class="hljs-string">"b"</span>
   <span class="hljs-attr">baz</span>=<span class="hljs-string">"c"</span>
 /&gt;</span></code></pre>
+
 </div>
+
+
+
 <h3 id="テンプレート内での単純な式-強く推奨"><a href="#テンプレート内での単純な式-強く推奨" class="headerlink" title="テンプレート内での単純な式 強く推奨"></a>テンプレート内での単純な式 <sup data-p="b">強く推奨</sup></h3><p><strong>複雑な式は算出プロパティかメソッドにリファクタリングして、コンポーネントのテンプレートには単純な式だけを含むようにするべきです。</strong></p>
 <p>テンプレート内に複雑な式があると、テンプレートが宣言的ではなくなります。私たちは、 <strong>どのように</strong> その値を算出するかではなく、 <strong>何が</strong> 表示されるべきかを記述するように努力するべきです。また、算出プロパティやメソッドによってコードが再利用できるようになります。</p>
 <div class="style-example example-bad">
@@ -1088,10 +1271,13 @@ requireComponent.keys().forEach(<span class="hljs-function"><span class="hljs-ke
     return word[0].toUpperCase() + word.slice(1)
   &#125;).join(' ')
 &#125;&#125;</code></pre>
+
 </div>
+
 <div class="style-example example-good">
 <h4 id="良い例-19"><a href="#良い例-19" class="headerlink" title="良い例"></a>良い例</h4><pre><code class="hljs html"><span class="hljs-comment">&lt;!-- テンプレート内 --&gt;</span>
 &#123;&#123; normalizedFullName &#125;&#125;</code></pre>
+
 <pre><code class="hljs js"><span class="hljs-comment">// 複雑な式を算出プロパティに移動</span>
 computed: &#123;
   <span class="hljs-attr">normalizedFullName</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;
@@ -1100,13 +1286,18 @@ computed: &#123;
     &#125;).join(<span class="hljs-string">' '</span>)
   &#125;
 &#125;</code></pre>
+
 </div>
+
+
+
 <h3 id="単純な算出プロパティ-強く推奨"><a href="#単純な算出プロパティ-強く推奨" class="headerlink" title="単純な算出プロパティ 強く推奨"></a>単純な算出プロパティ <sup data-p="b">強く推奨</sup></h3><p><strong>複雑な算出プロパティは、できる限りたくさんの単純なプロパティに分割するべきです。</strong></p>
 
 <details>
 <summary>
   <h4>詳細な説明</h4>
 </summary>
+
 
 <p>単純な、よい名前を持つ算出プロパティは:</p>
 <ul>
@@ -1120,6 +1311,7 @@ computed: &#123;
 </li>
 </ul>
 </details>
+
 <div class="style-example example-bad">
 <h4 id="悪い例-20"><a href="#悪い例-20" class="headerlink" title="悪い例"></a>悪い例</h4><pre><code class="hljs js">computed: &#123;
   <span class="hljs-attr">price</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;
@@ -1130,7 +1322,9 @@ computed: &#123;
     )
   &#125;
 &#125;</code></pre>
+
 </div>
+
 <div class="style-example example-good">
 <h4 id="良い例-20"><a href="#良い例-20" class="headerlink" title="良い例"></a>良い例</h4><pre><code class="hljs js">computed: &#123;
   <span class="hljs-attr">basePrice</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;
@@ -1143,27 +1337,41 @@ computed: &#123;
     <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.basePrice - <span class="hljs-keyword">this</span>.discount
   &#125;
 &#125;</code></pre>
+
 </div>
+
+
+
 <h3 id="引用符付きの属性値-強く推奨"><a href="#引用符付きの属性値-強く推奨" class="headerlink" title="引用符付きの属性値 強く推奨"></a>引用符付きの属性値 <sup data-p="b">強く推奨</sup></h3><p><strong>空ではない HTML 属性の値は常に引用符(シングルコーテーションかダブルコーテーション、 JS の中で使われていない方)でくくるべきです。</strong></p>
 <p>HTML では、空白を含まない属性値は引用符でくくらなくてもよいことになっていますが、そのせいで空白の使用を <em>避けてしまい</em> 属性値が読みづらくなることをしばしばもたらします。</p>
 <div class="style-example example-bad">
 <h4 id="悪い例-21"><a href="#悪い例-21" class="headerlink" title="悪い例"></a>悪い例</h4><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">text</span>&gt;</span></code></pre>
+
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">AppSidebar</span> <span class="hljs-attr">:style</span>=<span class="hljs-string">&#123;width:sidebarWidth+</span>'<span class="hljs-attr">px</span>'&#125;&gt;</span></code></pre>
+
 </div>
+
 <div class="style-example example-good">
 <h4 id="良い例-21"><a href="#良い例-21" class="headerlink" title="良い例"></a>良い例</h4><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text"</span>&gt;</span></code></pre>
+
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">AppSidebar</span> <span class="hljs-attr">:style</span>=<span class="hljs-string">"&#123; width: sidebarWidth + 'px' &#125;"</span>&gt;</span></code></pre>
+
 </div>
+
+
+
 <h3 id="ディレクティブの短縮記法-強く推奨"><a href="#ディレクティブの短縮記法-強く推奨" class="headerlink" title="ディレクティブの短縮記法 強く推奨"></a>ディレクティブの短縮記法 <sup data-p="b">強く推奨</sup></h3><p><strong>ディレクティブの短縮記法 (<code>v-bind:</code> に対する <code>:</code> 、 <code>v-on:</code> に対する <code>@</code> 、 <code>v-slot:</code> に対する <code>#</code>)は、常に使うか、まったく使わないかのどちらかにするべきです。</strong></p>
 <div class="style-example example-bad">
 <h4 id="悪い例-22"><a href="#悪い例-22" class="headerlink" title="悪い例"></a>悪い例</h4><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">input</span>
   <span class="hljs-attr">v-bind:value</span>=<span class="hljs-string">"newTodoText"</span>
   <span class="hljs-attr">:placeholder</span>=<span class="hljs-string">"newTodoInstructions"</span>
 &gt;</span></code></pre>
+
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">input</span>
   <span class="hljs-attr">v-on:input</span>=<span class="hljs-string">"onInput"</span>
   @<span class="hljs-attr">focus</span>=<span class="hljs-string">"onFocus"</span>
 &gt;</span></code></pre>
+
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">template</span> <span class="hljs-attr">v-slot:header</span>&gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>Here might be a page title<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span>
@@ -1171,24 +1379,30 @@ computed: &#123;
 <span class="hljs-tag">&lt;<span class="hljs-name">template</span> #<span class="hljs-attr">footer</span>&gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>Here's some contact info<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span></code></pre>
+
 </div>
+
 <div class="style-example example-good">
 <h4 id="良い例-22"><a href="#良い例-22" class="headerlink" title="良い例"></a>良い例</h4><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">input</span>
   <span class="hljs-attr">:value</span>=<span class="hljs-string">"newTodoText"</span>
   <span class="hljs-attr">:placeholder</span>=<span class="hljs-string">"newTodoInstructions"</span>
 &gt;</span></code></pre>
+
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">input</span>
   <span class="hljs-attr">v-bind:value</span>=<span class="hljs-string">"newTodoText"</span>
   <span class="hljs-attr">v-bind:placeholder</span>=<span class="hljs-string">"newTodoInstructions"</span>
 &gt;</span></code></pre>
+
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">input</span>
   @<span class="hljs-attr">input</span>=<span class="hljs-string">"onInput"</span>
   @<span class="hljs-attr">focus</span>=<span class="hljs-string">"onFocus"</span>
 &gt;</span></code></pre>
+
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">input</span>
   <span class="hljs-attr">v-on:input</span>=<span class="hljs-string">"onInput"</span>
   <span class="hljs-attr">v-on:focus</span>=<span class="hljs-string">"onFocus"</span>
 &gt;</span></code></pre>
+
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">template</span> <span class="hljs-attr">v-slot:header</span>&gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>Here might be a page title<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span>
@@ -1196,6 +1410,7 @@ computed: &#123;
 <span class="hljs-tag">&lt;<span class="hljs-name">template</span> <span class="hljs-attr">v-slot:footer</span>&gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>Here's some contact info<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span></code></pre>
+
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">template</span> #<span class="hljs-attr">header</span>&gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>Here might be a page title<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span>
@@ -1203,7 +1418,12 @@ computed: &#123;
 <span class="hljs-tag">&lt;<span class="hljs-name">template</span> #<span class="hljs-attr">footer</span>&gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>Here's some contact info<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span></code></pre>
+
 </div>
+
+
+
+
 <h2 id="優先度-C-のルール-推奨-任意の選択肢と認知上のオーバーヘッドの最小化"><a href="#優先度-C-のルール-推奨-任意の選択肢と認知上のオーバーヘッドの最小化" class="headerlink" title="優先度 C のルール: 推奨 (任意の選択肢と認知上のオーバーヘッドの最小化)"></a>優先度 C のルール: 推奨 (任意の選択肢と認知上のオーバーヘッドの最小化)</h2><h3 id="コンポーネント-インスタンス-オプション順序-推奨"><a href="#コンポーネント-インスタンス-オプション順序-推奨" class="headerlink" title="コンポーネント/インスタンス オプション順序 推奨"></a>コンポーネント/インスタンス オプション順序 <sup data-p="c">推奨</sup></h3><p><strong>コンポーネント/インスタンス オプションは､一貫した順序になるべきです｡</strong></p>
 <p>これは推奨するコンポーネントオプションの既定の順序です｡それらは種類分けされており､プラグインからどこに新たなプロパティを追加するか知ることができます｡</p>
 <ol>
@@ -1370,6 +1590,7 @@ computed: &#123;
     <span class="hljs-comment">// ...</span>
   &#125;
 &#125;</code></pre>
+
 <pre><code class="hljs js"><span class="hljs-comment">// コンポーネントの読み取りや移動が容易であれば、</span>
 <span class="hljs-comment">// 空行がなくても大丈夫です｡</span>
 props: &#123;
@@ -1392,12 +1613,17 @@ props: &#123;
     <span class="hljs-comment">// ...</span>
   &#125;
 &#125;</code></pre>
+
 </div>
+
+
+
 <h3 id="単一ファイルコンポーネントのトップレベルの属性の順序-推奨"><a href="#単一ファイルコンポーネントのトップレベルの属性の順序-推奨" class="headerlink" title="単一ファイルコンポーネントのトップレベルの属性の順序 推奨"></a>単一ファイルコンポーネントのトップレベルの属性の順序 <sup data-p="c">推奨</sup></h3><p><strong><a href="../guide/single-file-components.html">単一ファイルコンポーネント</a>では､ <code>&lt;script&gt;</code> ､ <code>&lt;template&gt;</code> ､ <code>&lt;style&gt;</code> タグを一貫した順序にするべきです､ <code>&lt;style&gt;</code> は最後です､それは他の2つのうち少なくとも1つが常に必要だからです。</strong></p>
 <div class="style-example example-bad">
 <h4 id="悪い例-23"><a href="#悪い例-23" class="headerlink" title="悪い例"></a>悪い例</h4><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">style</span>&gt;</span><span class="css"><span class="hljs-comment">/* ... */</span></span><span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="javascript"><span class="hljs-comment">/* ... */</span></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">template</span>&gt;</span>...<span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span></code></pre>
+
 <pre><code class="hljs html"><span class="hljs-comment">&lt;!-- ComponentA.vue --&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="javascript"><span class="hljs-comment">/* ... */</span></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">template</span>&gt;</span>...<span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span>
@@ -1407,7 +1633,9 @@ props: &#123;
 <span class="hljs-tag">&lt;<span class="hljs-name">template</span>&gt;</span>...<span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="javascript"><span class="hljs-comment">/* ... */</span></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">style</span>&gt;</span><span class="css"><span class="hljs-comment">/* ... */</span></span><span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span></code></pre>
+
 </div>
+
 <div class="style-example example-good">
 <h4 id="良い例-24"><a href="#良い例-24" class="headerlink" title="良い例"></a>良い例</h4><pre><code class="hljs html"><span class="hljs-comment">&lt;!-- ComponentA.vue --&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="javascript"><span class="hljs-comment">/* ... */</span></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
@@ -1418,6 +1646,7 @@ props: &#123;
 <span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="javascript"><span class="hljs-comment">/* ... */</span></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">template</span>&gt;</span>...<span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">style</span>&gt;</span><span class="css"><span class="hljs-comment">/* ... */</span></span><span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span></code></pre>
+
 <pre><code class="hljs html"><span class="hljs-comment">&lt;!-- ComponentA.vue --&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">template</span>&gt;</span>...<span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="javascript"><span class="hljs-comment">/* ... */</span></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
@@ -1427,7 +1656,11 @@ props: &#123;
 <span class="hljs-tag">&lt;<span class="hljs-name">template</span>&gt;</span>...<span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="javascript"><span class="hljs-comment">/* ... */</span></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">style</span>&gt;</span><span class="css"><span class="hljs-comment">/* ... */</span></span><span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span></code></pre>
+
 </div>
+
+
+
 <h2 id="優先度-D-のルール-使用注意（潜在的に危険なパターン）"><a href="#優先度-D-のルール-使用注意（潜在的に危険なパターン）" class="headerlink" title="優先度 D のルール: 使用注意（潜在的に危険なパターン）"></a>優先度 D のルール: 使用注意（潜在的に危険なパターン）</h2><h3 id="key-を使わない-v-if-v-else-if-v-else-使用注意"><a href="#key-を使わない-v-if-v-else-if-v-else-使用注意" class="headerlink" title="key を使わない v-if/v-else-if/v-else 使用注意"></a><code>key</code> を使わない <code>v-if</code>/<code>v-else-if</code>/<code>v-else</code> <sup data-p="d">使用注意</sup></h3><p><strong>それらが同じ種類の要素の場合、通常は <code>v-if</code> + <code>v-else</code> と一緒に <code>key</code> を使用するのが最善です(例: どちらも <code>&lt;div&gt;</code> 要素).</strong></p>
 <p>デフォルトでは、Vue は可能な限り効率的に DOM を更新します。これは、同じ種類の要素間を切り替えるときに、既存の要素を取り除いてそこに新しい要素を作成するのではなく、単純に既存の要素を修正することを意味します。これらの要素が、実際には同一とみなされないほうが良い場合、<a href="https://codesandbox.io/s/github/vuejs/vuejs.org/tree/master/src/v2/examples/vue-20-priority-d-rules-unintended-consequences" target="_blank" rel="noopener">予期せぬ結果</a>を起こすことがあります。</p>
 <div class="style-example example-bad">
@@ -1437,7 +1670,9 @@ props: &#123;
 <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">v-else</span>&gt;</span>
   &#123;&#123; results &#125;&#125;
 <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
+
 </div>
+
 <div class="style-example example-good">
 <h4 id="良い例-25"><a href="#良い例-25" class="headerlink" title="良い例"></a>良い例</h4><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>
   <span class="hljs-attr">v-if</span>=<span class="hljs-string">"error"</span>
@@ -1451,7 +1686,11 @@ props: &#123;
 &gt;</span>
   &#123;&#123; results &#125;&#125;
 <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
+
 </div>
+
+
+
 <h3 id="scoped-付きの要素セレクタ-使用注意"><a href="#scoped-付きの要素セレクタ-使用注意" class="headerlink" title="scoped 付きの要素セレクタ 使用注意"></a><code>scoped</code> 付きの要素セレクタ <sup data-p="d">使用注意</sup></h3><p><strong><code>scoped</code> 付きの要素セレクタは避けるべきです。</strong></p>
 <p>たくさんの要素セレクタは低速なため、<code>scoped</code> 付きの要素セレクタよりも、クラスセレクタを使用します。</p>
 
@@ -1460,9 +1699,11 @@ props: &#123;
   <h4>詳細な説明</h4>
 </summary>
 
+
 <p>スコープスタイルのために、Vue は <code>data-v-f3f3eg9</code> のような一意な属性をコンポーネントの要素に追加します。そして、この属性をもったマッチする要素のみが選択されるように、セレクタが変更されます（例: <code>button[data-v-f3f3eg9]</code>）。</p>
-<p>問題は、たくさんの<a href="http://stevesouders.com/efws/css-selectors/csscreate.php?n=1000&amp;sel=a%5Bhref%5D&amp;body=background%3A+%23CFD&amp;ne=1000" target="_blank" rel="noopener">要素-属性 セレクタ</a>（例: <code>button[data-v-f3f3eg9]</code>）は、<a href="http://stevesouders.com/efws/css-selectors/csscreate.php?n=1000&amp;sel=.class%5Bhref%5D&amp;body=background%3A+%23CFD&amp;ne=1000" target="_blank" rel="noopener">クラス-属性 セレクタ</a>（例: <code>.btn-close[data-v-f3f3eg9]</code>）よりもかなり遅くなることです。よって可能ならクラスセレクタが推奨されます。</p>
+<p>問題は、たくさんの<a href="http://stevesouders.com/efws/css-selectors/csscreate.php?n=1000&sel=a%5Bhref%5D&body=background%3A+%23CFD&ne=1000" target="_blank" rel="noopener">要素-属性 セレクタ</a>（例: <code>button[data-v-f3f3eg9]</code>）は、<a href="http://stevesouders.com/efws/css-selectors/csscreate.php?n=1000&sel=.class%5Bhref%5D&body=background%3A+%23CFD&ne=1000" target="_blank" rel="noopener">クラス-属性 セレクタ</a>（例: <code>.btn-close[data-v-f3f3eg9]</code>）よりもかなり遅くなることです。よって可能ならクラスセレクタが推奨されます。</p>
 </details>
+
 <div class="style-example example-bad">
 <h4 id="悪い例-25"><a href="#悪い例-25" class="headerlink" title="悪い例"></a>悪い例</h4><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">template</span>&gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-name">button</span>&gt;</span>X<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
@@ -1473,7 +1714,9 @@ props: &#123;
   <span class="hljs-attribute">background-color</span>: red;
 &#125;
 </span><span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span></code></pre>
+
 </div>
+
 <div class="style-example example-good">
 <h4 id="良い例-26"><a href="#良い例-26" class="headerlink" title="良い例"></a>良い例</h4><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">template</span>&gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"btn btn-close"</span>&gt;</span>X<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
@@ -1484,7 +1727,11 @@ props: &#123;
   <span class="hljs-attribute">background-color</span>: red;
 &#125;
 </span><span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span></code></pre>
+
 </div>
+
+
+
 <h3 id="暗黙的な親子間のやりとり-使用注意"><a href="#暗黙的な親子間のやりとり-使用注意" class="headerlink" title="暗黙的な親子間のやりとり 使用注意"></a>暗黙的な親子間のやりとり <sup data-p="d">使用注意</sup></h3><p><strong>親子間のやりとりは、<code>this.$parent</code> や変化するプロパティよりも、プロパティとイベントが推奨されます。</strong></p>
 <p>理想的な Vue アプリケーションでは、props down, events up となります。この習慣に従えば、コンポーネントの理解が簡単になります。ですが、プロパティの変化や <code>this.$parent</code> が、深く結合している2つのコンポーネントを単純化できるようなエッジケースも存在します。</p>
 <p>問題は、これらのパターンが便利になるような、<em>シンプルな</em> ケースも多く存在することです。注意: 短期間の利便性（少ないコードを書くこと）のための、取引のシンプルさ(状態の流れを理解出来るようになる)に誘惑されないでください。</p>
@@ -1498,6 +1745,7 @@ props: &#123;
   &#125;,
   <span class="hljs-attr">template</span>: <span class="hljs-string">'&lt;input v-model="todo.text"&gt;'</span>
 &#125;)</code></pre>
+
 <pre><code class="hljs js">Vue.component(<span class="hljs-string">'TodoItem'</span>, &#123;
   <span class="hljs-attr">props</span>: &#123;
     <span class="hljs-attr">todo</span>: &#123;
@@ -1522,7 +1770,9 @@ props: &#123;
     &lt;/span&gt;
   `</span>
 &#125;)</code></pre>
+
 </div>
+
 <div class="style-example example-good">
 <h4 id="良い例-27"><a href="#良い例-27" class="headerlink" title="良い例"></a>良い例</h4><pre><code class="hljs js">Vue.component(<span class="hljs-string">'TodoItem'</span>, &#123;
   <span class="hljs-attr">props</span>: &#123;
@@ -1538,6 +1788,7 @@ props: &#123;
     &gt;
   `</span>
 &#125;)</code></pre>
+
 <pre><code class="hljs js">Vue.component(<span class="hljs-string">'TodoItem'</span>, &#123;
   <span class="hljs-attr">props</span>: &#123;
     <span class="hljs-attr">todo</span>: &#123;
@@ -1554,10 +1805,15 @@ props: &#123;
     &lt;/span&gt;
   `</span>
 &#125;)</code></pre>
+
 </div>
-<h3 id="Flux-以外の状態管理-使用注意"><a href="#Flux-以外の状態管理-使用注意" class="headerlink" title="Flux 以外の状態管理 使用注意"></a>Flux 以外の状態管理 <sup data-p="d">使用注意</sup></h3><p><strong> グローバル状態管理には、<code>this.$root</code> やグローバルイベントバスよりも、<a href="https://github.com/vuejs/vuex" target="_blank" rel="noopener">Vuex</a> が推奨されます </strong></p>
+
+
+
+<h3 id="Flux-以外の状態管理-使用注意"><a href="#Flux-以外の状態管理-使用注意" class="headerlink" title="Flux 以外の状態管理 使用注意"></a>Flux 以外の状態管理 <sup data-p="d">使用注意</sup></h3><p>** グローバル状態管理には、<code>this.$root</code> やグローバルイベントバスよりも、<a href="https://github.com/vuejs/vuex" target="_blank" rel="noopener">Vuex</a> が推奨されます **</p>
 <p><code>this.$root</code> や <a href="../guide/migration.html#dispatch-および-broadcast-置き換え">グローバルイベントバス</a> を使用した状態管理は非常にシンプルなケースでは便利かもしれませんが、ほとんどのアプリケーションにとっては適切ではありません。</p>
 <p>Vuex は Vue の<a href="../guide/state-management.html#公式-Flux-ライクな実装">公式 Flux ライクな実装</a>で、状態管理のための中心地だけではなく、整理、追跡、そして状態変更のデバッグのためのツールも提供します。Vuex は Vue のエコシステムにうまく統合されています（<a href="../guide/installation.html#Vue-Devtools">Vue DevTools</a> のフルサポートを含みます）。</p>
+
 
 <div class="style-example example-bad">
 <h4 id="悪い例-27"><a href="#悪い例-27" class="headerlink" title="悪い例"></a>悪い例</h4><pre><code class="hljs js"><span class="hljs-comment">// main.js</span>
@@ -1577,7 +1833,9 @@ props: &#123;
     &#125;
   &#125;
 &#125;)</code></pre>
+
 </div>
+
 <div class="style-example example-good">
 <h4 id="良い例-28"><a href="#良い例-28" class="headerlink" title="良い例"></a>良い例</h4><pre><code class="hljs js"><span class="hljs-comment">// store/modules/todos.js</span>
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> &#123;
@@ -1595,6 +1853,7 @@ props: &#123;
     &#125;
   &#125;
 &#125;</code></pre>
+
 <pre><code class="hljs html"><span class="hljs-comment">&lt;!-- TodoItem.vue --&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">template</span>&gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span>
@@ -1618,7 +1877,11 @@ props: &#123;
   <span class="hljs-attr">methods</span>: mapActions([<span class="hljs-string">'removeTodo'</span>])
 &#125;
 </span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code></pre>
+
 </div>
+
+
+
 
 <script>
 (function () {

@@ -980,6 +980,7 @@
 <pre><code class="hljs js"><span class="hljs-built_in">module</span>.exports = &#123;
   <span class="hljs-attr">mode</span>: <span class="hljs-string">'production'</span>
 &#125;</code></pre>
+
 <p>しかし、Webpack 3 以前では、<a href="https://webpack.js.org/plugins/define-plugin/" target="_blank" rel="noopener">DefinePlugin</a> を使用する必要があります:</p>
 <pre><code class="hljs javascript"><span class="hljs-keyword">var</span> webpack = <span class="hljs-built_in">require</span>(<span class="hljs-string">'webpack'</span>)
 
@@ -992,11 +993,13 @@
     &#125;)
   ]
 &#125;</code></pre>
+
 <h4 id="Browserify"><a href="#Browserify" class="headerlink" title="Browserify"></a>Browserify</h4><ul>
 <li><code>&quot;production&quot;</code> に設定した <code>NODE_ENV</code> 環境変数を使ってバンドリングコマンドを実行してください。これは <code>vueify</code> にホットリロードと開発関連のコードを含まないように指示します。</li>
 <li>あなたのバンドルに <a href="https://github.com/hughsk/envify" target="_blank" rel="noopener">envify</a> グローバル変換を適用してください。 これは minifier で Vue ソースコード内で環境変数の条件上で囲われた箇所全てを取り除くことを許可します。</li>
 </ul>
 <pre><code class="hljs bash">NODE_ENV=production browserify -g envify -e main.js | uglifyjs -c -m &gt; build.js</code></pre>
+
 <ul>
 <li><p>もしくは、<a href="https://github.com/hughsk/envify" target="_blank" rel="noopener">envify</a>を Gulp とともに使います:</p>
 <pre><code class="hljs js"><span class="hljs-comment">// 環境変数を指定するために envify のカスタムモジュールを使います</span>
@@ -1010,6 +1013,8 @@ browserify(browserifyOptions)
     envify(&#123; <span class="hljs-attr">NODE_ENV</span>: <span class="hljs-string">'production'</span> &#125;)
   )
   .bundle()</code></pre>
+
+
 </li>
 </ul>
 <ul>
@@ -1032,6 +1037,7 @@ browserify: &#123;
     &#125;
   &#125;
 &#125;</code></pre>
+
 </li>
 </ul>
 <h4 id="Rollup"><a href="#Rollup" class="headerlink" title="Rollup"></a>Rollup</h4><p><a href="https://github.com/rollup/plugins/tree/master/packages/replace" target="_blank" rel="noopener">@rollup/plugin-replace</a> を使用します:</p>
@@ -1045,6 +1051,7 @@ rollup(&#123;
     &#125;)
   ]
 &#125;).then(...)</code></pre>
+
 <h2 id="テンプレートのプリコンパイル"><a href="#テンプレートのプリコンパイル" class="headerlink" title="テンプレートのプリコンパイル"></a>テンプレートのプリコンパイル</h2><p>DOM 内のテンプレートまたは JavaScript 内のテンプレート文字列を使用する場合、テンプレートから描画関数へのコンパイルはその場 (on the fly) で実行されます。通常、ほとんどの場合、これは十分高速ですが、アプリケーションのパフォーマンスが重要な場合は避けるのが最善です。</p>
 <p>テンプレートをプリコンパイルする最も簡単な方法は、<a href="single-file-components.html">単一ファイルコンポーネント</a>を使用することです。関連するビルドのセットアップは自動的にプリコンパイルを実行するため、ビルドされたコードには生のテンプレート文字列ではなくすでにコンパイルされた描画関数が含まれています。</p>
 <p>Webpack を使用している場合、JavaScript と テンプレートの分離を好むなら、ビルドステップ中にテンプレートファイルを JavaScript 描画関数に変換する <a href="https://github.com/ktsn/vue-template-loader" target="_blank" rel="noopener">vue-template-loader</a> を使用することができます。</p>
