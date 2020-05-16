@@ -1,0 +1,582 @@
+
+
+
+<!DOCTYPE html>
+<html lang="ja">
+  <head><meta name="generator" content="Hexo 3.8.0">
+    <title>カスタムスクロールディレクティブの作成 — Vue.js</title>
+    <meta charset="utf-8">
+    <meta name="description" content="Vue.js - The Progressive JavaScript Framework">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="alternate" hreflang="x-default" href="https://vuejs.org/v2/cookbook/creating-custom-scroll-directives.html">
+    <link rel="alternate" hreflang="zh" href="https://cn.vuejs.org/v2/cookbook/creating-custom-scroll-directives.html">
+    <link rel="alternate" hreflang="ja" href="https://jp.vuejs.org/v2/cookbook/creating-custom-scroll-directives.html">
+    <link rel="alternate" hreflang="ru" href="https://ru.vuejs.org/v2/cookbook/creating-custom-scroll-directives.html">
+    <link rel="alternate" hreflang="ko" href="https://kr.vuejs.org/v2/cookbook/creating-custom-scroll-directives.html">
+    <link rel="alternate" hreflang="pt-BR" href="https://br.vuejs.org/v2/cookbook/creating-custom-scroll-directives.html">
+    <link rel="alternate" hreflang="fr" href="https://fr.vuejs.org/v2/cookbook/creating-custom-scroll-directives.html">
+    <link rel="alternate" hreflang="es" href="https://es.vuejs.org/v2/cookbook/creating-custom-scroll-directives.html">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="カスタムスクロールディレクティブの作成 — Vue.js">
+    <meta property="og:description" content="Vue.js - The Progressive JavaScript Framework">
+    <meta property="og:image" content="https://jp.vuejs.org//images/logo.png">
+
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="カスタムスクロールディレクティブの作成 — Vue.js">
+    <meta name="twitter:description" content="Vue.js - The Progressive JavaScript Framework">
+    <meta name="twitter:image" content="https://jp.vuejs.org/images/logo.png">
+
+    <link rel="apple-touch-icon" sizes="57x57" href="/images/icons/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/images/icons/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/images/icons/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/images/icons/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/images/icons/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/images/icons/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/images/icons/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/images/icons/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/icons/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/images/icons/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="/images/icons/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/images/icons/favicon-16x16.png">
+    <meta name="msapplication-TileImage" content="/images/icons/ms-icon-144x144.png">
+    <link rel="icon" href="/images/logo.png" type="image/png">
+
+    <meta name="msapplication-TileColor" content="#4fc08d">
+    <meta name="theme-color" content="#4fc08d">
+
+    <meta name="msapplication-config" content="browserconfig.xml">
+    <link rel="manifest" href="/manifest.json">
+
+    <link href="https://fonts.googleapis.com" rel="preconnect" crossorigin="">
+    <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin="">
+    <link href="https://maxcdn.bootstrapcdn.com" rel="preconnect" crossorigin="">
+
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600|Roboto Mono&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Dosis:500&text=Vue.js&display=swap" rel="stylesheet">
+
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+    <!-- main page styles -->
+    <link rel="stylesheet" href="/css/page.css">
+
+    <!-- this needs to be loaded before guide's inline scripts -->
+    <script src="/js/vue.js"></script>
+
+    
+
+    <script>
+      Vue.config.productionTip = false
+      window.PAGE_TYPE = "cookbook"
+    </script>
+
+    <!-- ga -->
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-46852172-1', 'jp.vuejs.org');
+      ga('send', 'pageview');
+    </script>
+
+    <!-- vimeo analytics -->
+    <script type="text/javascript" defer="defer" src="https://extend.vimeocdn.com/ga/72160148.js"></script>
+  </head>
+  <body class="docs">
+    <div id="mobile-bar">
+      <a class="menu-button"></a>
+      <a class="logo" href="/"></a>
+    </div>
+    <header id="header">
+  <a id="logo" href="/">
+    <img src="/images/logo.png" alt="vue logo">
+    <span>Vue.js</span>
+  </a>
+  <ul id="nav">
+    <li>
+  <form id="search-form">
+    <input type="text" id="search-query-nav" class="search-query st-default-search-input" aria-label="検索">
+  </form>
+</li>
+<li class="nav-dropdown-container learn">
+  <a class="nav-link current">学ぶ</a><span class="arrow"></span>
+  <ul class="nav-dropdown">
+    <li><h4>ドキュメント</h4></li>
+    <li>
+      <ul>
+        <li><a href="/v2/guide/" class="nav-link">ガイド</a></li>
+        <li><a href="/v2/api/" class="nav-link">API</a></li>
+        <li><a href="/v2/style-guide/" class="nav-link">スタイルガイド</a></li>
+        <li><a href="/v2/examples/" class="nav-link">例</a></li>
+        <li><a href="/v2/cookbook/" class="nav-link current">クックブック</a></li>
+      </ul>
+    </li>
+    <li><h4>ビデオコース</h4></li>
+    <li>
+      <ul>
+        <li>
+          <a href="https://www.vuemastery.com/courses/" class="nav-link" target="_blank" rel="sponsored noopener">
+            Vue Mastery
+          </a>
+        </li>
+        <li>
+          <a href="https://vueschool.io/?friend=vuejs&utm_source=Vuejs.org&utm_medium=Link&utm_content=Navbar%20Dropdown" class="nav-link" target="_blank" rel="sponsored noopener">
+            Vue School
+          </a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</li>
+
+<li class="nav-dropdown-container ecosystem">
+  <a class="nav-link">エコシステム</a><span class="arrow"></span>
+  <ul class="nav-dropdown">
+    <li><h4>ヘルプ</h4></li>
+    <li><ul>
+      <li><a href="https://forum.vuejs.org/" class="nav-link" target="_blank" rel="noopener">フォーラム</a></li>
+      <li><a href="https://chat.vuejs.org/" class="nav-link" target="_blank" rel="noopener">チャット(公式)</a></li>
+      <li><a href="https://vuejs-jp-slackin.herokuapp.com" class="nav-link" target="_blank" rel="noopener">チャット(日本向け)</a></li>
+      <li><a href="https://events.vuejs.org/meetups/" class="nav-link" target="_blank" rel="noopener">ミートアップ</a></li>
+    </ul></li>
+    <li><h4>開発ツール</h4></li>
+    <li>
+      <ul>
+        <li><a href="https://github.com/vuejs/vue-devtools" class="nav-link" target="_blank" rel="noopener">Devtools</a></li>
+        <li><a href="https://cli.vuejs.org/" class="nav-link" target="_blank" rel="noopener">Vue CLI</a></li>
+        <li><a href="https://vue-loader.vuejs.org" class="nav-link" target="_blank" rel="noopener">Vue Loader</a></li>
+      </ul>
+    </li>
+    <li><h4>コアライブラリ</h4></li>
+    <li><ul>
+      <li><a href="https://router.vuejs.org/ja/" class="nav-link" target="_blank" rel="noopener">Vue Router</a></li>
+      <li><a href="https://vuex.vuejs.org/ja/" class="nav-link" target="_blank" rel="noopener">Vuex</a></li>
+      <li><a href="https://ssr.vuejs.org/ja/" class="nav-link" target="_blank" rel="noopener">Vue Server Renderer</a></li>
+    </ul></li>
+    <li><h4>ニュース</h4></li>
+    <li><ul>
+      <li><a href="https://news.vuejs.org" class="nav-link" target="_blank" rel="noopener">ウィークリーニュース</a></li>
+      <li><a href="https://github.com/vuejs/vue/projects/6" class="nav-link" target="_blank" rel="noopener">ロードマップ</a></li>
+      <li><a href="https://events.vuejs.org/" class="nav-link" target="_blank" rel="noopener">イベント</a></li>
+      <li><a href="https://twitter.com/vuejs" class="nav-link" target="_blank" rel="noopener">Twitter</a></li>
+      <li><a href="https://medium.com/the-vue-point" class="nav-link" target="_blank" rel="noopener">ブログ(英語)</a></li>
+      <li><a href="/blog/" class="nav-link" target="_blank" rel="noopener">ブログ(日本語訳)</a></li>
+      <li><a href="https://vuejobs.com/?ref=vuejs" class="nav-link" target="_blank" rel="noopener">ジョブ(海外)</a></li>
+      <li><a href="https://dev.to/t/vue" class="nav-link" target="_blank" rel="noopener">DEV コミュニティ</a></li>
+    </ul></li>
+  </ul>
+</li>
+
+<li>
+  <a href="/v2/guide/team.html" class="nav-link team">チーム</a>
+</li>
+<li>
+  <a href="/contribution/" class="nav-link">貢献</a>
+</li>
+<li class="nav-dropdown-container resources">
+  <a href="#" class="nav-link">リソース</a><span class="arrow"></span>
+  <ul class="nav-dropdown">
+    <li><a href="/resources/partners.html" class="nav-link">パートナー</a></li>
+    <li><a href="/resources/themes.html" class="nav-link">テーマ</a></li>
+    <li><a href="https://github.com/vuejs/awesome-vue" class="nav-link" target="_blank" rel="noopener">Awesome Vue</a></li>
+    <li><a href="https://awesomejs.dev/for/vue/" class="nav-link" target="_blank" rel="noopener">Browse packages for Vue</a></li>
+  </ul>
+</li>
+
+<!-- <li>
+  <a href="/partners" class="nav-link ">Partners</a>
+</li> -->
+<li class="nav-dropdown-container support-vue">
+  <a href="/support-vuejs/" class="nav-link">Vue を支援する</a><span class="arrow"></span>
+  <ul class="nav-dropdown">
+    <li><a href="/support-vuejs/#1回きりの支援" class="nav-link">1回きりの支援</a></li>
+    <li><a href="/support-vuejs/#継続的な支援" class="nav-link">継続的な支援</a></li>
+    <li><a href="https://vue.threadless.com" target="_blank" rel="noopener" class="nav-link">Tシャツ ショップ</a></li>
+  </ul>
+</li>
+
+<li class="nav-dropdown-container language">
+  <a class="nav-link">言語</a><span class="arrow"></span>
+  <ul class="nav-dropdown">
+    <li><a href="https://vuejs.org/v2/cookbook/creating-custom-scroll-directives.html" class="nav-link">English</a></li>
+    <li><a href="https://cn.vuejs.org/v2/cookbook/creating-custom-scroll-directives.html" class="nav-link">中文</a></li>
+    <li><a href="https://ru.vuejs.org/v2/cookbook/creating-custom-scroll-directives.html" class="nav-link">Русский</a></li>
+    <li><a href="https://kr.vuejs.org/v2/cookbook/creating-custom-scroll-directives.html" class="nav-link">한국어</a></li>
+    <li><a href="https://br.vuejs.org/v2/cookbook/creating-custom-scroll-directives.html" class="nav-link">Português</a></li>
+    <li><a href="https://fr.vuejs.org/v2/cookbook/creating-custom-scroll-directives.html" class="nav-link">Français</a></li>
+    <li><a href="https://vi.vuejs.org/v2/cookbook/creating-custom-scroll-directives.html" class="nav-link">Tiếng Việt</a></li>
+    <li><a href="https://es.vuejs.org/v2/cookbook/creating-custom-scroll-directives.html" class="nav-link">Español</a></li>
+    <li><a href="https://docs.vuejs.id/v2/cookbook/creating-custom-scroll-directives.html" class="nav-link">Bahasa Indonesia</a></li>
+  </ul>
+</li>
+
+
+  </ul>
+</header>
+
+    
+      <div id="main" class="fix-sidebar">
+        
+  
+
+<div class="sidebar">
+  <div class="sidebar-inner">
+    
+    <div class="list">
+      <div id="sidebar-sponsors-special">
+  <div class="main-sponsor">
+    <span>スペシャルスポンサー</span>
+    <div>
+    <a href="https://autocode.com" target="_blank" rel="sponsored noopener" class="logo">
+      <img src="/images/autocode.svg" alt="Autocode">
+    </a>
+    </div>
+  </div>
+</div>
+
+<div id="sidebar-sponsors-platinum-left">
+  <div class="main-sponsor">
+    <span>プラチナスポンサー</span>
+    <div>
+    <a href="https://vehikl.com/" target="_blank" rel="sponsored noopener" class="logo">
+      <img src="/images/vehikl.png" alt="Vehikl">
+    </a>
+    <a href="https://retool.com/?utm_source=sponsor&utm_campaign=vue" target="_blank" rel="sponsored noopener" class="logo">
+      <img src="/images/retool.png" alt="Retool">
+    </a>
+    <a href="https://passionatepeople.io/" target="_blank" rel="sponsored noopener" class="logo">
+      <img src="/images/passionate_people.png" alt="Passionate People">
+    </a>
+    <a href="https://www.storyblok.com" target="_blank" rel="sponsored noopener" class="logo">
+      <img src="/images/storyblok.png" alt="Storyblok">
+    </a>
+    </div>
+  </div>
+  <a class="become-backer" href="/support-vuejs">
+    スポンサーになる
+  </a>
+</div>
+
+
+
+      
+        <h2>
+          
+          クックブック<sup class="beta">beta</sup>
+          
+        </h2>
+        <ul class="menu-root">
+  
+    
+    
+    <li>
+      <a href="/v2/cookbook/index.html" class="sidebar-link">はじめに</a>
+    </li>
+  
+    
+    
+    <li>
+      <a href="/v2/cookbook/adding-instance-properties.html" class="sidebar-link">インスタンスプロパティの追加</a>
+    </li>
+  
+    
+    
+    <li>
+      <a href="/v2/cookbook/form-validation.html" class="sidebar-link">フォームのバリデーション</a>
+    </li>
+  
+    
+    
+    <li>
+      <a href="/v2/cookbook/editable-svg-icons.html" class="sidebar-link">編集可能な SVG アイコンシステム</a>
+    </li>
+  
+    
+    
+    <li>
+      <a href="/v2/cookbook/serverless-blog.html" class="sidebar-link">CMS によるブログの作成</a>
+    </li>
+  
+    
+    
+    <li>
+      <a href="/v2/cookbook/unit-testing-vue-components.html" class="sidebar-link">Vue コンポーネントの単体テスト</a>
+    </li>
+  
+    
+    
+    <li>
+      <a href="/v2/cookbook/creating-custom-scroll-directives.html" class="sidebar-link current">カスタムスクロールディレクティブの作成</a>
+    </li>
+  
+    
+    
+    <li>
+      <a href="/v2/cookbook/debugging-in-vscode.html" class="sidebar-link">VS Code によるデバッグ</a>
+    </li>
+  
+    
+    
+    <li>
+      <a href="/v2/cookbook/using-axios-to-consume-apis.html" class="sidebar-link">axios を利用した API の使用</a>
+    </li>
+  
+    
+    
+    <li>
+      <a href="/v2/cookbook/avoiding-memory-leaks.html" class="sidebar-link">メモリリークを回避する</a>
+    </li>
+  
+    
+    
+    <li>
+      <a href="/v2/cookbook/client-side-storage.html" class="sidebar-link">クライアントサイドストレージ</a>
+    </li>
+  
+    
+    
+    <li>
+      <a href="/v2/cookbook/packaging-sfc-for-npm.html" class="sidebar-link">Vue コンポーネントを npm パッケージ化する</a>
+    </li>
+  
+    
+    
+    <li>
+      <a href="/v2/cookbook/dockerize-vuejs-app.html" class="sidebar-link">Vue.js アプリケーションを Docker 化する</a>
+    </li>
+  
+    
+    
+    <li>
+      <a href="/v2/cookbook/practical-use-of-scoped-slots.html" class="sidebar-link">Practical use of scoped slots with GoogleMaps</a>
+    </li>
+  
+</ul>
+
+      
+    </div>
+  </div>
+</div>
+
+<div id="sidebar-sponsors-platinum-right">
+  <div class="main-sponsor">
+    <span>プラチナスポンサー</span>
+    <div>
+    <a href="https://vehikl.com/" target="_blank" rel="sponsored noopener" class="logo">
+      <img src="/images/vehikl.png" alt="Vehikl">
+    </a>
+    <a href="https://retool.com/?utm_source=sponsor&utm_campaign=vue" target="_blank" rel="sponsored noopener" class="logo">
+      <img src="/images/retool.png" alt="Retool">
+    </a>
+    <a href="https://passionatepeople.io/" target="_blank" rel="sponsored noopener" class="logo">
+      <img src="/images/passionate_people.png" alt="Passionate People">
+    </a>
+    <a href="https://www.storyblok.com" target="_blank" rel="sponsored noopener" class="logo">
+      <img src="/images/storyblok.png" alt="Storyblok">
+    </a>
+    </div>
+  </div>
+  <a class="become-backer" href="/support-vuejs">
+    スポンサーになる
+  </a>
+</div>
+
+
+
+
+<div class="content cookbook with-sidebar ">
+  
+    
+      
+<div id="ad">
+  <script async type="text/javascript" src="//cdn.carbonads.com/carbon.js?serve=CKYIK2QU&placement=vuejsorg" id="_carbonads_js">
+  </script>
+</div>
+
+
+    
+  
+  
+    <h1>カスタムスクロールディレクティブの作成</h1>
+  
+  <p class="updated">最終更新日: 2018年3月20日</p>
+  
+  
+    <h2 id="基本的な例"><a href="#基本的な例" class="headerlink" title="基本的な例"></a>基本的な例</h2><p>Web サイト上でスクロールイベントと連動するアニメーションなど、ちょっとした振る舞いを加えたくなる時は多くあります。やり方は多くありますが、最も少ないコード量と依存で実現できる方法はおそらく、特定のスクロールイベントを発火させるフックを作成する、<a href="https://jp.vuejs.org/v2/guide/custom-directive.html">カスタムディレクティブ</a>を使用することでしょう。</p>
+<pre><code class="hljs js">Vue.directive(<span class="hljs-string">'scroll'</span>, &#123;
+  <span class="hljs-attr">inserted</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">el, binding</span>) </span>&#123;
+    <span class="hljs-keyword">let</span> f = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">evt</span>) </span>&#123;
+      <span class="hljs-keyword">if</span> (binding.value(evt, el)) &#123;
+        <span class="hljs-built_in">window</span>.removeEventListener(<span class="hljs-string">'scroll'</span>, f)
+      &#125;
+    &#125;
+    <span class="hljs-built_in">window</span>.addEventListener(<span class="hljs-string">'scroll'</span>, f)
+  &#125;
+&#125;)
+
+<span class="hljs-comment">// main app</span>
+<span class="hljs-keyword">new</span> Vue(&#123;
+  <span class="hljs-attr">el</span>: <span class="hljs-string">'#app'</span>,
+  <span class="hljs-attr">methods</span>: &#123;
+    <span class="hljs-attr">handleScroll</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">evt, el</span>) </span>&#123;
+      <span class="hljs-keyword">if</span> (<span class="hljs-built_in">window</span>.scrollY &gt; <span class="hljs-number">50</span>) &#123;
+        el.setAttribute(
+          <span class="hljs-string">'style'</span>,
+          <span class="hljs-string">'opacity: 1; transform: translate3d(0, -10px, 0)'</span>
+        )
+      &#125;
+      <span class="hljs-keyword">return</span> <span class="hljs-built_in">window</span>.scrollY &gt; <span class="hljs-number">100</span>
+    &#125;
+  &#125;
+&#125;)</code></pre>
+<pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"app"</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">h1</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"centered"</span>&gt;</span>Scroll me<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">div</span>
+    <span class="hljs-attr">v-scroll</span>=<span class="hljs-string">"handleScroll"</span>
+    <span class="hljs-attr">class</span>=<span class="hljs-string">"box"</span>
+  &gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A atque amet harum aut ab veritatis earum porro praesentium ut corporis. Quasi provident dolorem officia iure fugiat, eius mollitia sequi quisquam.<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
+<p class="tip">注意! ディレクティブは Vue インスタンス作成前に登録されなければなりません。</p>
+
+<p>以下のケースでは、中間値を遷移するスタイルプロパティも必要となります。</p>
+<pre><code class="hljs css"><span class="hljs-selector-class">.box</span> &#123;
+  <span class="hljs-attribute">transition</span>: <span class="hljs-number">1.5s</span> all <span class="hljs-built_in">cubic-bezier</span>(0.39, 0.575, 0.565, 1);
+&#125;</code></pre>
+<p></p><p data-height="450" data-theme-id="5162" data-slug-hash="983220ed949ac670dff96bdcaf9d3338" data-default-tab="result" data-user="sdras" data-embed-version="2" data-pen-title="Custom Scroll Directive- CSS Transition" class="codepen">See the Pen <a href="https://codepen.io/sdras/pen/983220ed949ac670dff96bdcaf9d3338/" target="_blank" rel="noopener">Custom Scroll Directive- CSS Transition</a> by Sarah Drasner (<a href="https://codepen.io/sdras" target="_blank" rel="noopener">@sdras</a>) on <a href="https://codepen.io" target="_blank" rel="noopener">CodePen</a>.</p><p></p>
+<script async src="https://static.codepen.io/assets/embed/ei.js"></script>
+
+<p>また GreenSock(GSAP) や他の JavaScript ライブラリーを使用することで、コードはよりシンプルになります。</p>
+<pre><code class="hljs js">Vue.directive(<span class="hljs-string">'scroll'</span>, &#123;
+  <span class="hljs-attr">inserted</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">el, binding</span>) </span>&#123;
+    <span class="hljs-keyword">let</span> f = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">evt</span>) </span>&#123;
+      <span class="hljs-keyword">if</span> (binding.value(evt, el)) &#123;
+        <span class="hljs-built_in">window</span>.removeEventListener(<span class="hljs-string">'scroll'</span>, f)
+      &#125;
+    &#125;
+    <span class="hljs-built_in">window</span>.addEventListener(<span class="hljs-string">'scroll'</span>, f)
+  &#125;
+&#125;)
+
+<span class="hljs-comment">// main app</span>
+<span class="hljs-keyword">new</span> Vue(&#123;
+  <span class="hljs-attr">el</span>: <span class="hljs-string">'#app'</span>,
+  <span class="hljs-attr">methods</span>: &#123;
+    <span class="hljs-attr">handleScroll</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">evt, el</span>) </span>&#123;
+      <span class="hljs-keyword">if</span> (<span class="hljs-built_in">window</span>.scrollY &gt; <span class="hljs-number">50</span>) &#123;
+        TweenMax.to(el, <span class="hljs-number">1.5</span>, &#123;
+          <span class="hljs-attr">y</span>: <span class="hljs-number">-10</span>,
+          <span class="hljs-attr">opacity</span>: <span class="hljs-number">1</span>,
+          <span class="hljs-attr">ease</span>: Sine.easeOut
+        &#125;)
+      &#125;
+      <span class="hljs-keyword">return</span> <span class="hljs-built_in">window</span>.scrollY &gt; <span class="hljs-number">100</span>
+    &#125;
+  &#125;
+&#125;)</code></pre>
+<p>CSS トランジションは今 JavaScript によって操作されているので、以前のスタイルプロパティをあてがっていた CSS トランジションは取り除くことができるでしょう。</p>
+<h2 id="カスタムディレクティブを使用することのメリット"><a href="#カスタムディレクティブを使用することのメリット" class="headerlink" title="カスタムディレクティブを使用することのメリット"></a>カスタムディレクティブを使用することのメリット</h2><p>Vue はディレクティブに対する豊富なオプションがあります。それらのオプションは一般的なユースケースをほとんど網羅し、とても生産的な開発体験を提供することでしょう。しかし、たとえフレームワークに網羅されていないニッチなユースケースを持っていたとしても、フレームワークに網羅されているユースケースと同様に付け加えることができます。なぜなら、とても簡単に必要とするカスタムディレクティブを作成できるからです。</p>
+<p>要素に対してスクロールイベントの着脱は本当に良いユースケースです。他のディレクティブと同様に、要素に結びつけられる必要があり、DOM を参照しなければならないためです。このパターンはトラバーサルを回避し、参照先のノードとイベントロジックのペアを保つことができます。</p>
+<h2 id="実例-カスケードアニメーションでのカスタムスクロールディレクティブの使用"><a href="#実例-カスケードアニメーションでのカスタムスクロールディレクティブの使用" class="headerlink" title="実例: カスケードアニメーションでのカスタムスクロールディレクティブの使用"></a>実例: カスケードアニメーションでのカスタムスクロールディレクティブの使用</h2><p>統一感のあるサイトを作成する過程で、様々な箇所で同じアニメーションロジックを再利用していることに気づくこともあるでしょう。それはシンプルなロジックに見えますが、カスタムディレクティブは再利用し辛いものになっているかもしれません。何も考えずに再利用すれば、使用の度に<em>ほんの</em>些細な変更を必要とすることになるでしょう。</p>
+<p>簡潔で読みやすいコードの維持に役立てるため、ページを下にスクロールするときにアニメーションの開始・終了座標といった定義済みの引数を渡したくなります。</p>
+<p><strong>この例は<a href="https://s.codepen.io/sdras/debug/078c19f5b3ed7f7d28584da450296cd0" target="_blank" rel="noopener">フルスクリーンバージョン</a>の方が見やすいです。</strong></p>
+<p></p><p data-height="500" data-theme-id="5162" data-slug-hash="c8c55e3e0bba997350551dd747119100" data-default-tab="result" data-user="sdras" data-embed-version="2" data-pen-title="Scrolling Example- Using Custom Directives in Vue" class="codepen">See the Pen <a href="https://codepen.io/sdras/pen/c8c55e3e0bba997350551dd747119100/" target="_blank" rel="noopener">Scrolling Example- Using Custom Directives in Vue</a> by Sarah Drasner (<a href="https://codepen.io/sdras" target="_blank" rel="noopener">@sdras</a>) on <a href="https://codepen.io" target="_blank" rel="noopener">CodePen</a>.</p><p></p>
+<script async src="https://static.codepen.io/assets/embed/ei.js"></script>
+
+<p>上のデモのそれぞれのセクションには、スクロールによって引き起こされる 2 つの異なるアニメーションがあります。モーフィングアニメーションと、 SVG 内の個々のパスに沿って動く描画アニメーションです。これら 2 つのアニメーションを再利用するため、それぞれのカスタムディレクティブを作成します。カスタムディレクティブに渡す引数は、シンプルかつ再利用可能なコードの維持に役立ちます。</p>
+<p>やり方を示すために、モーフィングシェイプの例を見てみましょう。ここでは開始・終了座標の状態と共に、モーフィングを作成するパス値が必要です。これらの引数はそれぞれ <code>binding.value.foo</code> として定義されています。</p>
+<pre><code class="hljs js">Vue.directive(<span class="hljs-string">'clipscroll'</span>, &#123;
+  <span class="hljs-attr">inserted</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">el, binding</span>) </span>&#123;
+    <span class="hljs-keyword">let</span> f = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">evt</span>) </span>&#123;
+      <span class="hljs-keyword">var</span> hasRun = <span class="hljs-literal">false</span>
+      <span class="hljs-keyword">if</span> (!hasRun &amp;&amp; <span class="hljs-built_in">window</span>.scrollY &gt; binding.value.start) &#123;
+        hasRun = <span class="hljs-literal">true</span>
+        TweenMax.to(el, <span class="hljs-number">2</span>, &#123;
+          <span class="hljs-attr">morphSVG</span>: binding.value.toPath,
+          <span class="hljs-attr">ease</span>: Sine.easeIn
+        &#125;)
+      &#125;
+      <span class="hljs-keyword">if</span> (<span class="hljs-built_in">window</span>.scrollY &gt; binding.value.end) &#123;
+        <span class="hljs-built_in">window</span>.removeEventListener(<span class="hljs-string">'scroll'</span>, f)
+      &#125;
+    &#125;
+    <span class="hljs-built_in">window</span>.addEventListener(<span class="hljs-string">'scroll'</span>, f)
+  &#125;
+&#125;)</code></pre>
+<p>それではテンプレートでこのアニメーションを使用してみましょう。この場合、<code>clipPath</code>要素にディレクティブを加え、全ての引数をオブジェクトとしてディレクティブに渡します。</p>
+<pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">clipPath</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"clip-path"</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">path</span>
+    <span class="hljs-attr">v-clipscroll</span>=<span class="hljs-string">"&#123; start: '50', end: '100', toPath: 'M0.39 0.34H15.99V22.44H0.39z' &#125;"</span>
+    <span class="hljs-attr">id</span>=<span class="hljs-string">"poly-shapemorph"</span>
+    <span class="hljs-attr">d</span>=<span class="hljs-string">"M12.46 20.76L7.34 22.04 3.67 18.25 5.12 13.18 10.24 11.9 13.91 15.69 12.46 20.76z"</span>
+  /&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">clipPath</span>&gt;</span></code></pre>
+<h2 id="他のパターン"><a href="#他のパターン" class="headerlink" title="他のパターン"></a>他のパターン</h2><p>カスタムディレクティブは非常に役に立ちます。しかしスクラッチで作るのではなく、スクロールライブラリにすでに存在する機能を使いたい場合もあるかもしれません。</p>
+<p><a href="http://scrollmagic.io/" target="_blank" rel="noopener">Scrollmagic</a>は豊富なエコシステムがあると同時に、優れたドキュメントやデモを用意しています。これには、<a href="http://scrollmagic.io/examples/advanced/parallax_scrolling.html" target="_blank" rel="noopener">パララックス</a>、<a href="http://scrollmagic.io/examples/expert/cascading_pins.html" target="_blank" rel="noopener">カスケードピンニング</a>、<a href="http://scrollmagic.io/examples/basic/section_wipes_natural.html" target="_blank" rel="noopener">セクションワイプ</a>、<a href="http://scrollmagic.io/examples/basic/responsive_duration.html" target="_blank" rel="noopener">レスポンシブデュレイション</a>など多様な機能が内包されています。</p>
+
+  
+  
+  <div class="footer">
+      <script src="//m.servedby-buysellads.com/monetization.js" type="text/javascript"></script>
+<div id="bsa-native"></div>
+<script>
+_bsa.init('custom', 'CKYD62QM', 'placement:vuejsorg',
+  {
+    target: '#bsa-native',
+    template: '<a class="native-box" href="##statlink##"><div class="native-sponsor">Sponsor</div><div class="native-text"><strong>##company##</strong> — ##description##</div></a>'
+  }
+);
+</script>
+
+
+    間違いを見つけた、またはドキュメントに貢献したいですか？
+    <a href="https://github.com/vuejs/jp.vuejs.org/blob/lang-ja/src/v2/cookbook/creating-custom-scroll-directives.md" rel="noopener" target="_blank">
+      GitHub で編集しましょう！
+    </a>
+    このサイトは
+    <a href="https://url.netlify.com/HJ8X2mxP8" rel="noopener" target="_blank">
+      Netlify
+    </a>
+    でホストされています。
+  </div>
+</div>
+
+      </div>
+      <script src="/js/smooth-scroll.min.js"></script>
+    
+
+    <!-- main custom script for sidebars, version selects etc. -->
+    <script src="/js/css.escape.js"></script>
+    <script src="/js/common.js"></script>
+
+    <!-- search -->
+    <link href="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="/css/search.css">
+    <script src="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.js"></script>
+    <script>
+    [
+      '#search-query-nav',
+      '#search-query-sidebar',
+      '#search-query-menu'
+    ].forEach(function (selector) {
+      if (!document.querySelector(selector)) return
+      // search index defaults to v2
+      var match = window.location.pathname.match(/^\/(v\d+)/)
+      var version = match ? match[1] : 'v2'
+      docsearch({
+      appId: 'BH4D9OD16A',
+      apiKey: '0a75952972806d9ad07e387d08e9cc4c',
+      indexName: 'vuejs_jp',
+      inputSelector: selector,
+      algoliaOptions: { facetFilters: ["version:" + version] },
+      autocompleteOptions: { hint: false, appendTo: 'body'}
+      })
+    })
+    </script>
+  </body>
+</html>

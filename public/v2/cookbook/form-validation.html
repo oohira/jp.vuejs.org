@@ -1,0 +1,851 @@
+
+
+
+<!DOCTYPE html>
+<html lang="ja">
+  <head><meta name="generator" content="Hexo 3.8.0">
+    <title>フォームのバリデーション — Vue.js</title>
+    <meta charset="utf-8">
+    <meta name="description" content="Vue.js - The Progressive JavaScript Framework">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="alternate" hreflang="x-default" href="https://vuejs.org/v2/cookbook/form-validation.html">
+    <link rel="alternate" hreflang="zh" href="https://cn.vuejs.org/v2/cookbook/form-validation.html">
+    <link rel="alternate" hreflang="ja" href="https://jp.vuejs.org/v2/cookbook/form-validation.html">
+    <link rel="alternate" hreflang="ru" href="https://ru.vuejs.org/v2/cookbook/form-validation.html">
+    <link rel="alternate" hreflang="ko" href="https://kr.vuejs.org/v2/cookbook/form-validation.html">
+    <link rel="alternate" hreflang="pt-BR" href="https://br.vuejs.org/v2/cookbook/form-validation.html">
+    <link rel="alternate" hreflang="fr" href="https://fr.vuejs.org/v2/cookbook/form-validation.html">
+    <link rel="alternate" hreflang="es" href="https://es.vuejs.org/v2/cookbook/form-validation.html">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="フォームのバリデーション — Vue.js">
+    <meta property="og:description" content="Vue.js - The Progressive JavaScript Framework">
+    <meta property="og:image" content="https://jp.vuejs.org//images/logo.png">
+
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="フォームのバリデーション — Vue.js">
+    <meta name="twitter:description" content="Vue.js - The Progressive JavaScript Framework">
+    <meta name="twitter:image" content="https://jp.vuejs.org/images/logo.png">
+
+    <link rel="apple-touch-icon" sizes="57x57" href="/images/icons/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/images/icons/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/images/icons/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/images/icons/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/images/icons/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/images/icons/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/images/icons/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/images/icons/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/icons/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/images/icons/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="/images/icons/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/images/icons/favicon-16x16.png">
+    <meta name="msapplication-TileImage" content="/images/icons/ms-icon-144x144.png">
+    <link rel="icon" href="/images/logo.png" type="image/png">
+
+    <meta name="msapplication-TileColor" content="#4fc08d">
+    <meta name="theme-color" content="#4fc08d">
+
+    <meta name="msapplication-config" content="browserconfig.xml">
+    <link rel="manifest" href="/manifest.json">
+
+    <link href="https://fonts.googleapis.com" rel="preconnect" crossorigin="">
+    <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin="">
+    <link href="https://maxcdn.bootstrapcdn.com" rel="preconnect" crossorigin="">
+
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600|Roboto Mono&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Dosis:500&text=Vue.js&display=swap" rel="stylesheet">
+
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+    <!-- main page styles -->
+    <link rel="stylesheet" href="/css/page.css">
+
+    <!-- this needs to be loaded before guide's inline scripts -->
+    <script src="/js/vue.js"></script>
+
+    
+
+    <script>
+      Vue.config.productionTip = false
+      window.PAGE_TYPE = "cookbook"
+    </script>
+
+    <!-- ga -->
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-46852172-1', 'jp.vuejs.org');
+      ga('send', 'pageview');
+    </script>
+
+    <!-- vimeo analytics -->
+    <script type="text/javascript" defer="defer" src="https://extend.vimeocdn.com/ga/72160148.js"></script>
+  </head>
+  <body class="docs">
+    <div id="mobile-bar">
+      <a class="menu-button"></a>
+      <a class="logo" href="/"></a>
+    </div>
+    <header id="header">
+  <a id="logo" href="/">
+    <img src="/images/logo.png" alt="vue logo">
+    <span>Vue.js</span>
+  </a>
+  <ul id="nav">
+    <li>
+  <form id="search-form">
+    <input type="text" id="search-query-nav" class="search-query st-default-search-input" aria-label="検索">
+  </form>
+</li>
+<li class="nav-dropdown-container learn">
+  <a class="nav-link current">学ぶ</a><span class="arrow"></span>
+  <ul class="nav-dropdown">
+    <li><h4>ドキュメント</h4></li>
+    <li>
+      <ul>
+        <li><a href="/v2/guide/" class="nav-link">ガイド</a></li>
+        <li><a href="/v2/api/" class="nav-link">API</a></li>
+        <li><a href="/v2/style-guide/" class="nav-link">スタイルガイド</a></li>
+        <li><a href="/v2/examples/" class="nav-link">例</a></li>
+        <li><a href="/v2/cookbook/" class="nav-link current">クックブック</a></li>
+      </ul>
+    </li>
+    <li><h4>ビデオコース</h4></li>
+    <li>
+      <ul>
+        <li>
+          <a href="https://www.vuemastery.com/courses/" class="nav-link" target="_blank" rel="sponsored noopener">
+            Vue Mastery
+          </a>
+        </li>
+        <li>
+          <a href="https://vueschool.io/?friend=vuejs&utm_source=Vuejs.org&utm_medium=Link&utm_content=Navbar%20Dropdown" class="nav-link" target="_blank" rel="sponsored noopener">
+            Vue School
+          </a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</li>
+
+<li class="nav-dropdown-container ecosystem">
+  <a class="nav-link">エコシステム</a><span class="arrow"></span>
+  <ul class="nav-dropdown">
+    <li><h4>ヘルプ</h4></li>
+    <li><ul>
+      <li><a href="https://forum.vuejs.org/" class="nav-link" target="_blank" rel="noopener">フォーラム</a></li>
+      <li><a href="https://chat.vuejs.org/" class="nav-link" target="_blank" rel="noopener">チャット(公式)</a></li>
+      <li><a href="https://vuejs-jp-slackin.herokuapp.com" class="nav-link" target="_blank" rel="noopener">チャット(日本向け)</a></li>
+      <li><a href="https://events.vuejs.org/meetups/" class="nav-link" target="_blank" rel="noopener">ミートアップ</a></li>
+    </ul></li>
+    <li><h4>開発ツール</h4></li>
+    <li>
+      <ul>
+        <li><a href="https://github.com/vuejs/vue-devtools" class="nav-link" target="_blank" rel="noopener">Devtools</a></li>
+        <li><a href="https://cli.vuejs.org/" class="nav-link" target="_blank" rel="noopener">Vue CLI</a></li>
+        <li><a href="https://vue-loader.vuejs.org" class="nav-link" target="_blank" rel="noopener">Vue Loader</a></li>
+      </ul>
+    </li>
+    <li><h4>コアライブラリ</h4></li>
+    <li><ul>
+      <li><a href="https://router.vuejs.org/ja/" class="nav-link" target="_blank" rel="noopener">Vue Router</a></li>
+      <li><a href="https://vuex.vuejs.org/ja/" class="nav-link" target="_blank" rel="noopener">Vuex</a></li>
+      <li><a href="https://ssr.vuejs.org/ja/" class="nav-link" target="_blank" rel="noopener">Vue Server Renderer</a></li>
+    </ul></li>
+    <li><h4>ニュース</h4></li>
+    <li><ul>
+      <li><a href="https://news.vuejs.org" class="nav-link" target="_blank" rel="noopener">ウィークリーニュース</a></li>
+      <li><a href="https://github.com/vuejs/vue/projects/6" class="nav-link" target="_blank" rel="noopener">ロードマップ</a></li>
+      <li><a href="https://events.vuejs.org/" class="nav-link" target="_blank" rel="noopener">イベント</a></li>
+      <li><a href="https://twitter.com/vuejs" class="nav-link" target="_blank" rel="noopener">Twitter</a></li>
+      <li><a href="https://medium.com/the-vue-point" class="nav-link" target="_blank" rel="noopener">ブログ(英語)</a></li>
+      <li><a href="/blog/" class="nav-link" target="_blank" rel="noopener">ブログ(日本語訳)</a></li>
+      <li><a href="https://vuejobs.com/?ref=vuejs" class="nav-link" target="_blank" rel="noopener">ジョブ(海外)</a></li>
+      <li><a href="https://dev.to/t/vue" class="nav-link" target="_blank" rel="noopener">DEV コミュニティ</a></li>
+    </ul></li>
+  </ul>
+</li>
+
+<li>
+  <a href="/v2/guide/team.html" class="nav-link team">チーム</a>
+</li>
+<li>
+  <a href="/contribution/" class="nav-link">貢献</a>
+</li>
+<li class="nav-dropdown-container resources">
+  <a href="#" class="nav-link">リソース</a><span class="arrow"></span>
+  <ul class="nav-dropdown">
+    <li><a href="/resources/partners.html" class="nav-link">パートナー</a></li>
+    <li><a href="/resources/themes.html" class="nav-link">テーマ</a></li>
+    <li><a href="https://github.com/vuejs/awesome-vue" class="nav-link" target="_blank" rel="noopener">Awesome Vue</a></li>
+    <li><a href="https://awesomejs.dev/for/vue/" class="nav-link" target="_blank" rel="noopener">Browse packages for Vue</a></li>
+  </ul>
+</li>
+
+<!-- <li>
+  <a href="/partners" class="nav-link ">Partners</a>
+</li> -->
+<li class="nav-dropdown-container support-vue">
+  <a href="/support-vuejs/" class="nav-link">Vue を支援する</a><span class="arrow"></span>
+  <ul class="nav-dropdown">
+    <li><a href="/support-vuejs/#1回きりの支援" class="nav-link">1回きりの支援</a></li>
+    <li><a href="/support-vuejs/#継続的な支援" class="nav-link">継続的な支援</a></li>
+    <li><a href="https://vue.threadless.com" target="_blank" rel="noopener" class="nav-link">Tシャツ ショップ</a></li>
+  </ul>
+</li>
+
+<li class="nav-dropdown-container language">
+  <a class="nav-link">言語</a><span class="arrow"></span>
+  <ul class="nav-dropdown">
+    <li><a href="https://vuejs.org/v2/cookbook/form-validation.html" class="nav-link">English</a></li>
+    <li><a href="https://cn.vuejs.org/v2/cookbook/form-validation.html" class="nav-link">中文</a></li>
+    <li><a href="https://ru.vuejs.org/v2/cookbook/form-validation.html" class="nav-link">Русский</a></li>
+    <li><a href="https://kr.vuejs.org/v2/cookbook/form-validation.html" class="nav-link">한국어</a></li>
+    <li><a href="https://br.vuejs.org/v2/cookbook/form-validation.html" class="nav-link">Português</a></li>
+    <li><a href="https://fr.vuejs.org/v2/cookbook/form-validation.html" class="nav-link">Français</a></li>
+    <li><a href="https://vi.vuejs.org/v2/cookbook/form-validation.html" class="nav-link">Tiếng Việt</a></li>
+    <li><a href="https://es.vuejs.org/v2/cookbook/form-validation.html" class="nav-link">Español</a></li>
+    <li><a href="https://docs.vuejs.id/v2/cookbook/form-validation.html" class="nav-link">Bahasa Indonesia</a></li>
+  </ul>
+</li>
+
+
+  </ul>
+</header>
+
+    
+      <div id="main" class="fix-sidebar">
+        
+  
+
+<div class="sidebar">
+  <div class="sidebar-inner">
+    
+    <div class="list">
+      <div id="sidebar-sponsors-special">
+  <div class="main-sponsor">
+    <span>スペシャルスポンサー</span>
+    <div>
+    <a href="https://autocode.com" target="_blank" rel="sponsored noopener" class="logo">
+      <img src="/images/autocode.svg" alt="Autocode">
+    </a>
+    </div>
+  </div>
+</div>
+
+<div id="sidebar-sponsors-platinum-left">
+  <div class="main-sponsor">
+    <span>プラチナスポンサー</span>
+    <div>
+    <a href="https://vehikl.com/" target="_blank" rel="sponsored noopener" class="logo">
+      <img src="/images/vehikl.png" alt="Vehikl">
+    </a>
+    <a href="https://retool.com/?utm_source=sponsor&utm_campaign=vue" target="_blank" rel="sponsored noopener" class="logo">
+      <img src="/images/retool.png" alt="Retool">
+    </a>
+    <a href="https://passionatepeople.io/" target="_blank" rel="sponsored noopener" class="logo">
+      <img src="/images/passionate_people.png" alt="Passionate People">
+    </a>
+    <a href="https://www.storyblok.com" target="_blank" rel="sponsored noopener" class="logo">
+      <img src="/images/storyblok.png" alt="Storyblok">
+    </a>
+    </div>
+  </div>
+  <a class="become-backer" href="/support-vuejs">
+    スポンサーになる
+  </a>
+</div>
+
+
+
+      
+        <h2>
+          
+          クックブック<sup class="beta">beta</sup>
+          
+        </h2>
+        <ul class="menu-root">
+  
+    
+    
+    <li>
+      <a href="/v2/cookbook/index.html" class="sidebar-link">はじめに</a>
+    </li>
+  
+    
+    
+    <li>
+      <a href="/v2/cookbook/adding-instance-properties.html" class="sidebar-link">インスタンスプロパティの追加</a>
+    </li>
+  
+    
+    
+    <li>
+      <a href="/v2/cookbook/form-validation.html" class="sidebar-link current">フォームのバリデーション</a>
+    </li>
+  
+    
+    
+    <li>
+      <a href="/v2/cookbook/editable-svg-icons.html" class="sidebar-link">編集可能な SVG アイコンシステム</a>
+    </li>
+  
+    
+    
+    <li>
+      <a href="/v2/cookbook/serverless-blog.html" class="sidebar-link">CMS によるブログの作成</a>
+    </li>
+  
+    
+    
+    <li>
+      <a href="/v2/cookbook/unit-testing-vue-components.html" class="sidebar-link">Vue コンポーネントの単体テスト</a>
+    </li>
+  
+    
+    
+    <li>
+      <a href="/v2/cookbook/creating-custom-scroll-directives.html" class="sidebar-link">カスタムスクロールディレクティブの作成</a>
+    </li>
+  
+    
+    
+    <li>
+      <a href="/v2/cookbook/debugging-in-vscode.html" class="sidebar-link">VS Code によるデバッグ</a>
+    </li>
+  
+    
+    
+    <li>
+      <a href="/v2/cookbook/using-axios-to-consume-apis.html" class="sidebar-link">axios を利用した API の使用</a>
+    </li>
+  
+    
+    
+    <li>
+      <a href="/v2/cookbook/avoiding-memory-leaks.html" class="sidebar-link">メモリリークを回避する</a>
+    </li>
+  
+    
+    
+    <li>
+      <a href="/v2/cookbook/client-side-storage.html" class="sidebar-link">クライアントサイドストレージ</a>
+    </li>
+  
+    
+    
+    <li>
+      <a href="/v2/cookbook/packaging-sfc-for-npm.html" class="sidebar-link">Vue コンポーネントを npm パッケージ化する</a>
+    </li>
+  
+    
+    
+    <li>
+      <a href="/v2/cookbook/dockerize-vuejs-app.html" class="sidebar-link">Vue.js アプリケーションを Docker 化する</a>
+    </li>
+  
+    
+    
+    <li>
+      <a href="/v2/cookbook/practical-use-of-scoped-slots.html" class="sidebar-link">Practical use of scoped slots with GoogleMaps</a>
+    </li>
+  
+</ul>
+
+      
+    </div>
+  </div>
+</div>
+
+<div id="sidebar-sponsors-platinum-right">
+  <div class="main-sponsor">
+    <span>プラチナスポンサー</span>
+    <div>
+    <a href="https://vehikl.com/" target="_blank" rel="sponsored noopener" class="logo">
+      <img src="/images/vehikl.png" alt="Vehikl">
+    </a>
+    <a href="https://retool.com/?utm_source=sponsor&utm_campaign=vue" target="_blank" rel="sponsored noopener" class="logo">
+      <img src="/images/retool.png" alt="Retool">
+    </a>
+    <a href="https://passionatepeople.io/" target="_blank" rel="sponsored noopener" class="logo">
+      <img src="/images/passionate_people.png" alt="Passionate People">
+    </a>
+    <a href="https://www.storyblok.com" target="_blank" rel="sponsored noopener" class="logo">
+      <img src="/images/storyblok.png" alt="Storyblok">
+    </a>
+    </div>
+  </div>
+  <a class="become-backer" href="/support-vuejs">
+    スポンサーになる
+  </a>
+</div>
+
+
+
+
+<div class="content cookbook with-sidebar ">
+  
+    
+      
+<div id="ad">
+  <script async type="text/javascript" src="//cdn.carbonads.com/carbon.js?serve=CKYIK2QU&placement=vuejsorg" id="_carbonads_js">
+  </script>
+</div>
+
+
+    
+  
+  
+    <h1>フォームのバリデーション</h1>
+  
+  <p class="updated">最終更新日: 2020年4月19日</p>
+  
+  
+    <h2 id="基本的な例"><a href="#基本的な例" class="headerlink" title="基本的な例"></a>基本的な例</h2><div class="vueschool"><a href="https://vueschool.io/lessons/vuejs-form-validation-diy?friend=vuejs" target="_blank" rel="sponsored noopener" title="Free Vue.js Form Validation Lesson">Vue School で無料の動画レッスンを見る</a></div>
+
+<p>フォームのバリデーションはブラウザにネイティブサポートされますが、異なるブラウザ間での取り扱いには注意が必要です。またバリデーションが完全にサポートされている場合においても、カスタマイズしたバリデーションが必要な場合もあるため、 Vue ベースでのソリューションが適切かもしれません。簡単な例から見ていきましょう。</p>
+<p>3 つのフィールドをもち、2 つが必須の場合。はじめに HTML を見てみましょう。</p>
+<pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">form</span>
+  <span class="hljs-attr">id</span>=<span class="hljs-string">"app"</span>
+  @<span class="hljs-attr">submit</span>=<span class="hljs-string">"checkForm"</span>
+  <span class="hljs-attr">action</span>=<span class="hljs-string">"https://vuejs.org/"</span>
+  <span class="hljs-attr">method</span>=<span class="hljs-string">"post"</span>
+&gt;</span>
+
+  <span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">v-if</span>=<span class="hljs-string">"errors.length"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">b</span>&gt;</span>Please correct the following error(s):<span class="hljs-tag">&lt;/<span class="hljs-name">b</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">ul</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">li</span> <span class="hljs-attr">v-for</span>=<span class="hljs-string">"error in errors"</span>&gt;</span>&#123;&#123; error &#125;&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+
+  <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">label</span> <span class="hljs-attr">for</span>=<span class="hljs-string">"name"</span>&gt;</span>Name<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">input</span>
+      <span class="hljs-attr">id</span>=<span class="hljs-string">"name"</span>
+      <span class="hljs-attr">v-model</span>=<span class="hljs-string">"name"</span>
+      <span class="hljs-attr">type</span>=<span class="hljs-string">"text"</span>
+      <span class="hljs-attr">name</span>=<span class="hljs-string">"name"</span>
+    &gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+
+  <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">label</span> <span class="hljs-attr">for</span>=<span class="hljs-string">"age"</span>&gt;</span>Age<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">input</span>
+      <span class="hljs-attr">id</span>=<span class="hljs-string">"age"</span>
+      <span class="hljs-attr">v-model</span>=<span class="hljs-string">"age"</span>
+      <span class="hljs-attr">type</span>=<span class="hljs-string">"number"</span>
+      <span class="hljs-attr">name</span>=<span class="hljs-string">"age"</span>
+      <span class="hljs-attr">min</span>=<span class="hljs-string">"0"</span>
+    &gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+
+  <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">label</span> <span class="hljs-attr">for</span>=<span class="hljs-string">"movie"</span>&gt;</span>Favorite Movie<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">select</span>
+      <span class="hljs-attr">id</span>=<span class="hljs-string">"movie"</span>
+      <span class="hljs-attr">v-model</span>=<span class="hljs-string">"movie"</span>
+      <span class="hljs-attr">name</span>=<span class="hljs-string">"movie"</span>
+    &gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">option</span>&gt;</span>Star Wars<span class="hljs-tag">&lt;/<span class="hljs-name">option</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">option</span>&gt;</span>Vanilla Sky<span class="hljs-tag">&lt;/<span class="hljs-name">option</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">option</span>&gt;</span>Atomic Blonde<span class="hljs-tag">&lt;/<span class="hljs-name">option</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">select</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+
+  <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">input</span>
+      <span class="hljs-attr">type</span>=<span class="hljs-string">"submit"</span>
+      <span class="hljs-attr">value</span>=<span class="hljs-string">"Submit"</span>
+    &gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+
+<span class="hljs-tag">&lt;/<span class="hljs-name">form</span>&gt;</span></code></pre>
+<p>そして、その HTML をラップしましょう。 <code>&lt;form&gt;</code> タグには、 Vue コンポーネントに使用する ID が存在します。フォーム送信のハンドラと <code>action</code> がありますが、一時的な URL で、本来は現実のサーバーのどこかを指しています(ここでは、サーバーサイドでのバリデーションをバックアップしています)。</p>
+<p>その子には、エラーの状態にもとづいてそれ自身を表示・非表示とするための段落があります。これによって、フォーム上にシンプルなエラーのリストが表示されます。バリデーションはフィールドの変更時ではなく、フォーム送信の際に実行されることに注意してください。</p>
+<p>最後に、 3 つのフィールドそれぞれに対応、対応する <code>v-model</code> が存在し、これを JavaScript で利用する値と紐付ける必要があります。その例を見てみましょう。</p>
+<pre><code class="hljs js"><span class="hljs-keyword">const</span> app = <span class="hljs-keyword">new</span> Vue(&#123;
+  <span class="hljs-attr">el</span>: <span class="hljs-string">'#app'</span>,
+  <span class="hljs-attr">data</span>: &#123;
+    <span class="hljs-attr">errors</span>: [],
+    <span class="hljs-attr">name</span>: <span class="hljs-literal">null</span>,
+    <span class="hljs-attr">age</span>: <span class="hljs-literal">null</span>,
+    <span class="hljs-attr">movie</span>: <span class="hljs-literal">null</span>
+  &#125;,
+  <span class="hljs-attr">methods</span>:&#123;
+    <span class="hljs-attr">checkForm</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">e</span>) </span>&#123;
+      <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.name &amp;&amp; <span class="hljs-keyword">this</span>.age) &#123;
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+      &#125;
+
+      <span class="hljs-keyword">this</span>.errors = [];
+
+      <span class="hljs-keyword">if</span> (!<span class="hljs-keyword">this</span>.name) &#123;
+        <span class="hljs-keyword">this</span>.errors.push(<span class="hljs-string">'Name required.'</span>);
+      &#125;
+      <span class="hljs-keyword">if</span> (!<span class="hljs-keyword">this</span>.age) &#123;
+        <span class="hljs-keyword">this</span>.errors.push(<span class="hljs-string">'Age required.'</span>);
+      &#125;
+
+      e.preventDefault();
+    &#125;
+  &#125;
+&#125;)</code></pre>
+<p>短くてシンプルです。エラーを保持した上で、 3 つのフォームのフィールドに対して <code>null</code> を設定する配列を定義します。 <code>checkForm</code> のロジック(フォーム送信時に実行されるもの)では、 movie の値はオプショナルなので、 name および age についてのみチェックしています。それぞれについて、空ならばチェックをし、特定のエラーを設定するだけです。 以下のデモで実行してみることができます。なお、このデモでは送信が成功すると一時的な URL へと POST されることを忘れないでください。</p>
+<p></p><p data-height="265" data-theme-id="0" data-slug-hash="GObpZM" data-default-tab="html,result" data-user="cfjedimaster" data-embed-version="2" data-pen-title="form validation 1" class="codepen">See the Pen <a href="https://codepen.io/cfjedimaster/pen/GObpZM/" target="_blank" rel="noopener">form validation 1</a> by Raymond Camden (<a href="https://codepen.io/cfjedimaster" target="_blank" rel="noopener">@cfjedimaster</a>) on <a href="https://codepen.io" target="_blank" rel="noopener">CodePen</a>.</p><p></p>
+<script async src="https://production-assets.codepen.io/assets/embed/ei.js"></script>
+
+<h2 id="カスタムバリデーションの利用"><a href="#カスタムバリデーションの利用" class="headerlink" title="カスタムバリデーションの利用"></a>カスタムバリデーションの利用</h2><p>次の例では、 2 つめのテキストフィールドを email へと切り替え、カスタマイズしたロジックでバリデーションをします。このコードは、 StackOverflow の質問「<a href="https://stackoverflow.com/questions/46155/how-to-validate-email-address-in-javascript" target="_blank" rel="noopener">How to validate email address in JavaScript?</a>」から持ってきています。 HTML はこちらですが、はじめの例と非常に似通っています。</p>
+<pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">form</span>
+  <span class="hljs-attr">id</span>=<span class="hljs-string">"app"</span>
+  @<span class="hljs-attr">submit</span>=<span class="hljs-string">"checkForm"</span>
+  <span class="hljs-attr">action</span>=<span class="hljs-string">"https://vuejs.org/"</span>
+  <span class="hljs-attr">method</span>=<span class="hljs-string">"post"</span>
+  <span class="hljs-attr">novalidate</span>=<span class="hljs-string">"true"</span>
+&gt;</span>
+
+  <span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">v-if</span>=<span class="hljs-string">"errors.length"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">b</span>&gt;</span>Please correct the following error(s):<span class="hljs-tag">&lt;/<span class="hljs-name">b</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">ul</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">li</span> <span class="hljs-attr">v-for</span>=<span class="hljs-string">"error in errors"</span>&gt;</span>&#123;&#123; error &#125;&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+
+  <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">label</span> <span class="hljs-attr">for</span>=<span class="hljs-string">"name"</span>&gt;</span>Name<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">input</span>
+      <span class="hljs-attr">id</span>=<span class="hljs-string">"name"</span>
+      <span class="hljs-attr">v-model</span>=<span class="hljs-string">"name"</span>
+      <span class="hljs-attr">type</span>=<span class="hljs-string">"text"</span>
+      <span class="hljs-attr">name</span>=<span class="hljs-string">"name"</span>
+    &gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+
+  <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">label</span> <span class="hljs-attr">for</span>=<span class="hljs-string">"email"</span>&gt;</span>Email<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">input</span>
+      <span class="hljs-attr">id</span>=<span class="hljs-string">"email"</span>
+      <span class="hljs-attr">v-model</span>=<span class="hljs-string">"email"</span>
+      <span class="hljs-attr">type</span>=<span class="hljs-string">"email"</span>
+      <span class="hljs-attr">name</span>=<span class="hljs-string">"email"</span>
+    &gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+
+  <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">label</span> <span class="hljs-attr">for</span>=<span class="hljs-string">"movie"</span>&gt;</span>Favorite Movie<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">select</span>
+      <span class="hljs-attr">id</span>=<span class="hljs-string">"movie"</span>
+      <span class="hljs-attr">v-model</span>=<span class="hljs-string">"movie"</span>
+      <span class="hljs-attr">name</span>=<span class="hljs-string">"movie"</span>
+    &gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">option</span>&gt;</span>Star Wars<span class="hljs-tag">&lt;/<span class="hljs-name">option</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">option</span>&gt;</span>Vanilla Sky<span class="hljs-tag">&lt;/<span class="hljs-name">option</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">option</span>&gt;</span>Atomic Blonde<span class="hljs-tag">&lt;/<span class="hljs-name">option</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">select</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+
+  <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">input</span>
+      <span class="hljs-attr">type</span>=<span class="hljs-string">"submit"</span>
+      <span class="hljs-attr">value</span>=<span class="hljs-string">"Submit"</span>
+    &gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+
+<span class="hljs-tag">&lt;/<span class="hljs-name">form</span>&gt;</span></code></pre>
+<p>ここでの変更は少しだけですが、トップのフォームに対して <code>novalidate=&quot;true&quot;</code> に注目してください。 <code>type=&quot;email&quot;</code> の場合、ブラウザがフィールドに入力された E メールアドレスをバリデーションしようするため、この設定は重要です。率直に言えば、この場合はブラウザを信用すべきかもしれませんが、ここではカスタムバリデーションのサンプルのため無効化しています。 JavaScript 側の更新は以下になります:</p>
+<pre><code class="hljs js"><span class="hljs-keyword">const</span> app = <span class="hljs-keyword">new</span> Vue(&#123;
+  <span class="hljs-attr">el</span>: <span class="hljs-string">'#app'</span>,
+  <span class="hljs-attr">data</span>: &#123;
+    <span class="hljs-attr">errors</span>: [],
+    <span class="hljs-attr">name</span>: <span class="hljs-literal">null</span>,
+    <span class="hljs-attr">email</span>: <span class="hljs-literal">null</span>,
+    <span class="hljs-attr">movie</span>: <span class="hljs-literal">null</span>
+  &#125;,
+  <span class="hljs-attr">methods</span>: &#123;
+    <span class="hljs-attr">checkForm</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">e</span>) </span>&#123;
+      <span class="hljs-keyword">this</span>.errors = [];
+
+      <span class="hljs-keyword">if</span> (!<span class="hljs-keyword">this</span>.name) &#123;
+        <span class="hljs-keyword">this</span>.errors.push(<span class="hljs-string">"Name required."</span>);
+      &#125;
+      <span class="hljs-keyword">if</span> (!<span class="hljs-keyword">this</span>.email) &#123;
+        <span class="hljs-keyword">this</span>.errors.push(<span class="hljs-string">'Email required.'</span>);
+      &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (!<span class="hljs-keyword">this</span>.validEmail(<span class="hljs-keyword">this</span>.email)) &#123;
+        <span class="hljs-keyword">this</span>.errors.push(<span class="hljs-string">'Valid email required.'</span>);
+      &#125;
+
+      <span class="hljs-keyword">if</span> (!<span class="hljs-keyword">this</span>.errors.length) &#123;
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+      &#125;
+
+      e.preventDefault();
+    &#125;,
+    <span class="hljs-attr">validEmail</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">email</span>) </span>&#123;
+      <span class="hljs-keyword">var</span> re = <span class="hljs-regexp">/^(([^&lt;&gt;()[\]\\.,;:\s@"]+(\.[^&lt;&gt;()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]&#123;1,3&#125;\.[0-9]&#123;1,3&#125;\.[0-9]&#123;1,3&#125;\.[0-9]&#123;1,3&#125;\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]&#123;2,&#125;))$/</span>;
+      <span class="hljs-keyword">return</span> re.test(email);
+    &#125;
+  &#125;
+&#125;)</code></pre>
+<p>見て分かるとおり、 <code>validEmail</code> メソッドが新しく追加されました。これは、単純に <code>checkForm</code> から呼び出されています。こちらで実際に動作させることができます:</p>
+<p></p><p data-height="265" data-theme-id="0" data-slug-hash="vWqNXZ" data-default-tab="html,result" data-user="cfjedimaster" data-embed-version="2" data-pen-title="form validation 2" class="codepen">See the Pen <a href="https://codepen.io/cfjedimaster/pen/vWqNXZ/" target="_blank" rel="noopener">form validation 2</a> by Raymond Camden (<a href="https://codepen.io/cfjedimaster" target="_blank" rel="noopener">@cfjedimaster</a>) on <a href="https://codepen.io" target="_blank" rel="noopener">CodePen</a>.</p><p></p>
+<script async src="https://production-assets.codepen.io/assets/embed/ei.js"></script>
+
+<h2 id="カスタムバリデーションにおけるその他の例"><a href="#カスタムバリデーションにおけるその他の例" class="headerlink" title="カスタムバリデーションにおけるその他の例"></a>カスタムバリデーションにおけるその他の例</h2><p>3 つめの例は、アンケートアプリにて見たことがあるかもしれません。ユーザーは、 戦艦のそれぞれの機能に対して予算を振り分ける必要があります。かつ合計は必ず 100 となる必要があります。まずは HTML です。</p>
+<pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">form</span>
+  <span class="hljs-attr">id</span>=<span class="hljs-string">"app"</span>
+  @<span class="hljs-attr">submit</span>=<span class="hljs-string">"checkForm"</span>
+  <span class="hljs-attr">action</span>=<span class="hljs-string">"https://vuejs.org/"</span>
+  <span class="hljs-attr">method</span>=<span class="hljs-string">"post"</span>
+  <span class="hljs-attr">novalidate</span>=<span class="hljs-string">"true"</span>
+&gt;</span>
+
+  <span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">v-if</span>=<span class="hljs-string">"errors.length"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">b</span>&gt;</span>Please correct the following error(s):<span class="hljs-tag">&lt;/<span class="hljs-name">b</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">ul</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">li</span> <span class="hljs-attr">v-for</span>=<span class="hljs-string">"error in errors"</span>&gt;</span>&#123;&#123; error &#125;&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+
+  <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>
+    Given a budget of 100 dollars, indicate how much
+    you would spend on the following features for the
+    next generation Star Destroyer. Your total must sum up to 100.
+  <span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+
+  <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">input</span>
+      <span class="hljs-attr">v-model.number</span>=<span class="hljs-string">"weapons"</span>
+      <span class="hljs-attr">type</span>=<span class="hljs-string">"number"</span>
+      <span class="hljs-attr">name</span>=<span class="hljs-string">"weapons"</span>
+    &gt;</span> Weapons <span class="hljs-tag">&lt;<span class="hljs-name">br</span>/&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">input</span>
+      <span class="hljs-attr">v-model.number</span>=<span class="hljs-string">"shields"</span>
+      <span class="hljs-attr">type</span>=<span class="hljs-string">"number"</span>
+      <span class="hljs-attr">name</span>=<span class="hljs-string">"shields"</span>
+    &gt;</span> Shields <span class="hljs-tag">&lt;<span class="hljs-name">br</span>/&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">input</span>
+      <span class="hljs-attr">v-model.number</span>=<span class="hljs-string">"coffee"</span>
+      <span class="hljs-attr">type</span>=<span class="hljs-string">"number"</span>
+      <span class="hljs-attr">name</span>=<span class="hljs-string">"coffee"</span>
+    &gt;</span> Coffee <span class="hljs-tag">&lt;<span class="hljs-name">br</span>/&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">input</span>
+      <span class="hljs-attr">v-model.number</span>=<span class="hljs-string">"ac"</span>
+      <span class="hljs-attr">type</span>=<span class="hljs-string">"number"</span>
+      <span class="hljs-attr">name</span>=<span class="hljs-string">"ac"</span>
+    &gt;</span> Air Conditioning <span class="hljs-tag">&lt;<span class="hljs-name">br</span>/&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">input</span>
+      <span class="hljs-attr">v-model.number</span>=<span class="hljs-string">"mousedroids"</span>
+      <span class="hljs-attr">type</span>=<span class="hljs-string">"number"</span>
+      <span class="hljs-attr">name</span>=<span class="hljs-string">"mousedroids"</span>
+    &gt;</span> Mouse Droids <span class="hljs-tag">&lt;<span class="hljs-name">br</span>/&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+
+  <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>
+    Current Total: &#123;&#123;total&#125;&#125;
+  <span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+
+  <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">input</span>
+      <span class="hljs-attr">type</span>=<span class="hljs-string">"submit"</span>
+      <span class="hljs-attr">value</span>=<span class="hljs-string">"Submit"</span>
+    &gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+
+<span class="hljs-tag">&lt;/<span class="hljs-name">form</span>&gt;</span></code></pre>
+<p>5 つの機能ごとの入力フォームを見てみてください。そして、 <code>v-model</code> 属性に対して、 <code>.number</code> が付与されていることを注目してください。これは、値が利用される時に、 number にキャストするように Vue に対して指定することが可能です。しかしながら、この機能にはバグがあり、値が空の場合は空文字列に戻ってしまいます。以下に、その回避策を示しています。ユーザーにとってわかりやすくするため、現在の合計値をリアルタイムで見ることができるように追加しました。 JavaScript 側を見てみましょう。</p>
+<pre><code class="hljs js"><span class="hljs-keyword">const</span> app = <span class="hljs-keyword">new</span> Vue(&#123;
+  <span class="hljs-attr">el</span>: <span class="hljs-string">'#app'</span>,
+  <span class="hljs-attr">data</span>:&#123;
+    <span class="hljs-attr">errors</span>: [],
+    <span class="hljs-attr">weapons</span>: <span class="hljs-number">0</span>,
+    <span class="hljs-attr">shields</span>: <span class="hljs-number">0</span>,
+    <span class="hljs-attr">coffee</span>: <span class="hljs-number">0</span>,
+    <span class="hljs-attr">ac</span>: <span class="hljs-number">0</span>,
+    <span class="hljs-attr">mousedroids</span>: <span class="hljs-number">0</span>
+  &#125;,
+  <span class="hljs-attr">computed</span>: &#123;
+     <span class="hljs-attr">total</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;
+       <span class="hljs-comment">// Vue は空の値を string に変換するので、パースする必要があります</span>
+       <span class="hljs-keyword">return</span> <span class="hljs-built_in">Number</span>(<span class="hljs-keyword">this</span>.weapons) +
+         <span class="hljs-built_in">Number</span>(<span class="hljs-keyword">this</span>.shields) +
+         <span class="hljs-built_in">Number</span>(<span class="hljs-keyword">this</span>.coffee) +
+         <span class="hljs-built_in">Number</span>(<span class="hljs-keyword">this</span>.ac+<span class="hljs-keyword">this</span>.mousedroids);
+     &#125;
+  &#125;,
+  <span class="hljs-attr">methods</span>:&#123;
+    <span class="hljs-attr">checkForm</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">e</span>) </span>&#123;
+      <span class="hljs-keyword">this</span>.errors = [];
+
+      <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.total != <span class="hljs-number">100</span>) &#123;
+        <span class="hljs-keyword">this</span>.errors.push(<span class="hljs-string">'Total must be 100!'</span>);
+      &#125;
+
+      <span class="hljs-keyword">if</span> (!<span class="hljs-keyword">this</span>.errors.length) &#123;
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+      &#125;
+
+      e.preventDefault();
+    &#125;
+  &#125;
+&#125;)</code></pre>
+<p>合計値を算出プロパティとして設定し、バグを取り除いて動かすために十分に簡潔でした。 checkForm メソッドでは、合計値が 100 かどうかだけ確認する必要があります。こちらで実際に動作させることができます:</p>
+<p></p><p data-height="265" data-theme-id="0" data-slug-hash="vWqGoy" data-default-tab="html,result" data-user="cfjedimaster" data-embed-version="2" data-pen-title="form validation 3" class="codepen">See the Pen <a href="https://codepen.io/cfjedimaster/pen/vWqGoy/" target="_blank" rel="noopener">form validation 3</a> by Raymond Camden (<a href="https://codepen.io/cfjedimaster" target="_blank" rel="noopener">@cfjedimaster</a>) on <a href="https://codepen.io" target="_blank" rel="noopener">CodePen</a>.</p><p></p>
+<script async src="https://production-assets.codepen.io/assets/embed/ei.js"></script>
+
+<h2 id="サーバーサイドでのバリデーション"><a href="#サーバーサイドでのバリデーション" class="headerlink" title="サーバーサイドでのバリデーション"></a>サーバーサイドでのバリデーション</h2><p>最後の例では、 Ajax を利用してサーバーにてバリデーションを行うものを作成しました。このフォームでは、新しい product の名前を尋ね、その名前が一意かをチェックします。このバリデーションのために、サーバーレスな <a href="https://netlify.com/" target="_blank" rel="noopener">Netlify</a> アクションを書きました。ここでは重要ではありませんが、ロジックはこちらになります:</p>
+<pre><code class="hljs js">exports.handler = <span class="hljs-keyword">async</span> (event, context) =&gt; &#123;
+  
+    <span class="hljs-keyword">const</span> badNames = [<span class="hljs-string">'vista'</span>, <span class="hljs-string">'empire'</span>, <span class="hljs-string">'mbp'</span>];
+    <span class="hljs-keyword">const</span> name = event.queryStringParameters.name;
+
+    <span class="hljs-keyword">if</span> (badNames.includes(name)) &#123;
+      <span class="hljs-keyword">return</span> &#123; 
+        <span class="hljs-attr">statusCode</span>: <span class="hljs-number">400</span>,         
+        <span class="hljs-attr">body</span>: <span class="hljs-built_in">JSON</span>.stringify(&#123;<span class="hljs-attr">error</span>: <span class="hljs-string">'Invalid name passed.'</span>&#125;) 
+      &#125;
+    &#125;
+
+    <span class="hljs-keyword">return</span> &#123;
+      <span class="hljs-attr">statusCode</span>: <span class="hljs-number">204</span>
+    &#125;
+
+&#125;</code></pre>
+<p>基本的には “vista”, “empire”, “mbp” 以外の名前で問題ありません。フォームをみてみましょう。</p>
+<pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">form</span>
+  <span class="hljs-attr">id</span>=<span class="hljs-string">"app"</span>
+  @<span class="hljs-attr">submit</span>=<span class="hljs-string">"checkForm"</span>
+  <span class="hljs-attr">method</span>=<span class="hljs-string">"post"</span>
+&gt;</span>
+
+  <span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">v-if</span>=<span class="hljs-string">"errors.length"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">b</span>&gt;</span>Please correct the following error(s):<span class="hljs-tag">&lt;/<span class="hljs-name">b</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">ul</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">li</span> <span class="hljs-attr">v-for</span>=<span class="hljs-string">"error in errors"</span>&gt;</span>&#123;&#123; error &#125;&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+
+  <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">label</span> <span class="hljs-attr">for</span>=<span class="hljs-string">"name"</span>&gt;</span>New Product Name: <span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">input</span>
+      <span class="hljs-attr">id</span>=<span class="hljs-string">"name"</span>
+      <span class="hljs-attr">v-model</span>=<span class="hljs-string">"name"</span>
+      <span class="hljs-attr">type</span>=<span class="hljs-string">"text"</span>
+      <span class="hljs-attr">name</span>=<span class="hljs-string">"name"</span>
+    &gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+
+  <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">input</span>
+      <span class="hljs-attr">type</span>=<span class="hljs-string">"submit"</span>
+      <span class="hljs-attr">value</span>=<span class="hljs-string">"Submit"</span>
+    &gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+
+<span class="hljs-tag">&lt;/<span class="hljs-name">form</span>&gt;</span></code></pre>
+<p>ここには特別な要素はありません。 JavaScript の例に進みましょう。</p>
+<pre><code class="hljs js"><span class="hljs-keyword">const</span> apiUrl = <span class="hljs-string">'https://vuecookbook.netlify.com/.netlify/functions/product-name?name='</span>;
+
+<span class="hljs-keyword">const</span> app = <span class="hljs-keyword">new</span> Vue(&#123;
+  <span class="hljs-attr">el</span>: <span class="hljs-string">'#app'</span>,
+  <span class="hljs-attr">data</span>: &#123;
+    <span class="hljs-attr">errors</span>: [],
+    <span class="hljs-attr">name</span>: <span class="hljs-string">''</span>
+  &#125;,
+  <span class="hljs-attr">methods</span>:&#123;
+    <span class="hljs-attr">checkForm</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">e</span>) </span>&#123;
+      e.preventDefault();
+
+      <span class="hljs-keyword">this</span>.errors = [];
+
+      <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.name === <span class="hljs-string">''</span>) &#123;
+        <span class="hljs-keyword">this</span>.errors.push(<span class="hljs-string">'Product name is required.'</span>);
+      &#125; <span class="hljs-keyword">else</span> &#123;
+        fetch(apiUrl + <span class="hljs-built_in">encodeURIComponent</span>(<span class="hljs-keyword">this</span>.name))
+        .then(<span class="hljs-keyword">async</span> res =&gt; &#123;
+          <span class="hljs-keyword">if</span> (res.status === <span class="hljs-number">204</span>) &#123;
+            alert(<span class="hljs-string">'OK'</span>);
+          &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (res.status === <span class="hljs-number">400</span>) &#123;
+            <span class="hljs-keyword">let</span> errorResponse = <span class="hljs-keyword">await</span> res.json();
+            <span class="hljs-keyword">this</span>.errors.push(errorResponse.error);
+          &#125;
+        &#125;);
+      &#125;
+    &#125;
+  &#125;
+&#125;)</code></pre>
+<p>OpenWhisk にて実行される API の URL を表す変数から始まります。 <code>checkForm</code> を見てみましょう。この例においては、フォームが送信されないようにしています(ただし、 HTML 上で Vue にて動かすことはできます). ここで、 <code>this.name</code> が空かどうかのチェックを行い、その後 API を叩いていることが見てとれます。問題がある場合は、先ほどの例と同じようにエラーを追加しています。うまくいけば、なにもしません(ここではアラートのみ) URL に含まれる product の名前をもとに新しいページへと遷移させたり、他の動作を実行することもできます。以下でデモを実行できます:</p>
+<p></p><p data-height="265" data-theme-id="0" data-slug-hash="BmgzeM" data-default-tab="js,result" data-user="cfjedimaster" data-embed-version="2" data-pen-title="form validation 4" class="codepen">See the Pen <a href="https://codepen.io/cfjedimaster/pen/BmgzeM/" target="_blank" rel="noopener">form validation 4</a> by Raymond Camden (<a href="https://codepen.io/cfjedimaster" target="_blank" rel="noopener">@cfjedimaster</a>) on <a href="https://codepen.io" target="_blank" rel="noopener">CodePen</a>.</p><p></p>
+<script async src="https://production-assets.codepen.io/assets/embed/ei.js"></script>
+
+<h2 id="代替パターン"><a href="#代替パターン" class="headerlink" title="代替パターン"></a>代替パターン</h2><p>このクックブックでは、手作業でフォームのバリデーションを行うことに焦点をあてていますが、もちろん、これを取り扱うための素晴らしい Vue ライブラリが多く存在します。パッケージ化されたライブラリに切り替えることで、アプリケーションの最終的なサイズに影響をあたえることがありますが、切り替えることは大きなメリットとなりえるでしょう。十分にテストされ、定期的に更新されているコードとして、 Vue のフォームバリデーションライブラリには次のようなものがあります:</p>
+<ul>
+<li><a href="https://github.com/monterail/vuelidate" target="_blank" rel="noopener">vuelidate</a></li>
+<li><a href="https://logaretm.github.io/vee-validate/" target="_blank" rel="noopener">VeeValidate</a></li>
+</ul>
+
+  
+  
+  <div class="footer">
+      <script src="//m.servedby-buysellads.com/monetization.js" type="text/javascript"></script>
+<div id="bsa-native"></div>
+<script>
+_bsa.init('custom', 'CKYD62QM', 'placement:vuejsorg',
+  {
+    target: '#bsa-native',
+    template: '<a class="native-box" href="##statlink##"><div class="native-sponsor">Sponsor</div><div class="native-text"><strong>##company##</strong> — ##description##</div></a>'
+  }
+);
+</script>
+
+
+    間違いを見つけた、またはドキュメントに貢献したいですか？
+    <a href="https://github.com/vuejs/jp.vuejs.org/blob/lang-ja/src/v2/cookbook/form-validation.md" rel="noopener" target="_blank">
+      GitHub で編集しましょう！
+    </a>
+    このサイトは
+    <a href="https://url.netlify.com/HJ8X2mxP8" rel="noopener" target="_blank">
+      Netlify
+    </a>
+    でホストされています。
+  </div>
+</div>
+
+      </div>
+      <script src="/js/smooth-scroll.min.js"></script>
+    
+
+    <!-- main custom script for sidebars, version selects etc. -->
+    <script src="/js/css.escape.js"></script>
+    <script src="/js/common.js"></script>
+
+    <!-- search -->
+    <link href="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="/css/search.css">
+    <script src="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.js"></script>
+    <script>
+    [
+      '#search-query-nav',
+      '#search-query-sidebar',
+      '#search-query-menu'
+    ].forEach(function (selector) {
+      if (!document.querySelector(selector)) return
+      // search index defaults to v2
+      var match = window.location.pathname.match(/^\/(v\d+)/)
+      var version = match ? match[1] : 'v2'
+      docsearch({
+      appId: 'BH4D9OD16A',
+      apiKey: '0a75952972806d9ad07e387d08e9cc4c',
+      indexName: 'vuejs_jp',
+      inputSelector: selector,
+      algoliaOptions: { facetFilters: ["version:" + version] },
+      autocompleteOptions: { hint: false, appendTo: 'body'}
+      })
+    })
+    </script>
+  </body>
+</html>

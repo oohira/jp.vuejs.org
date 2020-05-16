@@ -1,0 +1,521 @@
+
+
+
+<!DOCTYPE html>
+<html lang="ja">
+  <head><meta name="generator" content="Hexo 3.8.0">
+    <title>Vue CLI 3.0 が来ました！ — Vue.js</title>
+    <meta charset="utf-8">
+    <meta name="description" content="Vue.js - The Progressive JavaScript Framework">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="alternate" hreflang="x-default" href="https://vuejs.org/2018/08/11/vue-cli-3-0-is-here/">
+    <link rel="alternate" hreflang="zh" href="https://cn.vuejs.org/2018/08/11/vue-cli-3-0-is-here/">
+    <link rel="alternate" hreflang="ja" href="https://jp.vuejs.org/2018/08/11/vue-cli-3-0-is-here/">
+    <link rel="alternate" hreflang="ru" href="https://ru.vuejs.org/2018/08/11/vue-cli-3-0-is-here/">
+    <link rel="alternate" hreflang="ko" href="https://kr.vuejs.org/2018/08/11/vue-cli-3-0-is-here/">
+    <link rel="alternate" hreflang="pt-BR" href="https://br.vuejs.org/2018/08/11/vue-cli-3-0-is-here/">
+    <link rel="alternate" hreflang="fr" href="https://fr.vuejs.org/2018/08/11/vue-cli-3-0-is-here/">
+    <link rel="alternate" hreflang="es" href="https://es.vuejs.org/2018/08/11/vue-cli-3-0-is-here/">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Vue CLI 3.0 が来ました！ — Vue.js">
+    <meta property="og:description" content="Vue.js - The Progressive JavaScript Framework">
+    <meta property="og:image" content="https://jp.vuejs.org//images/logo.png">
+
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Vue CLI 3.0 が来ました！ — Vue.js">
+    <meta name="twitter:description" content="Vue.js - The Progressive JavaScript Framework">
+    <meta name="twitter:image" content="https://jp.vuejs.org/images/logo.png">
+
+    <link rel="apple-touch-icon" sizes="57x57" href="/images/icons/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/images/icons/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/images/icons/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/images/icons/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/images/icons/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/images/icons/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/images/icons/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/images/icons/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/icons/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/images/icons/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="/images/icons/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/images/icons/favicon-16x16.png">
+    <meta name="msapplication-TileImage" content="/images/icons/ms-icon-144x144.png">
+    <link rel="icon" href="/images/logo.png" type="image/png">
+
+    <meta name="msapplication-TileColor" content="#4fc08d">
+    <meta name="theme-color" content="#4fc08d">
+
+    <meta name="msapplication-config" content="browserconfig.xml">
+    <link rel="manifest" href="/manifest.json">
+
+    <link href="https://fonts.googleapis.com" rel="preconnect" crossorigin="">
+    <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin="">
+    <link href="https://maxcdn.bootstrapcdn.com" rel="preconnect" crossorigin="">
+
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600|Roboto Mono&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Dosis:500&text=Vue.js&display=swap" rel="stylesheet">
+
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+    <!-- main page styles -->
+    <link rel="stylesheet" href="/css/page.css">
+
+    <!-- this needs to be loaded before guide's inline scripts -->
+    <script src="/js/vue.js"></script>
+
+    
+
+    <script>
+      Vue.config.productionTip = false
+      window.PAGE_TYPE = ""
+    </script>
+
+    <!-- ga -->
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-46852172-1', 'jp.vuejs.org');
+      ga('send', 'pageview');
+    </script>
+
+    <!-- vimeo analytics -->
+    <script type="text/javascript" defer="defer" src="https://extend.vimeocdn.com/ga/72160148.js"></script>
+  </head>
+  <body class="docs">
+    <div id="mobile-bar">
+      <a class="menu-button"></a>
+      <a class="logo" href="/"></a>
+    </div>
+    <header id="header">
+  <a id="logo" href="/">
+    <img src="/images/logo.png" alt="vue logo">
+    <span>Vue.js</span>
+  </a>
+  <ul id="nav">
+    <li>
+  <form id="search-form">
+    <input type="text" id="search-query-nav" class="search-query st-default-search-input" aria-label="検索">
+  </form>
+</li>
+<li class="nav-dropdown-container learn">
+  <a class="nav-link">学ぶ</a><span class="arrow"></span>
+  <ul class="nav-dropdown">
+    <li><h4>ドキュメント</h4></li>
+    <li>
+      <ul>
+        <li><a href="/v2/guide/" class="nav-link">ガイド</a></li>
+        <li><a href="/v2/api/" class="nav-link">API</a></li>
+        <li><a href="/v2/style-guide/" class="nav-link">スタイルガイド</a></li>
+        <li><a href="/v2/examples/" class="nav-link">例</a></li>
+        <li><a href="/v2/cookbook/" class="nav-link">クックブック</a></li>
+      </ul>
+    </li>
+    <li><h4>ビデオコース</h4></li>
+    <li>
+      <ul>
+        <li>
+          <a href="https://www.vuemastery.com/courses/" class="nav-link" target="_blank" rel="sponsored noopener">
+            Vue Mastery
+          </a>
+        </li>
+        <li>
+          <a href="https://vueschool.io/?friend=vuejs&utm_source=Vuejs.org&utm_medium=Link&utm_content=Navbar%20Dropdown" class="nav-link" target="_blank" rel="sponsored noopener">
+            Vue School
+          </a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</li>
+
+<li class="nav-dropdown-container ecosystem">
+  <a class="nav-link">エコシステム</a><span class="arrow"></span>
+  <ul class="nav-dropdown">
+    <li><h4>ヘルプ</h4></li>
+    <li><ul>
+      <li><a href="https://forum.vuejs.org/" class="nav-link" target="_blank" rel="noopener">フォーラム</a></li>
+      <li><a href="https://chat.vuejs.org/" class="nav-link" target="_blank" rel="noopener">チャット(公式)</a></li>
+      <li><a href="https://vuejs-jp-slackin.herokuapp.com" class="nav-link" target="_blank" rel="noopener">チャット(日本向け)</a></li>
+      <li><a href="https://events.vuejs.org/meetups/" class="nav-link" target="_blank" rel="noopener">ミートアップ</a></li>
+    </ul></li>
+    <li><h4>開発ツール</h4></li>
+    <li>
+      <ul>
+        <li><a href="https://github.com/vuejs/vue-devtools" class="nav-link" target="_blank" rel="noopener">Devtools</a></li>
+        <li><a href="https://cli.vuejs.org/" class="nav-link" target="_blank" rel="noopener">Vue CLI</a></li>
+        <li><a href="https://vue-loader.vuejs.org" class="nav-link" target="_blank" rel="noopener">Vue Loader</a></li>
+      </ul>
+    </li>
+    <li><h4>コアライブラリ</h4></li>
+    <li><ul>
+      <li><a href="https://router.vuejs.org/ja/" class="nav-link" target="_blank" rel="noopener">Vue Router</a></li>
+      <li><a href="https://vuex.vuejs.org/ja/" class="nav-link" target="_blank" rel="noopener">Vuex</a></li>
+      <li><a href="https://ssr.vuejs.org/ja/" class="nav-link" target="_blank" rel="noopener">Vue Server Renderer</a></li>
+    </ul></li>
+    <li><h4>ニュース</h4></li>
+    <li><ul>
+      <li><a href="https://news.vuejs.org" class="nav-link" target="_blank" rel="noopener">ウィークリーニュース</a></li>
+      <li><a href="https://github.com/vuejs/vue/projects/6" class="nav-link" target="_blank" rel="noopener">ロードマップ</a></li>
+      <li><a href="https://events.vuejs.org/" class="nav-link" target="_blank" rel="noopener">イベント</a></li>
+      <li><a href="https://twitter.com/vuejs" class="nav-link" target="_blank" rel="noopener">Twitter</a></li>
+      <li><a href="https://medium.com/the-vue-point" class="nav-link" target="_blank" rel="noopener">ブログ(英語)</a></li>
+      <li><a href="/blog/" class="nav-link" target="_blank" rel="noopener">ブログ(日本語訳)</a></li>
+      <li><a href="https://vuejobs.com/?ref=vuejs" class="nav-link" target="_blank" rel="noopener">ジョブ(海外)</a></li>
+      <li><a href="https://dev.to/t/vue" class="nav-link" target="_blank" rel="noopener">DEV コミュニティ</a></li>
+    </ul></li>
+  </ul>
+</li>
+
+<li>
+  <a href="/v2/guide/team.html" class="nav-link team">チーム</a>
+</li>
+<li>
+  <a href="/contribution/" class="nav-link">貢献</a>
+</li>
+<li class="nav-dropdown-container resources">
+  <a href="#" class="nav-link">リソース</a><span class="arrow"></span>
+  <ul class="nav-dropdown">
+    <li><a href="/resources/partners.html" class="nav-link">パートナー</a></li>
+    <li><a href="/resources/themes.html" class="nav-link">テーマ</a></li>
+    <li><a href="https://github.com/vuejs/awesome-vue" class="nav-link" target="_blank" rel="noopener">Awesome Vue</a></li>
+    <li><a href="https://awesomejs.dev/for/vue/" class="nav-link" target="_blank" rel="noopener">Browse packages for Vue</a></li>
+  </ul>
+</li>
+
+<!-- <li>
+  <a href="/partners" class="nav-link ">Partners</a>
+</li> -->
+<li class="nav-dropdown-container support-vue">
+  <a href="/support-vuejs/" class="nav-link">Vue を支援する</a><span class="arrow"></span>
+  <ul class="nav-dropdown">
+    <li><a href="/support-vuejs/#1回きりの支援" class="nav-link">1回きりの支援</a></li>
+    <li><a href="/support-vuejs/#継続的な支援" class="nav-link">継続的な支援</a></li>
+    <li><a href="https://vue.threadless.com" target="_blank" rel="noopener" class="nav-link">Tシャツ ショップ</a></li>
+  </ul>
+</li>
+
+<li class="nav-dropdown-container language">
+  <a class="nav-link">言語</a><span class="arrow"></span>
+  <ul class="nav-dropdown">
+    <li><a href="https://vuejs.org/2018/08/11/vue-cli-3-0-is-here/" class="nav-link">English</a></li>
+    <li><a href="https://cn.vuejs.org/2018/08/11/vue-cli-3-0-is-here/" class="nav-link">中文</a></li>
+    <li><a href="https://ru.vuejs.org/2018/08/11/vue-cli-3-0-is-here/" class="nav-link">Русский</a></li>
+    <li><a href="https://kr.vuejs.org/2018/08/11/vue-cli-3-0-is-here/" class="nav-link">한국어</a></li>
+    <li><a href="https://br.vuejs.org/2018/08/11/vue-cli-3-0-is-here/" class="nav-link">Português</a></li>
+    <li><a href="https://fr.vuejs.org/2018/08/11/vue-cli-3-0-is-here/" class="nav-link">Français</a></li>
+    <li><a href="https://vi.vuejs.org/2018/08/11/vue-cli-3-0-is-here/" class="nav-link">Tiếng Việt</a></li>
+    <li><a href="https://es.vuejs.org/2018/08/11/vue-cli-3-0-is-here/" class="nav-link">Español</a></li>
+    <li><a href="https://docs.vuejs.id/2018/08/11/vue-cli-3-0-is-here/" class="nav-link">Bahasa Indonesia</a></li>
+  </ul>
+</li>
+
+
+  </ul>
+</header>
+
+    
+      <div id="main" class="fix-sidebar">
+        <div class="sidebar blog">
+  <div class="sidebar-inner">
+    <ul class="main-menu">
+      <li>
+  <form id="search-form">
+    <input type="text" id="search-query-nav" class="search-query st-default-search-input" aria-label="検索">
+  </form>
+</li>
+<li class="nav-dropdown-container learn">
+  <a class="nav-link">学ぶ</a><span class="arrow"></span>
+  <ul class="nav-dropdown">
+    <li><h4>ドキュメント</h4></li>
+    <li>
+      <ul>
+        <li><a href="/v2/guide/" class="nav-link">ガイド</a></li>
+        <li><a href="/v2/api/" class="nav-link">API</a></li>
+        <li><a href="/v2/style-guide/" class="nav-link">スタイルガイド</a></li>
+        <li><a href="/v2/examples/" class="nav-link">例</a></li>
+        <li><a href="/v2/cookbook/" class="nav-link">クックブック</a></li>
+      </ul>
+    </li>
+    <li><h4>ビデオコース</h4></li>
+    <li>
+      <ul>
+        <li>
+          <a href="https://www.vuemastery.com/courses/" class="nav-link" target="_blank" rel="sponsored noopener">
+            Vue Mastery
+          </a>
+        </li>
+        <li>
+          <a href="https://vueschool.io/?friend=vuejs&utm_source=Vuejs.org&utm_medium=Link&utm_content=Navbar%20Dropdown" class="nav-link" target="_blank" rel="sponsored noopener">
+            Vue School
+          </a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</li>
+
+<li class="nav-dropdown-container ecosystem">
+  <a class="nav-link">エコシステム</a><span class="arrow"></span>
+  <ul class="nav-dropdown">
+    <li><h4>ヘルプ</h4></li>
+    <li><ul>
+      <li><a href="https://forum.vuejs.org/" class="nav-link" target="_blank" rel="noopener">フォーラム</a></li>
+      <li><a href="https://chat.vuejs.org/" class="nav-link" target="_blank" rel="noopener">チャット(公式)</a></li>
+      <li><a href="https://vuejs-jp-slackin.herokuapp.com" class="nav-link" target="_blank" rel="noopener">チャット(日本向け)</a></li>
+      <li><a href="https://events.vuejs.org/meetups/" class="nav-link" target="_blank" rel="noopener">ミートアップ</a></li>
+    </ul></li>
+    <li><h4>開発ツール</h4></li>
+    <li>
+      <ul>
+        <li><a href="https://github.com/vuejs/vue-devtools" class="nav-link" target="_blank" rel="noopener">Devtools</a></li>
+        <li><a href="https://cli.vuejs.org/" class="nav-link" target="_blank" rel="noopener">Vue CLI</a></li>
+        <li><a href="https://vue-loader.vuejs.org" class="nav-link" target="_blank" rel="noopener">Vue Loader</a></li>
+      </ul>
+    </li>
+    <li><h4>コアライブラリ</h4></li>
+    <li><ul>
+      <li><a href="https://router.vuejs.org/ja/" class="nav-link" target="_blank" rel="noopener">Vue Router</a></li>
+      <li><a href="https://vuex.vuejs.org/ja/" class="nav-link" target="_blank" rel="noopener">Vuex</a></li>
+      <li><a href="https://ssr.vuejs.org/ja/" class="nav-link" target="_blank" rel="noopener">Vue Server Renderer</a></li>
+    </ul></li>
+    <li><h4>ニュース</h4></li>
+    <li><ul>
+      <li><a href="https://news.vuejs.org" class="nav-link" target="_blank" rel="noopener">ウィークリーニュース</a></li>
+      <li><a href="https://github.com/vuejs/vue/projects/6" class="nav-link" target="_blank" rel="noopener">ロードマップ</a></li>
+      <li><a href="https://events.vuejs.org/" class="nav-link" target="_blank" rel="noopener">イベント</a></li>
+      <li><a href="https://twitter.com/vuejs" class="nav-link" target="_blank" rel="noopener">Twitter</a></li>
+      <li><a href="https://medium.com/the-vue-point" class="nav-link" target="_blank" rel="noopener">ブログ(英語)</a></li>
+      <li><a href="/blog/" class="nav-link" target="_blank" rel="noopener">ブログ(日本語訳)</a></li>
+      <li><a href="https://vuejobs.com/?ref=vuejs" class="nav-link" target="_blank" rel="noopener">ジョブ(海外)</a></li>
+      <li><a href="https://dev.to/t/vue" class="nav-link" target="_blank" rel="noopener">DEV コミュニティ</a></li>
+    </ul></li>
+  </ul>
+</li>
+
+<li>
+  <a href="/v2/guide/team.html" class="nav-link team">チーム</a>
+</li>
+<li>
+  <a href="/contribution/" class="nav-link">貢献</a>
+</li>
+<li class="nav-dropdown-container resources">
+  <a href="#" class="nav-link">リソース</a><span class="arrow"></span>
+  <ul class="nav-dropdown">
+    <li><a href="/resources/partners.html" class="nav-link">パートナー</a></li>
+    <li><a href="/resources/themes.html" class="nav-link">テーマ</a></li>
+    <li><a href="https://github.com/vuejs/awesome-vue" class="nav-link" target="_blank" rel="noopener">Awesome Vue</a></li>
+    <li><a href="https://awesomejs.dev/for/vue/" class="nav-link" target="_blank" rel="noopener">Browse packages for Vue</a></li>
+  </ul>
+</li>
+
+<!-- <li>
+  <a href="/partners" class="nav-link ">Partners</a>
+</li> -->
+<li class="nav-dropdown-container support-vue">
+  <a href="/support-vuejs/" class="nav-link">Vue を支援する</a><span class="arrow"></span>
+  <ul class="nav-dropdown">
+    <li><a href="/support-vuejs/#1回きりの支援" class="nav-link">1回きりの支援</a></li>
+    <li><a href="/support-vuejs/#継続的な支援" class="nav-link">継続的な支援</a></li>
+    <li><a href="https://vue.threadless.com" target="_blank" rel="noopener" class="nav-link">Tシャツ ショップ</a></li>
+  </ul>
+</li>
+
+<li class="nav-dropdown-container language">
+  <a class="nav-link">言語</a><span class="arrow"></span>
+  <ul class="nav-dropdown">
+    <li><a href="https://vuejs.org/2018/08/11/vue-cli-3-0-is-here/" class="nav-link">English</a></li>
+    <li><a href="https://cn.vuejs.org/2018/08/11/vue-cli-3-0-is-here/" class="nav-link">中文</a></li>
+    <li><a href="https://ru.vuejs.org/2018/08/11/vue-cli-3-0-is-here/" class="nav-link">Русский</a></li>
+    <li><a href="https://kr.vuejs.org/2018/08/11/vue-cli-3-0-is-here/" class="nav-link">한국어</a></li>
+    <li><a href="https://br.vuejs.org/2018/08/11/vue-cli-3-0-is-here/" class="nav-link">Português</a></li>
+    <li><a href="https://fr.vuejs.org/2018/08/11/vue-cli-3-0-is-here/" class="nav-link">Français</a></li>
+    <li><a href="https://vi.vuejs.org/2018/08/11/vue-cli-3-0-is-here/" class="nav-link">Tiếng Việt</a></li>
+    <li><a href="https://es.vuejs.org/2018/08/11/vue-cli-3-0-is-here/" class="nav-link">Español</a></li>
+    <li><a href="https://docs.vuejs.id/2018/08/11/vue-cli-3-0-is-here/" class="nav-link">Bahasa Indonesia</a></li>
+  </ul>
+</li>
+
+
+    </ul>
+    <div class="list">
+      <h2>
+        Recent Posts
+        <a href="/atom.xml" target="_blank" style="vertical-align: middle; margin-left: 5px;">
+          <img src="/images/feed.png" style="width: 15px; height: 15px;">
+        </a>
+      </h2>
+      <ul style="padding: 0;">
+      
+        <li>
+          <a href="/2018/10/01/plans-for-the-next-iteration-of-vue-js/" class="sidebar-link">Vue.js における次のイテレーションの計画</a>
+        </li>
+      
+        <li>
+          <a href="/2018/08/11/vue-cli-3-0-is-here/" class="sidebar-link current">Vue CLI 3.0 が来ました！</a>
+        </li>
+      
+        <li>
+          <a href="/2018/02/07/vue-js-news-announcement/" class="sidebar-link">Vue.js News のお知らせ</a>
+        </li>
+      
+        <li>
+          <a href="/2018/01/16/whats-new-in-vue-devtools-4-0/" class="sidebar-link">Vue Devtools 4.0 の新機能</a>
+        </li>
+      
+        <li>
+          <a href="/2017/10/14/vue-2.5-released/" class="sidebar-link">Vue 2.5 がリリースされました</a>
+        </li>
+      
+        <li>
+          <a href="/2017/09/23/upcoming-typeScript-changes-in-vue-2.5/" class="sidebar-link">やって来る Vue 2.5 での TypeScript の変更</a>
+        </li>
+      
+        <li>
+          <a href="/2017/09/12/vue-is-now-on-opencollective/" class="sidebar-link">Vue は OpenCollective を始めました !</a>
+        </li>
+      
+        <li>
+          <a href="/2016/12/28/vue-in-2016/" class="sidebar-link">2016年の Vue</a>
+        </li>
+      
+        <li>
+          <a href="/2016/11/03/retiring-vue-resource/" class="sidebar-link">vue-resource の引退について</a>
+        </li>
+      
+        <li>
+          <a href="/2016/10/01/here-2.0/" class="sidebar-link">Vue.js 2.0 が来ました！</a>
+        </li>
+      
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="content with-sidebar blog post">
+  
+<div id="ad">
+  <script async type="text/javascript" src="//cdn.carbonads.com/carbon.js?serve=CKYIK2QU&placement=vuejsorg" id="_carbonads_js">
+  </script>
+</div>
+
+
+  <h1>Vue CLI 3.0 が来ました！</h1>
+  <h4>Aug 11, 2018</h4>
+  <p>このブログは<a href="https://medium.com/the-vue-point/vue-cli-3-0-is-here-c42bebe28fbb" target="_blank" rel="noopener">こちら</a>の翻訳ブログです。</p>
+<p>過去数ヶ月にわたり、私たちは Vue アプリケーション用の標準ビルドツールチェーン、次世代の Vue CLI について懸命に取り組んできました。<br>今日私たちは <a href="https://cli.vuejs.org/" target="_blank" rel="noopener">Vue CLI 3.0</a> のリリースとそれに付随する全てのエキサイティングな機能を発表することにわくわくしています。</p>
+<h2 id="豊富なビルトイン機能"><a href="#豊富なビルトイン機能" class="headerlink" title="豊富なビルトイン機能"></a>豊富なビルトイン機能</h2><p>Vue CLI 3 は以前のバージョンとは全く別物です。書換えのゴールは以下の 2 つです：</p>
+<ol>
+<li>モダンなフロントエンドツール、特に複数のツールを混在させる場合の構築疲れを軽減する；</li>
+<li>どんな Vue アプリのデフォルトにもなるよう、可能な限りツールチェインにベストプラクティスを組込む</li>
+</ol>
+<p>核として、 Vue CLI は webpack 4 の上に構築された事前設定済みのビルド設定を提供します。開発者が必要とする構成の量を最小限に抑えることを目指すため、 Vue CLI 3 プロジェクトは以下の革新的なサポートを同梱しています：</p>
+<ul>
+<li><a href="https://webpack.js.org/concepts/hot-module-replacement/" target="_blank" rel="noopener">Hot Module Replacement</a>、<a href="https://webpack.js.org/guides/code-splitting/" target="_blank" rel="noopener">コード分​​割</a>、 <a href="https://webpack.js.org/guides/tree-shaking/#src/components/Sidebar/Sidebar.jsx" target="_blank" rel="noopener">Tree Shaking</a> 、<a href="https://medium.com/webpack/predictable-long-term-caching-with-webpack-d3eee1d3fa31" target="_blank" rel="noopener">効率的な長期キャッシング</a>、<a href="https://webpack.js.org/configuration/dev-server/#devserver-overlay" target="_blank" rel="noopener">エラーオーバーレイ</a>などの事前設定済みの webpack 機能</li>
+<li>ES2017 トランスコンパイル（オブジェクトのレスト、スプレッドやダイナミックインポートのような一般的な提案を含む）及び Babel 7 と<a href="https://github.com/babel/babel/tree/master/packages/babel-preset-env" target="_blank" rel="noopener">プリセット env</a> による使用に応じたポリフィル注入</li>
+<li>PostCSS（デフォルトで autoprefixer が有効）と全ての主要な CSS プリプロセッサのサポート</li>
+<li>ハッシュ付のアセットリンクとプリロード/プリフェッチのリソースヒントを含む HTML の自動生成</li>
+<li><code>.env</code> ファイルを介したモードとカスケード環境変数</li>
+<li><a href="https://cli.vuejs.org/guide/browser-compatibility.html#modern-mode" target="_blank" rel="noopener">モダンモード</a>：ネイティブ ES2017+ バンドルとレガシーバンドルを並行で出荷（詳細は後述）</li>
+<li><a href="https://cli.vuejs.org/config/#pages" target="_blank" rel="noopener">マルチページモード</a>：複数の HTML/JS エントリポイントを持つアプリケーションの構築</li>
+<li><a href="https://cli.vuejs.org/guide/build-targets.html#app" target="_blank" rel="noopener">ビルドターゲット</a>： Vue 単一ファイルコンポーネントをライブラリまたはネイティブ web コンポーネントにビルド（詳細は後述）</li>
+</ul>
+<p>加えて、新しいプロジェクトを作成するときに混在させることができる多数のオプションが統合されています。例えば：</p>
+<ul>
+<li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-typescript" target="_blank" rel="noopener">TypeScript</a></li>
+<li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-pwa" target="_blank" rel="noopener">PWA</a></li>
+<li><a href="https://router.vuejs.org/ja/" target="_blank" rel="noopener">Vue Router</a> &amp; <a href="https://vuex.vuejs.org/ja/" target="_blank" rel="noopener">Vuex</a></li>
+<li><a href="https://eslint.org/" target="_blank" rel="noopener">ESLint</a> / <a href="https://palantir.github.io/tslint/" target="_blank" rel="noopener">TSLint</a> / <a href="https://prettier.io/" target="_blank" rel="noopener">Prettier</a></li>
+<li><a href="https://jestjs.io/ja/" target="_blank" rel="noopener">Jest</a> または <a href="https://mochajs.org/" target="_blank" rel="noopener">Mocha</a> による単体テスト</li>
+<li><a href="https://www.cypress.io/" target="_blank" rel="noopener">Cypress</a> または <a href="http://nightwatchjs.org/" target="_blank" rel="noopener">Nightwatch</a> による E2E テスト</li>
+</ul>
+<p><img src="https://cdn-images-1.medium.com/max/880/1*llJjroMC2YJWizrXOgCDuA.png" alt=""></p>
+<figcaption style="font-size:14px;text-align:center;">あなたが望むよういくらでも選択してください</figcaption>
+
+<p>最も重要なのは、Vue CLI は上記の全ての機能がうまく連携しているので構築作業を自身で行う必要がないことです。</p>
+<h2 id="イジェクト不要の構成が可能"><a href="#イジェクト不要の構成が可能" class="headerlink" title="イジェクト不要の構成が可能"></a>イジェクト不要の構成が可能</h2><p>上記の全ての機能は何の構築無しで動作します： Vue CLI 3 でプロジェクトを生成すると、それは Vue CLI ランタイムサービス (@vue/cli-service）と選択された機能プラグインをインストールし、必要な設定ファイルを生成します。ほとんどの場合、あなたはコードの作成に専念するだけで良いです。</p>
+<p>しかしながら、潜在的な依存関係を抽象化しようとする CLI ツールではしばしばそれら依存関係の内部構成を細かく調整する機能が削除されることがありますーそのような変更を行うには、ユーザーは通常 “イジェクト” 、つまり変更を加えるため生の構成をプロジェクトにチェックインする必要があります。これの欠点は一度イジェクトすると、自己責任となり長期的にはツールの新しいバージョンにアップグレードすることができなくなることです。</p>
+<p>私たちは設定のより低レベルのアクセスを得ることの重要性を認識していますが、イジェクトしたユーザを取り残したくは無いので、イジェクトすることなく設定のほぼ全ての側面を微調整する方法を見つけました。</p>
+<p>Babel 、 TypeScript 、 PostCSS などのサードパーティの統合では、Vue CLI はこれらのツールに対応する設定ファイルを使用します。 Webpack の場合、ユーザーは <a href="https://github.com/survivejs/webpack-merge" target="_blank" rel="noopener">webpack-merge</a> を使用して単純なオプションを最終的な設定にマージする、または <a href="https://cli.vuejs.org/guide/webpack.html#chaining-advanced" target="_blank" rel="noopener">webpack-chain 経由で正確にターゲット設定して既存のローダーとプラグインを微調整する</a>ことができます。加えて、 Vue CLI には <a href="https://cli.vuejs.org/guide/webpack.html#inspecting-the-project-s-webpack-config" target="_blank" rel="noopener"><code>vue inspect</code></a> コマンドが付属していており内部の webpack 設定を調べるのに役立ちます。しかし最も重要な部分は、小さな微調整をするためにイジェクトする必要が無いということですーあなたは依然として CLI サービスやプラグインをアップグレードして修正や新機能を利用できます。</p>
+<p><img src="https://cdn-images-1.medium.com/max/880/1*jiQtvLrGM4MP78tXaEhLRg.png" alt=""></p>
+<figcaption style="font-size:14px;text-align:center;"><a href="https://github.com/mozilla-neutrino/webpack-chain" target="_blank" rel="noopener">webpack-chain</a> を使って <a href="https://github.com/jantimon/html-webpack-plugin" target="_blank" rel="noopener">html-webpack-plugin</a> のオプションを微調整する</figcaption>
+
+<h2 id="拡張可能なプラグインシステム"><a href="#拡張可能なプラグインシステム" class="headerlink" title="拡張可能なプラグインシステム"></a>拡張可能なプラグインシステム</h2><p>私たちは Vue CLI をコミュニティが構築できるプラットフォームにしたいと望んでいるので、新バージョンを最初からプラグインアーキテクチャで設計しました。 Vue CLI 3 プラグインは非常に強力です：アプリの生成段階で依存関係やファイルを挿入したり、アプリの webpack config を微調整したり開発中に追加のコマンドを CLI サービスに注入することができます。 TypeScript のような組込み統合のほとんどは全てのコミュニティプラグインで使用可能な同じ<a href="https://github.com/vuejs/vue-cli/blob/dev/packages/%40vue/cli-service/lib/PluginAPI.js" target="_blank" rel="noopener">プラグイン API</a> を使用してプラグインとして実装されています。もし独自のプラグインの作成に興味がある場合は、<a href="https://cli.vuejs.org/dev-guide/plugin-dev.html#service-plugin" target="_blank" rel="noopener">プラグイン開発ガイド</a>を参照してください。</p>
+<p>Vue CLI 3 にはもはや “テンプレート” がありませんー代わりに、独自の<a href="https://cli.vuejs.org/guide/plugins-and-presets.html#remote-presets" target="_blank" rel="noopener">リモートプリセット</a>を作成してプラグインやオプションの選択肢を他の開発者と共有することができます。</p>
+<h2 id="グラフィカルユーザーインターフェース"><a href="#グラフィカルユーザーインターフェース" class="headerlink" title="グラフィカルユーザーインターフェース"></a>グラフィカルユーザーインターフェース</h2><p><a href="https://medium.com/@Akryum" target="_blank" rel="noopener">Guillaume CHAU</a> の素晴らしい仕事のおかげで、 Vue CLI 3 には完全な GUI が付属しており、それは新しいプロジェクトを作成するだけでなく、プロジェクト内のプラグインやタスクも管理できます（そう、以下の上質な webpack ダッシュボードも付属しています）：</p>
+<p><img src="https://cdn-images-1.medium.com/max/880/1*gFc-hzoWXxts2VT40pic1Q.png" alt=""></p>
+<figcaption style="font-size:14px;text-align:center;">これは Electron を必要としませんー 単に <code>vue ui</code> で起動します.</figcaption>
+
+<blockquote>
+<p>注： Vue CLI 3 は安定版としてリリースされていますが、 UI は未だベータ版です。あちこちにいくつかのおかしな挙動が見受けられます。</p>
+</blockquote>
+<h2 id="即時プロトタイピング"><a href="#即時プロトタイピング" class="headerlink" title="即時プロトタイピング"></a>即時プロトタイピング</h2><p>コードを書く前に <code>npm install</code> を待つのは楽しいことではありません。時にはインスピレーションを呼び起こすために作業環境への即時アクセスが必要な場合もあります。<span style="background-color: transparent !important; background-image: linear-gradient(to bottom, rgba(219, 249, 229, 1), rgba(219, 249, 229, 1));">Vue CLI 3 の <code>vue serve</code> コマンドは、Vue 単一ファイルコンポーネントでプロトタイピングを開始するための唯一必要な作業です：</span></p>
+<p><img src="https://cdn-images-1.medium.com/max/880/1*3eLVIg4G46mc5nEte_tzzA.png" alt=""></p>
+<figcaption style="font-size:14px;text-align:center;"><code>vue serve</code> での即時プロトタイピング</figcaption>
+
+<p>プロトタイプ開発サーバーには標準のアプリケーションと同じ設定が用意されているので、プロトタイプの<code>*.vue</code>ファイルを適切に生成されたプロジェクトの<code>src</code>フォルダに簡単に移動して作業を続けることができます。</p>
+<h2 id="多目的かつ将来への備え"><a href="#多目的かつ将来への備え" class="headerlink" title="多目的かつ将来への備え"></a>多目的かつ将来への備え</h2><h3 id="モダンモード"><a href="#モダンモード" class="headerlink" title="モダンモード"></a>モダンモード</h3><p>Babel を使って ES2015+ の最新の言語機能全てを活用することができますが、それは古いブラウザをサポートするためにはトランスコンパイルとポリフィルされたバンドルを出荷する必要があることも意味します。これらのトランスコンパイルされたバンドルはしばしば元のネイティブ ES2015+ コードよりも冗長で、解析や実行も遅くなります。モダンブラウザの大多数がネイティブの ES2015+ をうまくサポートしていることを考えると、いくら古いブラウザをサポートする必要があるからといってもこれらのブラウザではコードが重く非効率です。</p>
+<p>Vue CLI はこの問題を解決するのに役立つ “モダンモード” を提供します。プロダクション用にビルドする場合は以下のコマンド：</p>
+<pre><code class="hljs undefined">vue-cli-service build --modern</code></pre>
+<p>Vue CLI は 2 種類のバージョンを生成します：1つは<a href="https://jakearchibald.com/2017/es-modules-in-browsers/" target="_blank" rel="noopener">ES モジュール</a>をサポートするモダンブラウザを対象としたモダンバンドル、もう1つはそうでない古いブラウザを対象としたレガシーバンドル。</p>
+<p>しかしクールなところは特別なデプロイ要件が無いことです。生成された HTML ファイルは、<a href="https://philipwalton.com/articles/deploying-es2015-code-in-production-today/" target="_blank" rel="noopener">Phillip Walton の素晴らしい記事</a>で説明されているテクニックを自動的に用います：</p>
+<ul>
+<li>モダンバンドルは <code>&lt;script type=&quot;module&quot;&gt;</code> をサポートするブラウザでロードされます；それらは代わりに <code>&lt;link rel=&quot;modulepreload&quot;&gt;</code> を使ってプリロードもされます。</li>
+<li>レガシーバンドルは <code>&lt;script nomodule&gt;</code> でロードされ、これは ES モジュールをサポートするブラウザでは無視されます。</li>
+<li>Safari 10 の <code>&lt;script nomodule&gt;</code> 修正プログラムも自動的に挿入されます。</li>
+</ul>
+<p>Hello World アプリケーションの場合、モダンバンドルは既に 16％ 小さくなっています。プロダクションでは、モダンバンドルは一般に解析と評価が大幅に高速になり、アプリの読み込みパフォーマンスが向上します。一番良いところ？あなたが必要なのは <code>--modern</code> コマンドラインフラグだけということです。</p>
+<blockquote>
+<p>モダンモードをデフォルトにしない理由は CORS / CSP を使用している場合にはビルド時間が長くなりいくつかの余分な設定も必要になるためです。</p>
+</blockquote>
+<h3 id="Web-コンポーネントとしてビルド"><a href="#Web-コンポーネントとしてビルド" class="headerlink" title="Web コンポーネントとしてビルド"></a>Web コンポーネントとしてビルド</h3><p>Vue CLI 3 プロジェクトの任意の <code>*.vue</code> コンポーネントを Web コンポーネントにビルドできます：</p>
+<pre><code class="hljs undefined">vue-cli-service build --target wc --name my-element src/MyComponent.vue</code></pre>
+<p>これはページ内のネイティブカスタム要素として内部 Vue コンポーネントをラップし登録する JavaScript バンドルを生成し、それは単に <code>&lt;my-element&gt;</code> として使用できます。使用するページでは Vue をページにグローバルとして含める必要がありますが、それ以外の場合、 Vue は実装の詳細として完全に隠されています。</p>
+<p>複数の <code>*.vue</code> コンポーネントを複数のチャンクを持つコード分割バンドルとしてビルドすることもできます：</p>
+<pre><code class="hljs undefined">vue-cli-service build --target wc-async &apos;src/components/*.vue&apos;</code></pre>
+<p>ビルド結果のバンドルから小さなエントリファイルをインクルードすることで、全てのコンポーネントをネイティブカスタム要素として登録しますが、基礎となる Vue コンポーネントのコードを取得するのは対応するカスタム要素がページ上で最初にインスタンス化されたときだけです。</p>
+<hr>
+<p>Vue CLI 3 で、同じコードベースを使用してアプリケーション、 UMD ライブラリ、またはネイティブ Web コンポーネントを構築できます。どんなターゲットを構築していても同じ Vue 開発体験を楽しむことができます。</p>
+<h2 id="今日から試してみましょう！"><a href="#今日から試してみましょう！" class="headerlink" title="今日から試してみましょう！"></a>今日から試してみましょう！</h2><p>Vue CLI 3 は 今 Vue アプリケーションの標準ビルドツールとして機能する準備が整いましたが、これはほんの始まりに過ぎません。前述のように、Vue CLI の長期目標は現在と未来のベストプラクティスをツールチェーンに組込むことです。私たちは web プラットフォームが進化するにつれて、Vue CLI はユーザーがパフォーマンスの良いアプリを提供する手助けとなることを願っています。</p>
+<p>あなたは<a href="https://cli.vuejs.org/guide/installation.html" target="_blank" rel="noopener">このドキュメントの指示に従う</a>ことで今すぐ試すことができます。私たちはあなたがそれを使って何を構築するか待てません。ハッピーハッキング！</p>
+<p><small><a href="https://medium.com/@octref.register?source=post_page" target="_blank" rel="noopener">Pine Wu</a>, <a href="https://medium.com/@eddyerburgh?source=post_page" target="_blank" rel="noopener">Edd Yerburgh</a>, <a href="https://medium.com/@posva?source=post_page" target="_blank" rel="noopener">Eduardo San Martin Morote</a>, そして <a href="https://medium.com/@chrisvfritz?source=post_page" target="_blank" rel="noopener">Chris Fritz</a> に感謝します。</small></p>
+
+</div>
+
+      </div>
+      <script src="/js/smooth-scroll.min.js"></script>
+    
+
+    <!-- main custom script for sidebars, version selects etc. -->
+    <script src="/js/css.escape.js"></script>
+    <script src="/js/common.js"></script>
+
+    <!-- search -->
+    <link href="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="/css/search.css">
+    <script src="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.js"></script>
+    <script>
+    [
+      '#search-query-nav',
+      '#search-query-sidebar',
+      '#search-query-menu'
+    ].forEach(function (selector) {
+      if (!document.querySelector(selector)) return
+      // search index defaults to v2
+      var match = window.location.pathname.match(/^\/(v\d+)/)
+      var version = match ? match[1] : 'v2'
+      docsearch({
+      appId: 'BH4D9OD16A',
+      apiKey: '0a75952972806d9ad07e387d08e9cc4c',
+      indexName: 'vuejs_jp',
+      inputSelector: selector,
+      algoliaOptions: { facetFilters: ["version:" + version] },
+      autocompleteOptions: { hint: false, appendTo: 'body'}
+      })
+    })
+    </script>
+  </body>
+</html>

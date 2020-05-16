@@ -1,0 +1,532 @@
+
+
+
+<!DOCTYPE html>
+<html lang="ja">
+  <head><meta name="generator" content="Hexo 3.8.0">
+    <title>Vue Devtools 4.0 の新機能 — Vue.js</title>
+    <meta charset="utf-8">
+    <meta name="description" content="Vue.js - The Progressive JavaScript Framework">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="alternate" hreflang="x-default" href="https://vuejs.org/2018/01/16/whats-new-in-vue-devtools-4-0/">
+    <link rel="alternate" hreflang="zh" href="https://cn.vuejs.org/2018/01/16/whats-new-in-vue-devtools-4-0/">
+    <link rel="alternate" hreflang="ja" href="https://jp.vuejs.org/2018/01/16/whats-new-in-vue-devtools-4-0/">
+    <link rel="alternate" hreflang="ru" href="https://ru.vuejs.org/2018/01/16/whats-new-in-vue-devtools-4-0/">
+    <link rel="alternate" hreflang="ko" href="https://kr.vuejs.org/2018/01/16/whats-new-in-vue-devtools-4-0/">
+    <link rel="alternate" hreflang="pt-BR" href="https://br.vuejs.org/2018/01/16/whats-new-in-vue-devtools-4-0/">
+    <link rel="alternate" hreflang="fr" href="https://fr.vuejs.org/2018/01/16/whats-new-in-vue-devtools-4-0/">
+    <link rel="alternate" hreflang="es" href="https://es.vuejs.org/2018/01/16/whats-new-in-vue-devtools-4-0/">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Vue Devtools 4.0 の新機能 — Vue.js">
+    <meta property="og:description" content="Vue.js - The Progressive JavaScript Framework">
+    <meta property="og:image" content="https://jp.vuejs.org//images/logo.png">
+
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Vue Devtools 4.0 の新機能 — Vue.js">
+    <meta name="twitter:description" content="Vue.js - The Progressive JavaScript Framework">
+    <meta name="twitter:image" content="https://jp.vuejs.org/images/logo.png">
+
+    <link rel="apple-touch-icon" sizes="57x57" href="/images/icons/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/images/icons/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/images/icons/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/images/icons/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/images/icons/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/images/icons/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/images/icons/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/images/icons/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/icons/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/images/icons/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="/images/icons/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/images/icons/favicon-16x16.png">
+    <meta name="msapplication-TileImage" content="/images/icons/ms-icon-144x144.png">
+    <link rel="icon" href="/images/logo.png" type="image/png">
+
+    <meta name="msapplication-TileColor" content="#4fc08d">
+    <meta name="theme-color" content="#4fc08d">
+
+    <meta name="msapplication-config" content="browserconfig.xml">
+    <link rel="manifest" href="/manifest.json">
+
+    <link href="https://fonts.googleapis.com" rel="preconnect" crossorigin="">
+    <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin="">
+    <link href="https://maxcdn.bootstrapcdn.com" rel="preconnect" crossorigin="">
+
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600|Roboto Mono&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Dosis:500&text=Vue.js&display=swap" rel="stylesheet">
+
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+    <!-- main page styles -->
+    <link rel="stylesheet" href="/css/page.css">
+
+    <!-- this needs to be loaded before guide's inline scripts -->
+    <script src="/js/vue.js"></script>
+
+    
+
+    <script>
+      Vue.config.productionTip = false
+      window.PAGE_TYPE = ""
+    </script>
+
+    <!-- ga -->
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-46852172-1', 'jp.vuejs.org');
+      ga('send', 'pageview');
+    </script>
+
+    <!-- vimeo analytics -->
+    <script type="text/javascript" defer="defer" src="https://extend.vimeocdn.com/ga/72160148.js"></script>
+  </head>
+  <body class="docs">
+    <div id="mobile-bar">
+      <a class="menu-button"></a>
+      <a class="logo" href="/"></a>
+    </div>
+    <header id="header">
+  <a id="logo" href="/">
+    <img src="/images/logo.png" alt="vue logo">
+    <span>Vue.js</span>
+  </a>
+  <ul id="nav">
+    <li>
+  <form id="search-form">
+    <input type="text" id="search-query-nav" class="search-query st-default-search-input" aria-label="検索">
+  </form>
+</li>
+<li class="nav-dropdown-container learn">
+  <a class="nav-link">学ぶ</a><span class="arrow"></span>
+  <ul class="nav-dropdown">
+    <li><h4>ドキュメント</h4></li>
+    <li>
+      <ul>
+        <li><a href="/v2/guide/" class="nav-link">ガイド</a></li>
+        <li><a href="/v2/api/" class="nav-link">API</a></li>
+        <li><a href="/v2/style-guide/" class="nav-link">スタイルガイド</a></li>
+        <li><a href="/v2/examples/" class="nav-link">例</a></li>
+        <li><a href="/v2/cookbook/" class="nav-link">クックブック</a></li>
+      </ul>
+    </li>
+    <li><h4>ビデオコース</h4></li>
+    <li>
+      <ul>
+        <li>
+          <a href="https://www.vuemastery.com/courses/" class="nav-link" target="_blank" rel="sponsored noopener">
+            Vue Mastery
+          </a>
+        </li>
+        <li>
+          <a href="https://vueschool.io/?friend=vuejs&utm_source=Vuejs.org&utm_medium=Link&utm_content=Navbar%20Dropdown" class="nav-link" target="_blank" rel="sponsored noopener">
+            Vue School
+          </a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</li>
+
+<li class="nav-dropdown-container ecosystem">
+  <a class="nav-link">エコシステム</a><span class="arrow"></span>
+  <ul class="nav-dropdown">
+    <li><h4>ヘルプ</h4></li>
+    <li><ul>
+      <li><a href="https://forum.vuejs.org/" class="nav-link" target="_blank" rel="noopener">フォーラム</a></li>
+      <li><a href="https://chat.vuejs.org/" class="nav-link" target="_blank" rel="noopener">チャット(公式)</a></li>
+      <li><a href="https://vuejs-jp-slackin.herokuapp.com" class="nav-link" target="_blank" rel="noopener">チャット(日本向け)</a></li>
+      <li><a href="https://events.vuejs.org/meetups/" class="nav-link" target="_blank" rel="noopener">ミートアップ</a></li>
+    </ul></li>
+    <li><h4>開発ツール</h4></li>
+    <li>
+      <ul>
+        <li><a href="https://github.com/vuejs/vue-devtools" class="nav-link" target="_blank" rel="noopener">Devtools</a></li>
+        <li><a href="https://cli.vuejs.org/" class="nav-link" target="_blank" rel="noopener">Vue CLI</a></li>
+        <li><a href="https://vue-loader.vuejs.org" class="nav-link" target="_blank" rel="noopener">Vue Loader</a></li>
+      </ul>
+    </li>
+    <li><h4>コアライブラリ</h4></li>
+    <li><ul>
+      <li><a href="https://router.vuejs.org/ja/" class="nav-link" target="_blank" rel="noopener">Vue Router</a></li>
+      <li><a href="https://vuex.vuejs.org/ja/" class="nav-link" target="_blank" rel="noopener">Vuex</a></li>
+      <li><a href="https://ssr.vuejs.org/ja/" class="nav-link" target="_blank" rel="noopener">Vue Server Renderer</a></li>
+    </ul></li>
+    <li><h4>ニュース</h4></li>
+    <li><ul>
+      <li><a href="https://news.vuejs.org" class="nav-link" target="_blank" rel="noopener">ウィークリーニュース</a></li>
+      <li><a href="https://github.com/vuejs/vue/projects/6" class="nav-link" target="_blank" rel="noopener">ロードマップ</a></li>
+      <li><a href="https://events.vuejs.org/" class="nav-link" target="_blank" rel="noopener">イベント</a></li>
+      <li><a href="https://twitter.com/vuejs" class="nav-link" target="_blank" rel="noopener">Twitter</a></li>
+      <li><a href="https://medium.com/the-vue-point" class="nav-link" target="_blank" rel="noopener">ブログ(英語)</a></li>
+      <li><a href="/blog/" class="nav-link" target="_blank" rel="noopener">ブログ(日本語訳)</a></li>
+      <li><a href="https://vuejobs.com/?ref=vuejs" class="nav-link" target="_blank" rel="noopener">ジョブ(海外)</a></li>
+      <li><a href="https://dev.to/t/vue" class="nav-link" target="_blank" rel="noopener">DEV コミュニティ</a></li>
+    </ul></li>
+  </ul>
+</li>
+
+<li>
+  <a href="/v2/guide/team.html" class="nav-link team">チーム</a>
+</li>
+<li>
+  <a href="/contribution/" class="nav-link">貢献</a>
+</li>
+<li class="nav-dropdown-container resources">
+  <a href="#" class="nav-link">リソース</a><span class="arrow"></span>
+  <ul class="nav-dropdown">
+    <li><a href="/resources/partners.html" class="nav-link">パートナー</a></li>
+    <li><a href="/resources/themes.html" class="nav-link">テーマ</a></li>
+    <li><a href="https://github.com/vuejs/awesome-vue" class="nav-link" target="_blank" rel="noopener">Awesome Vue</a></li>
+    <li><a href="https://awesomejs.dev/for/vue/" class="nav-link" target="_blank" rel="noopener">Browse packages for Vue</a></li>
+  </ul>
+</li>
+
+<!-- <li>
+  <a href="/partners" class="nav-link ">Partners</a>
+</li> -->
+<li class="nav-dropdown-container support-vue">
+  <a href="/support-vuejs/" class="nav-link">Vue を支援する</a><span class="arrow"></span>
+  <ul class="nav-dropdown">
+    <li><a href="/support-vuejs/#1回きりの支援" class="nav-link">1回きりの支援</a></li>
+    <li><a href="/support-vuejs/#継続的な支援" class="nav-link">継続的な支援</a></li>
+    <li><a href="https://vue.threadless.com" target="_blank" rel="noopener" class="nav-link">Tシャツ ショップ</a></li>
+  </ul>
+</li>
+
+<li class="nav-dropdown-container language">
+  <a class="nav-link">言語</a><span class="arrow"></span>
+  <ul class="nav-dropdown">
+    <li><a href="https://vuejs.org/2018/01/16/whats-new-in-vue-devtools-4-0/" class="nav-link">English</a></li>
+    <li><a href="https://cn.vuejs.org/2018/01/16/whats-new-in-vue-devtools-4-0/" class="nav-link">中文</a></li>
+    <li><a href="https://ru.vuejs.org/2018/01/16/whats-new-in-vue-devtools-4-0/" class="nav-link">Русский</a></li>
+    <li><a href="https://kr.vuejs.org/2018/01/16/whats-new-in-vue-devtools-4-0/" class="nav-link">한국어</a></li>
+    <li><a href="https://br.vuejs.org/2018/01/16/whats-new-in-vue-devtools-4-0/" class="nav-link">Português</a></li>
+    <li><a href="https://fr.vuejs.org/2018/01/16/whats-new-in-vue-devtools-4-0/" class="nav-link">Français</a></li>
+    <li><a href="https://vi.vuejs.org/2018/01/16/whats-new-in-vue-devtools-4-0/" class="nav-link">Tiếng Việt</a></li>
+    <li><a href="https://es.vuejs.org/2018/01/16/whats-new-in-vue-devtools-4-0/" class="nav-link">Español</a></li>
+    <li><a href="https://docs.vuejs.id/2018/01/16/whats-new-in-vue-devtools-4-0/" class="nav-link">Bahasa Indonesia</a></li>
+  </ul>
+</li>
+
+
+  </ul>
+</header>
+
+    
+      <div id="main" class="fix-sidebar">
+        <div class="sidebar blog">
+  <div class="sidebar-inner">
+    <ul class="main-menu">
+      <li>
+  <form id="search-form">
+    <input type="text" id="search-query-nav" class="search-query st-default-search-input" aria-label="検索">
+  </form>
+</li>
+<li class="nav-dropdown-container learn">
+  <a class="nav-link">学ぶ</a><span class="arrow"></span>
+  <ul class="nav-dropdown">
+    <li><h4>ドキュメント</h4></li>
+    <li>
+      <ul>
+        <li><a href="/v2/guide/" class="nav-link">ガイド</a></li>
+        <li><a href="/v2/api/" class="nav-link">API</a></li>
+        <li><a href="/v2/style-guide/" class="nav-link">スタイルガイド</a></li>
+        <li><a href="/v2/examples/" class="nav-link">例</a></li>
+        <li><a href="/v2/cookbook/" class="nav-link">クックブック</a></li>
+      </ul>
+    </li>
+    <li><h4>ビデオコース</h4></li>
+    <li>
+      <ul>
+        <li>
+          <a href="https://www.vuemastery.com/courses/" class="nav-link" target="_blank" rel="sponsored noopener">
+            Vue Mastery
+          </a>
+        </li>
+        <li>
+          <a href="https://vueschool.io/?friend=vuejs&utm_source=Vuejs.org&utm_medium=Link&utm_content=Navbar%20Dropdown" class="nav-link" target="_blank" rel="sponsored noopener">
+            Vue School
+          </a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</li>
+
+<li class="nav-dropdown-container ecosystem">
+  <a class="nav-link">エコシステム</a><span class="arrow"></span>
+  <ul class="nav-dropdown">
+    <li><h4>ヘルプ</h4></li>
+    <li><ul>
+      <li><a href="https://forum.vuejs.org/" class="nav-link" target="_blank" rel="noopener">フォーラム</a></li>
+      <li><a href="https://chat.vuejs.org/" class="nav-link" target="_blank" rel="noopener">チャット(公式)</a></li>
+      <li><a href="https://vuejs-jp-slackin.herokuapp.com" class="nav-link" target="_blank" rel="noopener">チャット(日本向け)</a></li>
+      <li><a href="https://events.vuejs.org/meetups/" class="nav-link" target="_blank" rel="noopener">ミートアップ</a></li>
+    </ul></li>
+    <li><h4>開発ツール</h4></li>
+    <li>
+      <ul>
+        <li><a href="https://github.com/vuejs/vue-devtools" class="nav-link" target="_blank" rel="noopener">Devtools</a></li>
+        <li><a href="https://cli.vuejs.org/" class="nav-link" target="_blank" rel="noopener">Vue CLI</a></li>
+        <li><a href="https://vue-loader.vuejs.org" class="nav-link" target="_blank" rel="noopener">Vue Loader</a></li>
+      </ul>
+    </li>
+    <li><h4>コアライブラリ</h4></li>
+    <li><ul>
+      <li><a href="https://router.vuejs.org/ja/" class="nav-link" target="_blank" rel="noopener">Vue Router</a></li>
+      <li><a href="https://vuex.vuejs.org/ja/" class="nav-link" target="_blank" rel="noopener">Vuex</a></li>
+      <li><a href="https://ssr.vuejs.org/ja/" class="nav-link" target="_blank" rel="noopener">Vue Server Renderer</a></li>
+    </ul></li>
+    <li><h4>ニュース</h4></li>
+    <li><ul>
+      <li><a href="https://news.vuejs.org" class="nav-link" target="_blank" rel="noopener">ウィークリーニュース</a></li>
+      <li><a href="https://github.com/vuejs/vue/projects/6" class="nav-link" target="_blank" rel="noopener">ロードマップ</a></li>
+      <li><a href="https://events.vuejs.org/" class="nav-link" target="_blank" rel="noopener">イベント</a></li>
+      <li><a href="https://twitter.com/vuejs" class="nav-link" target="_blank" rel="noopener">Twitter</a></li>
+      <li><a href="https://medium.com/the-vue-point" class="nav-link" target="_blank" rel="noopener">ブログ(英語)</a></li>
+      <li><a href="/blog/" class="nav-link" target="_blank" rel="noopener">ブログ(日本語訳)</a></li>
+      <li><a href="https://vuejobs.com/?ref=vuejs" class="nav-link" target="_blank" rel="noopener">ジョブ(海外)</a></li>
+      <li><a href="https://dev.to/t/vue" class="nav-link" target="_blank" rel="noopener">DEV コミュニティ</a></li>
+    </ul></li>
+  </ul>
+</li>
+
+<li>
+  <a href="/v2/guide/team.html" class="nav-link team">チーム</a>
+</li>
+<li>
+  <a href="/contribution/" class="nav-link">貢献</a>
+</li>
+<li class="nav-dropdown-container resources">
+  <a href="#" class="nav-link">リソース</a><span class="arrow"></span>
+  <ul class="nav-dropdown">
+    <li><a href="/resources/partners.html" class="nav-link">パートナー</a></li>
+    <li><a href="/resources/themes.html" class="nav-link">テーマ</a></li>
+    <li><a href="https://github.com/vuejs/awesome-vue" class="nav-link" target="_blank" rel="noopener">Awesome Vue</a></li>
+    <li><a href="https://awesomejs.dev/for/vue/" class="nav-link" target="_blank" rel="noopener">Browse packages for Vue</a></li>
+  </ul>
+</li>
+
+<!-- <li>
+  <a href="/partners" class="nav-link ">Partners</a>
+</li> -->
+<li class="nav-dropdown-container support-vue">
+  <a href="/support-vuejs/" class="nav-link">Vue を支援する</a><span class="arrow"></span>
+  <ul class="nav-dropdown">
+    <li><a href="/support-vuejs/#1回きりの支援" class="nav-link">1回きりの支援</a></li>
+    <li><a href="/support-vuejs/#継続的な支援" class="nav-link">継続的な支援</a></li>
+    <li><a href="https://vue.threadless.com" target="_blank" rel="noopener" class="nav-link">Tシャツ ショップ</a></li>
+  </ul>
+</li>
+
+<li class="nav-dropdown-container language">
+  <a class="nav-link">言語</a><span class="arrow"></span>
+  <ul class="nav-dropdown">
+    <li><a href="https://vuejs.org/2018/01/16/whats-new-in-vue-devtools-4-0/" class="nav-link">English</a></li>
+    <li><a href="https://cn.vuejs.org/2018/01/16/whats-new-in-vue-devtools-4-0/" class="nav-link">中文</a></li>
+    <li><a href="https://ru.vuejs.org/2018/01/16/whats-new-in-vue-devtools-4-0/" class="nav-link">Русский</a></li>
+    <li><a href="https://kr.vuejs.org/2018/01/16/whats-new-in-vue-devtools-4-0/" class="nav-link">한국어</a></li>
+    <li><a href="https://br.vuejs.org/2018/01/16/whats-new-in-vue-devtools-4-0/" class="nav-link">Português</a></li>
+    <li><a href="https://fr.vuejs.org/2018/01/16/whats-new-in-vue-devtools-4-0/" class="nav-link">Français</a></li>
+    <li><a href="https://vi.vuejs.org/2018/01/16/whats-new-in-vue-devtools-4-0/" class="nav-link">Tiếng Việt</a></li>
+    <li><a href="https://es.vuejs.org/2018/01/16/whats-new-in-vue-devtools-4-0/" class="nav-link">Español</a></li>
+    <li><a href="https://docs.vuejs.id/2018/01/16/whats-new-in-vue-devtools-4-0/" class="nav-link">Bahasa Indonesia</a></li>
+  </ul>
+</li>
+
+
+    </ul>
+    <div class="list">
+      <h2>
+        Recent Posts
+        <a href="/atom.xml" target="_blank" style="vertical-align: middle; margin-left: 5px;">
+          <img src="/images/feed.png" style="width: 15px; height: 15px;">
+        </a>
+      </h2>
+      <ul style="padding: 0;">
+      
+        <li>
+          <a href="/2018/10/01/plans-for-the-next-iteration-of-vue-js/" class="sidebar-link">Vue.js における次のイテレーションの計画</a>
+        </li>
+      
+        <li>
+          <a href="/2018/08/11/vue-cli-3-0-is-here/" class="sidebar-link">Vue CLI 3.0 が来ました！</a>
+        </li>
+      
+        <li>
+          <a href="/2018/02/07/vue-js-news-announcement/" class="sidebar-link">Vue.js News のお知らせ</a>
+        </li>
+      
+        <li>
+          <a href="/2018/01/16/whats-new-in-vue-devtools-4-0/" class="sidebar-link current">Vue Devtools 4.0 の新機能</a>
+        </li>
+      
+        <li>
+          <a href="/2017/10/14/vue-2.5-released/" class="sidebar-link">Vue 2.5 がリリースされました</a>
+        </li>
+      
+        <li>
+          <a href="/2017/09/23/upcoming-typeScript-changes-in-vue-2.5/" class="sidebar-link">やって来る Vue 2.5 での TypeScript の変更</a>
+        </li>
+      
+        <li>
+          <a href="/2017/09/12/vue-is-now-on-opencollective/" class="sidebar-link">Vue は OpenCollective を始めました !</a>
+        </li>
+      
+        <li>
+          <a href="/2016/12/28/vue-in-2016/" class="sidebar-link">2016年の Vue</a>
+        </li>
+      
+        <li>
+          <a href="/2016/11/03/retiring-vue-resource/" class="sidebar-link">vue-resource の引退について</a>
+        </li>
+      
+        <li>
+          <a href="/2016/10/01/here-2.0/" class="sidebar-link">Vue.js 2.0 が来ました！</a>
+        </li>
+      
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="content with-sidebar blog post">
+  
+<div id="ad">
+  <script async type="text/javascript" src="//cdn.carbonads.com/carbon.js?serve=CKYIK2QU&placement=vuejsorg" id="_carbonads_js">
+  </script>
+</div>
+
+
+  <h1>Vue Devtools 4.0 の新機能</h1>
+  <h4>Jan 16, 2018</h4>
+  <p>このブログは<a href="https://medium.com/the-vue-point/whats-new-in-vue-devtools-4-0-9361e75e05d0" target="_blank" rel="noopener">こちら</a>の翻訳ブログです。</p>
+<p>先日 Vue devtools の大きなアップデートがリリースされました。<br>新機能と改善点を掘り下げてみましょう！🎄</p>
+<h2 id="コンポーネントデータが編集可能に"><a href="#コンポーネントデータが編集可能に" class="headerlink" title="コンポーネントデータが編集可能に"></a>コンポーネントデータが編集可能に</h2><p>コンポーネントのデータを直接コンポーネントインスペクター枠内で変更できるようになりました。</p>
+<ol>
+<li>コンポーネントを選択します</li>
+<li>インスペクターの <code>data</code> セクションでフィールドにマウスを置きます</li>
+<li>鉛筆アイコンをクリックします</li>
+<li>完了アイコンのクリックまたは Enter キーの押下で変更を確定します。 Escape キーの押下で編集をキャンセルできます</li>
+</ol>
+<iframe width="480" height="360" src="https://www.youtube.com/embed/xeBRtXLrQYA?ecver=1" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+
+<p>フィールドの内容はシリアライズされた JSON 値です。例えば、文字列を入力したいならダブルクオート付きで <code>&quot;hello&quot;</code> と入力します。配列は <code>[1, 2, &quot;bar&quot;]</code> のように、オブジェクトは <code>{ &quot;a&quot;: 1, &quot;b&quot;: &quot;foo&quot; }</code> のように入力します。</p>
+<p>現在、以下の型について値の編集が可能です：</p>
+<ul>
+<li><code>null</code> と <code>undefined</code></li>
+<li><code>string</code></li>
+<li>リテラル定数： <code>Boolean</code>, <code>Number</code>, <code>Infinity</code>, <code>-Infinity</code>（訳注：負の無限大）及び <code>NaN</code></li>
+<li>配列</li>
+<li>プレーンオブジェクト</li>
+</ul>
+<p>配列とプレーンオブジェクトは、専用のアイコンを使用して項目の追加と削除が可能です。またオブジェクトキーの名前を変更することもできます。</p>
+<iframe width="480" height="360" src="https://www.youtube.com/embed/fx1zjvHryJ0?ecver=1" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+
+<p>入力が正しい JSON でない場合は警告が表示されます。ただし、<code>undefined</code> や <code>NaN</code> のような一部の値はよりよい利便性のため直接入力することができます。</p>
+<p>今後のリリースではより多くの型がサポートされる予定です！</p>
+<h2 id="クイック編集"><a href="#クイック編集" class="headerlink" title="クイック編集"></a>クイック編集</h2><p>いくつかの型の値は ‘クイック編集’ 機能を使用してワンクリックで編集することができます。</p>
+<p>ブール値はチェックボックスアイコンで直接反転させることができます：</p>
+<iframe width="480" height="360" src="https://www.youtube.com/embed/llNJapRZaHo?ecver=1" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+
+<p>数値はプラスまたはマイナスアイコンで増減できます：</p>
+<iframe width="480" height="360" src="https://www.youtube.com/embed/ZCToaOpId0w?ecver=1" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+
+<p>いくつかの修飾キー（訳注： Shift/Ctrl/Alt のこと）を用い値を高速に増減させることができます。</p>
+<h2 id="エディタでコンポーネントを開く"><a href="#エディタでコンポーネントを開く" class="headerlink" title="エディタでコンポーネントを開く"></a>エディタでコンポーネントを開く</h2><p>プロジェクトで vue-loader または Nuxt を使用している場合、選択したコンポーネントを好みのコードエディタで開くことができます（単一ファイルコンポーネントの場合）。</p>
+<ol>
+<li>この<a href="https://github.com/vuejs/vue-devtools/blob/master/docs/open-in-editor.md" target="_blank" rel="noopener">設定ガイド</a>に従ってください（Nuxt を使用している場合は、何もする必要はありません）</li>
+<li>コンポーネントインスペクターで、コンポーネント名の上にマウスを置くと — ファイルパスが表示されたツールチップが表示されます</li>
+<li>コンポーネント名をクリックすることでエディタが開きます</li>
+</ol>
+<iframe width="480" height="360" src="https://www.youtube.com/embed/XBKStgyhY18?ecver=1" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+
+<h2 id="元のコンポーネント名を表示"><a href="#元のコンポーネント名を表示" class="headerlink" title="元のコンポーネント名を表示"></a>元のコンポーネント名を表示</h2><p><a href="https://github.com/manico" target="_blank" rel="noopener">manico</a> による PR</p>
+<p>既定では、すべてのコンポーネント名は CamelCase にフォーマットされています。これはコンポーネントタブの ‘Format component names’ ボタンをトグルすることで無効にできます。この設定は記憶されイベントタブにも適用されます。</p>
+<iframe width="480" height="270" src="https://www.youtube.com/embed/PoZmEcCdSbU?ecver=1" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+
+<h2 id="コンポーネントのインスペクトがより簡単に"><a href="#コンポーネントのインスペクトがより簡単に" class="headerlink" title="コンポーネントのインスペクトがより簡単に"></a>コンポーネントのインスペクトがより簡単に</h2><p>Vue devtools を開いている間は、コンポーネントを右クリックすることでインスペクト可能です：</p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*8fhP5VTb6uev-8HfI4stYw.png" alt=""></p>
+<figcaption style="font-size:smaller; text-align:center;">ページ内のコンポーネントを右クリック</figcaption>
+
+<p>特殊メソッド <code>$inspect</code>を使用してコンポーネントをプログラムからインスペクトすることもできます：</p>
+<p><script src="https://gist.github.com/Akryum/0187dbfd782d584eef46e85622685bac.js" charset="utf-8"></script></p>
+<figcaption style="font-size:smaller; text-align:center;">コンポーネントで <code>$inspect</code> メソッドを使う</figcaption>
+
+<p>いずれの方法でも、コンポーネントツリーが新しく選択されたコンポーネントに自動展開されます。</p>
+<h2 id="コンポーネント毎にイベントをフィルター"><a href="#コンポーネント毎にイベントをフィルター" class="headerlink" title="コンポーネント毎にイベントをフィルター"></a>コンポーネント毎にイベントをフィルター</h2><p><a href="https://github.com/eigan" target="_blank" rel="noopener">eigan</a> による PR</p>
+<p>イベントを発行したコンポーネントによってイベント履歴をフィルターできるようになりました。 <code>&lt;</code> の後に続けてコンポーネント名またはその一部を入力してください。</p>
+<iframe width="480" height="270" src="https://www.youtube.com/embed/wytquoUPSFo?ecver=1" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+
+<h2 id="Vuex-インスペクターフィルター"><a href="#Vuex-インスペクターフィルター" class="headerlink" title="Vuex インスペクターフィルター"></a>Vuex インスペクターフィルター</h2><p><a href="https://github.com/bartlomieju" target="_blank" rel="noopener">bartlomieju</a> による PR</p>
+<p>Vuex インスペクターにフィルター入力が付きました：</p>
+<iframe width="480" height="270" src="https://www.youtube.com/embed/T095k5hI_pA?ecver=1" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+
+<h2 id="垂直レイアウト"><a href="#垂直レイアウト" class="headerlink" title="垂直レイアウト"></a>垂直レイアウト</h2><p><a href="https://github.com/crswll" target="_blank" rel="noopener">crswll</a> による PR</p>
+<p>devtools の幅が十分でないときは、便利な垂直レイアウトに切り替わります。既定の水平モードの場合と同様、上下の枠の仕切りは移動することができます。</p>
+<iframe width="480" height="360" src="https://www.youtube.com/embed/33tJ_md8bX8?ecver=1" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+
+<h2 id="コンポーネントへのスクロールの改善"><a href="#コンポーネントへのスクロールの改善" class="headerlink" title="コンポーネントへのスクロールの改善"></a>コンポーネントへのスクロールの改善</h2><p>既定では、コンポーネントを選択してもビューはスクロールされなくなりました。代わりに、新設の ‘Scroll into view’ アイコンをクリックする必要があります：</p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*TJEfzB4ifK8t-5kpbZieRw.png" alt=""></p>
+<figcaption style="font-size:smaller; text-align:center;">目のアイコンをクリックしてコンポーネントにスクロール</figcaption>
+
+<p>これでコンポーネントが画面中央に表示されます。</p>
+<h2 id="インスペクターが折り畳み可能に"><a href="#インスペクターが折り畳み可能に" class="headerlink" title="インスペクターが折り畳み可能に"></a>インスペクターが折り畳み可能に</h2><p>異なるインスペクターのセクションを折り畳むことができます。修飾キーを使用することで全てを折り畳んだりワンクリックで全てを展開できます。これは例えば、 Vuex タブのミューテックスの詳細のみに興味がある場合には非常に便利です。</p>
+<iframe width="480" height="270" src="https://www.youtube.com/embed/bblGueKPsjE?ecver=1" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+
+<h2 id="さらに！"><a href="#さらに！" class="headerlink" title="さらに！"></a>さらに！</h2><ul>
+<li>環境にその機能がない場合 ‘Inspect DOM’ ボタンが非表示になります -  <a href="https://github.com/michalsnik" target="_blank" rel="noopener">michalsnik</a> により</li>
+<li><code>-Infinity</code> がサポートされました - <a href="https://github.com/David-Desmaisons" target="_blank" rel="noopener">David-Desmaisons</a> により</li>
+<li>イベントフックにあった問題が修正されました - <a href="https://github.com/maxushuang" target="_blank" rel="noopener">maxushuang</a> により</li>
+<li>コードのいくつかが綺麗になりました - <a href="https://github.com/anteriovieira" target="_blank" rel="noopener">anteriovieira</a> により</li>
+<li>Date, RegExp, Component サポートが改善されました（これらの型では Time Travel が動作するはずです）</li>
+<li>devtools は現在リッチなツールチップやポップオーバー用に <a href="https://github.com/Akryum/v-tooltip" target="_blank" rel="noopener">v-tooltip</a> を使用しています（いくつかの問題も修正されています）</li>
+</ul>
+<p>拡張機能が既に存在する場合は、自動的に 4.0.1 に更新されます。また <a href="https://chrome.google.com/webstore/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd" target="_blank" rel="noopener">Chrome</a> や <a href="https://addons.mozilla.org/fr/firefox/addon/vue-js-devtools/" target="_blank" rel="noopener">Firefox</a> に新規インストールすることもできます。</p>
+<p><strong>この大きなアップデートを可能にした全ての貢献者に感謝します！</strong></p>
+<p>もし問題を見つけたり新機能を提案する場合は、<a href="https://new-issue.vuejs.org/?repo=vuejs/vue-devtools" target="_blank" rel="noopener">それを共有</a>してください！</p>
+<h2 id="今後の予定は？"><a href="#今後の予定は？" class="headerlink" title="今後の予定は？"></a>今後の予定は？</h2><p>新しいリリースではページ内のコンポーネントの選択（カラーピッカー風）やいくつかの UI の改善などのさらに多くの機能が追加される予定です。</p>
+<p>また（Chrome や Firefox だけでなく）あらゆる環境でのデバッグを可能にするスタンドアロンの Vue devtools アプリや、まったく新しいルーティングタブ、そして <code>Set</code> と <code>Map</code> 型の改善されたサポートなどのいくつかの機能があります。</p>
+<p>乞うご期待！</p>
+
+</div>
+
+      </div>
+      <script src="/js/smooth-scroll.min.js"></script>
+    
+
+    <!-- main custom script for sidebars, version selects etc. -->
+    <script src="/js/css.escape.js"></script>
+    <script src="/js/common.js"></script>
+
+    <!-- search -->
+    <link href="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="/css/search.css">
+    <script src="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.js"></script>
+    <script>
+    [
+      '#search-query-nav',
+      '#search-query-sidebar',
+      '#search-query-menu'
+    ].forEach(function (selector) {
+      if (!document.querySelector(selector)) return
+      // search index defaults to v2
+      var match = window.location.pathname.match(/^\/(v\d+)/)
+      var version = match ? match[1] : 'v2'
+      docsearch({
+      appId: 'BH4D9OD16A',
+      apiKey: '0a75952972806d9ad07e387d08e9cc4c',
+      indexName: 'vuejs_jp',
+      inputSelector: selector,
+      algoliaOptions: { facetFilters: ["version:" + version] },
+      autocompleteOptions: { hint: false, appendTo: 'body'}
+      })
+    })
+    </script>
+  </body>
+</html>

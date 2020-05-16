@@ -1,0 +1,697 @@
+
+
+
+<!DOCTYPE html>
+<html lang="ja">
+  <head><meta name="generator" content="Hexo 3.8.0">
+    <title>CMS によるブログの作成 — Vue.js</title>
+    <meta charset="utf-8">
+    <meta name="description" content="Vue.js - The Progressive JavaScript Framework">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="alternate" hreflang="x-default" href="https://vuejs.org/v2/cookbook/serverless-blog.html">
+    <link rel="alternate" hreflang="zh" href="https://cn.vuejs.org/v2/cookbook/serverless-blog.html">
+    <link rel="alternate" hreflang="ja" href="https://jp.vuejs.org/v2/cookbook/serverless-blog.html">
+    <link rel="alternate" hreflang="ru" href="https://ru.vuejs.org/v2/cookbook/serverless-blog.html">
+    <link rel="alternate" hreflang="ko" href="https://kr.vuejs.org/v2/cookbook/serverless-blog.html">
+    <link rel="alternate" hreflang="pt-BR" href="https://br.vuejs.org/v2/cookbook/serverless-blog.html">
+    <link rel="alternate" hreflang="fr" href="https://fr.vuejs.org/v2/cookbook/serverless-blog.html">
+    <link rel="alternate" hreflang="es" href="https://es.vuejs.org/v2/cookbook/serverless-blog.html">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="CMS によるブログの作成 — Vue.js">
+    <meta property="og:description" content="Vue.js - The Progressive JavaScript Framework">
+    <meta property="og:image" content="https://jp.vuejs.org//images/logo.png">
+
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="CMS によるブログの作成 — Vue.js">
+    <meta name="twitter:description" content="Vue.js - The Progressive JavaScript Framework">
+    <meta name="twitter:image" content="https://jp.vuejs.org/images/logo.png">
+
+    <link rel="apple-touch-icon" sizes="57x57" href="/images/icons/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/images/icons/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/images/icons/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/images/icons/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/images/icons/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/images/icons/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/images/icons/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/images/icons/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/icons/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/images/icons/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="/images/icons/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/images/icons/favicon-16x16.png">
+    <meta name="msapplication-TileImage" content="/images/icons/ms-icon-144x144.png">
+    <link rel="icon" href="/images/logo.png" type="image/png">
+
+    <meta name="msapplication-TileColor" content="#4fc08d">
+    <meta name="theme-color" content="#4fc08d">
+
+    <meta name="msapplication-config" content="browserconfig.xml">
+    <link rel="manifest" href="/manifest.json">
+
+    <link href="https://fonts.googleapis.com" rel="preconnect" crossorigin="">
+    <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin="">
+    <link href="https://maxcdn.bootstrapcdn.com" rel="preconnect" crossorigin="">
+
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600|Roboto Mono&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Dosis:500&text=Vue.js&display=swap" rel="stylesheet">
+
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+    <!-- main page styles -->
+    <link rel="stylesheet" href="/css/page.css">
+
+    <!-- this needs to be loaded before guide's inline scripts -->
+    <script src="/js/vue.js"></script>
+
+    
+
+    <script>
+      Vue.config.productionTip = false
+      window.PAGE_TYPE = "cookbook"
+    </script>
+
+    <!-- ga -->
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-46852172-1', 'jp.vuejs.org');
+      ga('send', 'pageview');
+    </script>
+
+    <!-- vimeo analytics -->
+    <script type="text/javascript" defer="defer" src="https://extend.vimeocdn.com/ga/72160148.js"></script>
+  </head>
+  <body class="docs">
+    <div id="mobile-bar">
+      <a class="menu-button"></a>
+      <a class="logo" href="/"></a>
+    </div>
+    <header id="header">
+  <a id="logo" href="/">
+    <img src="/images/logo.png" alt="vue logo">
+    <span>Vue.js</span>
+  </a>
+  <ul id="nav">
+    <li>
+  <form id="search-form">
+    <input type="text" id="search-query-nav" class="search-query st-default-search-input" aria-label="検索">
+  </form>
+</li>
+<li class="nav-dropdown-container learn">
+  <a class="nav-link current">学ぶ</a><span class="arrow"></span>
+  <ul class="nav-dropdown">
+    <li><h4>ドキュメント</h4></li>
+    <li>
+      <ul>
+        <li><a href="/v2/guide/" class="nav-link">ガイド</a></li>
+        <li><a href="/v2/api/" class="nav-link">API</a></li>
+        <li><a href="/v2/style-guide/" class="nav-link">スタイルガイド</a></li>
+        <li><a href="/v2/examples/" class="nav-link">例</a></li>
+        <li><a href="/v2/cookbook/" class="nav-link current">クックブック</a></li>
+      </ul>
+    </li>
+    <li><h4>ビデオコース</h4></li>
+    <li>
+      <ul>
+        <li>
+          <a href="https://www.vuemastery.com/courses/" class="nav-link" target="_blank" rel="sponsored noopener">
+            Vue Mastery
+          </a>
+        </li>
+        <li>
+          <a href="https://vueschool.io/?friend=vuejs&utm_source=Vuejs.org&utm_medium=Link&utm_content=Navbar%20Dropdown" class="nav-link" target="_blank" rel="sponsored noopener">
+            Vue School
+          </a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</li>
+
+<li class="nav-dropdown-container ecosystem">
+  <a class="nav-link">エコシステム</a><span class="arrow"></span>
+  <ul class="nav-dropdown">
+    <li><h4>ヘルプ</h4></li>
+    <li><ul>
+      <li><a href="https://forum.vuejs.org/" class="nav-link" target="_blank" rel="noopener">フォーラム</a></li>
+      <li><a href="https://chat.vuejs.org/" class="nav-link" target="_blank" rel="noopener">チャット(公式)</a></li>
+      <li><a href="https://vuejs-jp-slackin.herokuapp.com" class="nav-link" target="_blank" rel="noopener">チャット(日本向け)</a></li>
+      <li><a href="https://events.vuejs.org/meetups/" class="nav-link" target="_blank" rel="noopener">ミートアップ</a></li>
+    </ul></li>
+    <li><h4>開発ツール</h4></li>
+    <li>
+      <ul>
+        <li><a href="https://github.com/vuejs/vue-devtools" class="nav-link" target="_blank" rel="noopener">Devtools</a></li>
+        <li><a href="https://cli.vuejs.org/" class="nav-link" target="_blank" rel="noopener">Vue CLI</a></li>
+        <li><a href="https://vue-loader.vuejs.org" class="nav-link" target="_blank" rel="noopener">Vue Loader</a></li>
+      </ul>
+    </li>
+    <li><h4>コアライブラリ</h4></li>
+    <li><ul>
+      <li><a href="https://router.vuejs.org/ja/" class="nav-link" target="_blank" rel="noopener">Vue Router</a></li>
+      <li><a href="https://vuex.vuejs.org/ja/" class="nav-link" target="_blank" rel="noopener">Vuex</a></li>
+      <li><a href="https://ssr.vuejs.org/ja/" class="nav-link" target="_blank" rel="noopener">Vue Server Renderer</a></li>
+    </ul></li>
+    <li><h4>ニュース</h4></li>
+    <li><ul>
+      <li><a href="https://news.vuejs.org" class="nav-link" target="_blank" rel="noopener">ウィークリーニュース</a></li>
+      <li><a href="https://github.com/vuejs/vue/projects/6" class="nav-link" target="_blank" rel="noopener">ロードマップ</a></li>
+      <li><a href="https://events.vuejs.org/" class="nav-link" target="_blank" rel="noopener">イベント</a></li>
+      <li><a href="https://twitter.com/vuejs" class="nav-link" target="_blank" rel="noopener">Twitter</a></li>
+      <li><a href="https://medium.com/the-vue-point" class="nav-link" target="_blank" rel="noopener">ブログ(英語)</a></li>
+      <li><a href="/blog/" class="nav-link" target="_blank" rel="noopener">ブログ(日本語訳)</a></li>
+      <li><a href="https://vuejobs.com/?ref=vuejs" class="nav-link" target="_blank" rel="noopener">ジョブ(海外)</a></li>
+      <li><a href="https://dev.to/t/vue" class="nav-link" target="_blank" rel="noopener">DEV コミュニティ</a></li>
+    </ul></li>
+  </ul>
+</li>
+
+<li>
+  <a href="/v2/guide/team.html" class="nav-link team">チーム</a>
+</li>
+<li>
+  <a href="/contribution/" class="nav-link">貢献</a>
+</li>
+<li class="nav-dropdown-container resources">
+  <a href="#" class="nav-link">リソース</a><span class="arrow"></span>
+  <ul class="nav-dropdown">
+    <li><a href="/resources/partners.html" class="nav-link">パートナー</a></li>
+    <li><a href="/resources/themes.html" class="nav-link">テーマ</a></li>
+    <li><a href="https://github.com/vuejs/awesome-vue" class="nav-link" target="_blank" rel="noopener">Awesome Vue</a></li>
+    <li><a href="https://awesomejs.dev/for/vue/" class="nav-link" target="_blank" rel="noopener">Browse packages for Vue</a></li>
+  </ul>
+</li>
+
+<!-- <li>
+  <a href="/partners" class="nav-link ">Partners</a>
+</li> -->
+<li class="nav-dropdown-container support-vue">
+  <a href="/support-vuejs/" class="nav-link">Vue を支援する</a><span class="arrow"></span>
+  <ul class="nav-dropdown">
+    <li><a href="/support-vuejs/#1回きりの支援" class="nav-link">1回きりの支援</a></li>
+    <li><a href="/support-vuejs/#継続的な支援" class="nav-link">継続的な支援</a></li>
+    <li><a href="https://vue.threadless.com" target="_blank" rel="noopener" class="nav-link">Tシャツ ショップ</a></li>
+  </ul>
+</li>
+
+<li class="nav-dropdown-container language">
+  <a class="nav-link">言語</a><span class="arrow"></span>
+  <ul class="nav-dropdown">
+    <li><a href="https://vuejs.org/v2/cookbook/serverless-blog.html" class="nav-link">English</a></li>
+    <li><a href="https://cn.vuejs.org/v2/cookbook/serverless-blog.html" class="nav-link">中文</a></li>
+    <li><a href="https://ru.vuejs.org/v2/cookbook/serverless-blog.html" class="nav-link">Русский</a></li>
+    <li><a href="https://kr.vuejs.org/v2/cookbook/serverless-blog.html" class="nav-link">한국어</a></li>
+    <li><a href="https://br.vuejs.org/v2/cookbook/serverless-blog.html" class="nav-link">Português</a></li>
+    <li><a href="https://fr.vuejs.org/v2/cookbook/serverless-blog.html" class="nav-link">Français</a></li>
+    <li><a href="https://vi.vuejs.org/v2/cookbook/serverless-blog.html" class="nav-link">Tiếng Việt</a></li>
+    <li><a href="https://es.vuejs.org/v2/cookbook/serverless-blog.html" class="nav-link">Español</a></li>
+    <li><a href="https://docs.vuejs.id/v2/cookbook/serverless-blog.html" class="nav-link">Bahasa Indonesia</a></li>
+  </ul>
+</li>
+
+
+  </ul>
+</header>
+
+    
+      <div id="main" class="fix-sidebar">
+        
+  
+
+<div class="sidebar">
+  <div class="sidebar-inner">
+    
+    <div class="list">
+      <div id="sidebar-sponsors-special">
+  <div class="main-sponsor">
+    <span>スペシャルスポンサー</span>
+    <div>
+    <a href="https://autocode.com" target="_blank" rel="sponsored noopener" class="logo">
+      <img src="/images/autocode.svg" alt="Autocode">
+    </a>
+    </div>
+  </div>
+</div>
+
+<div id="sidebar-sponsors-platinum-left">
+  <div class="main-sponsor">
+    <span>プラチナスポンサー</span>
+    <div>
+    <a href="https://vehikl.com/" target="_blank" rel="sponsored noopener" class="logo">
+      <img src="/images/vehikl.png" alt="Vehikl">
+    </a>
+    <a href="https://retool.com/?utm_source=sponsor&utm_campaign=vue" target="_blank" rel="sponsored noopener" class="logo">
+      <img src="/images/retool.png" alt="Retool">
+    </a>
+    <a href="https://passionatepeople.io/" target="_blank" rel="sponsored noopener" class="logo">
+      <img src="/images/passionate_people.png" alt="Passionate People">
+    </a>
+    <a href="https://www.storyblok.com" target="_blank" rel="sponsored noopener" class="logo">
+      <img src="/images/storyblok.png" alt="Storyblok">
+    </a>
+    </div>
+  </div>
+  <a class="become-backer" href="/support-vuejs">
+    スポンサーになる
+  </a>
+</div>
+
+
+
+      
+        <h2>
+          
+          クックブック<sup class="beta">beta</sup>
+          
+        </h2>
+        <ul class="menu-root">
+  
+    
+    
+    <li>
+      <a href="/v2/cookbook/index.html" class="sidebar-link">はじめに</a>
+    </li>
+  
+    
+    
+    <li>
+      <a href="/v2/cookbook/adding-instance-properties.html" class="sidebar-link">インスタンスプロパティの追加</a>
+    </li>
+  
+    
+    
+    <li>
+      <a href="/v2/cookbook/form-validation.html" class="sidebar-link">フォームのバリデーション</a>
+    </li>
+  
+    
+    
+    <li>
+      <a href="/v2/cookbook/editable-svg-icons.html" class="sidebar-link">編集可能な SVG アイコンシステム</a>
+    </li>
+  
+    
+    
+    <li>
+      <a href="/v2/cookbook/serverless-blog.html" class="sidebar-link current">CMS によるブログの作成</a>
+    </li>
+  
+    
+    
+    <li>
+      <a href="/v2/cookbook/unit-testing-vue-components.html" class="sidebar-link">Vue コンポーネントの単体テスト</a>
+    </li>
+  
+    
+    
+    <li>
+      <a href="/v2/cookbook/creating-custom-scroll-directives.html" class="sidebar-link">カスタムスクロールディレクティブの作成</a>
+    </li>
+  
+    
+    
+    <li>
+      <a href="/v2/cookbook/debugging-in-vscode.html" class="sidebar-link">VS Code によるデバッグ</a>
+    </li>
+  
+    
+    
+    <li>
+      <a href="/v2/cookbook/using-axios-to-consume-apis.html" class="sidebar-link">axios を利用した API の使用</a>
+    </li>
+  
+    
+    
+    <li>
+      <a href="/v2/cookbook/avoiding-memory-leaks.html" class="sidebar-link">メモリリークを回避する</a>
+    </li>
+  
+    
+    
+    <li>
+      <a href="/v2/cookbook/client-side-storage.html" class="sidebar-link">クライアントサイドストレージ</a>
+    </li>
+  
+    
+    
+    <li>
+      <a href="/v2/cookbook/packaging-sfc-for-npm.html" class="sidebar-link">Vue コンポーネントを npm パッケージ化する</a>
+    </li>
+  
+    
+    
+    <li>
+      <a href="/v2/cookbook/dockerize-vuejs-app.html" class="sidebar-link">Vue.js アプリケーションを Docker 化する</a>
+    </li>
+  
+    
+    
+    <li>
+      <a href="/v2/cookbook/practical-use-of-scoped-slots.html" class="sidebar-link">Practical use of scoped slots with GoogleMaps</a>
+    </li>
+  
+</ul>
+
+      
+    </div>
+  </div>
+</div>
+
+<div id="sidebar-sponsors-platinum-right">
+  <div class="main-sponsor">
+    <span>プラチナスポンサー</span>
+    <div>
+    <a href="https://vehikl.com/" target="_blank" rel="sponsored noopener" class="logo">
+      <img src="/images/vehikl.png" alt="Vehikl">
+    </a>
+    <a href="https://retool.com/?utm_source=sponsor&utm_campaign=vue" target="_blank" rel="sponsored noopener" class="logo">
+      <img src="/images/retool.png" alt="Retool">
+    </a>
+    <a href="https://passionatepeople.io/" target="_blank" rel="sponsored noopener" class="logo">
+      <img src="/images/passionate_people.png" alt="Passionate People">
+    </a>
+    <a href="https://www.storyblok.com" target="_blank" rel="sponsored noopener" class="logo">
+      <img src="/images/storyblok.png" alt="Storyblok">
+    </a>
+    </div>
+  </div>
+  <a class="become-backer" href="/support-vuejs">
+    スポンサーになる
+  </a>
+</div>
+
+
+
+
+<div class="content cookbook with-sidebar ">
+  
+    
+      
+<div id="ad">
+  <script async type="text/javascript" src="//cdn.carbonads.com/carbon.js?serve=CKYIK2QU&placement=vuejsorg" id="_carbonads_js">
+  </script>
+</div>
+
+
+    
+  
+  
+    <h1>CMS によるブログの作成</h1>
+  
+  <p class="updated">最終更新日: 2019年3月11日</p>
+  
+  
+    <p>あなたが Vue.js のウェブサイトを新しく立ち上げたとしましょう。おめでとうございます！いま、あなたは自分のウェブサイトに早くブログを追加したいでしょうが、1つの WordPress のインスタンス（また、さらに言えば DB の動作する CMS）だけをホスティングするためにサーバ全体をチューニングしたくはないでしょう。いくつかの Vue.js ブログのコンポーネントといくつかのルーティングを追加して、それらがすべてうまく動作するようにしたいだけですよね？あなたが探しているのは、Vue.js アプリケーションから直接処理できる API によって完全に制御されたブログです。このチュートリアルは、どうやってそれを適切に行うか、教えます。詳しく見ていきましょう！</p>
+<p>私たちは、Vue.js で CMS によるブログを素早くつくっていきます。これには、<a href="https://buttercms.com/" target="_blank" rel="noopener">ButterCMS</a> を使います。これは、ButterCMS ダッシュボードでコンテンツを管理し、コンテンツ API を Vue.js アプリケーションに統合させる API ファーストな CMS です。新しく、または既にある Vue.js のプロジェクトのために、ButterCMS を使えます。</p>
+<p><img src="https://user-images.githubusercontent.com/160873/36677285-648798e4-1ad3-11e8-9454-d22fca8280b7.png" alt="Butter Dashboard" title="Butter Dashboard"></p>
+<h2 id="インストール"><a href="#インストール" class="headerlink" title="インストール"></a>インストール</h2><p>コマンドラインで以下を実行してください:</p>
+<pre><code class="hljs bash">npm install buttercms --save</code></pre>
+<p>Butter は、CDN からも読み込めます:</p>
+<pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://cdnjs.buttercms.com/buttercms-1.1.0.min.js"</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code></pre>
+<h2 id="クイックスタート"><a href="#クイックスタート" class="headerlink" title="クイックスタート"></a>クイックスタート</h2><p>API トークンの設定:</p>
+<pre><code class="hljs javascript"><span class="hljs-keyword">var</span> butter = <span class="hljs-built_in">require</span>(<span class="hljs-string">'buttercms'</span>)(<span class="hljs-string">'your_api_token'</span>);</code></pre>
+<p>ES6 の使用:</p>
+<pre><code class="hljs javascript"><span class="hljs-keyword">import</span> Butter <span class="hljs-keyword">from</span> <span class="hljs-string">'buttercms'</span>;
+<span class="hljs-keyword">const</span> butter = Butter(<span class="hljs-string">'your_api_token'</span>);</code></pre>
+<p>CDN の使用:</p>
+<pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://cdnjs.buttercms.com/buttercms-1.1.0.min.js"</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="javascript">
+  <span class="hljs-keyword">var</span> butter = Butter(<span class="hljs-string">'your_api_token'</span>);
+</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code></pre>
+<p>このファイルを ButterCMS を使いたいコンポーネントでインポートし、コンソールで以下を実行します:</p>
+<pre><code class="hljs javascript">butter.post.list(&#123;<span class="hljs-attr">page</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">page_size</span>: <span class="hljs-number">10</span>&#125;).then(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">response</span>) </span>&#123;
+  <span class="hljs-built_in">console</span>.log(response)
+&#125;)</code></pre>
+<p>この API リクエストは、ブログの投稿を取得します。あなたのアカウントには、1つの投稿例が付属していて、レスポンス内で見ることができるでしょう。</p>
+<h2 id="投稿の表示"><a href="#投稿の表示" class="headerlink" title="投稿の表示"></a>投稿の表示</h2><p>投稿を表示するには、アプリケーションで、<code>/blog</code> ルーティング (Vue Router を使用) を作成し、Butter API でブログの投稿を取得します。<code>/blog/:slug</code> ルーティングが同様に各々の投稿をハンドルします。</p>
+<p>カテゴリ、または著者によるフィルタリングのような追加オプションは、ButterCMS <a href="https://buttercms.com/docs/api/?javascript#blog-posts" target="_blank" rel="noopener">API リファレンス</a> を参照してください。 レスポンスは、ページネーションのために使用するいくつかのメタデータも含みます。</p>
+<p><code>router/index.js:</code></p>
+<pre><code class="hljs javascript"><span class="hljs-keyword">import</span> Vue <span class="hljs-keyword">from</span> <span class="hljs-string">'vue'</span>
+<span class="hljs-keyword">import</span> Router <span class="hljs-keyword">from</span> <span class="hljs-string">'vue-router'</span>
+<span class="hljs-keyword">import</span> BlogHome <span class="hljs-keyword">from</span> <span class="hljs-string">'@/components/BlogHome'</span>
+<span class="hljs-keyword">import</span> BlogPost <span class="hljs-keyword">from</span> <span class="hljs-string">'@/components/BlogPost'</span>
+
+Vue.use(Router)
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-keyword">new</span> Router(&#123;
+  <span class="hljs-attr">mode</span>: <span class="hljs-string">'history'</span>,
+  <span class="hljs-attr">routes</span>: [
+    &#123;
+      <span class="hljs-attr">path</span>: <span class="hljs-string">'/blog/'</span>,
+      <span class="hljs-attr">name</span>: <span class="hljs-string">'blog-home'</span>,
+      <span class="hljs-attr">component</span>: BlogHome
+    &#125;,
+    &#123;
+      <span class="hljs-attr">path</span>: <span class="hljs-string">'/blog/:slug'</span>,
+      <span class="hljs-attr">name</span>: <span class="hljs-string">'blog-post'</span>,
+      <span class="hljs-attr">component</span>: BlogPost
+    &#125;
+  ]
+&#125;)</code></pre>
+<p>次に、直近の投稿を並べるブログのホームページを <code>components/BlogHome.vue</code> で作成します。</p>
+<pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="javascript">
+  <span class="hljs-keyword">import</span> &#123; butter &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">'@/buttercms'</span>
+  <span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> &#123;
+    <span class="hljs-attr">name</span>: <span class="hljs-string">'blog-home'</span>,
+    data() &#123;
+      <span class="hljs-keyword">return</span> &#123;
+        <span class="hljs-attr">page_title</span>: <span class="hljs-string">'Blog'</span>,
+        <span class="hljs-attr">posts</span>: []
+      &#125;
+    &#125;,
+    <span class="hljs-attr">methods</span>: &#123;
+      getPosts() &#123;
+        butter.post.list(&#123;
+          <span class="hljs-attr">page</span>: <span class="hljs-number">1</span>,
+          <span class="hljs-attr">page_size</span>: <span class="hljs-number">10</span>
+        &#125;).then(<span class="hljs-function"><span class="hljs-params">res</span> =&gt;</span> &#123;
+          <span class="hljs-keyword">this</span>.posts = res.data.data
+        &#125;)
+      &#125;
+    &#125;,
+    created() &#123;
+      <span class="hljs-keyword">this</span>.getPosts()
+    &#125;
+  &#125;
+</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-name">template</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"blog-home"</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>&#123;&#123; page_title &#125;&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span>
+      <span class="hljs-comment">&lt;!-- `v-for` の生成、および Vue 用に `key` 属性の適用。ここでは、slug と index の組みを使用します --&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">div</span>
+        <span class="hljs-attr">v-for</span>=<span class="hljs-string">"(post,index) in posts"</span>
+        <span class="hljs-attr">:key</span>=<span class="hljs-string">"post.slug + '_' + index"</span>
+      &gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">router-link</span> <span class="hljs-attr">:to</span>=<span class="hljs-string">"'/blog/' + post.slug"</span>&gt;</span>
+          <span class="hljs-tag">&lt;<span class="hljs-name">article</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"media"</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">figure</span>&gt;</span>
+              <span class="hljs-comment">&lt;!-- `:` による結果のバインディング --&gt;</span>
+              <span class="hljs-comment">&lt;!-- `featured_image` を使うかどうかは、`v-if`/`else` で判定します --&gt;</span>
+              <span class="hljs-tag">&lt;<span class="hljs-name">img</span>
+                <span class="hljs-attr">v-if</span>=<span class="hljs-string">"post.featured_image"</span>
+                <span class="hljs-attr">:src</span>=<span class="hljs-string">"post.featured_image"</span>
+                <span class="hljs-attr">alt</span>=<span class="hljs-string">""</span>
+              &gt;</span>
+              <span class="hljs-tag">&lt;<span class="hljs-name">img</span>
+                <span class="hljs-attr">v-else</span>
+                <span class="hljs-attr">src</span>=<span class="hljs-string">"http://via.placeholder.com/250x250"</span>
+                <span class="hljs-attr">alt</span>=<span class="hljs-string">""</span>
+              &gt;</span>
+            <span class="hljs-tag">&lt;/<span class="hljs-name">figure</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">h2</span>&gt;</span>&#123;&#123; post.title &#125;&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">h2</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>&#123;&#123; post.summary &#125;&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+          <span class="hljs-tag">&lt;/<span class="hljs-name">article</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">router-link</span>&gt;</span>
+      <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span></code></pre>
+<p>これは以下のようになります（注釈：速くスタイリングするために、<a href="https://bulma.io/" target="_blank" rel="noopener">https://bulma.io/</a> の CSS フレームワークを追加しています）:</p>
+<p><img src="https://user-images.githubusercontent.com/160873/36868500-1b22e374-1d5e-11e8-82a0-20c8dc312716.png" alt="buttercms-bloglist"></p>
+<p>以下では、ブログの記事ページを個別投稿のリストにする <code>components/BlogPost.vue</code> を生成しています。</p>
+<pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="javascript">
+  <span class="hljs-keyword">import</span> &#123; butter &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">'@/buttercms'</span>
+  <span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> &#123;
+    <span class="hljs-attr">name</span>: <span class="hljs-string">'blog-post'</span>,
+    data() &#123;
+      <span class="hljs-keyword">return</span> &#123;
+        <span class="hljs-attr">post</span>: &#123;&#125;
+      &#125;
+    &#125;,
+    <span class="hljs-attr">methods</span>: &#123;
+      getPost() &#123;
+        butter.post.retrieve(<span class="hljs-keyword">this</span>.$route.params.slug)
+          .then(<span class="hljs-function"><span class="hljs-params">res</span> =&gt;</span> &#123;
+            <span class="hljs-keyword">this</span>.post = res.data
+          &#125;).catch(<span class="hljs-function"><span class="hljs-params">res</span> =&gt;</span> &#123;
+            <span class="hljs-built_in">console</span>.log(res)
+          &#125;)
+      &#125;
+    &#125;,
+    created() &#123;
+      <span class="hljs-keyword">this</span>.getPost()
+    &#125;
+  &#125;
+</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-name">template</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"blog-post"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>&#123;&#123; post.data.title &#125;&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">h4</span>&gt;</span>&#123;&#123; post.data.author.first_name &#125;&#125; &#123;&#123; post.data.author.last_name &#125;&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">h4</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">v-html</span>=<span class="hljs-string">"post.data.body"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+
+    <span class="hljs-tag">&lt;<span class="hljs-name">router-link</span>
+      <span class="hljs-attr">v-if</span>=<span class="hljs-string">"post.meta.previous_post"</span>
+      <span class="hljs-attr">:to</span>=<span class="hljs-string">"/blog/ + post.meta.previous_post.slug"</span>
+      <span class="hljs-attr">class</span>=<span class="hljs-string">"button"</span>
+    &gt;</span>
+      &#123;&#123; post.meta.previous_post.title &#125;&#125;
+    <span class="hljs-tag">&lt;/<span class="hljs-name">router-link</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">router-link</span>
+      <span class="hljs-attr">v-if</span>=<span class="hljs-string">"post.meta.next_post"</span>
+      <span class="hljs-attr">:to</span>=<span class="hljs-string">"/blog/ + post.meta.next_post.slug"</span>
+      <span class="hljs-attr">class</span>=<span class="hljs-string">"button"</span>
+    &gt;</span>
+      &#123;&#123; post.meta.next_post.title &#125;&#125;
+    <span class="hljs-tag">&lt;/<span class="hljs-name">router-link</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span></code></pre>
+<p>以下がプレビューです:</p>
+<p><img src="https://user-images.githubusercontent.com/160873/36868506-218c86b6-1d5e-11e8-8691-0409d91366d6.png" alt="buttercms-blogdetail"></p>
+<p>いま、アプリケーションはすべてのブログの記事を取得し、各々の投稿ページへ遷移できます。しかし、次/前の投稿へのボタンは動作していません。</p>
+<p>ルーティングをパラメータと一緒に使用する際にもう1つ注意すべきなのは、ユーザが <code>/blog/foo</code> から <code>/blog/bar</code> へ遷移するとき、同じコンポーネントのインスタンスが再利用される点です。各々のルーティングが同じコンポーネントを描画するため、古いインスタンスの破棄と新しいインスタンスの生成をするより、効率的です。</p>
+<p class="tip">注意してください。この方法でコンポーネントが使われるということは、コンポーネントのライフサイクルによるフックが呼ばれないことを意味します。より詳しくは、Vue Router のドキュメントを参照してください。<br><a href="https://router.vuejs.org/ja/essentials/dynamic-matching.html" target="_blank" rel="noopener">動的ルートマッチング</a></p>
+
+<p>これを修正するために、私たちは <code>$route</code> オブジェクトを監視し、ルーティングが変わるときに、<code>getPost()</code> を呼ぶ必要があります。</p>
+<p><code>components/BlogPost.vue</code> 内の <code>&lt;script&gt;</code> を以下のように更新します:</p>
+<pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="javascript">
+  <span class="hljs-keyword">import</span> &#123; butter &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">'@/buttercms'</span>
+  <span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> &#123;
+    <span class="hljs-attr">name</span>: <span class="hljs-string">'blog-post'</span>,
+    data() &#123;
+      <span class="hljs-keyword">return</span> &#123;
+        <span class="hljs-attr">post</span>: <span class="hljs-literal">null</span>
+      &#125;
+    &#125;,
+    <span class="hljs-attr">methods</span>: &#123;
+      getPost() &#123;
+        butter.post.retrieve(<span class="hljs-keyword">this</span>.$route.params.slug)
+          .then(<span class="hljs-function"><span class="hljs-params">res</span> =&gt;</span> &#123;
+            <span class="hljs-keyword">this</span>.post = res.data
+          &#125;).catch(<span class="hljs-function"><span class="hljs-params">res</span> =&gt;</span> &#123;
+            <span class="hljs-built_in">console</span>.log(res)
+          &#125;)
+      &#125;
+    &#125;,
+    <span class="hljs-attr">watch</span>: &#123;
+      <span class="hljs-attr">$route</span>: &#123;
+        <span class="hljs-attr">immediate</span>: <span class="hljs-literal">true</span>,
+        handler(to, <span class="hljs-keyword">from</span>) &#123;
+          <span class="hljs-keyword">this</span>.getPost()
+        &#125;
+      &#125;
+    &#125;
+  &#125;
+</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code></pre>
+<p>これで、あなたのアプリケーションは、ButterCMS ダッシュボード内で、簡単に更新できるブログを手に入れました。</p>
+<h2 id="カテゴリー、タグ、および著者"><a href="#カテゴリー、タグ、および著者" class="headerlink" title="カテゴリー、タグ、および著者"></a>カテゴリー、タグ、および著者</h2><p>ブログ上で、コンテンツをカテゴリー、タグ、および著者で特徴づける、あるいはフィルタリングするために、Butter の API を使用します。</p>
+<p>これらのオブジェクトについて、より情報を得るには、ButterCMS の API リファレンスを参照してください。</p>
+<ul>
+<li><a href="https://buttercms.com/docs/api/?ruby#categories" target="_blank" rel="noopener">Categories</a></li>
+<li><a href="https://buttercms.com/docs/api/?ruby#tags" target="_blank" rel="noopener">Tags</a></li>
+<li><a href="https://buttercms.com/docs/api/?ruby#authors" target="_blank" rel="noopener">Authors</a></li>
+</ul>
+<p>以下は、すべてのカテゴリーと、カテゴリーによる投稿を取得する例です。これらの関数は、<code>created()</code> のライフサイクルフックで呼び出してください。</p>
+<pre><code class="hljs javascript">methods: &#123;
+  <span class="hljs-comment">// ...</span>
+  getCategories() &#123;
+    butter.category.list()
+      .then(<span class="hljs-function"><span class="hljs-params">res</span> =&gt;</span> &#123;
+        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'List of Categories:'</span>)
+        <span class="hljs-built_in">console</span>.log(res.data.data)
+      &#125;)
+  &#125;,
+  getPostsByCategory() &#123;
+    butter.category.retrieve(<span class="hljs-string">'example-category'</span>, &#123;
+        <span class="hljs-attr">include</span>: <span class="hljs-string">'recent_posts'</span>
+      &#125;)
+      .then(<span class="hljs-function"><span class="hljs-params">res</span> =&gt;</span> &#123;
+        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Posts with specific category:'</span>)
+        <span class="hljs-built_in">console</span>.log(res)
+      &#125;)
+  &#125;
+&#125;,
+created() &#123;
+  <span class="hljs-comment">// ...</span>
+  <span class="hljs-keyword">this</span>.getCategories()
+  <span class="hljs-keyword">this</span>.getPostsByCategory()
+&#125;</code></pre>
+<h2 id="代替パターン"><a href="#代替パターン" class="headerlink" title="代替パターン"></a>代替パターン</h2><p>もし、あなたがマークダウンでのみの記述を好むなら、特に代替パターンとして考えられるのは、<a href="https://nuxtent-module.netlify.com/guide/writing/#async-components" target="_blank" rel="noopener">Nuxtent</a> のようなものを使う方法です。Nuxtent は、マークダウン形式のファイルの代わりに、<code>Vue Component</code> の利用を提供します。 このアプローチは、マークダウン形式のファイルでブログの投稿が構成される静的サイト（すなわち、Jekyll）のアプローチと類似するでしょう。Nuxtent は、Vue.js の世界で Vue.js とマークダウンの間で生きるための良いインテグレーションを追加します。</p>
+<h2 id="まとめ"><a href="#まとめ" class="headerlink" title="まとめ"></a>まとめ</h2><p>以上です！あなたはいま、アプリケーション上で動作する完全な機能を持った CMS によるブログを手に入れました。私たちは、このチュートリアルが役に立ち、Vue.js の開発経験がより一層楽しくなることを願っています:)</p>
+
+  
+  
+  <div class="footer">
+      <script src="//m.servedby-buysellads.com/monetization.js" type="text/javascript"></script>
+<div id="bsa-native"></div>
+<script>
+_bsa.init('custom', 'CKYD62QM', 'placement:vuejsorg',
+  {
+    target: '#bsa-native',
+    template: '<a class="native-box" href="##statlink##"><div class="native-sponsor">Sponsor</div><div class="native-text"><strong>##company##</strong> — ##description##</div></a>'
+  }
+);
+</script>
+
+
+    間違いを見つけた、またはドキュメントに貢献したいですか？
+    <a href="https://github.com/vuejs/jp.vuejs.org/blob/lang-ja/src/v2/cookbook/serverless-blog.md" rel="noopener" target="_blank">
+      GitHub で編集しましょう！
+    </a>
+    このサイトは
+    <a href="https://url.netlify.com/HJ8X2mxP8" rel="noopener" target="_blank">
+      Netlify
+    </a>
+    でホストされています。
+  </div>
+</div>
+
+      </div>
+      <script src="/js/smooth-scroll.min.js"></script>
+    
+
+    <!-- main custom script for sidebars, version selects etc. -->
+    <script src="/js/css.escape.js"></script>
+    <script src="/js/common.js"></script>
+
+    <!-- search -->
+    <link href="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="/css/search.css">
+    <script src="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.js"></script>
+    <script>
+    [
+      '#search-query-nav',
+      '#search-query-sidebar',
+      '#search-query-menu'
+    ].forEach(function (selector) {
+      if (!document.querySelector(selector)) return
+      // search index defaults to v2
+      var match = window.location.pathname.match(/^\/(v\d+)/)
+      var version = match ? match[1] : 'v2'
+      docsearch({
+      appId: 'BH4D9OD16A',
+      apiKey: '0a75952972806d9ad07e387d08e9cc4c',
+      indexName: 'vuejs_jp',
+      inputSelector: selector,
+      algoliaOptions: { facetFilters: ["version:" + version] },
+      autocompleteOptions: { hint: false, appendTo: 'body'}
+      })
+    })
+    </script>
+  </body>
+</html>

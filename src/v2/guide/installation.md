@@ -3,8 +3,8 @@ title: インストール
 updated: 2020-04-25
 type: guide
 order: 1
-vue_version: 2.5.16
-gz_size: "30.90"
+vue_version: 2.6.11
+gz_size: "33.30"
 ---
 
 ### 互換性の注意
@@ -48,14 +48,14 @@ Vue を使用する場合は、ブラウザに [Vue Devtools](https://github.com
 本番環境では、新しいバージョンによる意図しない不具合を避けるため、特定のバージョン番号とビルド番号にリンクすることをお勧めします:
 
 ``` html
-<script src="https://cdn.jsdelivr.net/npm/vue@2.6.0"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.11"></script>
 ```
 
 もしもネイティブの ES Modules を使っているなら、ES Modules 互換のビルドもあります:
 
 ``` html
 <script type="module">
-  import Vue from 'https://cdn.jsdelivr.net/npm/vue@2.6.0/dist/vue.esm.browser.js'
+  import Vue from 'https://cdn.jsdelivr.net/npm/vue@2.6.11/dist/vue.esm.browser.js'
 </script>
 ```
 

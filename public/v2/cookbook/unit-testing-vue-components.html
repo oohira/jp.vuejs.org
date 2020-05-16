@@ -1,0 +1,677 @@
+
+
+
+<!DOCTYPE html>
+<html lang="ja">
+  <head><meta name="generator" content="Hexo 3.8.0">
+    <title>Vue コンポーネントの単体テスト — Vue.js</title>
+    <meta charset="utf-8">
+    <meta name="description" content="Vue.js - The Progressive JavaScript Framework">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="alternate" hreflang="x-default" href="https://vuejs.org/v2/cookbook/unit-testing-vue-components.html">
+    <link rel="alternate" hreflang="zh" href="https://cn.vuejs.org/v2/cookbook/unit-testing-vue-components.html">
+    <link rel="alternate" hreflang="ja" href="https://jp.vuejs.org/v2/cookbook/unit-testing-vue-components.html">
+    <link rel="alternate" hreflang="ru" href="https://ru.vuejs.org/v2/cookbook/unit-testing-vue-components.html">
+    <link rel="alternate" hreflang="ko" href="https://kr.vuejs.org/v2/cookbook/unit-testing-vue-components.html">
+    <link rel="alternate" hreflang="pt-BR" href="https://br.vuejs.org/v2/cookbook/unit-testing-vue-components.html">
+    <link rel="alternate" hreflang="fr" href="https://fr.vuejs.org/v2/cookbook/unit-testing-vue-components.html">
+    <link rel="alternate" hreflang="es" href="https://es.vuejs.org/v2/cookbook/unit-testing-vue-components.html">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Vue コンポーネントの単体テスト — Vue.js">
+    <meta property="og:description" content="Vue.js - The Progressive JavaScript Framework">
+    <meta property="og:image" content="https://jp.vuejs.org//images/logo.png">
+
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Vue コンポーネントの単体テスト — Vue.js">
+    <meta name="twitter:description" content="Vue.js - The Progressive JavaScript Framework">
+    <meta name="twitter:image" content="https://jp.vuejs.org/images/logo.png">
+
+    <link rel="apple-touch-icon" sizes="57x57" href="/images/icons/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/images/icons/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/images/icons/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/images/icons/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/images/icons/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/images/icons/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/images/icons/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/images/icons/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/icons/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/images/icons/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="/images/icons/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/images/icons/favicon-16x16.png">
+    <meta name="msapplication-TileImage" content="/images/icons/ms-icon-144x144.png">
+    <link rel="icon" href="/images/logo.png" type="image/png">
+
+    <meta name="msapplication-TileColor" content="#4fc08d">
+    <meta name="theme-color" content="#4fc08d">
+
+    <meta name="msapplication-config" content="browserconfig.xml">
+    <link rel="manifest" href="/manifest.json">
+
+    <link href="https://fonts.googleapis.com" rel="preconnect" crossorigin="">
+    <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin="">
+    <link href="https://maxcdn.bootstrapcdn.com" rel="preconnect" crossorigin="">
+
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600|Roboto Mono&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Dosis:500&text=Vue.js&display=swap" rel="stylesheet">
+
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+    <!-- main page styles -->
+    <link rel="stylesheet" href="/css/page.css">
+
+    <!-- this needs to be loaded before guide's inline scripts -->
+    <script src="/js/vue.js"></script>
+
+    
+
+    <script>
+      Vue.config.productionTip = false
+      window.PAGE_TYPE = "cookbook"
+    </script>
+
+    <!-- ga -->
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-46852172-1', 'jp.vuejs.org');
+      ga('send', 'pageview');
+    </script>
+
+    <!-- vimeo analytics -->
+    <script type="text/javascript" defer="defer" src="https://extend.vimeocdn.com/ga/72160148.js"></script>
+  </head>
+  <body class="docs">
+    <div id="mobile-bar">
+      <a class="menu-button"></a>
+      <a class="logo" href="/"></a>
+    </div>
+    <header id="header">
+  <a id="logo" href="/">
+    <img src="/images/logo.png" alt="vue logo">
+    <span>Vue.js</span>
+  </a>
+  <ul id="nav">
+    <li>
+  <form id="search-form">
+    <input type="text" id="search-query-nav" class="search-query st-default-search-input" aria-label="検索">
+  </form>
+</li>
+<li class="nav-dropdown-container learn">
+  <a class="nav-link current">学ぶ</a><span class="arrow"></span>
+  <ul class="nav-dropdown">
+    <li><h4>ドキュメント</h4></li>
+    <li>
+      <ul>
+        <li><a href="/v2/guide/" class="nav-link">ガイド</a></li>
+        <li><a href="/v2/api/" class="nav-link">API</a></li>
+        <li><a href="/v2/style-guide/" class="nav-link">スタイルガイド</a></li>
+        <li><a href="/v2/examples/" class="nav-link">例</a></li>
+        <li><a href="/v2/cookbook/" class="nav-link current">クックブック</a></li>
+      </ul>
+    </li>
+    <li><h4>ビデオコース</h4></li>
+    <li>
+      <ul>
+        <li>
+          <a href="https://www.vuemastery.com/courses/" class="nav-link" target="_blank" rel="sponsored noopener">
+            Vue Mastery
+          </a>
+        </li>
+        <li>
+          <a href="https://vueschool.io/?friend=vuejs&utm_source=Vuejs.org&utm_medium=Link&utm_content=Navbar%20Dropdown" class="nav-link" target="_blank" rel="sponsored noopener">
+            Vue School
+          </a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</li>
+
+<li class="nav-dropdown-container ecosystem">
+  <a class="nav-link">エコシステム</a><span class="arrow"></span>
+  <ul class="nav-dropdown">
+    <li><h4>ヘルプ</h4></li>
+    <li><ul>
+      <li><a href="https://forum.vuejs.org/" class="nav-link" target="_blank" rel="noopener">フォーラム</a></li>
+      <li><a href="https://chat.vuejs.org/" class="nav-link" target="_blank" rel="noopener">チャット(公式)</a></li>
+      <li><a href="https://vuejs-jp-slackin.herokuapp.com" class="nav-link" target="_blank" rel="noopener">チャット(日本向け)</a></li>
+      <li><a href="https://events.vuejs.org/meetups/" class="nav-link" target="_blank" rel="noopener">ミートアップ</a></li>
+    </ul></li>
+    <li><h4>開発ツール</h4></li>
+    <li>
+      <ul>
+        <li><a href="https://github.com/vuejs/vue-devtools" class="nav-link" target="_blank" rel="noopener">Devtools</a></li>
+        <li><a href="https://cli.vuejs.org/" class="nav-link" target="_blank" rel="noopener">Vue CLI</a></li>
+        <li><a href="https://vue-loader.vuejs.org" class="nav-link" target="_blank" rel="noopener">Vue Loader</a></li>
+      </ul>
+    </li>
+    <li><h4>コアライブラリ</h4></li>
+    <li><ul>
+      <li><a href="https://router.vuejs.org/ja/" class="nav-link" target="_blank" rel="noopener">Vue Router</a></li>
+      <li><a href="https://vuex.vuejs.org/ja/" class="nav-link" target="_blank" rel="noopener">Vuex</a></li>
+      <li><a href="https://ssr.vuejs.org/ja/" class="nav-link" target="_blank" rel="noopener">Vue Server Renderer</a></li>
+    </ul></li>
+    <li><h4>ニュース</h4></li>
+    <li><ul>
+      <li><a href="https://news.vuejs.org" class="nav-link" target="_blank" rel="noopener">ウィークリーニュース</a></li>
+      <li><a href="https://github.com/vuejs/vue/projects/6" class="nav-link" target="_blank" rel="noopener">ロードマップ</a></li>
+      <li><a href="https://events.vuejs.org/" class="nav-link" target="_blank" rel="noopener">イベント</a></li>
+      <li><a href="https://twitter.com/vuejs" class="nav-link" target="_blank" rel="noopener">Twitter</a></li>
+      <li><a href="https://medium.com/the-vue-point" class="nav-link" target="_blank" rel="noopener">ブログ(英語)</a></li>
+      <li><a href="/blog/" class="nav-link" target="_blank" rel="noopener">ブログ(日本語訳)</a></li>
+      <li><a href="https://vuejobs.com/?ref=vuejs" class="nav-link" target="_blank" rel="noopener">ジョブ(海外)</a></li>
+      <li><a href="https://dev.to/t/vue" class="nav-link" target="_blank" rel="noopener">DEV コミュニティ</a></li>
+    </ul></li>
+  </ul>
+</li>
+
+<li>
+  <a href="/v2/guide/team.html" class="nav-link team">チーム</a>
+</li>
+<li>
+  <a href="/contribution/" class="nav-link">貢献</a>
+</li>
+<li class="nav-dropdown-container resources">
+  <a href="#" class="nav-link">リソース</a><span class="arrow"></span>
+  <ul class="nav-dropdown">
+    <li><a href="/resources/partners.html" class="nav-link">パートナー</a></li>
+    <li><a href="/resources/themes.html" class="nav-link">テーマ</a></li>
+    <li><a href="https://github.com/vuejs/awesome-vue" class="nav-link" target="_blank" rel="noopener">Awesome Vue</a></li>
+    <li><a href="https://awesomejs.dev/for/vue/" class="nav-link" target="_blank" rel="noopener">Browse packages for Vue</a></li>
+  </ul>
+</li>
+
+<!-- <li>
+  <a href="/partners" class="nav-link ">Partners</a>
+</li> -->
+<li class="nav-dropdown-container support-vue">
+  <a href="/support-vuejs/" class="nav-link">Vue を支援する</a><span class="arrow"></span>
+  <ul class="nav-dropdown">
+    <li><a href="/support-vuejs/#1回きりの支援" class="nav-link">1回きりの支援</a></li>
+    <li><a href="/support-vuejs/#継続的な支援" class="nav-link">継続的な支援</a></li>
+    <li><a href="https://vue.threadless.com" target="_blank" rel="noopener" class="nav-link">Tシャツ ショップ</a></li>
+  </ul>
+</li>
+
+<li class="nav-dropdown-container language">
+  <a class="nav-link">言語</a><span class="arrow"></span>
+  <ul class="nav-dropdown">
+    <li><a href="https://vuejs.org/v2/cookbook/unit-testing-vue-components.html" class="nav-link">English</a></li>
+    <li><a href="https://cn.vuejs.org/v2/cookbook/unit-testing-vue-components.html" class="nav-link">中文</a></li>
+    <li><a href="https://ru.vuejs.org/v2/cookbook/unit-testing-vue-components.html" class="nav-link">Русский</a></li>
+    <li><a href="https://kr.vuejs.org/v2/cookbook/unit-testing-vue-components.html" class="nav-link">한국어</a></li>
+    <li><a href="https://br.vuejs.org/v2/cookbook/unit-testing-vue-components.html" class="nav-link">Português</a></li>
+    <li><a href="https://fr.vuejs.org/v2/cookbook/unit-testing-vue-components.html" class="nav-link">Français</a></li>
+    <li><a href="https://vi.vuejs.org/v2/cookbook/unit-testing-vue-components.html" class="nav-link">Tiếng Việt</a></li>
+    <li><a href="https://es.vuejs.org/v2/cookbook/unit-testing-vue-components.html" class="nav-link">Español</a></li>
+    <li><a href="https://docs.vuejs.id/v2/cookbook/unit-testing-vue-components.html" class="nav-link">Bahasa Indonesia</a></li>
+  </ul>
+</li>
+
+
+  </ul>
+</header>
+
+    
+      <div id="main" class="fix-sidebar">
+        
+  
+
+<div class="sidebar">
+  <div class="sidebar-inner">
+    
+    <div class="list">
+      <div id="sidebar-sponsors-special">
+  <div class="main-sponsor">
+    <span>スペシャルスポンサー</span>
+    <div>
+    <a href="https://autocode.com" target="_blank" rel="sponsored noopener" class="logo">
+      <img src="/images/autocode.svg" alt="Autocode">
+    </a>
+    </div>
+  </div>
+</div>
+
+<div id="sidebar-sponsors-platinum-left">
+  <div class="main-sponsor">
+    <span>プラチナスポンサー</span>
+    <div>
+    <a href="https://vehikl.com/" target="_blank" rel="sponsored noopener" class="logo">
+      <img src="/images/vehikl.png" alt="Vehikl">
+    </a>
+    <a href="https://retool.com/?utm_source=sponsor&utm_campaign=vue" target="_blank" rel="sponsored noopener" class="logo">
+      <img src="/images/retool.png" alt="Retool">
+    </a>
+    <a href="https://passionatepeople.io/" target="_blank" rel="sponsored noopener" class="logo">
+      <img src="/images/passionate_people.png" alt="Passionate People">
+    </a>
+    <a href="https://www.storyblok.com" target="_blank" rel="sponsored noopener" class="logo">
+      <img src="/images/storyblok.png" alt="Storyblok">
+    </a>
+    </div>
+  </div>
+  <a class="become-backer" href="/support-vuejs">
+    スポンサーになる
+  </a>
+</div>
+
+
+
+      
+        <h2>
+          
+          クックブック<sup class="beta">beta</sup>
+          
+        </h2>
+        <ul class="menu-root">
+  
+    
+    
+    <li>
+      <a href="/v2/cookbook/index.html" class="sidebar-link">はじめに</a>
+    </li>
+  
+    
+    
+    <li>
+      <a href="/v2/cookbook/adding-instance-properties.html" class="sidebar-link">インスタンスプロパティの追加</a>
+    </li>
+  
+    
+    
+    <li>
+      <a href="/v2/cookbook/form-validation.html" class="sidebar-link">フォームのバリデーション</a>
+    </li>
+  
+    
+    
+    <li>
+      <a href="/v2/cookbook/editable-svg-icons.html" class="sidebar-link">編集可能な SVG アイコンシステム</a>
+    </li>
+  
+    
+    
+    <li>
+      <a href="/v2/cookbook/serverless-blog.html" class="sidebar-link">CMS によるブログの作成</a>
+    </li>
+  
+    
+    
+    <li>
+      <a href="/v2/cookbook/unit-testing-vue-components.html" class="sidebar-link current">Vue コンポーネントの単体テスト</a>
+    </li>
+  
+    
+    
+    <li>
+      <a href="/v2/cookbook/creating-custom-scroll-directives.html" class="sidebar-link">カスタムスクロールディレクティブの作成</a>
+    </li>
+  
+    
+    
+    <li>
+      <a href="/v2/cookbook/debugging-in-vscode.html" class="sidebar-link">VS Code によるデバッグ</a>
+    </li>
+  
+    
+    
+    <li>
+      <a href="/v2/cookbook/using-axios-to-consume-apis.html" class="sidebar-link">axios を利用した API の使用</a>
+    </li>
+  
+    
+    
+    <li>
+      <a href="/v2/cookbook/avoiding-memory-leaks.html" class="sidebar-link">メモリリークを回避する</a>
+    </li>
+  
+    
+    
+    <li>
+      <a href="/v2/cookbook/client-side-storage.html" class="sidebar-link">クライアントサイドストレージ</a>
+    </li>
+  
+    
+    
+    <li>
+      <a href="/v2/cookbook/packaging-sfc-for-npm.html" class="sidebar-link">Vue コンポーネントを npm パッケージ化する</a>
+    </li>
+  
+    
+    
+    <li>
+      <a href="/v2/cookbook/dockerize-vuejs-app.html" class="sidebar-link">Vue.js アプリケーションを Docker 化する</a>
+    </li>
+  
+    
+    
+    <li>
+      <a href="/v2/cookbook/practical-use-of-scoped-slots.html" class="sidebar-link">Practical use of scoped slots with GoogleMaps</a>
+    </li>
+  
+</ul>
+
+      
+    </div>
+  </div>
+</div>
+
+<div id="sidebar-sponsors-platinum-right">
+  <div class="main-sponsor">
+    <span>プラチナスポンサー</span>
+    <div>
+    <a href="https://vehikl.com/" target="_blank" rel="sponsored noopener" class="logo">
+      <img src="/images/vehikl.png" alt="Vehikl">
+    </a>
+    <a href="https://retool.com/?utm_source=sponsor&utm_campaign=vue" target="_blank" rel="sponsored noopener" class="logo">
+      <img src="/images/retool.png" alt="Retool">
+    </a>
+    <a href="https://passionatepeople.io/" target="_blank" rel="sponsored noopener" class="logo">
+      <img src="/images/passionate_people.png" alt="Passionate People">
+    </a>
+    <a href="https://www.storyblok.com" target="_blank" rel="sponsored noopener" class="logo">
+      <img src="/images/storyblok.png" alt="Storyblok">
+    </a>
+    </div>
+  </div>
+  <a class="become-backer" href="/support-vuejs">
+    スポンサーになる
+  </a>
+</div>
+
+
+
+
+<div class="content cookbook with-sidebar ">
+  
+    
+      
+<div id="ad">
+  <script async type="text/javascript" src="//cdn.carbonads.com/carbon.js?serve=CKYIK2QU&placement=vuejsorg" id="_carbonads_js">
+  </script>
+</div>
+
+
+    
+  
+  
+    <h1>Vue コンポーネントの単体テスト</h1>
+  
+  <p class="updated">最終更新日: 2019年1月20日</p>
+  
+  
+    <h2 id="基本的な例"><a href="#基本的な例" class="headerlink" title="基本的な例"></a>基本的な例</h2><p>単体テストはソフトウェア開発の重要な部分です。単体テストは、新しい機能の追加やバグの追跡を容易にするために、最小単位のコードを独立して実行します。 Vue の<a href="../guide/single-file-components.html">単一ファイルコンポーネント</a>は独立したコンポーネントの単体テストを書くことを容易にします。これによって、あなたは既存の機能を壊さない確信を持って新しい機能を開発ができ、また他の開発者がコンポーネントがしていることを理解するのを手助けします。</p>
+<p>この簡単な例はいくつかのテキストが描画されるかどうかをテストします:</p>
+<pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">template</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">v-model</span>=<span class="hljs-string">"username"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span>
+      <span class="hljs-attr">v-if</span>=<span class="hljs-string">"error"</span>
+      <span class="hljs-attr">class</span>=<span class="hljs-string">"error"</span>
+    &gt;</span>
+      &#123;&#123; error &#125;&#125;
+    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="javascript">
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> &#123;
+  <span class="hljs-attr">name</span>: <span class="hljs-string">'Hello'</span>,
+  data () &#123;
+    <span class="hljs-keyword">return</span> &#123;
+      <span class="hljs-attr">username</span>: <span class="hljs-string">''</span>
+    &#125;
+  &#125;,
+
+  <span class="hljs-attr">computed</span>: &#123;
+    error () &#123;
+      <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.username.trim().length &lt; <span class="hljs-number">7</span>
+        ? <span class="hljs-string">'Please enter a longer username'</span>
+        : <span class="hljs-string">''</span>
+    &#125;
+  &#125;
+&#125;
+</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code></pre>
+<pre><code class="hljs js"><span class="hljs-keyword">import</span> &#123; shallowMount &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">'@vue/test-utils'</span>
+<span class="hljs-keyword">import</span> Hello <span class="hljs-keyword">from</span> <span class="hljs-string">'./Hello.vue'</span>
+
+test(<span class="hljs-string">'Hello'</span>, () =&gt; &#123;
+  <span class="hljs-comment">// コンポーネントを描画します</span>
+  <span class="hljs-keyword">const</span> wrapper = shallowMount(Hello)
+
+  <span class="hljs-comment">// `username`は空白を除外して7文字未満は許されません</span>
+  wrapper.setData(&#123; <span class="hljs-attr">username</span>: <span class="hljs-string">' '</span>.repeat(<span class="hljs-number">7</span>) &#125;)
+
+  <span class="hljs-comment">// エラーが描画されることをアサートします</span>
+  expect(wrapper.find(<span class="hljs-string">'.error'</span>).exists()).toBe(<span class="hljs-literal">true</span>)
+
+  <span class="hljs-comment">// 名前を十分な長さにします</span>
+  wrapper.setData(&#123; <span class="hljs-attr">username</span>: <span class="hljs-string">'Lachlan'</span> &#125;)
+
+  <span class="hljs-comment">// エラーがなくなったことをアサートします</span>
+  expect(wrapper.find(<span class="hljs-string">'.error'</span>).exists()).toBe(<span class="hljs-literal">false</span>)
+&#125;)</code></pre>
+<p>上記のコードスニペットは、ユーザー名の長さに基づいてエラーメッセージが描画されるかどうかをテストする方法を示しています。 Vue コンポーネントの単体テストの一般的なアイデアを示します: コンポーネントを描画し、マークアップがコンポーネントの状態に一致するかをアサートします。</p>
+<h2 id="なぜテストをするのですか"><a href="#なぜテストをするのですか" class="headerlink" title="なぜテストをするのですか"></a>なぜテストをするのですか</h2><p>コンポーネントの単体テストにはたくさんの利点があります:</p>
+<ul>
+<li>コンポーネントがどう動作すべきかのドキュメントを提供します</li>
+<li>過度な手動テストの時間を節約します</li>
+<li>新しい機能におけるバグを減らします</li>
+<li>設計を改良します</li>
+<li>リファクタリングを容易にします</li>
+</ul>
+<p>自動テストは大規模な開発チームが複雑なコードベースを保つことを可能にします。</p>
+<h4 id="はじめる"><a href="#はじめる" class="headerlink" title="はじめる"></a>はじめる</h4><p><a href="https://github.com/vuejs/vue-test-utils" target="_blank" rel="noopener">Vue Test Utils</a> は Vue コンポーネントの単体テストのための公式ライブラリです。 <a href="https://github.com/vuejs/vue-cli" target="_blank" rel="noopener">vue-cli</a> の <code>webpack</code> テンプレートには Karma と Jest というよくサポートされたテストランナーを備えており、また Vue Test Utils にいくつかの<a href="https://vue-test-utils.vuejs.org/ja/guides/" target="_blank" rel="noopener">ガイド</a>があります。</p>
+<h2 id="実例"><a href="#実例" class="headerlink" title="実例"></a>実例</h2><p>単体テストのすべきことは:</p>
+<ul>
+<li>実行が早いこと</li>
+<li>理解しやすいこと</li>
+<li><em>一つの作業</em> だけをテストすること</li>
+</ul>
+<p>私達のテストをもっと簡潔に読みやすくするために<a href="https://en.wikipedia.org/wiki/Factory_(object-oriented_programming)" target="_blank" rel="noopener">ファクトリ関数</a>のアイデアを紹介しつつ、以前の例の構築を続けていきましょう。コンポーネントがすべきこと：</p>
+<ul>
+<li>‘Welcome to the Vue.js cookbook’ という挨拶を表示する</li>
+<li>ユーザーにユーザー名の入力を促す</li>
+<li>もし入力された文字数が7文字未満ならエラーを表示する</li>
+</ul>
+<p>最初にコンポーネントのコードを見てみましょう:</p>
+<pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">template</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"message"</span>&gt;</span>
+      &#123;&#123; message &#125;&#125;
+    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+    ユーザー名を入力してください: <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">v-model</span>=<span class="hljs-string">"username"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span>
+      <span class="hljs-attr">v-if</span>=<span class="hljs-string">"error"</span>
+      <span class="hljs-attr">class</span>=<span class="hljs-string">"error"</span>
+    &gt;</span>
+      少なくとも7文字でユーザー名を入力してください
+    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="javascript">
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> &#123;
+  <span class="hljs-attr">name</span>: <span class="hljs-string">'Foo'</span>,
+
+  data () &#123;
+    <span class="hljs-keyword">return</span> &#123;
+      <span class="hljs-attr">message</span>: <span class="hljs-string">'Welcome to the Vue.js cookbook'</span>,
+      <span class="hljs-attr">username</span>: <span class="hljs-string">''</span>
+    &#125;
+  &#125;,
+
+  <span class="hljs-attr">computed</span>: &#123;
+    error () &#123;
+      <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.username.trim().length &lt; <span class="hljs-number">7</span>
+    &#125;
+  &#125;
+&#125;
+</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code></pre>
+<p>私たちがテストすべきは:</p>
+<ul>
+<li><code>message</code> が表示されているか</li>
+<li>もし <code>error</code> が <code>true</code>の場合、 <code>&lt;div class=&quot;error&quot;&gt;</code> が存在するか</li>
+<li>もし <code>error</code> が <code>false</code>の場合、 <code>&lt;div class=&quot;error&quot;&gt;</code> が存在しないか</li>
+</ul>
+<p>私達のテストでの最初の試み:</p>
+<pre><code class="hljs js"><span class="hljs-keyword">import</span> &#123; shallowMount &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">'@vue/test-utils'</span>
+<span class="hljs-keyword">import</span> Foo <span class="hljs-keyword">from</span> <span class="hljs-string">'./Foo.vue'</span>
+
+describe(<span class="hljs-string">'Foo'</span>, () =&gt; &#123;
+  it(<span class="hljs-string">'メッセージを描画し、ユーザー入力に正しく応答します'</span>, () =&gt; &#123;
+    <span class="hljs-keyword">const</span> wrapper = shallowMount(Foo, &#123;
+      data() &#123;
+        <span class="hljs-keyword">return</span> &#123;
+          <span class="hljs-attr">message</span>: <span class="hljs-string">'Hello World'</span>,
+          <span class="hljs-attr">username</span>: <span class="hljs-string">''</span>
+        &#125;
+      &#125;
+    &#125;)
+
+    <span class="hljs-comment">// message が描画されていたら見られる</span>
+    expect(wrapper.find(<span class="hljs-string">'.message'</span>).text()).toEqual(<span class="hljs-string">'Hello World'</span>)
+
+    <span class="hljs-comment">// エラーのアサートが描画される</span>
+    expect(wrapper.find(<span class="hljs-string">'.error'</span>).exists()).toBeTruthy()
+
+    <span class="hljs-comment">// `username`を更新してエラーのアサートが描画されなくなる</span>
+    wrapper.setData(&#123; <span class="hljs-attr">username</span>: <span class="hljs-string">'Lachlan'</span> &#125;)
+    expect(wrapper.find(<span class="hljs-string">'.error'</span>).exists()).toBeFalsy()
+  &#125;)
+&#125;)</code></pre>
+<p>上記テストにはいくつかの問題があります:</p>
+<ul>
+<li>1つのテストが異なることについてアサーションを行っています</li>
+<li>コンポーネントが存在できる異なる状態や描画すべきものを伝えるのが難しい</li>
+</ul>
+<p>以下の例では、テストを次のように改善していきます:</p>
+<ul>
+<li><code>it</code> ブロックごとに1つのアサーションのみ作成する</li>
+<li>短く明確なテストの説明を持つ</li>
+<li>テストに必要な最低限のデータだけを提供する</li>
+<li>重複したロジック（<code>wrapper</code> の作成と <code>username</code> 変数の設定）をファクトリ関数にリファクタリングする</li>
+</ul>
+<p><em>更新したテスト</em>:</p>
+<pre><code class="hljs js"><span class="hljs-keyword">import</span> &#123; shallowMount &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">'@vue/test-utils'</span>
+<span class="hljs-keyword">import</span> Foo <span class="hljs-keyword">from</span> <span class="hljs-string">'./Foo'</span>
+
+<span class="hljs-keyword">const</span> factory = <span class="hljs-function">(<span class="hljs-params">values = &#123;&#125;</span>) =&gt;</span> &#123;
+  <span class="hljs-keyword">return</span> shallowMount(Foo, &#123;
+    data () &#123;
+      <span class="hljs-keyword">return</span> &#123;
+        ...values
+      &#125;
+    &#125;
+  &#125;)
+&#125;
+
+describe(<span class="hljs-string">'Foo'</span>, () =&gt; &#123;
+  it(<span class="hljs-string">'welcome メッセージを描画する'</span>, () =&gt; &#123;
+    <span class="hljs-keyword">const</span> wrapper = factory()
+
+    expect(wrapper.find(<span class="hljs-string">'.message'</span>).text()).toEqual(<span class="hljs-string">"Welcome to the Vue.js cookbook"</span>)
+  &#125;)
+
+  it(<span class="hljs-string">'usernameが7未満のときエラーを描画する'</span>, () =&gt; &#123;
+    <span class="hljs-keyword">const</span> wrapper = factory(&#123; <span class="hljs-attr">username</span>: <span class="hljs-string">''</span>  &#125;)
+
+    expect(wrapper.find(<span class="hljs-string">'.error'</span>).exists()).toBeTruthy()
+  &#125;)
+
+  it(<span class="hljs-string">'usernameが空白のときエラーを描画する'</span>, () =&gt; &#123;
+    <span class="hljs-keyword">const</span> wrapper = factory(&#123; <span class="hljs-attr">username</span>: <span class="hljs-string">' '</span>.repeat(<span class="hljs-number">7</span>) &#125;)
+
+    expect(wrapper.find(<span class="hljs-string">'.error'</span>).exists()).toBeTruthy()
+  &#125;)
+
+  it(<span class="hljs-string">'usernameが7文字かそれ以上のとき、エラーが描画されない'</span>, () =&gt; &#123;
+    <span class="hljs-keyword">const</span> wrapper = factory(&#123; <span class="hljs-attr">username</span>: <span class="hljs-string">'Lachlan'</span> &#125;)
+
+    expect(wrapper.find(<span class="hljs-string">'.error'</span>).exists()).toBeFalsy()
+  &#125;)
+&#125;)</code></pre>
+<p>注意すべき点:</p>
+<p>一番上に <code>values</code> オブジェクトをまとめて <code>data</code> にして、新しい <code>wrapper</code> インスタンスを返すファクトリ関数を宣言します。このようにすると、すべてのテストで <code>const wrapper = shallowMount（Foo）</code> を複製する必要がありません。このことのもう1つの大きな利点は、メソッドや算出プロパティを持つ複雑なコンポーネントをすべてのテストでモックまたはスタブにしたい場合は、一度だけ宣言すればいいということです。</p>
+<h2 id="コンテキストの追加"><a href="#コンテキストの追加" class="headerlink" title="コンテキストの追加"></a>コンテキストの追加</h2><p>上記のテストはかなりシンプルですが、実際の Vue コンポーネントは以下のような他のテストしたい振る舞いをよく持ちます:</p>
+<ul>
+<li>API コール</li>
+<li><code>Vuex</code> ストアでコミットやミューテーションのディスパッチやアクションすること</li>
+<li>相互作用テスト</li>
+</ul>
+<p>そのようなテストを示すより完全な例が Vue Test Utils <a href="https://vue-test-utils.vuejs.org/ja/guides/" target="_blank" rel="noopener">ガイド</a>にあります。</p>
+<p>Vue Test Utils と巨大な JavaScript エコシステムはほぼ 100％ のテスト網羅率を容易にする豊富なツールを提供します。とはいえ、単体テストはテストピラミッドの一部に過ぎません。その他のタイプのテストには e2e (end to end) テストとスナップショットテストがあります。単体テストは最小で最も簡単なテストです - 最小の作業単位でアサーションを行い、単一のコンポーネントの各部分を分離します。</p>
+<p>スナップショットテストはあなたの Vue コンポーネントのマークアップを保存し、テストが実行されるたびに新しく生成されたものと比較します。もし何かが変更された場合、開発者に通知され、そして開発者はその変化が意図的（コンポーネントが変更された）か偶発的（コンポーネントが正しい動作をしていない）かを選ぶことができます。</p>
+<p>e2e テストは複数のコンポーネントがうまく相互作用することを保証します。それらはより高いレベルです。幾つかの例は、ユーザーがサインアップやログインやユーザー名を更新できるかどうかをテストするものです。これらは単体テストやスナップショットテストより実行が遅くなります。</p>
+<p>単体テストはどうコンポーネントを設計するか、どう既存のコンポーネントをリファクタリングするかについて考えるのに役に立ち、コードが変更されるたびに実行されることが多いため、開発中にもっとも有用です。</p>
+<p>e2e などのレベルの高いテストはかなり遅く実行されます。これらは通常デプロイ前に実行されて、システムの各部分がそれぞれ正しく連携して動いていることを確かにします。</p>
+<p>Vue コンポーネントのテストについてのさらなる情報はコアチームメンバー <a href="https://eddyerburgh.me/" target="_blank" rel="noopener">Edd Yerburgh</a> による <a href="https://www.manning.com/books/testing-vuejs-applications" target="_blank" rel="noopener">Testing Vue.js Applications</a> で見つけることができます。</p>
+<h2 id="このパターンを避けるとき"><a href="#このパターンを避けるとき" class="headerlink" title="このパターンを避けるとき"></a>このパターンを避けるとき</h2><p>単体テストは重大なアプリケーションの重要な部分です。まず最初は、アプリケーションのビジョンが明確ではない時、単体テストによって開発が遅くなる可能性がありますが、しかし一度ビジョンが決まり、実際のユーザーがアプリケーションにふれると、単体テスト（と他の種類の自動テスト）はコードベースが維持可能でスケーラブルなことを保証するために絶対に必要です。</p>
+
+  
+  
+  <div class="footer">
+      <script src="//m.servedby-buysellads.com/monetization.js" type="text/javascript"></script>
+<div id="bsa-native"></div>
+<script>
+_bsa.init('custom', 'CKYD62QM', 'placement:vuejsorg',
+  {
+    target: '#bsa-native',
+    template: '<a class="native-box" href="##statlink##"><div class="native-sponsor">Sponsor</div><div class="native-text"><strong>##company##</strong> — ##description##</div></a>'
+  }
+);
+</script>
+
+
+    間違いを見つけた、またはドキュメントに貢献したいですか？
+    <a href="https://github.com/vuejs/jp.vuejs.org/blob/lang-ja/src/v2/cookbook/unit-testing-vue-components.md" rel="noopener" target="_blank">
+      GitHub で編集しましょう！
+    </a>
+    このサイトは
+    <a href="https://url.netlify.com/HJ8X2mxP8" rel="noopener" target="_blank">
+      Netlify
+    </a>
+    でホストされています。
+  </div>
+</div>
+
+      </div>
+      <script src="/js/smooth-scroll.min.js"></script>
+    
+
+    <!-- main custom script for sidebars, version selects etc. -->
+    <script src="/js/css.escape.js"></script>
+    <script src="/js/common.js"></script>
+
+    <!-- search -->
+    <link href="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="/css/search.css">
+    <script src="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.js"></script>
+    <script>
+    [
+      '#search-query-nav',
+      '#search-query-sidebar',
+      '#search-query-menu'
+    ].forEach(function (selector) {
+      if (!document.querySelector(selector)) return
+      // search index defaults to v2
+      var match = window.location.pathname.match(/^\/(v\d+)/)
+      var version = match ? match[1] : 'v2'
+      docsearch({
+      appId: 'BH4D9OD16A',
+      apiKey: '0a75952972806d9ad07e387d08e9cc4c',
+      indexName: 'vuejs_jp',
+      inputSelector: selector,
+      algoliaOptions: { facetFilters: ["version:" + version] },
+      autocompleteOptions: { hint: false, appendTo: 'body'}
+      })
+    })
+    </script>
+  </body>
+</html>

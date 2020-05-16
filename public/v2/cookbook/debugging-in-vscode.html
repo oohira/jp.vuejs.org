@@ -1,0 +1,551 @@
+
+
+
+<!DOCTYPE html>
+<html lang="ja">
+  <head><meta name="generator" content="Hexo 3.8.0">
+    <title>VS Code によるデバッグ — Vue.js</title>
+    <meta charset="utf-8">
+    <meta name="description" content="Vue.js - The Progressive JavaScript Framework">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="alternate" hreflang="x-default" href="https://vuejs.org/v2/cookbook/debugging-in-vscode.html">
+    <link rel="alternate" hreflang="zh" href="https://cn.vuejs.org/v2/cookbook/debugging-in-vscode.html">
+    <link rel="alternate" hreflang="ja" href="https://jp.vuejs.org/v2/cookbook/debugging-in-vscode.html">
+    <link rel="alternate" hreflang="ru" href="https://ru.vuejs.org/v2/cookbook/debugging-in-vscode.html">
+    <link rel="alternate" hreflang="ko" href="https://kr.vuejs.org/v2/cookbook/debugging-in-vscode.html">
+    <link rel="alternate" hreflang="pt-BR" href="https://br.vuejs.org/v2/cookbook/debugging-in-vscode.html">
+    <link rel="alternate" hreflang="fr" href="https://fr.vuejs.org/v2/cookbook/debugging-in-vscode.html">
+    <link rel="alternate" hreflang="es" href="https://es.vuejs.org/v2/cookbook/debugging-in-vscode.html">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="VS Code によるデバッグ — Vue.js">
+    <meta property="og:description" content="Vue.js - The Progressive JavaScript Framework">
+    <meta property="og:image" content="https://jp.vuejs.org//images/logo.png">
+
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="VS Code によるデバッグ — Vue.js">
+    <meta name="twitter:description" content="Vue.js - The Progressive JavaScript Framework">
+    <meta name="twitter:image" content="https://jp.vuejs.org/images/logo.png">
+
+    <link rel="apple-touch-icon" sizes="57x57" href="/images/icons/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/images/icons/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/images/icons/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/images/icons/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/images/icons/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/images/icons/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/images/icons/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/images/icons/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/icons/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/images/icons/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="/images/icons/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/images/icons/favicon-16x16.png">
+    <meta name="msapplication-TileImage" content="/images/icons/ms-icon-144x144.png">
+    <link rel="icon" href="/images/logo.png" type="image/png">
+
+    <meta name="msapplication-TileColor" content="#4fc08d">
+    <meta name="theme-color" content="#4fc08d">
+
+    <meta name="msapplication-config" content="browserconfig.xml">
+    <link rel="manifest" href="/manifest.json">
+
+    <link href="https://fonts.googleapis.com" rel="preconnect" crossorigin="">
+    <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin="">
+    <link href="https://maxcdn.bootstrapcdn.com" rel="preconnect" crossorigin="">
+
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600|Roboto Mono&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Dosis:500&text=Vue.js&display=swap" rel="stylesheet">
+
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+    <!-- main page styles -->
+    <link rel="stylesheet" href="/css/page.css">
+
+    <!-- this needs to be loaded before guide's inline scripts -->
+    <script src="/js/vue.js"></script>
+
+    
+
+    <script>
+      Vue.config.productionTip = false
+      window.PAGE_TYPE = "cookbook"
+    </script>
+
+    <!-- ga -->
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-46852172-1', 'jp.vuejs.org');
+      ga('send', 'pageview');
+    </script>
+
+    <!-- vimeo analytics -->
+    <script type="text/javascript" defer="defer" src="https://extend.vimeocdn.com/ga/72160148.js"></script>
+  </head>
+  <body class="docs">
+    <div id="mobile-bar">
+      <a class="menu-button"></a>
+      <a class="logo" href="/"></a>
+    </div>
+    <header id="header">
+  <a id="logo" href="/">
+    <img src="/images/logo.png" alt="vue logo">
+    <span>Vue.js</span>
+  </a>
+  <ul id="nav">
+    <li>
+  <form id="search-form">
+    <input type="text" id="search-query-nav" class="search-query st-default-search-input" aria-label="検索">
+  </form>
+</li>
+<li class="nav-dropdown-container learn">
+  <a class="nav-link current">学ぶ</a><span class="arrow"></span>
+  <ul class="nav-dropdown">
+    <li><h4>ドキュメント</h4></li>
+    <li>
+      <ul>
+        <li><a href="/v2/guide/" class="nav-link">ガイド</a></li>
+        <li><a href="/v2/api/" class="nav-link">API</a></li>
+        <li><a href="/v2/style-guide/" class="nav-link">スタイルガイド</a></li>
+        <li><a href="/v2/examples/" class="nav-link">例</a></li>
+        <li><a href="/v2/cookbook/" class="nav-link current">クックブック</a></li>
+      </ul>
+    </li>
+    <li><h4>ビデオコース</h4></li>
+    <li>
+      <ul>
+        <li>
+          <a href="https://www.vuemastery.com/courses/" class="nav-link" target="_blank" rel="sponsored noopener">
+            Vue Mastery
+          </a>
+        </li>
+        <li>
+          <a href="https://vueschool.io/?friend=vuejs&utm_source=Vuejs.org&utm_medium=Link&utm_content=Navbar%20Dropdown" class="nav-link" target="_blank" rel="sponsored noopener">
+            Vue School
+          </a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</li>
+
+<li class="nav-dropdown-container ecosystem">
+  <a class="nav-link">エコシステム</a><span class="arrow"></span>
+  <ul class="nav-dropdown">
+    <li><h4>ヘルプ</h4></li>
+    <li><ul>
+      <li><a href="https://forum.vuejs.org/" class="nav-link" target="_blank" rel="noopener">フォーラム</a></li>
+      <li><a href="https://chat.vuejs.org/" class="nav-link" target="_blank" rel="noopener">チャット(公式)</a></li>
+      <li><a href="https://vuejs-jp-slackin.herokuapp.com" class="nav-link" target="_blank" rel="noopener">チャット(日本向け)</a></li>
+      <li><a href="https://events.vuejs.org/meetups/" class="nav-link" target="_blank" rel="noopener">ミートアップ</a></li>
+    </ul></li>
+    <li><h4>開発ツール</h4></li>
+    <li>
+      <ul>
+        <li><a href="https://github.com/vuejs/vue-devtools" class="nav-link" target="_blank" rel="noopener">Devtools</a></li>
+        <li><a href="https://cli.vuejs.org/" class="nav-link" target="_blank" rel="noopener">Vue CLI</a></li>
+        <li><a href="https://vue-loader.vuejs.org" class="nav-link" target="_blank" rel="noopener">Vue Loader</a></li>
+      </ul>
+    </li>
+    <li><h4>コアライブラリ</h4></li>
+    <li><ul>
+      <li><a href="https://router.vuejs.org/ja/" class="nav-link" target="_blank" rel="noopener">Vue Router</a></li>
+      <li><a href="https://vuex.vuejs.org/ja/" class="nav-link" target="_blank" rel="noopener">Vuex</a></li>
+      <li><a href="https://ssr.vuejs.org/ja/" class="nav-link" target="_blank" rel="noopener">Vue Server Renderer</a></li>
+    </ul></li>
+    <li><h4>ニュース</h4></li>
+    <li><ul>
+      <li><a href="https://news.vuejs.org" class="nav-link" target="_blank" rel="noopener">ウィークリーニュース</a></li>
+      <li><a href="https://github.com/vuejs/vue/projects/6" class="nav-link" target="_blank" rel="noopener">ロードマップ</a></li>
+      <li><a href="https://events.vuejs.org/" class="nav-link" target="_blank" rel="noopener">イベント</a></li>
+      <li><a href="https://twitter.com/vuejs" class="nav-link" target="_blank" rel="noopener">Twitter</a></li>
+      <li><a href="https://medium.com/the-vue-point" class="nav-link" target="_blank" rel="noopener">ブログ(英語)</a></li>
+      <li><a href="/blog/" class="nav-link" target="_blank" rel="noopener">ブログ(日本語訳)</a></li>
+      <li><a href="https://vuejobs.com/?ref=vuejs" class="nav-link" target="_blank" rel="noopener">ジョブ(海外)</a></li>
+      <li><a href="https://dev.to/t/vue" class="nav-link" target="_blank" rel="noopener">DEV コミュニティ</a></li>
+    </ul></li>
+  </ul>
+</li>
+
+<li>
+  <a href="/v2/guide/team.html" class="nav-link team">チーム</a>
+</li>
+<li>
+  <a href="/contribution/" class="nav-link">貢献</a>
+</li>
+<li class="nav-dropdown-container resources">
+  <a href="#" class="nav-link">リソース</a><span class="arrow"></span>
+  <ul class="nav-dropdown">
+    <li><a href="/resources/partners.html" class="nav-link">パートナー</a></li>
+    <li><a href="/resources/themes.html" class="nav-link">テーマ</a></li>
+    <li><a href="https://github.com/vuejs/awesome-vue" class="nav-link" target="_blank" rel="noopener">Awesome Vue</a></li>
+    <li><a href="https://awesomejs.dev/for/vue/" class="nav-link" target="_blank" rel="noopener">Browse packages for Vue</a></li>
+  </ul>
+</li>
+
+<!-- <li>
+  <a href="/partners" class="nav-link ">Partners</a>
+</li> -->
+<li class="nav-dropdown-container support-vue">
+  <a href="/support-vuejs/" class="nav-link">Vue を支援する</a><span class="arrow"></span>
+  <ul class="nav-dropdown">
+    <li><a href="/support-vuejs/#1回きりの支援" class="nav-link">1回きりの支援</a></li>
+    <li><a href="/support-vuejs/#継続的な支援" class="nav-link">継続的な支援</a></li>
+    <li><a href="https://vue.threadless.com" target="_blank" rel="noopener" class="nav-link">Tシャツ ショップ</a></li>
+  </ul>
+</li>
+
+<li class="nav-dropdown-container language">
+  <a class="nav-link">言語</a><span class="arrow"></span>
+  <ul class="nav-dropdown">
+    <li><a href="https://vuejs.org/v2/cookbook/debugging-in-vscode.html" class="nav-link">English</a></li>
+    <li><a href="https://cn.vuejs.org/v2/cookbook/debugging-in-vscode.html" class="nav-link">中文</a></li>
+    <li><a href="https://ru.vuejs.org/v2/cookbook/debugging-in-vscode.html" class="nav-link">Русский</a></li>
+    <li><a href="https://kr.vuejs.org/v2/cookbook/debugging-in-vscode.html" class="nav-link">한국어</a></li>
+    <li><a href="https://br.vuejs.org/v2/cookbook/debugging-in-vscode.html" class="nav-link">Português</a></li>
+    <li><a href="https://fr.vuejs.org/v2/cookbook/debugging-in-vscode.html" class="nav-link">Français</a></li>
+    <li><a href="https://vi.vuejs.org/v2/cookbook/debugging-in-vscode.html" class="nav-link">Tiếng Việt</a></li>
+    <li><a href="https://es.vuejs.org/v2/cookbook/debugging-in-vscode.html" class="nav-link">Español</a></li>
+    <li><a href="https://docs.vuejs.id/v2/cookbook/debugging-in-vscode.html" class="nav-link">Bahasa Indonesia</a></li>
+  </ul>
+</li>
+
+
+  </ul>
+</header>
+
+    
+      <div id="main" class="fix-sidebar">
+        
+  
+
+<div class="sidebar">
+  <div class="sidebar-inner">
+    
+    <div class="list">
+      <div id="sidebar-sponsors-special">
+  <div class="main-sponsor">
+    <span>スペシャルスポンサー</span>
+    <div>
+    <a href="https://autocode.com" target="_blank" rel="sponsored noopener" class="logo">
+      <img src="/images/autocode.svg" alt="Autocode">
+    </a>
+    </div>
+  </div>
+</div>
+
+<div id="sidebar-sponsors-platinum-left">
+  <div class="main-sponsor">
+    <span>プラチナスポンサー</span>
+    <div>
+    <a href="https://vehikl.com/" target="_blank" rel="sponsored noopener" class="logo">
+      <img src="/images/vehikl.png" alt="Vehikl">
+    </a>
+    <a href="https://retool.com/?utm_source=sponsor&utm_campaign=vue" target="_blank" rel="sponsored noopener" class="logo">
+      <img src="/images/retool.png" alt="Retool">
+    </a>
+    <a href="https://passionatepeople.io/" target="_blank" rel="sponsored noopener" class="logo">
+      <img src="/images/passionate_people.png" alt="Passionate People">
+    </a>
+    <a href="https://www.storyblok.com" target="_blank" rel="sponsored noopener" class="logo">
+      <img src="/images/storyblok.png" alt="Storyblok">
+    </a>
+    </div>
+  </div>
+  <a class="become-backer" href="/support-vuejs">
+    スポンサーになる
+  </a>
+</div>
+
+
+
+      
+        <h2>
+          
+          クックブック<sup class="beta">beta</sup>
+          
+        </h2>
+        <ul class="menu-root">
+  
+    
+    
+    <li>
+      <a href="/v2/cookbook/index.html" class="sidebar-link">はじめに</a>
+    </li>
+  
+    
+    
+    <li>
+      <a href="/v2/cookbook/adding-instance-properties.html" class="sidebar-link">インスタンスプロパティの追加</a>
+    </li>
+  
+    
+    
+    <li>
+      <a href="/v2/cookbook/form-validation.html" class="sidebar-link">フォームのバリデーション</a>
+    </li>
+  
+    
+    
+    <li>
+      <a href="/v2/cookbook/editable-svg-icons.html" class="sidebar-link">編集可能な SVG アイコンシステム</a>
+    </li>
+  
+    
+    
+    <li>
+      <a href="/v2/cookbook/serverless-blog.html" class="sidebar-link">CMS によるブログの作成</a>
+    </li>
+  
+    
+    
+    <li>
+      <a href="/v2/cookbook/unit-testing-vue-components.html" class="sidebar-link">Vue コンポーネントの単体テスト</a>
+    </li>
+  
+    
+    
+    <li>
+      <a href="/v2/cookbook/creating-custom-scroll-directives.html" class="sidebar-link">カスタムスクロールディレクティブの作成</a>
+    </li>
+  
+    
+    
+    <li>
+      <a href="/v2/cookbook/debugging-in-vscode.html" class="sidebar-link current">VS Code によるデバッグ</a>
+    </li>
+  
+    
+    
+    <li>
+      <a href="/v2/cookbook/using-axios-to-consume-apis.html" class="sidebar-link">axios を利用した API の使用</a>
+    </li>
+  
+    
+    
+    <li>
+      <a href="/v2/cookbook/avoiding-memory-leaks.html" class="sidebar-link">メモリリークを回避する</a>
+    </li>
+  
+    
+    
+    <li>
+      <a href="/v2/cookbook/client-side-storage.html" class="sidebar-link">クライアントサイドストレージ</a>
+    </li>
+  
+    
+    
+    <li>
+      <a href="/v2/cookbook/packaging-sfc-for-npm.html" class="sidebar-link">Vue コンポーネントを npm パッケージ化する</a>
+    </li>
+  
+    
+    
+    <li>
+      <a href="/v2/cookbook/dockerize-vuejs-app.html" class="sidebar-link">Vue.js アプリケーションを Docker 化する</a>
+    </li>
+  
+    
+    
+    <li>
+      <a href="/v2/cookbook/practical-use-of-scoped-slots.html" class="sidebar-link">Practical use of scoped slots with GoogleMaps</a>
+    </li>
+  
+</ul>
+
+      
+    </div>
+  </div>
+</div>
+
+<div id="sidebar-sponsors-platinum-right">
+  <div class="main-sponsor">
+    <span>プラチナスポンサー</span>
+    <div>
+    <a href="https://vehikl.com/" target="_blank" rel="sponsored noopener" class="logo">
+      <img src="/images/vehikl.png" alt="Vehikl">
+    </a>
+    <a href="https://retool.com/?utm_source=sponsor&utm_campaign=vue" target="_blank" rel="sponsored noopener" class="logo">
+      <img src="/images/retool.png" alt="Retool">
+    </a>
+    <a href="https://passionatepeople.io/" target="_blank" rel="sponsored noopener" class="logo">
+      <img src="/images/passionate_people.png" alt="Passionate People">
+    </a>
+    <a href="https://www.storyblok.com" target="_blank" rel="sponsored noopener" class="logo">
+      <img src="/images/storyblok.png" alt="Storyblok">
+    </a>
+    </div>
+  </div>
+  <a class="become-backer" href="/support-vuejs">
+    スポンサーになる
+  </a>
+</div>
+
+
+
+
+<div class="content cookbook with-sidebar ">
+  
+    
+      
+<div id="ad">
+  <script async type="text/javascript" src="//cdn.carbonads.com/carbon.js?serve=CKYIK2QU&placement=vuejsorg" id="_carbonads_js">
+  </script>
+</div>
+
+
+    
+  
+  
+    <h1>VS Code によるデバッグ</h1>
+  
+  <p class="updated">最終更新日: 2019年3月29日</p>
+  
+  
+    <p>すべてのアプリケーションは、小規模から大規模の障害を理解する必要があるところまできました。このレシピでは、ブラウザでアプリケーションのデバッグをしたいと考えている VS Code ユーザーのためにいくつかのワークフローを説明します。</p>
+<p>このレシピでは、ブラウザで実行している <a href="https://github.com/vuejs/vue-cli" target="_blank" rel="noopener">Vue CLI</a> アプリケーションをデバッグする方法を示します。</p>
+<p class="tip">注意: このレシピは Chrome と Firefox を含みます。もしあなたが他のブラウザで VS Code のデバッグを設定する方法を知っている場合、あなたの知見を共有することを検討してください (ページの下部を参照してください)。</p>
+
+<h2 id="前提条件"><a href="#前提条件" class="headerlink" title="前提条件"></a>前提条件</h2><p>VS Code とあなたが選択したブラウザがインストールされていることと、ブラウザに対応するデバッガの拡張機能がインストールされ有効化されていることを確認してください:</p>
+<ul>
+<li><a href="https://marketplace.visualstudio.com/items?itemName=msjsdiag.debugger-for-chrome" target="_blank" rel="noopener">Debugger for Chrome</a></li>
+<li><a href="https://marketplace.visualstudio.com/items?itemName=hbenl.vscode-firefox-debug" target="_blank" rel="noopener">Debugger for Firefox</a></li>
+</ul>
+<p><a href="https://cli.vuejs.org/" target="_blank" rel="noopener">Vue CLI Guide</a> 内の手順に従い、<a href="https://github.com/vuejs/vue-cli" target="_blank" rel="noopener">vue-cli</a> を使ってプロジェクトをインストールして作成します。新しく作成したアプリケーションディレクトリに移動し、VS Code を開いてください。</p>
+<h3 id="ブラウザでソースコードを表示する"><a href="#ブラウザでソースコードを表示する" class="headerlink" title="ブラウザでソースコードを表示する"></a>ブラウザでソースコードを表示する</h3><p>VS Code から Vue コンポーネントをデバックする前に、ソースマップを構築するために生成された Webpack のコンフィグを更新する必要があります。デバッガには圧縮ファイル内のコードを元のファイル内の位置にマップするための方法があります。これにより、Webpack によってアセットが最適化された後でもアプリケーションをデバックすることができます。</p>
+<p>Vue CLI 2 を使っている場合、<code>config/index.js</code> 内の <code>devtool</code> プロパティを設定もしくは更新してください:</p>
+<pre><code class="hljs json">devtool: 'source-map',</code></pre>
+<p>Vue CLI 3 を使っている場合、<code>vue.config.js</code> 内の <code>devtool</code> プロパティを設定もしくは更新してください:</p>
+<pre><code class="hljs js"><span class="hljs-built_in">module</span>.exports = &#123;
+  <span class="hljs-attr">configureWebpack</span>: &#123;
+    <span class="hljs-attr">devtool</span>: <span class="hljs-string">'source-map'</span>
+  &#125;
+&#125;</code></pre>
+<h3 id="VS-Code-からアプリケーションを起動する"><a href="#VS-Code-からアプリケーションを起動する" class="headerlink" title="VS Code からアプリケーションを起動する"></a>VS Code からアプリケーションを起動する</h3><p class="tip">ここではポートが <code>8080</code> 番であることを想定しています。もしそうでない（例えば、<code>8080</code> 番が使われていて、Vue CLI が自動的に別のポートを選択した）場合、それに合わせて設定を修正してください。</p>
+
+<p>Activity Bar の Debugging アイコン をクリックして Debug ビューを表示し、歯車アイコンをクリックして launch.json ファイルを設定し、環境として <strong>Chrome/Firefox: Launch</strong> を選択してください。生成された launch.json の内容を対応する構成に置き換えます:</p>
+<p><img src="/images/config_add.png" alt="Add Chrome Configuration"></p>
+<pre><code class="hljs json">&#123;
+  <span class="hljs-attr">"version"</span>: <span class="hljs-string">"0.2.0"</span>,
+  <span class="hljs-attr">"configurations"</span>: [
+    &#123;
+      <span class="hljs-attr">"type"</span>: <span class="hljs-string">"chrome"</span>,
+      <span class="hljs-attr">"request"</span>: <span class="hljs-string">"launch"</span>,
+      <span class="hljs-attr">"name"</span>: <span class="hljs-string">"vuejs: chrome"</span>,
+      <span class="hljs-attr">"url"</span>: <span class="hljs-string">"http://localhost:8080"</span>,
+      <span class="hljs-attr">"webRoot"</span>: <span class="hljs-string">"$&#123;workspaceFolder&#125;/src"</span>,
+      <span class="hljs-attr">"breakOnLoad"</span>: <span class="hljs-literal">true</span>,
+      <span class="hljs-attr">"sourceMapPathOverrides"</span>: &#123;
+        <span class="hljs-attr">"webpack:///src/*"</span>: <span class="hljs-string">"$&#123;webRoot&#125;/*"</span>
+      &#125;
+    &#125;,
+    &#123;
+      <span class="hljs-attr">"type"</span>: <span class="hljs-string">"firefox"</span>,
+      <span class="hljs-attr">"request"</span>: <span class="hljs-string">"launch"</span>,
+      <span class="hljs-attr">"name"</span>: <span class="hljs-string">"vuejs: firefox"</span>,
+      <span class="hljs-attr">"url"</span>: <span class="hljs-string">"http://localhost:8080"</span>,
+      <span class="hljs-attr">"webRoot"</span>: <span class="hljs-string">"$&#123;workspaceFolder&#125;/src"</span>,
+      <span class="hljs-attr">"pathMappings"</span>: [&#123; <span class="hljs-attr">"url"</span>: <span class="hljs-string">"webpack:///src/"</span>, <span class="hljs-attr">"path"</span>: <span class="hljs-string">"$&#123;webRoot&#125;/"</span> &#125;]
+    &#125;
+  ]
+&#125;</code></pre>
+<h2 id="ブレイクポイントを設定する"><a href="#ブレイクポイントを設定する" class="headerlink" title="ブレイクポイントを設定する"></a>ブレイクポイントを設定する</h2><ol>
+<li><p><code>data</code> 関数が文字列を返す <code>90 行目</code> の <strong>src/components/HelloWorld.vue</strong> にブレイクポイントを設定してください。</p>
+<p><img src="/images/breakpoint_set.png" alt="Breakpoint Renderer"></p>
+</li>
+<li><p>ルートフォルダであなたのお気に入りのターミナルを開き、Vue CLI を使用してアプリを提供してください:</p>
+<pre><code class="hljs undefined">npm run serve</code></pre>
+</li>
+<li><p>Debug ビューに移動し、<strong>‘vuejs: chrome/firefox’</strong> 設定を選択し、F5 キーを押すか緑の再生ボタンをクリックしてください。</p>
+</li>
+<li><p>ブラウザの新しいインスタンスが <code>http://localhost:8080</code> を開くと、ブレイクポイントがヒットするはずです。</p>
+</li>
+</ol>
+<p>  <img src="/images/breakpoint_hit.png" alt="Breakpoint Hit"></p>
+<h2 id="代替パターン"><a href="#代替パターン" class="headerlink" title="代替パターン"></a>代替パターン</h2><h3 id="Vue-Devtools"><a href="#Vue-Devtools" class="headerlink" title="Vue Devtools"></a>Vue Devtools</h3><p>他にもデバッグの方法がありますが、複雑さは異なります。最も人気がありシンプルなのは、<a href="https://chrome.google.com/webstore/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd" target="_blank" rel="noopener">Chrome 向け</a> および <a href="https://addons.mozilla.org/en-US/firefox/addon/vue-js-devtools/" target="_blank" rel="noopener">Firefox 向け</a> の優れた Vue.js devtools を使用することです。devtools を使用する利点の 1 つは、データプロパティをライブ編集でき、変更がすぐに反映されることを確認できることです。もう 1 つの大きな利点は、Vuex のタイムトラベルデバッグを行うことができることです。</p>
+<p><img src="/images/devtools-timetravel.gif" alt="Devtools Timetravel Debugger"></p>
+<p class="tip">そのページが Vue.js の production/minified ビルドを使用している場合、devtools インスペクションはデフォルトで無効になっているため Vue ペインには表示されないことに注意してください。unminified のバージョンに切り替えると、ページを表示するためにハードリフレッシュする必要があるかもしれません。</p>
+
+
+<h3 id="単純なデバッグステートメント"><a href="#単純なデバッグステートメント" class="headerlink" title="単純なデバッグステートメント"></a>単純なデバッグステートメント</h3><p>上記の例は素晴らしいワークフローを持っています。しかしながら、<a href="https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Statements/debugger" target="_blank" rel="noopener">native debugger statement</a> をあなたのコード内に直接使用できる代替オプションがあります。この方法を用いることを選択する場合、完了した時にそのステートメントを削除することを覚えておくことが重要です。</p>
+<pre><code class="hljs js">&lt;script&gt;
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> &#123;
+  data() &#123;
+    <span class="hljs-keyword">return</span> &#123;
+      <span class="hljs-attr">message</span>: <span class="hljs-string">''</span>
+    &#125;
+  &#125;,
+  mounted() &#123;
+    <span class="hljs-keyword">const</span> hello = <span class="hljs-string">'Hello World!'</span>
+    <span class="hljs-keyword">debugger</span>
+    <span class="hljs-keyword">this</span>.message = hello
+  &#125;
+&#125;;
+<span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></span></code></pre>
+<h2 id="謝辞"><a href="#謝辞" class="headerlink" title="謝辞"></a>謝辞</h2><p>このレシピは、<a href="https://twitter.com/auchenberg" target="_blank" rel="noopener">Kenneth Auchenberg</a> の寄稿に基づいています。<a href="https://github.com/Microsoft/VSCode-recipes/tree/master/vuejs-cli" target="_blank" rel="noopener">ここから利用可能</a>です。</p>
+
+  
+  
+  <div class="footer">
+      <script src="//m.servedby-buysellads.com/monetization.js" type="text/javascript"></script>
+<div id="bsa-native"></div>
+<script>
+_bsa.init('custom', 'CKYD62QM', 'placement:vuejsorg',
+  {
+    target: '#bsa-native',
+    template: '<a class="native-box" href="##statlink##"><div class="native-sponsor">Sponsor</div><div class="native-text"><strong>##company##</strong> — ##description##</div></a>'
+  }
+);
+</script>
+
+
+    間違いを見つけた、またはドキュメントに貢献したいですか？
+    <a href="https://github.com/vuejs/jp.vuejs.org/blob/lang-ja/src/v2/cookbook/debugging-in-vscode.md" rel="noopener" target="_blank">
+      GitHub で編集しましょう！
+    </a>
+    このサイトは
+    <a href="https://url.netlify.com/HJ8X2mxP8" rel="noopener" target="_blank">
+      Netlify
+    </a>
+    でホストされています。
+  </div>
+</div>
+
+      </div>
+      <script src="/js/smooth-scroll.min.js"></script>
+    
+
+    <!-- main custom script for sidebars, version selects etc. -->
+    <script src="/js/css.escape.js"></script>
+    <script src="/js/common.js"></script>
+
+    <!-- search -->
+    <link href="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="/css/search.css">
+    <script src="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.js"></script>
+    <script>
+    [
+      '#search-query-nav',
+      '#search-query-sidebar',
+      '#search-query-menu'
+    ].forEach(function (selector) {
+      if (!document.querySelector(selector)) return
+      // search index defaults to v2
+      var match = window.location.pathname.match(/^\/(v\d+)/)
+      var version = match ? match[1] : 'v2'
+      docsearch({
+      appId: 'BH4D9OD16A',
+      apiKey: '0a75952972806d9ad07e387d08e9cc4c',
+      indexName: 'vuejs_jp',
+      inputSelector: selector,
+      algoliaOptions: { facetFilters: ["version:" + version] },
+      autocompleteOptions: { hint: false, appendTo: 'body'}
+      })
+    })
+    </script>
+  </body>
+</html>
